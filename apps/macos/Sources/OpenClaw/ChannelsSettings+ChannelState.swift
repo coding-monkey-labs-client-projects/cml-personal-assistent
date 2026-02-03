@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import CmlHiveAssistProtocol
 import SwiftUI
 
 extension ChannelsSettings {

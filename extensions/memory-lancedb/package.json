@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/memory-lancedb",
+  "name": "@cml-hive-assist/memory-lancedb",
   "version": "2026.2.1",
-  "description": "OpenClaw LanceDB-backed long-term memory plugin with auto-recall/capture",
+  "description": "CmlHiveAssist LanceDB-backed long-term memory plugin with auto-recall/capture",
   "type": "module",
   "dependencies": {
     "@lancedb/lancedb": "^0.23.0",
@@ -9,9 +9,9 @@
     "openai": "^6.17.0"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ]

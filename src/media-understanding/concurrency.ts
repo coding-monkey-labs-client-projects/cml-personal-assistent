@@ -1,4 +1,4 @@
-import { logVerbose, shouldLogVerbose } from "../globals.js";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
 
 export async function runWithConcurrency<T>(
   tasks: Array<() => Promise<T>>,

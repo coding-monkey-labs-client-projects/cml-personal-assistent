@@ -1,17 +1,17 @@
-import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { LinkModelConfig, LinkToolsConfig } from "../config/types.tools.js";
-import { applyTemplate } from "../auto-reply/templating.js";
-import { logVerbose, shouldLogVerbose } from "../globals.js";
-import { CLI_OUTPUT_MAX_BUFFER } from "../media-understanding/defaults.js";
-import { resolveTimeoutMs } from "../media-understanding/resolve.js";
+import type { MsgContext } from "../auto-reply/templating.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { LinkModelConfig, LinkToolsConfig } from "../config/types.tools.ts";
+import { applyTemplate } from "../auto-reply/templating.ts";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
+import { CLI_OUTPUT_MAX_BUFFER } from "../media-understanding/defaults.ts";
+import { resolveTimeoutMs } from "../media-understanding/resolve.ts";
 import {
   normalizeMediaUnderstandingChatType,
   resolveMediaUnderstandingScope,
-} from "../media-understanding/scope.js";
-import { runExec } from "../process/exec.js";
-import { DEFAULT_LINK_TIMEOUT_SECONDS } from "./defaults.js";
-import { extractLinksFromMessage } from "./detect.js";
+} from "../media-understanding/scope.ts";
+import { runExec } from "../process/exec.ts";
+import { DEFAULT_LINK_TIMEOUT_SECONDS } from "./defaults.ts";
+import { extractLinksFromMessage } from "./detect.ts";
 
 export type LinkUnderstandingResult = {
   urls: string[];
@@ -105,7 +105,7 @@ async function runLinkEntries(params: {
 }
 
 export async function runLinkUnderstanding(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   ctx: MsgContext;
   message?: string;
 }): Promise<LinkUnderstandingResult> {

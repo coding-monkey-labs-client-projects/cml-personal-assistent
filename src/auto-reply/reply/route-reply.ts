@@ -7,14 +7,14 @@
  * across multiple providers.
  */
 
-import type { OpenClawConfig } from "../../config/config.js";
-import type { OriginatingChannelType } from "../templating.js";
-import type { ReplyPayload } from "../types.js";
-import { resolveSessionAgentId } from "../../agents/agent-scope.js";
-import { resolveEffectiveMessagesConfig } from "../../agents/identity.js";
-import { normalizeChannelId } from "../../channels/plugins/index.js";
-import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.js";
-import { normalizeReplyPayload } from "./normalize-reply.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { OriginatingChannelType } from "../templating.ts";
+import type { ReplyPayload } from "../types.ts";
+import { resolveSessionAgentId } from "../../agents/agent-scope.ts";
+import { resolveEffectiveMessagesConfig } from "../../agents/identity.ts";
+import { normalizeChannelId } from "../../channels/plugins/index.ts";
+import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.ts";
+import { normalizeReplyPayload } from "./normalize-reply.ts";
 
 export type RouteReplyParams = {
   /** The reply payload to send. */
@@ -30,7 +30,7 @@ export type RouteReplyParams = {
   /** Thread id for replies (Telegram topic id or Matrix thread event id). */
   threadId?: string | number;
   /** Config for provider-specific settings. */
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   /** Optional abort signal for cooperative cancellation. */
   abortSignal?: AbortSignal;
   /** Mirror reply into session transcript (default: true when sessionKey is set). */
@@ -112,7 +112,7 @@ export async function routeReply(params: RouteReplyParams): Promise<RouteReplyRe
   try {
     // Provider docking: this is an execution boundary (we're about to send).
     // Keep the module cheap to import by loading outbound plumbing lazily.
-    const { deliverOutboundPayloads } = await import("../../infra/outbound/deliver.js");
+    const { deliverOutboundPayloads } = await import("../../infra/outbound/deliver.ts");
     const results = await deliverOutboundPayloads({
       cfg,
       channel: channelId,

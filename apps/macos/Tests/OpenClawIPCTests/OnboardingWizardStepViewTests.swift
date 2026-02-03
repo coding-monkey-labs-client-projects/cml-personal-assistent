@@ -1,9 +1,9 @@
-import OpenClawProtocol
+import CmlHiveAssistProtocol
 import SwiftUI
 import Testing
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
-private typealias ProtoAnyCodable = OpenClawProtocol.AnyCodable
+private typealias ProtoAnyCodable = CmlHiveAssistProtocol.AnyCodable
 
 @Suite(.serialized)
 @MainActor

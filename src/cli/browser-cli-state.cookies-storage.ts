@@ -1,7 +1,7 @@
 import type { Command } from "commander";
-import { danger } from "../globals.js";
-import { defaultRuntime } from "../runtime.js";
-import { callBrowserRequest, type BrowserParentOpts } from "./browser-cli-shared.js";
+import { danger } from "../globals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { callBrowserRequest, type BrowserParentOpts } from "./browser-cli-shared.ts";
 
 export function registerBrowserCookiesAndStorageCommands(
   browser: Command,

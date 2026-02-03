@@ -102,7 +102,7 @@ describe("installPluginFromArchive", () => {
       JSON.stringify({
         name: "@openclaw/voice-call",
         version: "0.0.1",
-        openclaw: { extensions: ["./dist/index.js"] },
+        cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
       "utf-8",
     );
@@ -140,7 +140,7 @@ describe("installPluginFromArchive", () => {
       JSON.stringify({
         name: "@openclaw/voice-call",
         version: "0.0.1",
-        openclaw: { extensions: ["./dist/index.js"] },
+        cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
       "utf-8",
     );
@@ -182,7 +182,7 @@ describe("installPluginFromArchive", () => {
       JSON.stringify({
         name: "@openclaw/zipper",
         version: "0.0.1",
-        openclaw: { extensions: ["./dist/index.js"] },
+        cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
     );
     zip.file("package/dist/index.js", "export {};");
@@ -216,7 +216,7 @@ describe("installPluginFromArchive", () => {
       JSON.stringify({
         name: "@openclaw/voice-call",
         version: "0.0.1",
-        openclaw: { extensions: ["./dist/index.js"] },
+        cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
       "utf-8",
     );
@@ -234,7 +234,7 @@ describe("installPluginFromArchive", () => {
         JSON.stringify({
           name: "@openclaw/voice-call",
           version: "0.0.2",
-          openclaw: { extensions: ["./dist/index.js"] },
+          cml-hive-assist: { extensions: ["./dist/index.js"] },
         }),
         "utf-8",
       );
@@ -278,7 +278,7 @@ describe("installPluginFromArchive", () => {
       JSON.stringify({
         name: "@evil/..",
         version: "0.0.1",
-        openclaw: { extensions: ["./dist/index.js"] },
+        cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
       "utf-8",
     );
@@ -314,7 +314,7 @@ describe("installPluginFromArchive", () => {
       JSON.stringify({
         name: "@evil/.",
         version: "0.0.1",
-        openclaw: { extensions: ["./dist/index.js"] },
+        cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
       "utf-8",
     );
@@ -340,7 +340,7 @@ describe("installPluginFromArchive", () => {
     expect(result.error).toContain("reserved path segment");
   });
 
-  it("rejects packages without openclaw.extensions", async () => {
+  it("rejects packages without cml-hive-assist.extensions", async () => {
     const stateDir = makeTempDir();
     const workDir = makeTempDir();
     const pkgDir = path.join(workDir, "package");
@@ -367,6 +367,6 @@ describe("installPluginFromArchive", () => {
     if (result.ok) {
       return;
     }
-    expect(result.error).toContain("openclaw.extensions");
+    expect(result.error).toContain("cml-hive-assist.extensions");
   });
 });

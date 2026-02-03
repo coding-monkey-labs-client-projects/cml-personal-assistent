@@ -2,10 +2,10 @@ import {
   resolveGatewayLaunchAgentLabel,
   resolveGatewaySystemdServiceName,
   resolveGatewayWindowsTaskName,
-} from "../../daemon/constants.js";
-import { resolveGatewayService } from "../../daemon/service.js";
-import { defaultRuntime } from "../../runtime.js";
-import { formatCliCommand } from "../command-format.js";
+} from "../../daemon/constants.ts";
+import { resolveGatewayService } from "../../daemon/service.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { formatCliCommand } from "../command-format.ts";
 
 export function parsePort(raw: unknown): number | null {
   if (raw === undefined || raw === null) {
@@ -82,7 +82,7 @@ export function extractGatewayMiskeys(parsed: unknown): {
 }
 
 export function renderGatewayServiceStopHints(env: NodeJS.ProcessEnv = process.env): string[] {
-  const profile = env.OPENCLAW_PROFILE;
+  const profile = env.CML_HIVE_ASSIST_PROFILE;
   switch (process.platform) {
     case "darwin":
       return [

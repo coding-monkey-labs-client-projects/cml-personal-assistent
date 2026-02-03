@@ -1,6 +1,6 @@
-import type { PollInput } from "../polls.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
+import type { PollInput } from "../polls.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.ts";
 
 export type ActiveWebSendOptions = {
   gifPlayback?: boolean;

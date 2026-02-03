@@ -1,5 +1,5 @@
 import Testing
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
 #if canImport(Darwin)
 import Darwin

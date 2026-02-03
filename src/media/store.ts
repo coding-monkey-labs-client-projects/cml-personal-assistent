@@ -5,9 +5,9 @@ import { request as httpRequest } from "node:http";
 import { request as httpsRequest } from "node:https";
 import path from "node:path";
 import { pipeline } from "node:stream/promises";
-import { resolvePinnedHostname } from "../infra/net/ssrf.js";
-import { resolveConfigDir } from "../utils.js";
-import { detectMime, extensionForMime } from "./mime.js";
+import { resolvePinnedHostname } from "../infra/net/ssrf.ts";
+import { resolveConfigDir } from "../utils.ts";
+import { detectMime, extensionForMime } from "./mime.ts";
 
 const resolveMediaDir = () => path.join(resolveConfigDir(), "media");
 export const MEDIA_MAX_BYTES = 5 * 1024 * 1024; // 5MB default

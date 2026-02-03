@@ -1,18 +1,18 @@
-import type { ModelAliasIndex } from "../../agents/model-selection.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry } from "../../config/sessions.js";
-import type { MsgContext } from "../templating.js";
-import type { ReplyPayload } from "../types.js";
-import type { InlineDirectives } from "./directive-handling.parse.js";
-import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./directives.js";
-import { handleDirectiveOnly } from "./directive-handling.impl.js";
-import { isDirectiveOnly } from "./directive-handling.parse.js";
+import type { ModelAliasIndex } from "../../agents/model-selection.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry } from "../../config/sessions.ts";
+import type { MsgContext } from "../templating.ts";
+import type { ReplyPayload } from "../types.ts";
+import type { InlineDirectives } from "./directive-handling.parse.ts";
+import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./directives.ts";
+import { handleDirectiveOnly } from "./directive-handling.impl.ts";
+import { isDirectiveOnly } from "./directive-handling.parse.ts";
 
 export async function applyInlineDirectivesFastLane(params: {
   directives: InlineDirectives;
   commandAuthorized: boolean;
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
   isGroup: boolean;
   sessionEntry: SessionEntry;
@@ -28,19 +28,19 @@ export async function applyInlineDirectivesFastLane(params: {
   aliasIndex: ModelAliasIndex;
   allowedModelKeys: Set<string>;
   allowedModelCatalog: Awaited<
-    ReturnType<typeof import("../../agents/model-catalog.js").loadModelCatalog>
+    ReturnType<typeof import("../../agents/model-catalog.ts").loadModelCatalog>
   >;
   resetModelOverride: boolean;
   provider: string;
   model: string;
   initialModelLabel: string;
   formatModelSwitchEvent: (label: string, alias?: string) => string;
-  agentCfg?: NonNullable<OpenClawConfig["agents"]>["defaults"];
+  agentCfg?: NonNullable<CmlHiveAssistConfig["agents"]>["defaults"];
   modelState: {
     resolveDefaultThinkingLevel: () => Promise<ThinkLevel | undefined>;
     allowedModelKeys: Set<string>;
     allowedModelCatalog: Awaited<
-      ReturnType<typeof import("../../agents/model-catalog.js").loadModelCatalog>
+      ReturnType<typeof import("../../agents/model-catalog.ts").loadModelCatalog>
     >;
     resetModelOverride: boolean;
   };

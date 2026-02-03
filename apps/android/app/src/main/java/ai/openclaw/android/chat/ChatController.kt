@@ -1,6 +1,6 @@
-package ai.openclaw.android.chat
+package ai.cml-hive-assist.android.chat
 
-import ai.openclaw.android.gateway.GatewaySession
+import ai.cml-hive-assist.android.gateway.GatewaySession
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.CoroutineScope

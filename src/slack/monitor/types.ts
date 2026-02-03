@@ -1,13 +1,13 @@
-import type { OpenClawConfig, SlackSlashCommandConfig } from "../../config/config.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import type { SlackFile, SlackMessageEvent } from "../types.js";
+import type { CmlHiveAssistConfig, SlackSlashCommandConfig } from "../../config/config.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import type { SlackFile, SlackMessageEvent } from "../types.ts";
 
 export type MonitorSlackOpts = {
   botToken?: string;
   appToken?: string;
   accountId?: string;
   mode?: "socket" | "http";
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   mediaMaxMb?: number;

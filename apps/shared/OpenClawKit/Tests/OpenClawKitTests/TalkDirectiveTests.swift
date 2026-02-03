@@ -1,5 +1,5 @@
 import XCTest
-@testable import OpenClawKit
+@testable import CmlHiveAssistKit
 
 final class TalkDirectiveTests: XCTestCase {
     func testParsesDirectiveAndStripsLine() {

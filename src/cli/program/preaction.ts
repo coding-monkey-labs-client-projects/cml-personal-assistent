@@ -1,12 +1,12 @@
 import type { Command } from "commander";
-import { setVerbose } from "../../globals.js";
-import { isTruthyEnvValue } from "../../infra/env.js";
-import { defaultRuntime } from "../../runtime.js";
-import { getCommandPath, getVerboseFlag, hasHelpOrVersion } from "../argv.js";
-import { emitCliBanner } from "../banner.js";
-import { resolveCliName } from "../cli-name.js";
-import { ensurePluginRegistryLoaded } from "../plugin-registry.js";
-import { ensureConfigReady } from "./config-guard.js";
+import { setVerbose } from "../../globals.ts";
+import { isTruthyEnvValue } from "../../infra/env.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { getCommandPath, getVerboseFlag, hasHelpOrVersion } from "../argv.ts";
+import { emitCliBanner } from "../banner.ts";
+import { resolveCliName } from "../cli-name.ts";
+import { ensurePluginRegistryLoaded } from "../plugin-registry.ts";
+import { ensureConfigReady } from "./config-guard.ts";
 
 function setProcessTitleForCommand(actionCommand: Command) {
   let current: Command = actionCommand;
@@ -33,7 +33,7 @@ export function registerPreActionHooks(program: Command, programVersion: string)
     }
     const commandPath = getCommandPath(argv, 2);
     const hideBanner =
-      isTruthyEnvValue(process.env.OPENCLAW_HIDE_BANNER) ||
+      isTruthyEnvValue(process.env.CML_HIVE_ASSIST_HIDE_BANNER) ||
       commandPath[0] === "update" ||
       commandPath[0] === "completion" ||
       (commandPath[0] === "plugins" && commandPath[1] === "update");

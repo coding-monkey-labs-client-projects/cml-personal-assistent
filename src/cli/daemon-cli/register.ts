@@ -1,7 +1,7 @@
 import type { Command } from "commander";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { createDefaultDeps } from "../deps.js";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { createDefaultDeps } from "../deps.ts";
 import {
   runDaemonInstall,
   runDaemonRestart,
@@ -9,7 +9,7 @@ import {
   runDaemonStatus,
   runDaemonStop,
   runDaemonUninstall,
-} from "./runners.js";
+} from "./runners.ts";
 
 export function registerDaemonCli(program: Command) {
   const daemon = program
@@ -18,7 +18,7 @@ export function registerDaemonCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/gateway", "docs.openclaw.ai/cli/gateway")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/gateway", "docs.cml-hive-assist.ai/cli/gateway")}\n`,
     );
 
   daemon

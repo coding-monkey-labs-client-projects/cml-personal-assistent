@@ -1,9 +1,9 @@
-import type { GatewayRequestHandlers } from "./types.js";
-import { getStatusSummary } from "../../commands/status.js";
-import { ErrorCodes, errorShape } from "../protocol/index.js";
-import { HEALTH_REFRESH_INTERVAL_MS } from "../server-constants.js";
-import { formatError } from "../server-utils.js";
-import { formatForLog } from "../ws-log.js";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { getStatusSummary } from "../../commands/status.ts";
+import { ErrorCodes, errorShape } from "../protocol/index.ts";
+import { HEALTH_REFRESH_INTERVAL_MS } from "../server-constants.ts";
+import { formatError } from "../server-utils.ts";
+import { formatForLog } from "../ws-log.ts";
 
 export const healthHandlers: GatewayRequestHandlers = {
   health: async ({ respond, context, params }) => {

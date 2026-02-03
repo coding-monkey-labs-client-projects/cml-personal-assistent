@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { DmPolicy } from "../../config/types.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import type { WizardPrompter } from "../../wizard/prompts.js";
-import type { ChannelId } from "./types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { DmPolicy } from "../../config/types.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import type { WizardPrompter } from "../../wizard/prompts.ts";
+import type { ChannelId } from "./types.ts";
 
 export type SetupChannelsOptions = {
   allowDisable?: boolean;
@@ -23,11 +23,11 @@ export type SetupChannelsOptions = {
 };
 
 export type PromptAccountIdParams = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   label: string;
   currentId?: string;
-  listAccountIds: (cfg: OpenClawConfig) => string[];
+  listAccountIds: (cfg: CmlHiveAssistConfig) => string[];
   defaultAccountId: string;
 };
 
@@ -42,13 +42,13 @@ export type ChannelOnboardingStatus = {
 };
 
 export type ChannelOnboardingStatusContext = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   options?: SetupChannelsOptions;
   accountOverrides: Partial<Record<ChannelId, string>>;
 };
 
 export type ChannelOnboardingConfigureContext = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   runtime: RuntimeEnv;
   prompter: WizardPrompter;
   options?: SetupChannelsOptions;
@@ -58,7 +58,7 @@ export type ChannelOnboardingConfigureContext = {
 };
 
 export type ChannelOnboardingResult = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string;
 };
 
@@ -67,13 +67,13 @@ export type ChannelOnboardingDmPolicy = {
   channel: ChannelId;
   policyKey: string;
   allowFromKey: string;
-  getCurrent: (cfg: OpenClawConfig) => DmPolicy;
-  setPolicy: (cfg: OpenClawConfig, policy: DmPolicy) => OpenClawConfig;
+  getCurrent: (cfg: CmlHiveAssistConfig) => DmPolicy;
+  setPolicy: (cfg: CmlHiveAssistConfig, policy: DmPolicy) => CmlHiveAssistConfig;
   promptAllowFrom?: (params: {
-    cfg: OpenClawConfig;
+    cfg: CmlHiveAssistConfig;
     prompter: WizardPrompter;
     accountId?: string;
-  }) => Promise<OpenClawConfig>;
+  }) => Promise<CmlHiveAssistConfig>;
 };
 
 export type ChannelOnboardingAdapter = {
@@ -82,5 +82,5 @@ export type ChannelOnboardingAdapter = {
   configure: (ctx: ChannelOnboardingConfigureContext) => Promise<ChannelOnboardingResult>;
   dmPolicy?: ChannelOnboardingDmPolicy;
   onAccountRecorded?: (accountId: string, options?: SetupChannelsOptions) => void;
-  disable?: (cfg: OpenClawConfig) => OpenClawConfig;
+  disable?: (cfg: CmlHiveAssistConfig) => CmlHiveAssistConfig;
 };

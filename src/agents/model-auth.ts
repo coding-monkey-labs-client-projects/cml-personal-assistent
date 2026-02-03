@@ -1,9 +1,9 @@
 import { type Api, getEnvApiKey, type Model } from "@mariozechner/pi-ai";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { ModelProviderAuthMode, ModelProviderConfig } from "../config/types.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { getShellEnvAppliedKeys } from "../infra/shell-env.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ModelProviderAuthMode, ModelProviderConfig } from "../config/types.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { getShellEnvAppliedKeys } from "../infra/shell-env.ts";
 import {
   type AuthProfileStore,
   ensureAuthProfileStore,
@@ -11,10 +11,10 @@ import {
   resolveApiKeyForProfile,
   resolveAuthProfileOrder,
   resolveAuthStorePathForDisplay,
-} from "./auth-profiles.js";
-import { normalizeProviderId } from "./model-selection.js";
+} from "./auth-profiles.ts";
+import { normalizeProviderId } from "./model-selection.ts";
 
-export { ensureAuthProfileStore, resolveAuthProfileOrder } from "./auth-profiles.js";
+export { ensureAuthProfileStore, resolveAuthProfileOrder } from "./auth-profiles.ts";
 
 const AWS_BEARER_ENV = "AWS_BEARER_TOKEN_BEDROCK";
 const AWS_ACCESS_KEY_ENV = "AWS_ACCESS_KEY_ID";
@@ -22,7 +22,7 @@ const AWS_SECRET_KEY_ENV = "AWS_SECRET_ACCESS_KEY";
 const AWS_PROFILE_ENV = "AWS_PROFILE";
 
 function resolveProviderConfig(
-  cfg: OpenClawConfig | undefined,
+  cfg: CmlHiveAssistConfig | undefined,
   provider: string,
 ): ModelProviderConfig | undefined {
   const providers = cfg?.models?.providers ?? {};
@@ -44,7 +44,7 @@ function resolveProviderConfig(
 }
 
 export function getCustomProviderApiKey(
-  cfg: OpenClawConfig | undefined,
+  cfg: CmlHiveAssistConfig | undefined,
   provider: string,
 ): string | undefined {
   const entry = resolveProviderConfig(cfg, provider);
@@ -53,7 +53,7 @@ export function getCustomProviderApiKey(
 }
 
 function resolveProviderAuthOverride(
-  cfg: OpenClawConfig | undefined,
+  cfg: CmlHiveAssistConfig | undefined,
   provider: string,
 ): ModelProviderAuthMode | undefined {
   const entry = resolveProviderConfig(cfg, provider);
@@ -131,7 +131,7 @@ export type ResolvedProviderAuth = {
 
 export async function resolveApiKeyForProvider(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   profileId?: string;
   preferredProfile?: string;
   store?: AuthProfileStore;
@@ -310,7 +310,7 @@ export function resolveEnvApiKey(provider: string): EnvApiKeyResult | null {
 
 export function resolveModelAuthMode(
   provider?: string,
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   store?: AuthProfileStore,
 ): ModelAuthMode | undefined {
   const resolved = provider?.trim();
@@ -366,7 +366,7 @@ export function resolveModelAuthMode(
 
 export async function getApiKeyForModel(params: {
   model: Model<Api>;
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   profileId?: string;
   preferredProfile?: string;
   store?: AuthProfileStore;

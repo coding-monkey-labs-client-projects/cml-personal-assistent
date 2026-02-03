@@ -1,8 +1,8 @@
-export { buildCommandContext } from "./commands-context.js";
-export { handleCommands } from "./commands-core.js";
-export { buildStatusReply } from "./commands-status.js";
+export { buildCommandContext } from "./commands-context.ts";
+export { handleCommands } from "./commands-core.ts";
+export { buildStatusReply } from "./commands-status.ts";
 export type {
   CommandContext,
   CommandHandlerResult,
   HandleCommandsParams,
-} from "./commands-types.js";
+} from "./commands-types.ts";

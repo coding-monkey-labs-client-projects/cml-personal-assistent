@@ -1,19 +1,19 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveGatewayPort } from "../config/config.js";
-import { findTailscaleBinary } from "../infra/tailscale.js";
-import { note } from "../terminal/note.js";
-import { buildGatewayAuthConfig } from "./configure.gateway-auth.js";
-import { confirm, select, text } from "./configure.shared.js";
-import { guardCancel, normalizeGatewayTokenInput, randomToken } from "./onboard-helpers.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveGatewayPort } from "../config/config.ts";
+import { findTailscaleBinary } from "../infra/tailscale.ts";
+import { note } from "../terminal/note.ts";
+import { buildGatewayAuthConfig } from "./configure.gateway-auth.ts";
+import { confirm, select, text } from "./configure.shared.ts";
+import { guardCancel, normalizeGatewayTokenInput, randomToken } from "./onboard-helpers.ts";
 
 type GatewayAuthChoice = "token" | "password";
 
 export async function promptGatewayConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   runtime: RuntimeEnv,
 ): Promise<{
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   port: number;
   token?: string;
 }> {
@@ -144,7 +144,7 @@ export async function promptGatewayConfig(
   let tailscaleResetOnExit = false;
   if (tailscaleMode !== "off") {
     note(
-      ["Docs:", "https://docs.openclaw.ai/gateway/tailscale", "https://docs.openclaw.ai/web"].join(
+      ["Docs:", "https://docs.cml-hive-assist.ai/gateway/tailscale", "https://docs.cml-hive-assist.ai/web"].join(
         "\n",
       ),
       "Tailscale",

@@ -1,18 +1,18 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry } from "../../config/sessions.js";
-import type { MsgContext, TemplateContext } from "../templating.js";
-import { loadModelCatalog } from "../../agents/model-catalog.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry } from "../../config/sessions.ts";
+import type { MsgContext, TemplateContext } from "../templating.ts";
+import { loadModelCatalog } from "../../agents/model-catalog.ts";
 import {
   buildAllowedModelSet,
   modelKey,
   normalizeProviderId,
   resolveModelRefFromString,
   type ModelAliasIndex,
-} from "../../agents/model-selection.js";
-import { updateSessionStore } from "../../config/sessions.js";
-import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.js";
-import { formatInboundBodyWithSenderMeta } from "./inbound-sender-meta.js";
-import { resolveModelDirectiveSelection, type ModelDirectiveSelection } from "./model-selection.js";
+} from "../../agents/model-selection.ts";
+import { updateSessionStore } from "../../config/sessions.ts";
+import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.ts";
+import { formatInboundBodyWithSenderMeta } from "./inbound-sender-meta.ts";
+import { resolveModelDirectiveSelection, type ModelDirectiveSelection } from "./model-selection.ts";
 
 type ResetModelResult = {
   selection?: ModelDirectiveSelection;
@@ -87,7 +87,7 @@ function applySelectionToSession(params: {
 }
 
 export async function applyResetModelOverride(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   resetTriggered: boolean;
   bodyStripped?: string;
   sessionCtx: TemplateContext;

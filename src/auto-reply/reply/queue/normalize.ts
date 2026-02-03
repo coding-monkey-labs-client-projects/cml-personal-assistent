@@ -1,4 +1,4 @@
-import type { QueueDropPolicy, QueueMode } from "./types.js";
+import type { QueueDropPolicy, QueueMode } from "./types.ts";
 
 export function normalizeQueueMode(raw?: string): QueueMode | undefined {
   if (!raw) {

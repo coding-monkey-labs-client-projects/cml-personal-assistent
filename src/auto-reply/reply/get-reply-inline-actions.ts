@@ -1,21 +1,21 @@
-import type { SkillCommandSpec } from "../../agents/skills.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry } from "../../config/sessions.js";
-import type { MsgContext, TemplateContext } from "../templating.js";
-import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
-import type { InlineDirectives } from "./directive-handling.js";
-import type { createModelSelectionState } from "./model-selection.js";
-import type { TypingController } from "./typing.js";
-import { createOpenClawTools } from "../../agents/openclaw-tools.js";
-import { getChannelDock } from "../../channels/dock.js";
-import { logVerbose } from "../../globals.js";
-import { resolveGatewayMessageChannel } from "../../utils/message-channel.js";
-import { listSkillCommandsForWorkspace, resolveSkillCommandInvocation } from "../skill-commands.js";
-import { getAbortMemory } from "./abort.js";
-import { buildStatusReply, handleCommands } from "./commands.js";
-import { isDirectiveOnly } from "./directive-handling.js";
-import { extractInlineSimpleCommand } from "./reply-inline.js";
+import type { SkillCommandSpec } from "../../agents/skills.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry } from "../../config/sessions.ts";
+import type { MsgContext, TemplateContext } from "../templating.ts";
+import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
+import type { InlineDirectives } from "./directive-handling.ts";
+import type { createModelSelectionState } from "./model-selection.ts";
+import type { TypingController } from "./typing.ts";
+import { createCmlHiveAssistTools } from "../../agents/openclaw-tools.ts";
+import { getChannelDock } from "../../channels/dock.ts";
+import { logVerbose } from "../../globals.ts";
+import { resolveGatewayMessageChannel } from "../../utils/message-channel.ts";
+import { listSkillCommandsForWorkspace, resolveSkillCommandInvocation } from "../skill-commands.ts";
+import { getAbortMemory } from "./abort.ts";
+import { buildStatusReply, handleCommands } from "./commands.ts";
+import { isDirectiveOnly } from "./directive-handling.ts";
+import { extractInlineSimpleCommand } from "./reply-inline.ts";
 
 export type InlineActionResult =
   | { kind: "reply"; reply: ReplyPayload | ReplyPayload[] | undefined }
@@ -57,7 +57,7 @@ function extractTextFromToolResult(result: any): string | null {
 export async function handleInlineActions(params: {
   ctx: MsgContext;
   sessionCtx: TemplateContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   agentDir?: string;
   sessionEntry?: SessionEntry;
@@ -171,7 +171,7 @@ export async function handleInlineActions(params: {
         resolveGatewayMessageChannel(ctx.Provider) ??
         undefined;
 
-      const tools = createOpenClawTools({
+      const tools = createCmlHiveAssistTools({
         agentSessionKey: sessionKey,
         agentChannel: channel,
         agentAccountId: (ctx as { AccountId?: string }).AccountId,

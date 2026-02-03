@@ -1,42 +1,42 @@
 import type { SlackActionMiddlewareArgs, SlackCommandMiddlewareArgs } from "@slack/bolt";
-import type { ChatCommandDefinition, CommandArgs } from "../../auto-reply/commands-registry.js";
-import type { ResolvedSlackAccount } from "../accounts.js";
-import type { SlackMonitorContext } from "./context.js";
-import { resolveEffectiveMessagesConfig } from "../../agents/identity.js";
-import { resolveChunkMode } from "../../auto-reply/chunk.js";
+import type { ChatCommandDefinition, CommandArgs } from "../../auto-reply/commands-registry.ts";
+import type { ResolvedSlackAccount } from "../accounts.ts";
+import type { SlackMonitorContext } from "./context.ts";
+import { resolveEffectiveMessagesConfig } from "../../agents/identity.ts";
+import { resolveChunkMode } from "../../auto-reply/chunk.ts";
 import {
   buildCommandTextFromArgs,
   findCommandByNativeName,
   listNativeCommandSpecsForConfig,
   parseCommandArgs,
   resolveCommandArgMenu,
-} from "../../auto-reply/commands-registry.js";
-import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.js";
-import { dispatchReplyWithDispatcher } from "../../auto-reply/reply/provider-dispatcher.js";
-import { listSkillCommandsForAgents } from "../../auto-reply/skill-commands.js";
-import { formatAllowlistMatchMeta } from "../../channels/allowlist-match.js";
-import { resolveCommandAuthorizedFromAuthorizers } from "../../channels/command-gating.js";
-import { resolveConversationLabel } from "../../channels/conversation-label.js";
-import { resolveNativeCommandsEnabled, resolveNativeSkillsEnabled } from "../../config/commands.js";
-import { resolveMarkdownTableMode } from "../../config/markdown-tables.js";
-import { danger, logVerbose } from "../../globals.js";
-import { buildPairingReply } from "../../pairing/pairing-messages.js";
+} from "../../auto-reply/commands-registry.ts";
+import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.ts";
+import { dispatchReplyWithDispatcher } from "../../auto-reply/reply/provider-dispatcher.ts";
+import { listSkillCommandsForAgents } from "../../auto-reply/skill-commands.ts";
+import { formatAllowlistMatchMeta } from "../../channels/allowlist-match.ts";
+import { resolveCommandAuthorizedFromAuthorizers } from "../../channels/command-gating.ts";
+import { resolveConversationLabel } from "../../channels/conversation-label.ts";
+import { resolveNativeCommandsEnabled, resolveNativeSkillsEnabled } from "../../config/commands.ts";
+import { resolveMarkdownTableMode } from "../../config/markdown-tables.ts";
+import { danger, logVerbose } from "../../globals.ts";
+import { buildPairingReply } from "../../pairing/pairing-messages.ts";
 import {
   readChannelAllowFromStore,
   upsertChannelPairingRequest,
-} from "../../pairing/pairing-store.js";
-import { resolveAgentRoute } from "../../routing/resolve-route.js";
+} from "../../pairing/pairing-store.ts";
+import { resolveAgentRoute } from "../../routing/resolve-route.ts";
 import {
   normalizeAllowList,
   normalizeAllowListLower,
   resolveSlackAllowListMatch,
   resolveSlackUserAllowed,
-} from "./allow-list.js";
-import { resolveSlackChannelConfig, type SlackChannelConfigResolved } from "./channel-config.js";
-import { buildSlackSlashCommandMatcher, resolveSlackSlashCommandConfig } from "./commands.js";
-import { normalizeSlackChannelType } from "./context.js";
-import { isSlackChannelAllowedByPolicy } from "./policy.js";
-import { deliverSlackSlashReplies } from "./replies.js";
+} from "./allow-list.ts";
+import { resolveSlackChannelConfig, type SlackChannelConfigResolved } from "./channel-config.ts";
+import { buildSlackSlashCommandMatcher, resolveSlackSlashCommandConfig } from "./commands.ts";
+import { normalizeSlackChannelType } from "./context.ts";
+import { isSlackChannelAllowedByPolicy } from "./policy.ts";
+import { deliverSlackSlashReplies } from "./replies.ts";
 
 type SlackBlock = { type: string; [key: string]: unknown };
 

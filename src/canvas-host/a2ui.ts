@@ -2,7 +2,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { detectMime } from "../media/mime.js";
+import { detectMime } from "../media/mime.ts";
 
 export const A2UI_PATH = "/__openclaw__/a2ui";
 
@@ -134,9 +134,9 @@ export function injectCanvasLiveReload(html: string): string {
     const action = { ...userAction, id };
     return postToNode({ userAction: action });
   }
-  globalThis.OpenClaw = globalThis.OpenClaw ?? {};
-  globalThis.OpenClaw.postMessage = postToNode;
-  globalThis.OpenClaw.sendUserAction = sendUserAction;
+  globalThis.CmlHiveAssist = globalThis.CmlHiveAssist ?? {};
+  globalThis.CmlHiveAssist.postMessage = postToNode;
+  globalThis.CmlHiveAssist.sendUserAction = sendUserAction;
   globalThis.openclawPostMessage = postToNode;
   globalThis.openclawSendUserAction = sendUserAction;
 

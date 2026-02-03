@@ -1,6 +1,6 @@
-import type { ChannelMessageActionName as ChannelMessageActionNameFromList } from "./message-action-names.js";
+import type { ChannelMessageActionName as ChannelMessageActionNameFromList } from "./message-action-names.ts";
 
-export { CHANNEL_MESSAGE_ACTION_NAMES } from "./message-action-names.js";
+export { CHANNEL_MESSAGE_ACTION_NAMES } from "./message-action-names.ts";
 
 export type ChannelMessageActionName = ChannelMessageActionNameFromList;
 
@@ -27,7 +27,7 @@ export type {
   ChannelSecurityAdapter,
   ChannelSetupAdapter,
   ChannelStatusAdapter,
-} from "./types.adapters.js";
+} from "./types.adapters.ts";
 export type {
   ChannelAccountSnapshot,
   ChannelAccountState,
@@ -58,6 +58,6 @@ export type {
   ChannelThreadingContext,
   ChannelThreadingToolContext,
   ChannelToolSend,
-} from "./types.core.js";
+} from "./types.core.ts";
 
-export type { ChannelPlugin } from "./types.plugin.js";
+export type { ChannelPlugin } from "./types.plugin.ts";

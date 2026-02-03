@@ -1,6 +1,6 @@
-import { callGateway } from "../../gateway/call.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../utils/message-channel.js";
-import { withProgress } from "../progress.js";
+import { callGateway } from "../../gateway/call.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../utils/message-channel.ts";
+import { withProgress } from "../progress.ts";
 
 export async function probeGatewayStatus(opts: {
   url: string;

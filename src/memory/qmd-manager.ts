@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   MemoryEmbeddingProbeResult,
   MemoryProviderStatus,
@@ -10,20 +10,20 @@ import type {
   MemorySearchResult,
   MemorySource,
   MemorySyncProgressUpdate,
-} from "./types.js";
-import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
-import { resolveStateDir } from "../config/paths.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { parseAgentSessionKey } from "../sessions/session-key-utils.js";
+} from "./types.ts";
+import { resolveAgentWorkspaceDir } from "../agents/agent-scope.ts";
+import { resolveStateDir } from "../config/paths.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { parseAgentSessionKey } from "../sessions/session-key-utils.ts";
 import {
   listSessionFilesForAgent,
   buildSessionEntry,
   type SessionFileEntry,
-} from "./session-files.js";
-import { requireNodeSqlite } from "./sqlite.js";
+} from "./session-files.ts";
+import { requireNodeSqlite } from "./sqlite.ts";
 
 type SqliteDatabase = import("node:sqlite").DatabaseSync;
-import type { ResolvedMemoryBackendConfig, ResolvedQmdConfig } from "./backend-config.js";
+import type { ResolvedMemoryBackendConfig, ResolvedQmdConfig } from "./backend-config.ts";
 
 const log = createSubsystemLogger("memory");
 
@@ -50,7 +50,7 @@ type SessionExporterConfig = {
 
 export class QmdMemoryManager implements MemorySearchManager {
   static async create(params: {
-    cfg: OpenClawConfig;
+    cfg: CmlHiveAssistConfig;
     agentId: string;
     resolved: ResolvedMemoryBackendConfig;
   }): Promise<QmdMemoryManager | null> {
@@ -63,7 +63,7 @@ export class QmdMemoryManager implements MemorySearchManager {
     return manager;
   }
 
-  private readonly cfg: OpenClawConfig;
+  private readonly cfg: CmlHiveAssistConfig;
   private readonly agentId: string;
   private readonly qmd: ResolvedQmdConfig;
   private readonly workspaceDir: string;
@@ -89,7 +89,7 @@ export class QmdMemoryManager implements MemorySearchManager {
   private lastEmbedAt: number | null = null;
 
   private constructor(params: {
-    cfg: OpenClawConfig;
+    cfg: CmlHiveAssistConfig;
     agentId: string;
     resolved: ResolvedQmdConfig;
   }) {

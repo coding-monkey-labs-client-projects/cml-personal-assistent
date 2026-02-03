@@ -3,7 +3,7 @@ import {
   GATEWAY_DAEMON_RUNTIME_OPTIONS,
   isGatewayDaemonRuntime,
   type GatewayDaemonRuntime,
-} from "./daemon-runtime.js";
+} from "./daemon-runtime.ts";
 
 export type NodeDaemonRuntime = GatewayDaemonRuntime;
 

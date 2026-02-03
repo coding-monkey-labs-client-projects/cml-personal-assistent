@@ -2,12 +2,12 @@ import type { ImageContent } from "@mariozechner/pi-ai";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { extractTextFromMessage } from "../../../tui/tui-formatters.js";
-import { resolveUserPath } from "../../../utils.js";
-import { loadWebMedia } from "../../../web/media.js";
-import { assertSandboxPath } from "../../sandbox-paths.js";
-import { sanitizeImageBlocks } from "../../tool-images.js";
-import { log } from "../logger.js";
+import { extractTextFromMessage } from "../../../tui/tui-formatters.ts";
+import { resolveUserPath } from "../../../utils.ts";
+import { loadWebMedia } from "../../../web/media.ts";
+import { assertSandboxPath } from "../../sandbox-paths.ts";
+import { sanitizeImageBlocks } from "../../tool-images.ts";
+import { log } from "../logger.ts";
 
 /**
  * Common image file extensions for detection.

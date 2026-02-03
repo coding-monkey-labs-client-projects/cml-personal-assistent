@@ -1,6 +1,6 @@
-package ai.openclaw.android.ui.chat
+package ai.cml-hive-assist.android.ui.chat
 
-import ai.openclaw.android.chat.ChatSessionEntry
+import ai.cml-hive-assist.android.chat.ChatSessionEntry
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

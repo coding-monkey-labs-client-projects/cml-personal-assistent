@@ -3,9 +3,9 @@ import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { loadJsonFile, saveJsonFile } from "../infra/json-file.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveUserPath } from "../utils.js";
+import { loadJsonFile, saveJsonFile } from "../infra/json-file.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveUserPath } from "../utils.ts";
 
 const log = createSubsystemLogger("agents/auth-profiles");
 

@@ -1,63 +1,63 @@
 import { intro as clackIntro, outro as clackOutro } from "@clack/prompts";
 import fs from "node:fs";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { loadModelCatalog } from "../agents/model-catalog.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { loadModelCatalog } from "../agents/model-catalog.ts";
 import {
   getModelRefStatus,
   resolveConfiguredModelRef,
   resolveHooksGmailModel,
-} from "../agents/model-selection.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { CONFIG_PATH, readConfigFileSnapshot, writeConfigFile } from "../config/config.js";
-import { logConfigUpdated } from "../config/logging.js";
-import { resolveGatewayService } from "../daemon/service.js";
-import { resolveGatewayAuth } from "../gateway/auth.js";
-import { buildGatewayConnectionDetails } from "../gateway/call.js";
-import { resolveOpenClawPackageRoot } from "../infra/openclaw-root.js";
-import { defaultRuntime } from "../runtime.js";
-import { note } from "../terminal/note.js";
-import { stylePromptTitle } from "../terminal/prompt-style.js";
-import { shortenHomePath } from "../utils.js";
+} from "../agents/model-selection.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { CONFIG_PATH, readConfigFileSnapshot, writeConfigFile } from "../config/config.ts";
+import { logConfigUpdated } from "../config/logging.ts";
+import { resolveGatewayService } from "../daemon/service.ts";
+import { resolveGatewayAuth } from "../gateway/auth.ts";
+import { buildGatewayConnectionDetails } from "../gateway/call.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { note } from "../terminal/note.ts";
+import { stylePromptTitle } from "../terminal/prompt-style.ts";
+import { shortenHomePath } from "../utils.ts";
 import {
   maybeRemoveDeprecatedCliAuthProfiles,
   maybeRepairAnthropicOAuthProfileId,
   noteAuthProfileHealth,
-} from "./doctor-auth.js";
-import { loadAndMaybeMigrateDoctorConfig } from "./doctor-config-flow.js";
-import { maybeRepairGatewayDaemon } from "./doctor-gateway-daemon-flow.js";
-import { checkGatewayHealth } from "./doctor-gateway-health.js";
+} from "./doctor-auth.ts";
+import { loadAndMaybeMigrateDoctorConfig } from "./doctor-config-flow.ts";
+import { maybeRepairGatewayDaemon } from "./doctor-gateway-daemon-flow.ts";
+import { checkGatewayHealth } from "./doctor-gateway-health.ts";
 import {
   maybeRepairGatewayServiceConfig,
   maybeScanExtraGatewayServices,
-} from "./doctor-gateway-services.js";
-import { noteSourceInstallIssues } from "./doctor-install.js";
+} from "./doctor-gateway-services.ts";
+import { noteSourceInstallIssues } from "./doctor-install.ts";
 import {
   noteMacLaunchAgentOverrides,
   noteMacLaunchctlGatewayEnvOverrides,
   noteDeprecatedLegacyEnvVars,
-} from "./doctor-platform-notes.js";
-import { createDoctorPrompter, type DoctorOptions } from "./doctor-prompter.js";
-import { maybeRepairSandboxImages, noteSandboxScopeWarnings } from "./doctor-sandbox.js";
-import { noteSecurityWarnings } from "./doctor-security.js";
-import { noteStateIntegrity, noteWorkspaceBackupTip } from "./doctor-state-integrity.js";
+} from "./doctor-platform-notes.ts";
+import { createDoctorPrompter, type DoctorOptions } from "./doctor-prompter.ts";
+import { maybeRepairSandboxImages, noteSandboxScopeWarnings } from "./doctor-sandbox.ts";
+import { noteSecurityWarnings } from "./doctor-security.ts";
+import { noteStateIntegrity, noteWorkspaceBackupTip } from "./doctor-state-integrity.ts";
 import {
   detectLegacyStateMigrations,
   runLegacyStateMigrations,
-} from "./doctor-state-migrations.js";
-import { maybeRepairUiProtocolFreshness } from "./doctor-ui.js";
-import { maybeOfferUpdateBeforeDoctor } from "./doctor-update.js";
-import { noteWorkspaceStatus } from "./doctor-workspace-status.js";
-import { MEMORY_SYSTEM_PROMPT, shouldSuggestMemorySystem } from "./doctor-workspace.js";
-import { applyWizardMetadata, printWizardHeader, randomToken } from "./onboard-helpers.js";
-import { ensureSystemdUserLingerInteractive } from "./systemd-linger.js";
+} from "./doctor-state-migrations.ts";
+import { maybeRepairUiProtocolFreshness } from "./doctor-ui.ts";
+import { maybeOfferUpdateBeforeDoctor } from "./doctor-update.ts";
+import { noteWorkspaceStatus } from "./doctor-workspace-status.ts";
+import { MEMORY_SYSTEM_PROMPT, shouldSuggestMemorySystem } from "./doctor-workspace.ts";
+import { applyWizardMetadata, printWizardHeader, randomToken } from "./onboard-helpers.ts";
+import { ensureSystemdUserLingerInteractive } from "./systemd-linger.ts";
 
 const intro = (message: string) => clackIntro(stylePromptTitle(message) ?? message);
 const outro = (message: string) => clackOutro(stylePromptTitle(message) ?? message);
 
-function resolveMode(cfg: OpenClawConfig): "local" | "remote" {
+function resolveMode(cfg: CmlHiveAssistConfig): "local" | "remote" {
   return cfg.gateway?.mode === "remote" ? "remote" : "local";
 }
 
@@ -67,9 +67,9 @@ export async function doctorCommand(
 ) {
   const prompter = createDoctorPrompter({ runtime, options });
   printWizardHeader(runtime);
-  intro("OpenClaw doctor");
+  intro("CmlHiveAssist doctor");
 
-  const root = await resolveOpenClawPackageRoot({
+  const root = await resolveCmlHiveAssistPackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),
@@ -94,7 +94,7 @@ export async function doctorCommand(
     options,
     confirm: (p) => prompter.confirm(p),
   });
-  let cfg: OpenClawConfig = configResult.cfg;
+  let cfg: CmlHiveAssistConfig = configResult.cfg;
 
   const configPath = configResult.path ?? CONFIG_PATH;
   if (!cfg.gateway?.mode) {

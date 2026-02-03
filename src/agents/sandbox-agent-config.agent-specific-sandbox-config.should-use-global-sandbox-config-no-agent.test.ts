@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.js";
 
 // We need to test the internal defaultSandboxConfig function, but it's not exported.
 // Instead, we test the behavior through resolveSandboxContext which uses it.
@@ -78,7 +78,7 @@ describe("Agent-specific sandbox config", () => {
     async () => {
       const { resolveSandboxContext } = await import("./sandbox.js");
 
-      const cfg: OpenClawConfig = {
+      const cfg: CmlHiveAssistConfig = {
         agents: {
           defaults: {
             sandbox: {
@@ -108,7 +108,7 @@ describe("Agent-specific sandbox config", () => {
   it("should allow agent-specific docker setupCommand overrides", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: OpenClawConfig = {
+    const cfg: CmlHiveAssistConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -156,7 +156,7 @@ describe("Agent-specific sandbox config", () => {
   it("should ignore agent-specific docker overrides when scope is shared", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: OpenClawConfig = {
+    const cfg: CmlHiveAssistConfig = {
       agents: {
         defaults: {
           sandbox: {

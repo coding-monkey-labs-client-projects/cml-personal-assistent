@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/matrix",
+  "name": "@cml-hive-assist/matrix",
   "version": "2026.2.1",
-  "description": "OpenClaw Matrix channel plugin",
+  "description": "CmlHiveAssist Matrix channel plugin",
   "type": "module",
   "dependencies": {
     "@matrix-org/matrix-sdk-crypto-nodejs": "^0.4.0",
@@ -11,9 +11,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/matrix",
+      "npmSpec": "@cml-hive-assist/matrix",
       "localPath": "extensions/matrix",
       "defaultChoice": "npm"
     }

@@ -1,15 +1,15 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
-import type { TypingMode } from "../../config/types.js";
-import type { OriginatingChannelType, TemplateContext } from "../templating.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
-import type { TypingController } from "./typing.js";
-import { lookupContextTokens } from "../../agents/context.js";
-import { DEFAULT_CONTEXT_TOKENS } from "../../agents/defaults.js";
-import { resolveModelAuthMode } from "../../agents/model-auth.js";
-import { isCliProvider } from "../../agents/model-selection.js";
-import { queueEmbeddedPiMessage } from "../../agents/pi-embedded.js";
-import { hasNonzeroUsage } from "../../agents/usage.js";
+import type { TypingMode } from "../../config/types.ts";
+import type { OriginatingChannelType, TemplateContext } from "../templating.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
+import type { TypingController } from "./typing.ts";
+import { lookupContextTokens } from "../../agents/context.ts";
+import { DEFAULT_CONTEXT_TOKENS } from "../../agents/defaults.ts";
+import { resolveModelAuthMode } from "../../agents/model-auth.ts";
+import { isCliProvider } from "../../agents/model-selection.ts";
+import { queueEmbeddedPiMessage } from "../../agents/pi-embedded.ts";
+import { hasNonzeroUsage } from "../../agents/usage.ts";
 import {
   resolveAgentIdFromSessionKey,
   resolveSessionFilePath,
@@ -17,30 +17,30 @@ import {
   type SessionEntry,
   updateSessionStore,
   updateSessionStoreEntry,
-} from "../../config/sessions.js";
-import { emitDiagnosticEvent, isDiagnosticsEnabled } from "../../infra/diagnostic-events.js";
-import { defaultRuntime } from "../../runtime.js";
-import { estimateUsageCost, resolveModelCostConfig } from "../../utils/usage-format.js";
-import { resolveResponseUsageMode, type VerboseLevel } from "../thinking.js";
-import { runAgentTurnWithFallback } from "./agent-runner-execution.js";
+} from "../../config/sessions.ts";
+import { emitDiagnosticEvent, isDiagnosticsEnabled } from "../../infra/diagnostic-events.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { estimateUsageCost, resolveModelCostConfig } from "../../utils/usage-format.ts";
+import { resolveResponseUsageMode, type VerboseLevel } from "../thinking.ts";
+import { runAgentTurnWithFallback } from "./agent-runner-execution.ts";
 import {
   createShouldEmitToolOutput,
   createShouldEmitToolResult,
   finalizeWithFollowup,
   isAudioPayload,
   signalTypingIfNeeded,
-} from "./agent-runner-helpers.js";
-import { runMemoryFlushIfNeeded } from "./agent-runner-memory.js";
-import { buildReplyPayloads } from "./agent-runner-payloads.js";
-import { appendUsageLine, formatResponseUsageLine } from "./agent-runner-utils.js";
-import { createAudioAsVoiceBuffer, createBlockReplyPipeline } from "./block-reply-pipeline.js";
-import { resolveBlockStreamingCoalescing } from "./block-streaming.js";
-import { createFollowupRunner } from "./followup-runner.js";
-import { enqueueFollowupRun, type FollowupRun, type QueueSettings } from "./queue.js";
-import { createReplyToModeFilterForChannel, resolveReplyToMode } from "./reply-threading.js";
-import { incrementCompactionCount } from "./session-updates.js";
-import { persistSessionUsageUpdate } from "./session-usage.js";
-import { createTypingSignaler } from "./typing-mode.js";
+} from "./agent-runner-helpers.ts";
+import { runMemoryFlushIfNeeded } from "./agent-runner-memory.ts";
+import { buildReplyPayloads } from "./agent-runner-payloads.ts";
+import { appendUsageLine, formatResponseUsageLine } from "./agent-runner-utils.ts";
+import { createAudioAsVoiceBuffer, createBlockReplyPipeline } from "./block-reply-pipeline.ts";
+import { resolveBlockStreamingCoalescing } from "./block-streaming.ts";
+import { createFollowupRunner } from "./followup-runner.ts";
+import { enqueueFollowupRun, type FollowupRun, type QueueSettings } from "./queue.ts";
+import { createReplyToModeFilterForChannel, resolveReplyToMode } from "./reply-threading.ts";
+import { incrementCompactionCount } from "./session-updates.ts";
+import { persistSessionUsageUpdate } from "./session-usage.ts";
+import { createTypingSignaler } from "./typing-mode.ts";
 
 const BLOCK_REPLY_SEND_TIMEOUT_MS = 15_000;
 

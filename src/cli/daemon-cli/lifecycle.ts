@@ -1,12 +1,12 @@
-import type { DaemonLifecycleOptions } from "./types.js";
-import { resolveIsNixMode } from "../../config/paths.js";
-import { resolveGatewayService } from "../../daemon/service.js";
-import { renderSystemdUnavailableHints } from "../../daemon/systemd-hints.js";
-import { isSystemdUserServiceAvailable } from "../../daemon/systemd.js";
-import { isWSL } from "../../infra/wsl.js";
-import { defaultRuntime } from "../../runtime.js";
-import { buildDaemonServiceSnapshot, createNullWriter, emitDaemonActionJson } from "./response.js";
-import { renderGatewayServiceStartHints } from "./shared.js";
+import type { DaemonLifecycleOptions } from "./types.ts";
+import { resolveIsNixMode } from "../../config/paths.ts";
+import { resolveGatewayService } from "../../daemon/service.ts";
+import { renderSystemdUnavailableHints } from "../../daemon/systemd-hints.ts";
+import { isSystemdUserServiceAvailable } from "../../daemon/systemd.ts";
+import { isWSL } from "../../infra/wsl.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { buildDaemonServiceSnapshot, createNullWriter, emitDaemonActionJson } from "./response.ts";
+import { renderGatewayServiceStartHints } from "./shared.ts";
 
 export async function runDaemonUninstall(opts: DaemonLifecycleOptions = {}) {
   const json = Boolean(opts.json);

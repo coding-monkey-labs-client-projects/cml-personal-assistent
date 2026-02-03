@@ -1,8 +1,8 @@
-import OpenClawKit
+import CmlHiveAssistKit
 import Foundation
 import Testing
-@testable import OpenClaw
-@testable import OpenClawIPC
+@testable import CmlHiveAssist
+@testable import CmlHiveAssistIPC
 
 private final class FakeWebSocketTask: WebSocketTasking, @unchecked Sendable {
     var state: URLSessionTask.State = .running

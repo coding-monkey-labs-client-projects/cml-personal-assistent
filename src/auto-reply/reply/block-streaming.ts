@@ -1,13 +1,13 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { BlockStreamingCoalesceConfig } from "../../config/types.js";
-import { getChannelDock } from "../../channels/dock.js";
-import { normalizeChannelId } from "../../channels/plugins/index.js";
-import { normalizeAccountId } from "../../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { BlockStreamingCoalesceConfig } from "../../config/types.ts";
+import { getChannelDock } from "../../channels/dock.ts";
+import { normalizeChannelId } from "../../channels/plugins/index.ts";
+import { normalizeAccountId } from "../../routing/session-key.ts";
 import {
   INTERNAL_MESSAGE_CHANNEL,
   listDeliverableMessageChannels,
-} from "../../utils/message-channel.js";
-import { resolveChunkMode, resolveTextChunkLimit, type TextChunkProvider } from "../chunk.js";
+} from "../../utils/message-channel.ts";
+import { resolveChunkMode, resolveTextChunkLimit, type TextChunkProvider } from "../chunk.ts";
 
 const DEFAULT_BLOCK_STREAM_MIN = 800;
 const DEFAULT_BLOCK_STREAM_MAX = 1200;
@@ -31,7 +31,7 @@ type ProviderBlockStreamingConfig = {
 };
 
 function resolveProviderBlockStreamingCoalesce(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: CmlHiveAssistConfig | undefined;
   providerKey?: TextChunkProvider;
   accountId?: string | null;
 }): BlockStreamingCoalesceConfig | undefined {
@@ -59,7 +59,7 @@ export type BlockStreamingCoalescing = {
 };
 
 export function resolveBlockStreamingChunking(
-  cfg: OpenClawConfig | undefined,
+  cfg: CmlHiveAssistConfig | undefined,
   provider?: string,
   accountId?: string | null,
 ): {
@@ -102,7 +102,7 @@ export function resolveBlockStreamingChunking(
 }
 
 export function resolveBlockStreamingCoalescing(
-  cfg: OpenClawConfig | undefined,
+  cfg: CmlHiveAssistConfig | undefined,
   provider?: string,
   accountId?: string | null,
   chunking?: {

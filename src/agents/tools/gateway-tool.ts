@@ -1,16 +1,16 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
-import { loadConfig, resolveConfigSnapshotHash } from "../../config/io.js";
-import { loadSessionStore, resolveStorePath } from "../../config/sessions.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { loadConfig, resolveConfigSnapshotHash } from "../../config/io.ts";
+import { loadSessionStore, resolveStorePath } from "../../config/sessions.ts";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,
   writeRestartSentinel,
-} from "../../infra/restart-sentinel.js";
-import { scheduleGatewaySigusr1Restart } from "../../infra/restart.js";
-import { stringEnum } from "../schema/typebox.js";
-import { type AnyAgentTool, jsonResult, readStringParam } from "./common.js";
-import { callGatewayTool } from "./gateway.js";
+} from "../../infra/restart-sentinel.ts";
+import { scheduleGatewaySigusr1Restart } from "../../infra/restart.ts";
+import { stringEnum } from "../schema/typebox.ts";
+import { type AnyAgentTool, jsonResult, readStringParam } from "./common.ts";
+import { callGatewayTool } from "./gateway.ts";
 
 const DEFAULT_UPDATE_TIMEOUT_MS = 20 * 60_000;
 
@@ -63,7 +63,7 @@ const GatewayToolSchema = Type.Object({
 
 export function createGatewayTool(opts?: {
   agentSessionKey?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
 }): AnyAgentTool {
   return {
     label: "Gateway",

@@ -1,6 +1,6 @@
-import { fetchDiscord } from "./api.js";
-import { normalizeDiscordSlug } from "./monitor/allow-list.js";
-import { normalizeDiscordToken } from "./token.js";
+import { fetchDiscord } from "./api.ts";
+import { normalizeDiscordSlug } from "./monitor/allow-list.ts";
+import { normalizeDiscordToken } from "./token.ts";
 
 type DiscordGuildSummary = {
   id: string;

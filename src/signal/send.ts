@@ -1,11 +1,11 @@
-import { loadConfig } from "../config/config.js";
-import { resolveMarkdownTableMode } from "../config/markdown-tables.js";
-import { mediaKindFromMime } from "../media/constants.js";
-import { saveMediaBuffer } from "../media/store.js";
-import { loadWebMedia } from "../web/media.js";
-import { resolveSignalAccount } from "./accounts.js";
-import { signalRpcRequest } from "./client.js";
-import { markdownToSignalText, type SignalTextStyleRange } from "./format.js";
+import { loadConfig } from "../config/config.ts";
+import { resolveMarkdownTableMode } from "../config/markdown-tables.ts";
+import { mediaKindFromMime } from "../media/constants.ts";
+import { saveMediaBuffer } from "../media/store.ts";
+import { loadWebMedia } from "../web/media.ts";
+import { resolveSignalAccount } from "./accounts.ts";
+import { signalRpcRequest } from "./client.ts";
+import { markdownToSignalText, type SignalTextStyleRange } from "./format.ts";
 
 export type SignalSendOpts = {
   baseUrl?: string;

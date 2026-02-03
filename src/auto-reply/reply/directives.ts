@@ -1,4 +1,4 @@
-import type { NoticeLevel, ReasoningLevel } from "../thinking.js";
+import type { NoticeLevel, ReasoningLevel } from "../thinking.ts";
 import {
   type ElevatedLevel,
   normalizeElevatedLevel,
@@ -8,7 +8,7 @@ import {
   normalizeVerboseLevel,
   type ThinkLevel,
   type VerboseLevel,
-} from "../thinking.js";
+} from "../thinking.ts";
 
 type ExtractedLevel<T> = {
   cleaned: string;
@@ -190,4 +190,4 @@ export function extractStatusDirective(body?: string): {
 }
 
 export type { ElevatedLevel, NoticeLevel, ReasoningLevel, ThinkLevel, VerboseLevel };
-export { extractExecDirective } from "./exec/directive.js";
+export { extractExecDirective } from "./exec/directive.ts";

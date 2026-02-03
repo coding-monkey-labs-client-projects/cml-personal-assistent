@@ -1,4 +1,4 @@
-import { makeProxyFetch } from "./proxy.js";
+import { makeProxyFetch } from "./proxy.ts";
 
 const TELEGRAM_API_BASE = "https://api.telegram.org";
 

@@ -1,8 +1,8 @@
 import type { Command } from "commander";
-import type { BrowserParentOpts } from "../browser-cli-shared.js";
-import { danger } from "../../globals.js";
-import { defaultRuntime } from "../../runtime.js";
-import { callBrowserAct, readFields, resolveBrowserActionContext } from "./shared.js";
+import type { BrowserParentOpts } from "../browser-cli-shared.ts";
+import { danger } from "../../globals.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { callBrowserAct, readFields, resolveBrowserActionContext } from "./shared.ts";
 
 export function registerBrowserFormWaitEvalCommands(
   browser: Command,

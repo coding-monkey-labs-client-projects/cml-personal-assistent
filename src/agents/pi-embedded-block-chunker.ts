@@ -1,5 +1,5 @@
-import type { FenceSpan } from "../markdown/fences.js";
-import { findFenceSpanAt, isSafeFenceBreak, parseFenceSpans } from "../markdown/fences.js";
+import type { FenceSpan } from "../markdown/fences.ts";
+import { findFenceSpanAt, isSafeFenceBreak, parseFenceSpans } from "../markdown/fences.ts";
 
 export type BlockReplyChunking = {
   minChars: number;

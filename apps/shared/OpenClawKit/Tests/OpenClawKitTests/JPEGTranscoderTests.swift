@@ -1,4 +1,4 @@
-import OpenClawKit
+import CmlHiveAssistKit
 import CoreGraphics
 import ImageIO
 import Testing

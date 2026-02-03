@@ -1,4 +1,4 @@
-package ai.openclaw.android.voice
+package ai.cml-hive-assist.android.voice
 
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement

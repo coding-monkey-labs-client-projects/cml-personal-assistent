@@ -1,4 +1,4 @@
-package ai.openclaw.android
+package ai.cml-hive-assist.android
 
 enum class CameraHudKind {
   Photo,

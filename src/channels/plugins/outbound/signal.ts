@@ -1,7 +1,7 @@
-import type { ChannelOutboundAdapter } from "../types.js";
-import { chunkText } from "../../../auto-reply/chunk.js";
-import { sendMessageSignal } from "../../../signal/send.js";
-import { resolveChannelMediaMaxBytes } from "../media-limits.js";
+import type { ChannelOutboundAdapter } from "../types.ts";
+import { chunkText } from "../../../auto-reply/chunk.ts";
+import { sendMessageSignal } from "../../../signal/send.ts";
+import { resolveChannelMediaMaxBytes } from "../media-limits.ts";
 
 export const signalOutbound: ChannelOutboundAdapter = {
   deliveryMode: "direct",

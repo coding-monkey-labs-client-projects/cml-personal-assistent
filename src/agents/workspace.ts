@@ -1,16 +1,16 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { runCommandWithTimeout } from "../process/exec.js";
-import { isSubagentSessionKey } from "../routing/session-key.js";
-import { resolveUserPath } from "../utils.js";
-import { resolveWorkspaceTemplateDir } from "./workspace-templates.js";
+import { runCommandWithTimeout } from "../process/exec.ts";
+import { isSubagentSessionKey } from "../routing/session-key.ts";
+import { resolveUserPath } from "../utils.ts";
+import { resolveWorkspaceTemplateDir } from "./workspace-templates.ts";
 
 export function resolveDefaultAgentWorkspaceDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
 ): string {
-  const profile = env.OPENCLAW_PROFILE?.trim();
+  const profile = env.CML_HIVE_ASSIST_PROFILE?.trim();
   if (profile && profile.toLowerCase() !== "default") {
     return path.join(homedir(), ".openclaw", `workspace-${profile}`);
   }

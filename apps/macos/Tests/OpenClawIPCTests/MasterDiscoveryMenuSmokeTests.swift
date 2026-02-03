@@ -1,7 +1,7 @@
-import OpenClawDiscovery
+import CmlHiveAssistDiscovery
 import SwiftUI
 import Testing
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
 @Suite(.serialized)
 @MainActor

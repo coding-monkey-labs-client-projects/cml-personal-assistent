@@ -9,7 +9,7 @@ export {
   listPagesViaPlaywright,
   refLocator,
   type WithSnapshotForAI,
-} from "./pw-session.js";
+} from "./pw-session.ts";
 
 export {
   armDialogViaPlaywright,
@@ -57,4 +57,4 @@ export {
   typeViaPlaywright,
   waitForDownloadViaPlaywright,
   waitForViaPlaywright,
-} from "./pw-tools-core.js";
+} from "./pw-tools-core.ts";

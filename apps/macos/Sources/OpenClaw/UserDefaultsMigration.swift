@@ -1,7 +1,7 @@
 import Foundation
 
-private let legacyDefaultsPrefix = "openclaw."
-private let defaultsPrefix = "openclaw."
+private let legacyDefaultsPrefix = "cml-hive-assist."
+private let defaultsPrefix = "cml-hive-assist."
 
 func migrateLegacyDefaults() {
     let defaults = UserDefaults.standard

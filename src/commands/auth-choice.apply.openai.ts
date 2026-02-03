@@ -1,20 +1,20 @@
 import { loginOpenAICodex } from "@mariozechner/pi-ai";
-import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
-import { resolveEnvApiKey } from "../agents/model-auth.js";
-import { upsertSharedEnvVar } from "../infra/env-file.js";
+import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.ts";
+import { resolveEnvApiKey } from "../agents/model-auth.ts";
+import { upsertSharedEnvVar } from "../infra/env-file.ts";
 import {
   formatApiKeyPreview,
   normalizeApiKeyInput,
   validateApiKeyInput,
-} from "./auth-choice.api-key.js";
-import { isRemoteEnvironment } from "./oauth-env.js";
-import { createVpsAwareOAuthHandlers } from "./oauth-flow.js";
-import { applyAuthProfileConfig, writeOAuthCredentials } from "./onboard-auth.js";
-import { openUrl } from "./onboard-helpers.js";
+} from "./auth-choice.api-key.ts";
+import { isRemoteEnvironment } from "./oauth-env.ts";
+import { createVpsAwareOAuthHandlers } from "./oauth-flow.ts";
+import { applyAuthProfileConfig, writeOAuthCredentials } from "./onboard-auth.ts";
+import { openUrl } from "./onboard-helpers.ts";
 import {
   applyOpenAICodexModelDefault,
   OPENAI_CODEX_DEFAULT_MODEL,
-} from "./openai-codex-model-default.js";
+} from "./openai-codex-model-default.ts";
 
 export async function applyAuthChoiceOpenAI(
   params: ApplyAuthChoiceParams,
@@ -140,7 +140,7 @@ export async function applyAuthChoiceOpenAI(
       spin.stop("OpenAI OAuth failed");
       params.runtime.error(String(err));
       await params.prompter.note(
-        "Trouble with OAuth? See https://docs.openclaw.ai/start/faq",
+        "Trouble with OAuth? See https://docs.cml-hive-assist.ai/start/faq",
         "OAuth help",
       );
     }

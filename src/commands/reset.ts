@@ -1,21 +1,21 @@
 import { cancel, confirm, isCancel, select } from "@clack/prompts";
-import type { RuntimeEnv } from "../runtime.js";
-import { formatCliCommand } from "../cli/command-format.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
 import {
   isNixMode,
   loadConfig,
   resolveConfigPath,
   resolveOAuthDir,
   resolveStateDir,
-} from "../config/config.js";
-import { resolveGatewayService } from "../daemon/service.js";
-import { stylePromptHint, stylePromptMessage, stylePromptTitle } from "../terminal/prompt-style.js";
+} from "../config/config.ts";
+import { resolveGatewayService } from "../daemon/service.ts";
+import { stylePromptHint, stylePromptMessage, stylePromptTitle } from "../terminal/prompt-style.ts";
 import {
   collectWorkspaceDirs,
   isPathWithin,
   listAgentSessionDirs,
   removePath,
-} from "./cleanup-utils.js";
+} from "./cleanup-utils.ts";
 
 export type ResetScope = "config" | "config+creds+sessions" | "full";
 
@@ -78,7 +78,7 @@ export async function resetCommand(runtime: RuntimeEnv, opts: ResetOptions) {
         {
           value: "config",
           label: "Config only",
-          hint: "openclaw.json",
+          hint: "cml-hive-assist.json",
         },
         {
           value: "config+creds+sessions",

@@ -1,9 +1,9 @@
 import { messagingApi } from "@line/bot-sdk";
-import type { LineSendResult } from "./types.js";
-import { loadConfig } from "../config/config.js";
-import { logVerbose } from "../globals.js";
-import { recordChannelActivity } from "../infra/channel-activity.js";
-import { resolveLineAccount } from "./accounts.js";
+import type { LineSendResult } from "./types.ts";
+import { loadConfig } from "../config/config.ts";
+import { logVerbose } from "../globals.ts";
+import { recordChannelActivity } from "../infra/channel-activity.ts";
+import { resolveLineAccount } from "./accounts.ts";
 
 // Use the messaging API types directly
 type Message = messagingApi.Message;

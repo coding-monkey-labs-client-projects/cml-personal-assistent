@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { ChannelHeartbeatVisibilityConfig } from "../config/types.channels.js";
-import type { GatewayMessageChannel } from "../utils/message-channel.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ChannelHeartbeatVisibilityConfig } from "../config/types.channels.ts";
+import type { GatewayMessageChannel } from "../utils/message-channel.ts";
 
 export type ResolvedHeartbeatVisibility = {
   showOk: boolean;
@@ -20,7 +20,7 @@ const DEFAULT_VISIBILITY: ResolvedHeartbeatVisibility = {
  * For webchat, uses channels.defaults.heartbeat since webchat doesn't have per-channel config.
  */
 export function resolveHeartbeatVisibility(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: GatewayMessageChannel;
   accountId?: string;
 }): ResolvedHeartbeatVisibility {

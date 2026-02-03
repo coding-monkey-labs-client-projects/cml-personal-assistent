@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import { resolveStateDir } from "../config/paths.js";
-import { isTruthyEnvValue } from "../infra/env.js";
+import { resolveStateDir } from "../config/paths.ts";
+import { isTruthyEnvValue } from "../infra/env.ts";
 
-const RAW_STREAM_ENABLED = isTruthyEnvValue(process.env.OPENCLAW_RAW_STREAM);
+const RAW_STREAM_ENABLED = isTruthyEnvValue(process.env.CML_HIVE_ASSIST_RAW_STREAM);
 const RAW_STREAM_PATH =
-  process.env.OPENCLAW_RAW_STREAM_PATH?.trim() ||
+  process.env.CML_HIVE_ASSIST_RAW_STREAM_PATH?.trim() ||
   path.join(resolveStateDir(), "logs", "raw-stream.jsonl");
 
 let rawStreamReady = false;

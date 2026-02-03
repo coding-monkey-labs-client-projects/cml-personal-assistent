@@ -1,22 +1,22 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OnboardOptions } from "../commands/onboard-types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { GatewayWizardSettings, WizardFlow } from "./onboarding.types.js";
-import type { WizardPrompter } from "./prompts.js";
-import { DEFAULT_BOOTSTRAP_FILENAME } from "../agents/workspace.js";
-import { formatCliCommand } from "../cli/command-format.js";
+import type { OnboardOptions } from "../commands/onboard-types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { GatewayWizardSettings, WizardFlow } from "./onboarding.types.ts";
+import type { WizardPrompter } from "./prompts.ts";
+import { DEFAULT_BOOTSTRAP_FILENAME } from "../agents/workspace.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
 import {
   buildGatewayInstallPlan,
   gatewayInstallErrorHint,
-} from "../commands/daemon-install-helpers.js";
+} from "../commands/daemon-install-helpers.ts";
 import {
   DEFAULT_GATEWAY_DAEMON_RUNTIME,
   GATEWAY_DAEMON_RUNTIME_OPTIONS,
-} from "../commands/daemon-runtime.js";
-import { formatHealthCheckFailure } from "../commands/health-format.js";
-import { healthCommand } from "../commands/health.js";
+} from "../commands/daemon-runtime.ts";
+import { formatHealthCheckFailure } from "../commands/health-format.ts";
+import { healthCommand } from "../commands/health.ts";
 import {
   detectBrowserOpenSupport,
   formatControlUiSshHint,
@@ -24,19 +24,19 @@ import {
   probeGatewayReachable,
   waitForGatewayReachable,
   resolveControlUiLinks,
-} from "../commands/onboard-helpers.js";
-import { resolveGatewayService } from "../daemon/service.js";
-import { isSystemdUserServiceAvailable } from "../daemon/systemd.js";
-import { ensureControlUiAssetsBuilt } from "../infra/control-ui-assets.js";
-import { restoreTerminalState } from "../terminal/restore.js";
-import { runTui } from "../tui/tui.js";
-import { resolveUserPath } from "../utils.js";
+} from "../commands/onboard-helpers.ts";
+import { resolveGatewayService } from "../daemon/service.ts";
+import { isSystemdUserServiceAvailable } from "../daemon/systemd.ts";
+import { ensureControlUiAssetsBuilt } from "../infra/control-ui-assets.ts";
+import { restoreTerminalState } from "../terminal/restore.ts";
+import { runTui } from "../tui/tui.ts";
+import { resolveUserPath } from "../utils.ts";
 
 type FinalizeOnboardingOptions = {
   flow: WizardFlow;
   opts: OnboardOptions;
-  baseConfig: OpenClawConfig;
-  nextConfig: OpenClawConfig;
+  baseConfig: CmlHiveAssistConfig;
+  nextConfig: CmlHiveAssistConfig;
   workspaceDir: string;
   settings: GatewayWizardSettings;
   prompter: WizardPrompter;
@@ -71,7 +71,7 @@ export async function finalizeOnboardingWizard(
   }
 
   if (process.platform === "linux" && systemdAvailable) {
-    const { ensureSystemdUserLingerInteractive } = await import("../commands/systemd-linger.js");
+    const { ensureSystemdUserLingerInteractive } = await import("../commands/systemd-linger.ts");
     await ensureSystemdUserLingerInteractive({
       runtime,
       prompter: {
@@ -214,8 +214,8 @@ export async function finalizeOnboardingWizard(
       await prompter.note(
         [
           "Docs:",
-          "https://docs.openclaw.ai/gateway/health",
-          "https://docs.openclaw.ai/gateway/troubleshooting",
+          "https://docs.cml-hive-assist.ai/gateway/health",
+          "https://docs.cml-hive-assist.ai/gateway/troubleshooting",
         ].join("\n"),
         "Health check help",
       );
@@ -277,7 +277,7 @@ export async function finalizeOnboardingWizard(
       tokenParam ? `Web UI (with token): ${authedUrl}` : undefined,
       `Gateway WS: ${links.wsUrl}`,
       gatewayStatusLine,
-      "Docs: https://docs.openclaw.ai/web/control-ui",
+      "Docs: https://docs.cml-hive-assist.ai/web/control-ui",
     ]
       .filter(Boolean)
       .join("\n"),
@@ -306,8 +306,8 @@ export async function finalizeOnboardingWizard(
     await prompter.note(
       [
         "Gateway token: shared auth for the Gateway + Control UI.",
-        "Stored in: ~/.openclaw/openclaw.json (gateway.auth.token) or OPENCLAW_GATEWAY_TOKEN.",
-        "Web UI stores a copy in this browser's localStorage (openclaw.control.settings.v1).",
+        "Stored in: ~/.openclaw/cml-hive-assist.json (gateway.auth.token) or CML_HIVE_ASSIST_GATEWAY_TOKEN.",
+        "Web UI stores a copy in this browser's localStorage (cml-hive-assist.control.settings.v1).",
         `Get the tokenized link anytime: ${formatCliCommand("openclaw dashboard --no-open")}`,
       ].join("\n"),
       "Token",
@@ -356,8 +356,8 @@ export async function finalizeOnboardingWizard(
         [
           `Dashboard link (with token): ${authedUrl}`,
           controlUiOpened
-            ? "Opened in your browser. Keep that tab to control OpenClaw."
-            : "Copy/paste this URL in a browser on this machine to control OpenClaw.",
+            ? "Opened in your browser. Keep that tab to control CmlHiveAssist."
+            : "Copy/paste this URL in a browser on this machine to control CmlHiveAssist.",
           controlUiOpenHint,
         ]
           .filter(Boolean)
@@ -377,13 +377,13 @@ export async function finalizeOnboardingWizard(
   await prompter.note(
     [
       "Back up your agent workspace.",
-      "Docs: https://docs.openclaw.ai/concepts/agent-workspace",
+      "Docs: https://docs.cml-hive-assist.ai/concepts/agent-workspace",
     ].join("\n"),
     "Workspace backup",
   );
 
   await prompter.note(
-    "Running agents on your computer is risky — harden your setup: https://docs.openclaw.ai/security",
+    "Running agents on your computer is risky — harden your setup: https://docs.cml-hive-assist.ai/security",
     "Security",
   );
 
@@ -415,8 +415,8 @@ export async function finalizeOnboardingWizard(
       [
         `Dashboard link (with token): ${authedUrl}`,
         controlUiOpened
-          ? "Opened in your browser. Keep that tab to control OpenClaw."
-          : "Copy/paste this URL in a browser on this machine to control OpenClaw.",
+          ? "Opened in your browser. Keep that tab to control CmlHiveAssist."
+          : "Copy/paste this URL in a browser on this machine to control CmlHiveAssist.",
         controlUiOpenHint,
       ]
         .filter(Boolean)
@@ -436,34 +436,34 @@ export async function finalizeOnboardingWizard(
           webSearchKey
             ? "API key: stored in config (tools.web.search.apiKey)."
             : "API key: provided via BRAVE_API_KEY env var (Gateway environment).",
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Docs: https://docs.cml-hive-assist.ai/tools/web",
         ].join("\n")
       : [
           "If you want your agent to be able to search the web, you’ll need an API key.",
           "",
-          "OpenClaw uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
+          "CmlHiveAssist uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
           "",
           "Set it up interactively:",
           `- Run: ${formatCliCommand("openclaw configure --section web")}`,
           "- Enable web_search and paste your Brave Search API key",
           "",
           "Alternative: set BRAVE_API_KEY in the Gateway environment (no config changes).",
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Docs: https://docs.cml-hive-assist.ai/tools/web",
         ].join("\n"),
     "Web search (optional)",
   );
 
   await prompter.note(
-    'What now: https://openclaw.ai/showcase ("What People Are Building").',
+    'What now: https://cml-hive-assist.ai/showcase ("What People Are Building").',
     "What now",
   );
 
   await prompter.outro(
     controlUiOpened
-      ? "Onboarding complete. Dashboard opened with your token; keep that tab to control OpenClaw."
+      ? "Onboarding complete. Dashboard opened with your token; keep that tab to control CmlHiveAssist."
       : seededInBackground
         ? "Onboarding complete. Web UI seeded in the background; open it anytime with the tokenized link above."
-        : "Onboarding complete. Use the tokenized dashboard link above to control OpenClaw.",
+        : "Onboarding complete. Use the tokenized dashboard link above to control CmlHiveAssist.",
   );
 
   return { launchedTui };

@@ -1,25 +1,25 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { GatewayMessageChannel } from "../utils/message-channel.js";
-import type { AnyAgentTool } from "./tools/common.js";
-import { resolvePluginTools } from "../plugins/tools.js";
-import { resolveSessionAgentId } from "./agent-scope.js";
-import { createAgentsListTool } from "./tools/agents-list-tool.js";
-import { createBrowserTool } from "./tools/browser-tool.js";
-import { createCanvasTool } from "./tools/canvas-tool.js";
-import { createCronTool } from "./tools/cron-tool.js";
-import { createGatewayTool } from "./tools/gateway-tool.js";
-import { createImageTool } from "./tools/image-tool.js";
-import { createMessageTool } from "./tools/message-tool.js";
-import { createNodesTool } from "./tools/nodes-tool.js";
-import { createSessionStatusTool } from "./tools/session-status-tool.js";
-import { createSessionsHistoryTool } from "./tools/sessions-history-tool.js";
-import { createSessionsListTool } from "./tools/sessions-list-tool.js";
-import { createSessionsSendTool } from "./tools/sessions-send-tool.js";
-import { createSessionsSpawnTool } from "./tools/sessions-spawn-tool.js";
-import { createTtsTool } from "./tools/tts-tool.js";
-import { createWebFetchTool, createWebSearchTool } from "./tools/web-tools.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { GatewayMessageChannel } from "../utils/message-channel.ts";
+import type { AnyAgentTool } from "./tools/common.ts";
+import { resolvePluginTools } from "../plugins/tools.ts";
+import { resolveSessionAgentId } from "./agent-scope.ts";
+import { createAgentsListTool } from "./tools/agents-list-tool.ts";
+import { createBrowserTool } from "./tools/browser-tool.ts";
+import { createCanvasTool } from "./tools/canvas-tool.ts";
+import { createCronTool } from "./tools/cron-tool.ts";
+import { createGatewayTool } from "./tools/gateway-tool.ts";
+import { createImageTool } from "./tools/image-tool.ts";
+import { createMessageTool } from "./tools/message-tool.ts";
+import { createNodesTool } from "./tools/nodes-tool.ts";
+import { createSessionStatusTool } from "./tools/session-status-tool.ts";
+import { createSessionsHistoryTool } from "./tools/sessions-history-tool.ts";
+import { createSessionsListTool } from "./tools/sessions-list-tool.ts";
+import { createSessionsSendTool } from "./tools/sessions-send-tool.ts";
+import { createSessionsSpawnTool } from "./tools/sessions-spawn-tool.ts";
+import { createTtsTool } from "./tools/tts-tool.ts";
+import { createWebFetchTool, createWebSearchTool } from "./tools/web-tools.ts";
 
-export function createOpenClawTools(options?: {
+export function createCmlHiveAssistTools(options?: {
   sandboxBrowserBridgeUrl?: string;
   allowHostBrowserControl?: boolean;
   agentSessionKey?: string;
@@ -39,7 +39,7 @@ export function createOpenClawTools(options?: {
   sandboxRoot?: string;
   workspaceDir?: string;
   sandboxed?: boolean;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   pluginToolAllowlist?: string[];
   /** Current channel ID for auto-threading (Slack). */
   currentChannelId?: string;

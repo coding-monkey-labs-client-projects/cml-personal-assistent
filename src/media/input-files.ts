@@ -1,5 +1,5 @@
-import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.js";
-import { logWarn } from "../logger.js";
+import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.ts";
+import { logWarn } from "../logger.ts";
 
 type CanvasModule = typeof import("@napi-rs/canvas");
 type PdfJsModule = typeof import("pdfjs-dist/legacy/build/pdf.mjs");
@@ -146,7 +146,7 @@ export async function fetchWithGuard(params: {
     url: params.url,
     maxRedirects: params.maxRedirects,
     timeoutMs: params.timeoutMs,
-    init: { headers: { "User-Agent": "OpenClaw-Gateway/1.0" } },
+    init: { headers: { "User-Agent": "CmlHiveAssist-Gateway/1.0" } },
   });
 
   try {

@@ -1,19 +1,19 @@
-import type { GatewayAuthChoice } from "../commands/onboard-types.js";
-import type { GatewayBindMode, GatewayTailscaleMode, OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
+import type { GatewayAuthChoice } from "../commands/onboard-types.ts";
+import type { GatewayBindMode, GatewayTailscaleMode, CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
 import type {
   GatewayWizardSettings,
   QuickstartGatewayDefaults,
   WizardFlow,
-} from "./onboarding.types.js";
-import type { WizardPrompter } from "./prompts.js";
-import { normalizeGatewayTokenInput, randomToken } from "../commands/onboard-helpers.js";
-import { findTailscaleBinary } from "../infra/tailscale.js";
+} from "./onboarding.types.ts";
+import type { WizardPrompter } from "./prompts.ts";
+import { normalizeGatewayTokenInput, randomToken } from "../commands/onboard-helpers.ts";
+import { findTailscaleBinary } from "../infra/tailscale.ts";
 
 type ConfigureGatewayOptions = {
   flow: WizardFlow;
-  baseConfig: OpenClawConfig;
-  nextConfig: OpenClawConfig;
+  baseConfig: CmlHiveAssistConfig;
+  nextConfig: CmlHiveAssistConfig;
   localPort: number;
   quickstartGateway: QuickstartGatewayDefaults;
   prompter: WizardPrompter;
@@ -21,7 +21,7 @@ type ConfigureGatewayOptions = {
 };
 
 type ConfigureGatewayResult = {
-  nextConfig: OpenClawConfig;
+  nextConfig: CmlHiveAssistConfig;
   settings: GatewayWizardSettings;
 };
 
@@ -147,7 +147,7 @@ export async function configureGatewayForOnboarding(
   let tailscaleResetOnExit = flow === "quickstart" ? quickstartGateway.tailscaleResetOnExit : false;
   if (tailscaleMode !== "off" && flow !== "quickstart") {
     await prompter.note(
-      ["Docs:", "https://docs.openclaw.ai/gateway/tailscale", "https://docs.openclaw.ai/web"].join(
+      ["Docs:", "https://docs.cml-hive-assist.ai/gateway/tailscale", "https://docs.cml-hive-assist.ai/web"].join(
         "\n",
       ),
       "Tailscale",

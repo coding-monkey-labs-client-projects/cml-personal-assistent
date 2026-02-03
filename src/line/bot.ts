@@ -1,21 +1,21 @@
 import type { WebhookRequestBody } from "@line/bot-sdk";
 import type { Request, Response, NextFunction } from "express";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { LineInboundContext } from "./bot-message-context.js";
-import type { ResolvedLineAccount } from "./types.js";
-import { loadConfig } from "../config/config.js";
-import { logVerbose } from "../globals.js";
-import { resolveLineAccount } from "./accounts.js";
-import { handleLineWebhookEvents } from "./bot-handlers.js";
-import { startLineWebhook } from "./webhook.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { LineInboundContext } from "./bot-message-context.ts";
+import type { ResolvedLineAccount } from "./types.ts";
+import { loadConfig } from "../config/config.ts";
+import { logVerbose } from "../globals.ts";
+import { resolveLineAccount } from "./accounts.ts";
+import { handleLineWebhookEvents } from "./bot-handlers.ts";
+import { startLineWebhook } from "./webhook.ts";
 
 export interface LineBotOptions {
   channelAccessToken: string;
   channelSecret: string;
   accountId?: string;
   runtime?: RuntimeEnv;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   mediaMaxMb?: number;
   onMessage?: (ctx: LineInboundContext) => Promise<void>;
 }

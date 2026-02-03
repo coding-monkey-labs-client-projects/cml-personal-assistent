@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import type { SandboxDockerConfig, SandboxWorkspaceAccess } from "./types.js";
+import type { SandboxDockerConfig, SandboxWorkspaceAccess } from "./types.ts";
 
 type SandboxHashInput = {
   docker: SandboxDockerConfig;

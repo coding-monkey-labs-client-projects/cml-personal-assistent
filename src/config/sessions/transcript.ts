@@ -1,10 +1,10 @@
 import { CURRENT_SESSION_VERSION, SessionManager } from "@mariozechner/pi-coding-agent";
 import fs from "node:fs";
 import path from "node:path";
-import type { SessionEntry } from "./types.js";
-import { emitSessionTranscriptUpdate } from "../../sessions/transcript-events.js";
-import { resolveDefaultSessionStorePath, resolveSessionTranscriptPath } from "./paths.js";
-import { loadSessionStore, updateSessionStore } from "./store.js";
+import type { SessionEntry } from "./types.ts";
+import { emitSessionTranscriptUpdate } from "../../sessions/transcript-events.ts";
+import { resolveDefaultSessionStorePath, resolveSessionTranscriptPath } from "./paths.ts";
+import { loadSessionStore, updateSessionStore } from "./store.ts";
 
 function stripQuery(value: string): string {
   const noHash = value.split("#")[0] ?? value;
@@ -113,7 +113,7 @@ export async function appendAssistantMessageToSessionTranscript(params: {
     role: "assistant",
     content: [{ type: "text", text: mirrorText }],
     api: "openai-responses",
-    provider: "openclaw",
+    provider: "cml-hive-assist",
     model: "delivery-mirror",
     usage: {
       input: 0,

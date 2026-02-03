@@ -1,7 +1,7 @@
 import { type ApiClientOptions, Bot } from "grammy";
-import type { TelegramNetworkConfig } from "../config/types.telegram.js";
-import { withTelegramApiErrorLogging } from "./api-logging.js";
-import { resolveTelegramFetch } from "./fetch.js";
+import type { TelegramNetworkConfig } from "../config/types.telegram.ts";
+import { withTelegramApiErrorLogging } from "./api-logging.ts";
+import { resolveTelegramFetch } from "./fetch.ts";
 
 export async function setTelegramWebhook(opts: {
   token: string;

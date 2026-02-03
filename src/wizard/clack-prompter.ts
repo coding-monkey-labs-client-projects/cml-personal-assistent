@@ -10,12 +10,12 @@ import {
   spinner,
   text,
 } from "@clack/prompts";
-import type { WizardProgress, WizardPrompter } from "./prompts.js";
-import { createCliProgress } from "../cli/progress.js";
-import { note as emitNote } from "../terminal/note.js";
-import { stylePromptHint, stylePromptMessage, stylePromptTitle } from "../terminal/prompt-style.js";
-import { theme } from "../terminal/theme.js";
-import { WizardCancelledError } from "./prompts.js";
+import type { WizardProgress, WizardPrompter } from "./prompts.ts";
+import { createCliProgress } from "../cli/progress.ts";
+import { note as emitNote } from "../terminal/note.ts";
+import { stylePromptHint, stylePromptMessage, stylePromptTitle } from "../terminal/prompt-style.ts";
+import { theme } from "../terminal/theme.ts";
+import { WizardCancelledError } from "./prompts.ts";
 
 function guardCancel<T>(value: T | symbol): T {
   if (isCancel(value)) {

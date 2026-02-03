@@ -1,13 +1,13 @@
 import { ChannelType, type Client } from "@buape/carbon";
 import { Routes } from "discord-api-types/v10";
-import type { ReplyToMode } from "../../config/config.js";
-import type { DiscordChannelConfigResolved } from "./allow-list.js";
-import type { DiscordMessageEvent } from "./listeners.js";
-import { createReplyReferencePlanner } from "../../auto-reply/reply/reply-reference.js";
-import { logVerbose } from "../../globals.js";
-import { buildAgentSessionKey } from "../../routing/resolve-route.js";
-import { truncateUtf16Safe } from "../../utils.js";
-import { resolveDiscordChannelInfo } from "./message-utils.js";
+import type { ReplyToMode } from "../../config/config.ts";
+import type { DiscordChannelConfigResolved } from "./allow-list.ts";
+import type { DiscordMessageEvent } from "./listeners.ts";
+import { createReplyReferencePlanner } from "../../auto-reply/reply/reply-reference.ts";
+import { logVerbose } from "../../globals.ts";
+import { buildAgentSessionKey } from "../../routing/resolve-route.ts";
+import { truncateUtf16Safe } from "../../utils.ts";
+import { resolveDiscordChannelInfo } from "./message-utils.ts";
 
 export type DiscordThreadChannel = {
   id: string;
@@ -46,7 +46,7 @@ function isDiscordThreadType(type: ChannelType | undefined): boolean {
 export function resolveDiscordThreadChannel(params: {
   isGuildMessage: boolean;
   message: DiscordMessageEvent["message"];
-  channelInfo: import("./message-utils.js").DiscordChannelInfo | null;
+  channelInfo: import("./message-utils.ts").DiscordChannelInfo | null;
 }): DiscordThreadChannel | null {
   if (!params.isGuildMessage) {
     return null;
@@ -77,7 +77,7 @@ export function resolveDiscordThreadChannel(params: {
 export async function resolveDiscordThreadParentInfo(params: {
   client: Client;
   threadChannel: DiscordThreadChannel;
-  channelInfo: import("./message-utils.js").DiscordChannelInfo | null;
+  channelInfo: import("./message-utils.ts").DiscordChannelInfo | null;
 }): Promise<DiscordThreadParentInfo> {
   const { threadChannel, channelInfo, client } = params;
   const parentId =

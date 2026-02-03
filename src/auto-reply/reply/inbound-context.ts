@@ -1,8 +1,8 @@
-import type { FinalizedMsgContext, MsgContext } from "../templating.js";
-import { normalizeChatType } from "../../channels/chat-type.js";
-import { resolveConversationLabel } from "../../channels/conversation-label.js";
-import { formatInboundBodyWithSenderMeta } from "./inbound-sender-meta.js";
-import { normalizeInboundTextNewlines } from "./inbound-text.js";
+import type { FinalizedMsgContext, MsgContext } from "../templating.ts";
+import { normalizeChatType } from "../../channels/chat-type.ts";
+import { resolveConversationLabel } from "../../channels/conversation-label.ts";
+import { formatInboundBodyWithSenderMeta } from "./inbound-sender-meta.ts";
+import { normalizeInboundTextNewlines } from "./inbound-text.ts";
 
 export type FinalizeInboundContextOptions = {
   forceBodyForAgent?: boolean;

@@ -1,35 +1,35 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { DoctorOptions, DoctorPrompter } from "./doctor-prompter.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { resolveGatewayPort } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { DoctorOptions, DoctorPrompter } from "./doctor-prompter.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { resolveGatewayPort } from "../config/config.ts";
 import {
   resolveGatewayLaunchAgentLabel,
   resolveNodeLaunchAgentLabel,
-} from "../daemon/constants.js";
-import { readLastGatewayErrorLine } from "../daemon/diagnostics.js";
+} from "../daemon/constants.ts";
+import { readLastGatewayErrorLine } from "../daemon/diagnostics.ts";
 import {
   isLaunchAgentListed,
   isLaunchAgentLoaded,
   launchAgentPlistExists,
   repairLaunchAgentBootstrap,
-} from "../daemon/launchd.js";
-import { resolveGatewayService } from "../daemon/service.js";
-import { renderSystemdUnavailableHints } from "../daemon/systemd-hints.js";
-import { isSystemdUserServiceAvailable } from "../daemon/systemd.js";
-import { formatPortDiagnostics, inspectPortUsage } from "../infra/ports.js";
-import { isWSL } from "../infra/wsl.js";
-import { note } from "../terminal/note.js";
-import { sleep } from "../utils.js";
-import { buildGatewayInstallPlan, gatewayInstallErrorHint } from "./daemon-install-helpers.js";
+} from "../daemon/launchd.ts";
+import { resolveGatewayService } from "../daemon/service.ts";
+import { renderSystemdUnavailableHints } from "../daemon/systemd-hints.ts";
+import { isSystemdUserServiceAvailable } from "../daemon/systemd.ts";
+import { formatPortDiagnostics, inspectPortUsage } from "../infra/ports.ts";
+import { isWSL } from "../infra/wsl.ts";
+import { note } from "../terminal/note.ts";
+import { sleep } from "../utils.ts";
+import { buildGatewayInstallPlan, gatewayInstallErrorHint } from "./daemon-install-helpers.ts";
 import {
   DEFAULT_GATEWAY_DAEMON_RUNTIME,
   GATEWAY_DAEMON_RUNTIME_OPTIONS,
   type GatewayDaemonRuntime,
-} from "./daemon-runtime.js";
-import { buildGatewayRuntimeHints, formatGatewayRuntimeSummary } from "./doctor-format.js";
-import { formatHealthCheckFailure } from "./health-format.js";
-import { healthCommand } from "./health.js";
+} from "./daemon-runtime.ts";
+import { buildGatewayRuntimeHints, formatGatewayRuntimeSummary } from "./doctor-format.ts";
+import { formatHealthCheckFailure } from "./health-format.ts";
+import { healthCommand } from "./health.ts";
 
 async function maybeRepairLaunchAgentBootstrap(params: {
   env: Record<string, string | undefined>;
@@ -86,7 +86,7 @@ async function maybeRepairLaunchAgentBootstrap(params: {
 }
 
 export async function maybeRepairGatewayDaemon(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   runtime: RuntimeEnv;
   prompter: DoctorPrompter;
   options: DoctorOptions;
@@ -120,7 +120,7 @@ export async function maybeRepairGatewayDaemon(params: {
     await maybeRepairLaunchAgentBootstrap({
       env: {
         ...process.env,
-        OPENCLAW_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+        CML_HIVE_ASSIST_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
       },
       title: "Node",
       runtime: params.runtime,
@@ -175,7 +175,7 @@ export async function maybeRepairGatewayDaemon(params: {
         const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
           env: process.env,
           port,
-          token: params.cfg.gateway?.auth?.token ?? process.env.OPENCLAW_GATEWAY_TOKEN,
+          token: params.cfg.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN,
           runtime: daemonRuntime,
           warn: (message, title) => note(message, title),
           config: params.cfg,
@@ -226,7 +226,7 @@ export async function maybeRepairGatewayDaemon(params: {
   }
 
   if (process.platform === "darwin") {
-    const label = resolveGatewayLaunchAgentLabel(process.env.OPENCLAW_PROFILE);
+    const label = resolveGatewayLaunchAgentLabel(process.env.CML_HIVE_ASSIST_PROFILE);
     note(
       `LaunchAgent loaded; stopping requires "${formatCliCommand("openclaw gateway stop")}" or launchctl bootout gui/$UID/${label}.`,
       "Gateway",

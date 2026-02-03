@@ -18,7 +18,7 @@ enum AnthropicAuthMode: Equatable {
 
     var shortLabel: String {
         switch self {
-        case .oauthFile: "OAuth (OpenClaw token file)"
+        case .oauthFile: "OAuth (CmlHiveAssist token file)"
         case .oauthEnv: "OAuth (env var)"
         case .apiKeyEnv: "API key (env var)"
         case .missing: "Missing credentials"
@@ -36,7 +36,7 @@ enum AnthropicAuthMode: Equatable {
 enum AnthropicAuthResolver {
     static func resolve(
         environment: [String: String] = ProcessInfo.processInfo.environment,
-        oauthStatus: OpenClawOAuthStore.AnthropicOAuthStatus = OpenClawOAuthStore
+        oauthStatus: CmlHiveAssistOAuthStore.AnthropicOAuthStatus = CmlHiveAssistOAuthStore
             .anthropicOAuthStatus()) -> AnthropicAuthMode
     {
         if oauthStatus.isConnected { return .oauthFile }
@@ -58,7 +58,7 @@ enum AnthropicAuthResolver {
 }
 
 enum AnthropicOAuth {
-    private static let logger = Logger(subsystem: "ai.openclaw", category: "anthropic-oauth")
+    private static let logger = Logger(subsystem: "ai.cml-hive-assist", category: "anthropic-oauth")
 
     private static let clientId = "9d1c250a-e61b-44d9-88ed-5944d1962f5e"
     private static let authorizeURL = URL(string: "https://claude.ai/oauth/authorize")!
@@ -194,10 +194,10 @@ enum AnthropicOAuth {
     }
 }
 
-enum OpenClawOAuthStore {
+enum CmlHiveAssistOAuthStore {
     static let oauthFilename = "oauth.json"
     private static let providerKey = "anthropic"
-    private static let openclawOAuthDirEnv = "OPENCLAW_OAUTH_DIR"
+    private static let cml-hive-assistOAuthDirEnv = "CML_HIVE_ASSIST_OAUTH_DIR"
     private static let legacyPiDirEnv = "PI_CODING_AGENT_DIR"
 
     enum AnthropicOAuthStatus: Equatable {
@@ -215,18 +215,18 @@ enum OpenClawOAuthStore {
 
         var shortDescription: String {
             switch self {
-            case .missingFile: "OpenClaw OAuth token file not found"
-            case .unreadableFile: "OpenClaw OAuth token file not readable"
-            case .invalidJSON: "OpenClaw OAuth token file invalid"
-            case .missingProviderEntry: "No Anthropic entry in OpenClaw OAuth token file"
+            case .missingFile: "CmlHiveAssist OAuth token file not found"
+            case .unreadableFile: "CmlHiveAssist OAuth token file not readable"
+            case .invalidJSON: "CmlHiveAssist OAuth token file invalid"
+            case .missingProviderEntry: "No Anthropic entry in CmlHiveAssist OAuth token file"
             case .missingTokens: "Anthropic entry missing tokens"
-            case .connected: "OpenClaw OAuth credentials found"
+            case .connected: "CmlHiveAssist OAuth credentials found"
             }
         }
     }
 
     static func oauthDir() -> URL {
-        if let override = ProcessInfo.processInfo.environment[self.openclawOAuthDirEnv]?
+        if let override = ProcessInfo.processInfo.environment[self.cml-hive-assistOAuthDirEnv]?
             .trimmingCharacters(in: .whitespacesAndNewlines),
             !override.isEmpty
         {
@@ -234,7 +234,7 @@ enum OpenClawOAuthStore {
             return URL(fileURLWithPath: expanded, isDirectory: true)
         }
         let home = FileManager().homeDirectoryForCurrentUser
-        let preferred = home.appendingPathComponent(".openclaw", isDirectory: true)
+        let preferred = home.appendingPathComponent(".cml-hive-assist", isDirectory: true)
             .appendingPathComponent("credentials", isDirectory: true)
         return preferred
     }

@@ -1,17 +1,17 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { getChannelPlugin, listChannelPlugins } from "../channels/plugins/index.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { CONFIG_PATH } from "../config/config.js";
-import { note } from "../terminal/note.js";
-import { shortenHomePath } from "../utils.js";
-import { confirm, select } from "./configure.shared.js";
-import { guardCancel } from "./onboard-helpers.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { getChannelPlugin, listChannelPlugins } from "../channels/plugins/index.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { CONFIG_PATH } from "../config/config.ts";
+import { note } from "../terminal/note.ts";
+import { shortenHomePath } from "../utils.ts";
+import { confirm, select } from "./configure.shared.ts";
+import { guardCancel } from "./onboard-helpers.ts";
 
 export async function removeChannelConfigWizard(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   runtime: RuntimeEnv,
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   let next = { ...cfg };
 
   const listConfiguredChannels = () =>
@@ -24,7 +24,7 @@ export async function removeChannelConfigWizard(
     if (configured.length === 0) {
       note(
         [
-          "No channel config found in openclaw.json.",
+          "No channel config found in cml-hive-assist.json.",
           `Tip: \`${formatCliCommand("openclaw channels status")}\` shows what is configured and enabled.`,
         ].join("\n"),
         "Remove channel",
@@ -68,7 +68,7 @@ export async function removeChannelConfigWizard(
     next = {
       ...next,
       channels: Object.keys(nextChannels).length
-        ? (nextChannels as OpenClawConfig["channels"])
+        ? (nextChannels as CmlHiveAssistConfig["channels"])
         : undefined,
     };
 

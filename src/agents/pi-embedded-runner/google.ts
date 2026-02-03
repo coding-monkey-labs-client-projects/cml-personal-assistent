@@ -2,23 +2,23 @@ import type { AgentMessage, AgentTool } from "@mariozechner/pi-agent-core";
 import type { SessionManager } from "@mariozechner/pi-coding-agent";
 import type { TSchema } from "@sinclair/typebox";
 import { EventEmitter } from "node:events";
-import type { TranscriptPolicy } from "../transcript-policy.js";
-import { registerUnhandledRejectionHandler } from "../../infra/unhandled-rejections.js";
+import type { TranscriptPolicy } from "../transcript-policy.ts";
+import { registerUnhandledRejectionHandler } from "../../infra/unhandled-rejections.ts";
 import {
   downgradeOpenAIReasoningBlocks,
   isCompactionFailureError,
   isGoogleModelApi,
   sanitizeGoogleTurnOrdering,
   sanitizeSessionMessagesImages,
-} from "../pi-embedded-helpers.js";
-import { cleanToolSchemaForGemini } from "../pi-tools.schema.js";
+} from "../pi-embedded-helpers.ts";
+import { cleanToolSchemaForGemini } from "../pi-tools.schema.ts";
 import {
   sanitizeToolCallInputs,
   sanitizeToolUseResultPairing,
-} from "../session-transcript-repair.js";
-import { resolveTranscriptPolicy } from "../transcript-policy.js";
-import { log } from "./logger.js";
-import { describeUnknownError } from "./utils.js";
+} from "../session-transcript-repair.ts";
+import { resolveTranscriptPolicy } from "../transcript-policy.ts";
+import { log } from "./logger.ts";
+import { describeUnknownError } from "./utils.ts";
 
 const GOOGLE_TURN_ORDERING_CUSTOM_TYPE = "google-turn-ordering-bootstrap";
 const GOOGLE_SCHEMA_UNSUPPORTED_KEYWORDS = new Set([

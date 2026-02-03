@@ -1,26 +1,26 @@
 import type { AnyMessageContent, proto, WAMessage } from "@whiskeysockets/baileys";
 import { DisconnectReason, isJidGroup } from "@whiskeysockets/baileys";
-import type { WebInboundMessage, WebListenerCloseReason } from "./types.js";
-import { createInboundDebouncer } from "../../auto-reply/inbound-debounce.js";
-import { formatLocationText } from "../../channels/location.js";
-import { logVerbose, shouldLogVerbose } from "../../globals.js";
-import { recordChannelActivity } from "../../infra/channel-activity.js";
-import { getChildLogger } from "../../logging/logger.js";
-import { createSubsystemLogger } from "../../logging/subsystem.js";
-import { saveMediaBuffer } from "../../media/store.js";
-import { jidToE164, resolveJidToE164 } from "../../utils.js";
-import { createWaSocket, getStatusCode, waitForWaConnection } from "../session.js";
-import { checkInboundAccessControl } from "./access-control.js";
-import { isRecentInboundMessage } from "./dedupe.js";
+import type { WebInboundMessage, WebListenerCloseReason } from "./types.ts";
+import { createInboundDebouncer } from "../../auto-reply/inbound-debounce.ts";
+import { formatLocationText } from "../../channels/location.ts";
+import { logVerbose, shouldLogVerbose } from "../../globals.ts";
+import { recordChannelActivity } from "../../infra/channel-activity.ts";
+import { getChildLogger } from "../../logging/logger.ts";
+import { createSubsystemLogger } from "../../logging/subsystem.ts";
+import { saveMediaBuffer } from "../../media/store.ts";
+import { jidToE164, resolveJidToE164 } from "../../utils.ts";
+import { createWaSocket, getStatusCode, waitForWaConnection } from "../session.ts";
+import { checkInboundAccessControl } from "./access-control.ts";
+import { isRecentInboundMessage } from "./dedupe.ts";
 import {
   describeReplyContext,
   extractLocationData,
   extractMediaPlaceholder,
   extractMentionedJids,
   extractText,
-} from "./extract.js";
-import { downloadInboundMedia } from "./media.js";
-import { createWebSendApi } from "./send-api.js";
+} from "./extract.ts";
+import { downloadInboundMedia } from "./media.ts";
+import { createWebSendApi } from "./send-api.ts";
 
 export async function monitorWebInbox(options: {
   verbose: boolean;

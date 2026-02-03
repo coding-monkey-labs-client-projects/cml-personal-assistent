@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import {
-  DEFAULT_OPENCLAW_BROWSER_COLOR,
-  DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME,
-} from "./constants.js";
+  DEFAULT_CML_HIVE_ASSIST_BROWSER_COLOR,
+  DEFAULT_CML_HIVE_ASSIST_BROWSER_PROFILE_NAME,
+} from "./constants.ts";
 
 function decoratedMarkerPath(userDataDir: string) {
   return path.join(userDataDir, ".openclaw-profile-decorated");
@@ -126,12 +126,12 @@ export function isProfileDecorated(
  * Best-effort profile decoration (name + lobster-orange). Chrome preference keys
  * vary by version; we keep this conservative and idempotent.
  */
-export function decorateOpenClawProfile(
+export function decorateCmlHiveAssistProfile(
   userDataDir: string,
   opts?: { name?: string; color?: string },
 ) {
-  const desiredName = opts?.name ?? DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME;
-  const desiredColor = (opts?.color ?? DEFAULT_OPENCLAW_BROWSER_COLOR).toUpperCase();
+  const desiredName = opts?.name ?? DEFAULT_CML_HIVE_ASSIST_BROWSER_PROFILE_NAME;
+  const desiredColor = (opts?.color ?? DEFAULT_CML_HIVE_ASSIST_BROWSER_COLOR).toUpperCase();
   const desiredColorInt = parseHexRgbToSignedArgbInt(desiredColor);
 
   const localStatePath = path.join(userDataDir, "Local State");

@@ -1,4 +1,4 @@
-import type { InlineDirectives } from "./directive-handling.js";
+import type { InlineDirectives } from "./directive-handling.ts";
 
 export function clearInlineDirectives(cleaned: string): InlineDirectives {
   return {

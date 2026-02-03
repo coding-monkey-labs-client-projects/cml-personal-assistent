@@ -1,9 +1,9 @@
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { WorkspaceBootstrapFile } from "../workspace.js";
-import type { EmbeddedContextFile } from "./types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { WorkspaceBootstrapFile } from "../workspace.ts";
+import type { EmbeddedContextFile } from "./types.ts";
 
 type ContentBlockWithSignature = {
   thought_signature?: unknown;
@@ -92,7 +92,7 @@ type TrimBootstrapResult = {
   originalLength: number;
 };
 
-export function resolveBootstrapMaxChars(cfg?: OpenClawConfig): number {
+export function resolveBootstrapMaxChars(cfg?: CmlHiveAssistConfig): number {
   const raw = cfg?.agents?.defaults?.bootstrapMaxChars;
   if (typeof raw === "number" && Number.isFinite(raw) && raw > 0) {
     return Math.floor(raw);

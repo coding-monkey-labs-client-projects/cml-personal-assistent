@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ChannelAccountSnapshot, ChannelPlugin } from "./types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ChannelAccountSnapshot, ChannelPlugin } from "./types.ts";
 
 // Channel docking: status snapshots flow through plugin.status hooks here.
 export async function buildChannelAccountSnapshot<ResolvedAccount>(params: {
   plugin: ChannelPlugin<ResolvedAccount>;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId: string;
   runtime?: ChannelAccountSnapshot;
   probe?: unknown;

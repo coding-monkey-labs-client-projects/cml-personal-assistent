@@ -1,4 +1,4 @@
-import type { SessionStatus } from "./status.types.js";
+import type { SessionStatus } from "./status.types.ts";
 
 export const formatKTokens = (value: number) =>
   `${(value / 1000).toFixed(value >= 10_000 ? 0 : 1)}k`;

@@ -5,12 +5,12 @@ export {
   moveChannelDiscord,
   removeChannelPermissionDiscord,
   setChannelPermissionDiscord,
-} from "./send.channels.js";
+} from "./send.channels.ts";
 export {
   listGuildEmojisDiscord,
   uploadEmojiDiscord,
   uploadStickerDiscord,
-} from "./send.emojis-stickers.js";
+} from "./send.emojis-stickers.ts";
 export {
   addRoleDiscord,
   banMemberDiscord,
@@ -24,7 +24,7 @@ export {
   listScheduledEventsDiscord,
   removeRoleDiscord,
   timeoutMemberDiscord,
-} from "./send.guild.js";
+} from "./send.guild.ts";
 export {
   createThreadDiscord,
   deleteMessageDiscord,
@@ -36,15 +36,15 @@ export {
   readMessagesDiscord,
   searchMessagesDiscord,
   unpinMessageDiscord,
-} from "./send.messages.js";
-export { sendMessageDiscord, sendPollDiscord, sendStickerDiscord } from "./send.outbound.js";
+} from "./send.messages.ts";
+export { sendMessageDiscord, sendPollDiscord, sendStickerDiscord } from "./send.outbound.ts";
 export {
   fetchChannelPermissionsDiscord,
   fetchReactionsDiscord,
   reactMessageDiscord,
   removeOwnReactionsDiscord,
   removeReactionDiscord,
-} from "./send.reactions.js";
+} from "./send.reactions.ts";
 export type {
   DiscordChannelCreate,
   DiscordChannelEdit,
@@ -65,5 +65,5 @@ export type {
   DiscordThreadCreate,
   DiscordThreadList,
   DiscordTimeoutTarget,
-} from "./send.types.js";
-export { DiscordSendError } from "./send.types.js";
+} from "./send.types.ts";
+export { DiscordSendError } from "./send.types.ts";

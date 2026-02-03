@@ -1,33 +1,33 @@
 import fs from "node:fs/promises";
-import type { ThinkLevel } from "../../auto-reply/thinking.js";
-import type { RunEmbeddedPiAgentParams } from "./run/params.js";
-import type { EmbeddedPiAgentMeta, EmbeddedPiRunResult } from "./types.js";
-import { enqueueCommandInLane } from "../../process/command-queue.js";
-import { resolveUserPath } from "../../utils.js";
-import { isMarkdownCapableMessageChannel } from "../../utils/message-channel.js";
-import { resolveOpenClawAgentDir } from "../agent-paths.js";
+import type { ThinkLevel } from "../../auto-reply/thinking.ts";
+import type { RunEmbeddedPiAgentParams } from "./run/params.ts";
+import type { EmbeddedPiAgentMeta, EmbeddedPiRunResult } from "./types.ts";
+import { enqueueCommandInLane } from "../../process/command-queue.ts";
+import { resolveUserPath } from "../../utils.ts";
+import { isMarkdownCapableMessageChannel } from "../../utils/message-channel.ts";
+import { resolveCmlHiveAssistAgentDir } from "../agent-paths.ts";
 import {
   isProfileInCooldown,
   markAuthProfileFailure,
   markAuthProfileGood,
   markAuthProfileUsed,
-} from "../auth-profiles.js";
+} from "../auth-profiles.ts";
 import {
   CONTEXT_WINDOW_HARD_MIN_TOKENS,
   CONTEXT_WINDOW_WARN_BELOW_TOKENS,
   evaluateContextWindowGuard,
   resolveContextWindowInfo,
-} from "../context-window-guard.js";
-import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../defaults.js";
-import { FailoverError, resolveFailoverStatus } from "../failover-error.js";
+} from "../context-window-guard.ts";
+import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../defaults.ts";
+import { FailoverError, resolveFailoverStatus } from "../failover-error.ts";
 import {
   ensureAuthProfileStore,
   getApiKeyForModel,
   resolveAuthProfileOrder,
   type ResolvedProviderAuth,
-} from "../model-auth.js";
-import { normalizeProviderId } from "../model-selection.js";
-import { ensureOpenClawModelsJson } from "../models-config.js";
+} from "../model-auth.ts";
+import { normalizeProviderId } from "../model-selection.ts";
+import { ensureCmlHiveAssistModelsJson } from "../models-config.ts";
 import {
   classifyFailoverReason,
   formatAssistantErrorText,
@@ -42,15 +42,15 @@ import {
   isTimeoutErrorMessage,
   pickFallbackThinkingLevel,
   type FailoverReason,
-} from "../pi-embedded-helpers.js";
-import { normalizeUsage, type UsageLike } from "../usage.js";
-import { compactEmbeddedPiSessionDirect } from "./compact.js";
-import { resolveGlobalLane, resolveSessionLane } from "./lanes.js";
-import { log } from "./logger.js";
-import { resolveModel } from "./model.js";
-import { runEmbeddedAttempt } from "./run/attempt.js";
-import { buildEmbeddedRunPayloads } from "./run/payloads.js";
-import { describeUnknownError } from "./utils.js";
+} from "../pi-embedded-helpers.ts";
+import { normalizeUsage, type UsageLike } from "../usage.ts";
+import { compactEmbeddedPiSessionDirect } from "./compact.ts";
+import { resolveGlobalLane, resolveSessionLane } from "./lanes.ts";
+import { log } from "./logger.ts";
+import { resolveModel } from "./model.ts";
+import { runEmbeddedAttempt } from "./run/attempt.ts";
+import { buildEmbeddedRunPayloads } from "./run/payloads.ts";
+import { describeUnknownError } from "./utils.ts";
 
 type ApiKeyInfo = ResolvedProviderAuth;
 
@@ -95,10 +95,10 @@ export async function runEmbeddedPiAgent(
 
       const provider = (params.provider ?? DEFAULT_PROVIDER).trim() || DEFAULT_PROVIDER;
       const modelId = (params.model ?? DEFAULT_MODEL).trim() || DEFAULT_MODEL;
-      const agentDir = params.agentDir ?? resolveOpenClawAgentDir();
+      const agentDir = params.agentDir ?? resolveCmlHiveAssistAgentDir();
       const fallbackConfigured =
         (params.config?.agents?.defaults?.model?.fallbacks?.length ?? 0) > 0;
-      await ensureOpenClawModelsJson(params.config, agentDir);
+      await ensureCmlHiveAssistModelsJson(params.config, agentDir);
 
       const { model, error, authStorage, modelRegistry } = resolveModel(
         provider,
@@ -235,7 +235,7 @@ export async function runEmbeddedPiAgent(
         }
         if (model.provider === "github-copilot") {
           const { resolveCopilotApiToken } =
-            await import("../../providers/github-copilot-token.js");
+            await import("../../providers/github-copilot-token.ts");
           const copilotToken = await resolveCopilotApiToken({
             githubToken: apiKeyInfo.apiKey,
           });

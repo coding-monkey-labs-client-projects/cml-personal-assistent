@@ -1,8 +1,8 @@
-import type { ProgressReporter } from "../../cli/progress.js";
-import { renderTable } from "../../terminal/table.js";
-import { isRich, theme } from "../../terminal/theme.js";
-import { appendStatusAllDiagnosis } from "./diagnosis.js";
-import { formatAge } from "./format.js";
+import type { ProgressReporter } from "../../cli/progress.ts";
+import { renderTable } from "../../terminal/table.ts";
+import { isRich, theme } from "../../terminal/theme.ts";
+import { appendStatusAllDiagnosis } from "./diagnosis.ts";
+import { formatAge } from "./format.ts";
 
 type OverviewRow = { Item: string; Value: string };
 
@@ -145,7 +145,7 @@ export async function buildStatusAllReportLines(params: {
   });
 
   const lines: string[] = [];
-  lines.push(heading("OpenClaw status --all"));
+  lines.push(heading("CmlHiveAssist status --all"));
   lines.push("");
   lines.push(heading("Overview"));
   lines.push(overview.trimEnd());

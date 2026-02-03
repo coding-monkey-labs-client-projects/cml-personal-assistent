@@ -3,28 +3,28 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { inspect } from "node:util";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { NodeManagerChoice, OnboardMode, ResetScope } from "./onboard-types.js";
-import { DEFAULT_AGENT_WORKSPACE_DIR, ensureAgentWorkspace } from "../agents/workspace.js";
-import { CONFIG_PATH } from "../config/config.js";
-import { resolveSessionTranscriptsDirForAgent } from "../config/sessions.js";
-import { callGateway } from "../gateway/call.js";
-import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.js";
-import { isSafeExecutableValue } from "../infra/exec-safety.js";
-import { pickPrimaryTailnetIPv4 } from "../infra/tailnet.js";
-import { isWSL } from "../infra/wsl.js";
-import { runCommandWithTimeout } from "../process/exec.js";
-import { stylePromptTitle } from "../terminal/prompt-style.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { NodeManagerChoice, OnboardMode, ResetScope } from "./onboard-types.ts";
+import { DEFAULT_AGENT_WORKSPACE_DIR, ensureAgentWorkspace } from "../agents/workspace.ts";
+import { CONFIG_PATH } from "../config/config.ts";
+import { resolveSessionTranscriptsDirForAgent } from "../config/sessions.ts";
+import { callGateway } from "../gateway/call.ts";
+import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.ts";
+import { isSafeExecutableValue } from "../infra/exec-safety.ts";
+import { pickPrimaryTailnetIPv4 } from "../infra/tailnet.ts";
+import { isWSL } from "../infra/wsl.ts";
+import { runCommandWithTimeout } from "../process/exec.ts";
+import { stylePromptTitle } from "../terminal/prompt-style.ts";
 import {
   CONFIG_DIR,
   resolveUserPath,
   shortenHomeInString,
   shortenHomePath,
   sleep,
-} from "../utils.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
-import { VERSION } from "../version.js";
+} from "../utils.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.ts";
+import { VERSION } from "../version.ts";
 
 export function guardCancel<T>(value: T | symbol, runtime: RuntimeEnv): T {
   if (isCancel(value)) {
@@ -34,7 +34,7 @@ export function guardCancel<T>(value: T | symbol, runtime: RuntimeEnv): T {
   return value;
 }
 
-export function summarizeExistingConfig(config: OpenClawConfig): string {
+export function summarizeExistingConfig(config: CmlHiveAssistConfig): string {
   const rows: string[] = [];
   const defaults = config.agents?.defaults;
   if (defaults?.workspace) {
@@ -89,9 +89,9 @@ export function printWizardHeader(runtime: RuntimeEnv) {
 }
 
 export function applyWizardMetadata(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   params: { command: string; mode: OnboardMode },
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const commit = process.env.GIT_COMMIT?.trim() || process.env.GIT_SHA?.trim() || undefined;
   return {
     ...cfg,
@@ -197,8 +197,8 @@ export function formatControlUiSshHint(params: {
     localUrl,
     authedUrl,
     "Docs:",
-    "https://docs.openclaw.ai/gateway/remote",
-    "https://docs.openclaw.ai/web/control-ui",
+    "https://docs.cml-hive-assist.ai/gateway/remote",
+    "https://docs.cml-hive-assist.ai/web/control-ui",
   ]
     .filter(Boolean)
     .join("\n");

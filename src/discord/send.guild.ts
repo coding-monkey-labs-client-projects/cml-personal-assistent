@@ -12,8 +12,8 @@ import type {
   DiscordReactOpts,
   DiscordRoleChange,
   DiscordTimeoutTarget,
-} from "./send.types.js";
-import { resolveDiscordRest } from "./send.shared.js";
+} from "./send.types.ts";
+import { resolveDiscordRest } from "./send.shared.ts";
 
 export async function fetchMemberInfoDiscord(
   guildId: string,

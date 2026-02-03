@@ -1,11 +1,11 @@
-import type { BrowserFormField } from "./client-actions-core.js";
+import type { BrowserFormField } from "./client-actions-core.ts";
 import {
   ensurePageState,
   getPageForTargetId,
   refLocator,
   restoreRoleRefsForTarget,
-} from "./pw-session.js";
-import { normalizeTimeoutMs, requireRef, toAIFriendlyError } from "./pw-tools-core.shared.js";
+} from "./pw-session.ts";
+import { normalizeTimeoutMs, requireRef, toAIFriendlyError } from "./pw-tools-core.shared.ts";
 
 export async function highlightViaPlaywright(opts: {
   cdpUrl: string;

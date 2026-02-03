@@ -5,9 +5,9 @@
  * and can be called from anywhere in the codebase.
  */
 
-import type { PluginRegistry } from "./registry.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { createHookRunner, type HookRunner } from "./hooks.js";
+import type { PluginRegistry } from "./registry.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { createHookRunner, type HookRunner } from "./hooks.ts";
 
 const log = createSubsystemLogger("plugins");
 

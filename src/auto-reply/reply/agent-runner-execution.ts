@@ -1,42 +1,42 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
-import type { TemplateContext } from "../templating.js";
-import type { VerboseLevel } from "../thinking.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
-import type { FollowupRun } from "./queue.js";
-import type { TypingSignaler } from "./typing-mode.js";
-import { resolveAgentModelFallbacksOverride } from "../../agents/agent-scope.js";
-import { runCliAgent } from "../../agents/cli-runner.js";
-import { getCliSessionId } from "../../agents/cli-session.js";
-import { runWithModelFallback } from "../../agents/model-fallback.js";
-import { isCliProvider } from "../../agents/model-selection.js";
+import type { TemplateContext } from "../templating.ts";
+import type { VerboseLevel } from "../thinking.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
+import type { FollowupRun } from "./queue.ts";
+import type { TypingSignaler } from "./typing-mode.ts";
+import { resolveAgentModelFallbacksOverride } from "../../agents/agent-scope.ts";
+import { runCliAgent } from "../../agents/cli-runner.ts";
+import { getCliSessionId } from "../../agents/cli-session.ts";
+import { runWithModelFallback } from "../../agents/model-fallback.ts";
+import { isCliProvider } from "../../agents/model-selection.ts";
 import {
   isCompactionFailureError,
   isContextOverflowError,
   isLikelyContextOverflowError,
   sanitizeUserFacingText,
-} from "../../agents/pi-embedded-helpers.js";
-import { runEmbeddedPiAgent } from "../../agents/pi-embedded.js";
+} from "../../agents/pi-embedded-helpers.ts";
+import { runEmbeddedPiAgent } from "../../agents/pi-embedded.ts";
 import {
   resolveAgentIdFromSessionKey,
   resolveGroupSessionKey,
   resolveSessionTranscriptPath,
   type SessionEntry,
   updateSessionStore,
-} from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
-import { emitAgentEvent, registerAgentRunContext } from "../../infra/agent-events.js";
-import { defaultRuntime } from "../../runtime.js";
+} from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
+import { emitAgentEvent, registerAgentRunContext } from "../../infra/agent-events.ts";
+import { defaultRuntime } from "../../runtime.ts";
 import {
   isMarkdownCapableMessageChannel,
   resolveMessageChannel,
-} from "../../utils/message-channel.js";
-import { stripHeartbeatToken } from "../heartbeat.js";
-import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.js";
-import { buildThreadingToolContext, resolveEnforceFinalTag } from "./agent-runner-utils.js";
-import { createBlockReplyPayloadKey, type BlockReplyPipeline } from "./block-reply-pipeline.js";
-import { parseReplyDirectives } from "./reply-directives.js";
-import { applyReplyTagsToPayload, isRenderablePayload } from "./reply-payloads.js";
+} from "../../utils/message-channel.ts";
+import { stripHeartbeatToken } from "../heartbeat.ts";
+import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.ts";
+import { buildThreadingToolContext, resolveEnforceFinalTag } from "./agent-runner-utils.ts";
+import { createBlockReplyPayloadKey, type BlockReplyPipeline } from "./block-reply-pipeline.ts";
+import { parseReplyDirectives } from "./reply-directives.ts";
+import { applyReplyTagsToPayload, isRenderablePayload } from "./reply-payloads.ts";
 
 export type AgentRunLoopResult =
   | {

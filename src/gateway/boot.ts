@@ -1,12 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { CliDeps } from "../cli/deps.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { SILENT_REPLY_TOKEN } from "../auto-reply/tokens.js";
-import { agentCommand } from "../commands/agent.js";
-import { resolveMainSessionKey } from "../config/sessions/main-session.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { type RuntimeEnv, defaultRuntime } from "../runtime.js";
+import type { CliDeps } from "../cli/deps.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { SILENT_REPLY_TOKEN } from "../auto-reply/tokens.ts";
+import { agentCommand } from "../commands/agent.ts";
+import { resolveMainSessionKey } from "../config/sessions/main-session.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { type RuntimeEnv, defaultRuntime } from "../runtime.ts";
 
 const log = createSubsystemLogger("gateway/boot");
 const BOOT_FILENAME = "BOOT.md";
@@ -51,7 +51,7 @@ async function loadBootFile(
 }
 
 export async function runBootOnce(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   deps: CliDeps;
   workspaceDir: string;
 }): Promise<BootRunResult> {

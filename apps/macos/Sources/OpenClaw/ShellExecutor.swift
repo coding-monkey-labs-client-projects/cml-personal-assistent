@@ -1,4 +1,4 @@
-import OpenClawIPC
+import CmlHiveAssistIPC
 import Foundation
 
 enum ShellExecutor {

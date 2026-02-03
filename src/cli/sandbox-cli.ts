@@ -1,10 +1,10 @@
 import type { Command } from "commander";
-import { sandboxExplainCommand } from "../commands/sandbox-explain.js";
-import { sandboxListCommand, sandboxRecreateCommand } from "../commands/sandbox.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { formatHelpExamples } from "./help-format.js";
+import { sandboxExplainCommand } from "../commands/sandbox-explain.ts";
+import { sandboxListCommand, sandboxRecreateCommand } from "../commands/sandbox.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { formatHelpExamples } from "./help-format.ts";
 
 // --- Types ---
 
@@ -67,7 +67,7 @@ export function registerSandboxCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.openclaw.ai/cli/sandbox")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.cml-hive-assist.ai/cli/sandbox")}\n`,
     )
     .action(() => {
       sandbox.help({ error: true });

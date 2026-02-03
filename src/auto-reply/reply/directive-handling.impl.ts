@@ -1,25 +1,25 @@
-import type { ModelAliasIndex } from "../../agents/model-selection.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ExecAsk, ExecHost, ExecSecurity } from "../../infra/exec-approvals.js";
-import type { ReplyPayload } from "../types.js";
-import type { InlineDirectives } from "./directive-handling.parse.js";
-import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./directives.js";
+import type { ModelAliasIndex } from "../../agents/model-selection.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ExecAsk, ExecHost, ExecSecurity } from "../../infra/exec-approvals.ts";
+import type { ReplyPayload } from "../types.ts";
+import type { InlineDirectives } from "./directive-handling.parse.ts";
+import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./directives.ts";
 import {
   resolveAgentConfig,
   resolveAgentDir,
   resolveSessionAgentId,
-} from "../../agents/agent-scope.js";
-import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.js";
-import { type SessionEntry, updateSessionStore } from "../../config/sessions.js";
-import { enqueueSystemEvent } from "../../infra/system-events.js";
-import { applyVerboseOverride } from "../../sessions/level-overrides.js";
-import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.js";
-import { formatThinkingLevels, formatXHighModelHint, supportsXHighThinking } from "../thinking.js";
+} from "../../agents/agent-scope.ts";
+import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.ts";
+import { type SessionEntry, updateSessionStore } from "../../config/sessions.ts";
+import { enqueueSystemEvent } from "../../infra/system-events.ts";
+import { applyVerboseOverride } from "../../sessions/level-overrides.ts";
+import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.ts";
+import { formatThinkingLevels, formatXHighModelHint, supportsXHighThinking } from "../thinking.ts";
 import {
   maybeHandleModelDirectiveInfo,
   resolveModelSelectionFromDirective,
-} from "./directive-handling.model.js";
-import { maybeHandleQueueDirective } from "./directive-handling.queue-validation.js";
+} from "./directive-handling.model.ts";
+import { maybeHandleQueueDirective } from "./directive-handling.queue-validation.ts";
 import {
   formatDirectiveAck,
   formatElevatedEvent,
@@ -27,10 +27,10 @@ import {
   formatElevatedUnavailableText,
   formatReasoningEvent,
   withOptions,
-} from "./directive-handling.shared.js";
+} from "./directive-handling.shared.ts";
 
 function resolveExecDefaults(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   sessionEntry?: SessionEntry;
   agentId?: string;
 }): { host: ExecHost; security: ExecSecurity; ask: ExecAsk; node?: string } {
@@ -59,7 +59,7 @@ function resolveExecDefaults(params: {
 }
 
 export async function handleDirectiveOnly(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   directives: InlineDirectives;
   sessionEntry: SessionEntry;
   sessionStore: Record<string, SessionEntry>;
@@ -74,7 +74,7 @@ export async function handleDirectiveOnly(params: {
   aliasIndex: ModelAliasIndex;
   allowedModelKeys: Set<string>;
   allowedModelCatalog: Awaited<
-    ReturnType<typeof import("../../agents/model-catalog.js").loadModelCatalog>
+    ReturnType<typeof import("../../agents/model-catalog.ts").loadModelCatalog>
   >;
   resetModelOverride: boolean;
   provider: string;

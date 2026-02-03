@@ -1,4 +1,4 @@
-import type { FollowupRun, QueueDropPolicy, QueueMode, QueueSettings } from "./types.js";
+import type { FollowupRun, QueueDropPolicy, QueueMode, QueueSettings } from "./types.ts";
 
 export type FollowupQueueState = {
   items: FollowupRun[];

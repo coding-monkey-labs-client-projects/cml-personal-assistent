@@ -1,24 +1,24 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { FinalizedMsgContext, MsgContext } from "../templating.js";
-import { resolveSessionAgentId } from "../../agents/agent-scope.js";
-import { abortEmbeddedPiRun } from "../../agents/pi-embedded.js";
-import { listSubagentRunsForRequester } from "../../agents/subagent-registry.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { FinalizedMsgContext, MsgContext } from "../templating.ts";
+import { resolveSessionAgentId } from "../../agents/agent-scope.ts";
+import { abortEmbeddedPiRun } from "../../agents/pi-embedded.ts";
+import { listSubagentRunsForRequester } from "../../agents/subagent-registry.ts";
 import {
   resolveInternalSessionKey,
   resolveMainSessionAlias,
-} from "../../agents/tools/sessions-helpers.js";
+} from "../../agents/tools/sessions-helpers.ts";
 import {
   loadSessionStore,
   resolveStorePath,
   type SessionEntry,
   updateSessionStore,
-} from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
-import { parseAgentSessionKey } from "../../routing/session-key.js";
-import { resolveCommandAuthorization } from "../command-auth.js";
-import { normalizeCommandBody } from "../commands-registry.js";
-import { stripMentions, stripStructuralPrefixes } from "./mentions.js";
-import { clearSessionQueues } from "./queue.js";
+} from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
+import { parseAgentSessionKey } from "../../routing/session-key.ts";
+import { resolveCommandAuthorization } from "../command-auth.ts";
+import { normalizeCommandBody } from "../commands-registry.ts";
+import { stripMentions, stripStructuralPrefixes } from "./mentions.ts";
+import { clearSessionQueues } from "./queue.ts";
 
 const ABORT_TRIGGERS = new Set(["stop", "esc", "abort", "wait", "exit", "interrupt"]);
 const ABORT_MEMORY = new Map<string, boolean>();
@@ -71,7 +71,7 @@ function resolveAbortTargetKey(ctx: MsgContext): string | undefined {
 }
 
 function normalizeRequesterSessionKey(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   key: string | undefined,
 ): string | undefined {
   const cleaned = key?.trim();
@@ -83,7 +83,7 @@ function normalizeRequesterSessionKey(
 }
 
 export function stopSubagentsForRequester(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   requesterSessionKey?: string;
 }): { stopped: number } {
   const requesterKey = normalizeRequesterSessionKey(params.cfg, params.requesterSessionKey);
@@ -134,7 +134,7 @@ export function stopSubagentsForRequester(params: {
 
 export async function tryFastAbortFromMessage(params: {
   ctx: FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
 }): Promise<{ handled: boolean; aborted: boolean; stoppedSubagents?: number }> {
   const { ctx, cfg } = params;
   const targetKey = resolveAbortTargetKey(ctx);

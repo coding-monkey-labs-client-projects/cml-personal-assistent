@@ -1,13 +1,13 @@
 import type { Command } from "commander";
 import { setTimeout as delay } from "node:timers/promises";
-import { buildGatewayConnectionDetails } from "../gateway/call.js";
-import { parseLogLine } from "../logging/parse-log-line.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { clearActiveProgressLine } from "../terminal/progress-line.js";
-import { createSafeStreamWriter } from "../terminal/stream-writer.js";
-import { colorize, isRich, theme } from "../terminal/theme.js";
-import { formatCliCommand } from "./command-format.js";
-import { addGatewayClientOptions, callGatewayFromCli } from "./gateway-rpc.js";
+import { buildGatewayConnectionDetails } from "../gateway/call.ts";
+import { parseLogLine } from "../logging/parse-log-line.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { clearActiveProgressLine } from "../terminal/progress-line.ts";
+import { createSafeStreamWriter } from "../terminal/stream-writer.ts";
+import { colorize, isRich, theme } from "../terminal/theme.ts";
+import { formatCliCommand } from "./command-format.ts";
+import { addGatewayClientOptions, callGatewayFromCli } from "./gateway-rpc.ts";
 
 type LogsTailPayload = {
   file?: string;
@@ -195,7 +195,7 @@ export function registerLogsCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/logs", "docs.openclaw.ai/cli/logs")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/logs", "docs.cml-hive-assist.ai/cli/logs")}\n`,
     );
 
   addGatewayClientOptions(logs);

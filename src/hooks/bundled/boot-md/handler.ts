@@ -1,11 +1,11 @@
-import type { CliDeps } from "../../../cli/deps.js";
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { HookHandler } from "../../hooks.js";
-import { createDefaultDeps } from "../../../cli/deps.js";
-import { runBootOnce } from "../../../gateway/boot.js";
+import type { CliDeps } from "../../../cli/deps.ts";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { HookHandler } from "../../hooks.ts";
+import { createDefaultDeps } from "../../../cli/deps.ts";
+import { runBootOnce } from "../../../gateway/boot.ts";
 
 type BootHookContext = {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   workspaceDir?: string;
   deps?: CliDeps;
 };

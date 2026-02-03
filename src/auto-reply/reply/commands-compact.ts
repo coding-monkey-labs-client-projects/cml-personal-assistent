@@ -1,22 +1,22 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { CommandHandler } from "./commands-types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { CommandHandler } from "./commands-types.ts";
 import {
   abortEmbeddedPiRun,
   compactEmbeddedPiSession,
   isEmbeddedPiRunActive,
   waitForEmbeddedPiRunEnd,
-} from "../../agents/pi-embedded.js";
-import { resolveSessionFilePath } from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
-import { enqueueSystemEvent } from "../../infra/system-events.js";
-import { formatContextUsageShort, formatTokenCount } from "../status.js";
-import { stripMentions, stripStructuralPrefixes } from "./mentions.js";
-import { incrementCompactionCount } from "./session-updates.js";
+} from "../../agents/pi-embedded.ts";
+import { resolveSessionFilePath } from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
+import { enqueueSystemEvent } from "../../infra/system-events.ts";
+import { formatContextUsageShort, formatTokenCount } from "../status.ts";
+import { stripMentions, stripStructuralPrefixes } from "./mentions.ts";
+import { incrementCompactionCount } from "./session-updates.ts";
 
 function extractCompactInstructions(params: {
   rawBody?: string;
-  ctx: import("../templating.js").MsgContext;
-  cfg: OpenClawConfig;
+  ctx: import("../templating.ts").MsgContext;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
   isGroup: boolean;
 }): string | undefined {

@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import net from "node:net";
-import { ensurePortAvailable } from "./ports.js";
+import { ensurePortAvailable } from "./ports.ts";
 
 export type SshParsedTarget = {
   user?: string;

@@ -1,14 +1,14 @@
 import { Button, type ButtonInteraction, type ComponentData } from "@buape/carbon";
 import { ButtonStyle, Routes } from "discord-api-types/v10";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { DiscordExecApprovalConfig } from "../../config/types.discord.js";
-import type { EventFrame } from "../../gateway/protocol/index.js";
-import type { ExecApprovalDecision } from "../../infra/exec-approvals.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import { GatewayClient } from "../../gateway/client.js";
-import { logDebug, logError } from "../../logger.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../utils/message-channel.js";
-import { createDiscordClient } from "../send.shared.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { DiscordExecApprovalConfig } from "../../config/types.discord.ts";
+import type { EventFrame } from "../../gateway/protocol/index.ts";
+import type { ExecApprovalDecision } from "../../infra/exec-approvals.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import { GatewayClient } from "../../gateway/client.ts";
+import { logDebug, logError } from "../../logger.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../utils/message-channel.ts";
+import { createDiscordClient } from "../send.shared.ts";
 
 const EXEC_APPROVAL_KEY = "execapproval";
 
@@ -191,7 +191,7 @@ export type DiscordExecApprovalHandlerOpts = {
   accountId: string;
   config: DiscordExecApprovalConfig;
   gatewayUrl?: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   runtime?: RuntimeEnv;
   onResolve?: (id: string, decision: ExecApprovalDecision) => Promise<void>;
 };

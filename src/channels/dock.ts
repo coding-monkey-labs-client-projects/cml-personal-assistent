@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   ChannelCapabilities,
   ChannelCommandAdapter,
@@ -9,18 +9,18 @@ import type {
   ChannelMentionAdapter,
   ChannelPlugin,
   ChannelThreadingAdapter,
-} from "./plugins/types.js";
-import { resolveDiscordAccount } from "../discord/accounts.js";
-import { resolveIMessageAccount } from "../imessage/accounts.js";
-import { requireActivePluginRegistry } from "../plugins/runtime.js";
-import { normalizeAccountId } from "../routing/session-key.js";
-import { resolveSignalAccount } from "../signal/accounts.js";
-import { resolveSlackAccount, resolveSlackReplyToMode } from "../slack/accounts.js";
-import { buildSlackThreadingToolContext } from "../slack/threading-tool-context.js";
-import { resolveTelegramAccount } from "../telegram/accounts.js";
-import { normalizeE164 } from "../utils.js";
-import { resolveWhatsAppAccount } from "../web/accounts.js";
-import { normalizeWhatsAppTarget } from "../whatsapp/normalize.js";
+} from "./plugins/types.ts";
+import { resolveDiscordAccount } from "../discord/accounts.ts";
+import { resolveIMessageAccount } from "../imessage/accounts.ts";
+import { requireActivePluginRegistry } from "../plugins/runtime.ts";
+import { normalizeAccountId } from "../routing/session-key.ts";
+import { resolveSignalAccount } from "../signal/accounts.ts";
+import { resolveSlackAccount, resolveSlackReplyToMode } from "../slack/accounts.ts";
+import { buildSlackThreadingToolContext } from "../slack/threading-tool-context.ts";
+import { resolveTelegramAccount } from "../telegram/accounts.ts";
+import { normalizeE164 } from "../utils.ts";
+import { resolveWhatsAppAccount } from "../web/accounts.ts";
+import { normalizeWhatsAppTarget } from "../whatsapp/normalize.ts";
 import {
   resolveDiscordGroupRequireMention,
   resolveDiscordGroupToolPolicy,
@@ -34,8 +34,8 @@ import {
   resolveTelegramGroupToolPolicy,
   resolveWhatsAppGroupRequireMention,
   resolveWhatsAppGroupToolPolicy,
-} from "./plugins/group-mentions.js";
-import { CHAT_CHANNEL_ORDER, type ChatChannelId, getChatChannelMeta } from "./registry.js";
+} from "./plugins/group-mentions.ts";
+import { CHAT_CHANNEL_ORDER, type ChatChannelId, getChatChannelMeta } from "./registry.ts";
 
 export type ChannelDock = {
   id: ChannelId;
@@ -48,11 +48,11 @@ export type ChannelDock = {
   elevated?: ChannelElevatedAdapter;
   config?: {
     resolveAllowFrom?: (params: {
-      cfg: OpenClawConfig;
+      cfg: CmlHiveAssistConfig;
       accountId?: string | null;
     }) => Array<string | number> | undefined;
     formatAllowFrom?: (params: {
-      cfg: OpenClawConfig;
+      cfg: CmlHiveAssistConfig;
       accountId?: string | null;
       allowFrom: Array<string | number>;
     }) => string[];

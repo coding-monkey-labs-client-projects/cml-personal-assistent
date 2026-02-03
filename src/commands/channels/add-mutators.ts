@@ -1,16 +1,16 @@
-import type { ChannelId, ChannelSetupInput } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import { getChannelPlugin } from "../../channels/plugins/index.js";
-import { normalizeAccountId } from "../../routing/session-key.js";
+import type { ChannelId, ChannelSetupInput } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { getChannelPlugin } from "../../channels/plugins/index.ts";
+import { normalizeAccountId } from "../../routing/session-key.ts";
 
 type ChatChannel = ChannelId;
 
 export function applyAccountName(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChatChannel;
   accountId: string;
   name?: string;
-}): OpenClawConfig {
+}): CmlHiveAssistConfig {
   const accountId = normalizeAccountId(params.accountId);
   const plugin = getChannelPlugin(params.channel);
   const apply = plugin?.setup?.applyAccountName;
@@ -18,7 +18,7 @@ export function applyAccountName(params: {
 }
 
 export function applyChannelAccountConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChatChannel;
   accountId: string;
   name?: string;
@@ -52,7 +52,7 @@ export function applyChannelAccountConfig(params: {
   groupChannels?: string[];
   dmAllowlist?: string[];
   autoDiscoverChannels?: boolean;
-}): OpenClawConfig {
+}): CmlHiveAssistConfig {
   const accountId = normalizeAccountId(params.accountId);
   const plugin = getChannelPlugin(params.channel);
   const apply = plugin?.setup?.applyAccountConfig;

@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { WorkspaceBootstrapFile } from "../agents/workspace.js";
-import { resolveUserTimezone } from "../agents/date-time.js";
-import { parseDurationMs } from "../cli/parse-duration.js";
-import { resolveUserPath } from "../utils.js";
+import type { WorkspaceBootstrapFile } from "../agents/workspace.ts";
+import { resolveUserTimezone } from "../agents/date-time.ts";
+import { parseDurationMs } from "../cli/parse-duration.ts";
+import { resolveUserPath } from "../utils.ts";
 
 export const DEFAULT_SOUL_EVIL_FILENAME = "SOUL_EVIL.md";
 

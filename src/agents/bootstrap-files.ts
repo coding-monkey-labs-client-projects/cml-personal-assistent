@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { EmbeddedContextFile } from "./pi-embedded-helpers.js";
-import { applyBootstrapHookOverrides } from "./bootstrap-hooks.js";
-import { buildBootstrapContextFiles, resolveBootstrapMaxChars } from "./pi-embedded-helpers.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { EmbeddedContextFile } from "./pi-embedded-helpers.ts";
+import { applyBootstrapHookOverrides } from "./bootstrap-hooks.ts";
+import { buildBootstrapContextFiles, resolveBootstrapMaxChars } from "./pi-embedded-helpers.ts";
 import {
   filterBootstrapFilesForSession,
   loadWorkspaceBootstrapFiles,
   type WorkspaceBootstrapFile,
-} from "./workspace.js";
+} from "./workspace.ts";
 
 export function makeBootstrapWarn(params: {
   sessionLabel: string;
@@ -20,7 +20,7 @@ export function makeBootstrapWarn(params: {
 
 export async function resolveBootstrapFilesForRun(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   sessionKey?: string;
   sessionId?: string;
   agentId?: string;
@@ -42,7 +42,7 @@ export async function resolveBootstrapFilesForRun(params: {
 
 export async function resolveBootstrapContextForRun(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   sessionKey?: string;
   sessionId?: string;
   agentId?: string;

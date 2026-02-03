@@ -1,19 +1,19 @@
-import OpenClawProtocol
+import CmlHiveAssistProtocol
 import Foundation
 
-enum OpenClawConfigFile {
-    private static let logger = Logger(subsystem: "ai.openclaw", category: "config")
+enum CmlHiveAssistConfigFile {
+    private static let logger = Logger(subsystem: "ai.cml-hive-assist", category: "config")
 
     static func url() -> URL {
-        OpenClawPaths.configURL
+        CmlHiveAssistPaths.configURL
     }
 
     static func stateDirURL() -> URL {
-        OpenClawPaths.stateDirURL
+        CmlHiveAssistPaths.stateDirURL
     }
 
     static func defaultWorkspaceURL() -> URL {
-        OpenClawPaths.workspaceURL
+        CmlHiveAssistPaths.workspaceURL
     }
 
     static func loadDict() -> [String: Any] {

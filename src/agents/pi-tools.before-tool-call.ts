@@ -1,7 +1,7 @@
-import type { AnyAgentTool } from "./tools/common.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { getGlobalHookRunner } from "../plugins/hook-runner-global.js";
-import { normalizeToolName } from "./tool-policy.js";
+import type { AnyAgentTool } from "./tools/common.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { getGlobalHookRunner } from "../plugins/hook-runner-global.ts";
+import { normalizeToolName } from "./tool-policy.ts";
 
 type HookContext = {
   agentId?: string;

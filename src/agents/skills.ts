@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { SkillsInstallPreferences } from "./skills/types.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { SkillsInstallPreferences } from "./skills/types.ts";
 
 export {
   hasBinary,
@@ -9,20 +9,20 @@ export {
   resolveConfigPath,
   resolveRuntimePlatform,
   resolveSkillConfig,
-} from "./skills/config.js";
+} from "./skills/config.ts";
 export {
   applySkillEnvOverrides,
   applySkillEnvOverridesFromSnapshot,
-} from "./skills/env-overrides.js";
+} from "./skills/env-overrides.ts";
 export type {
-  OpenClawSkillMetadata,
+  CmlHiveAssistSkillMetadata,
   SkillEligibilityContext,
   SkillCommandSpec,
   SkillEntry,
   SkillInstallSpec,
   SkillSnapshot,
   SkillsInstallPreferences,
-} from "./skills/types.js";
+} from "./skills/types.ts";
 export {
   buildWorkspaceSkillSnapshot,
   buildWorkspaceSkillsPrompt,
@@ -31,9 +31,9 @@ export {
   loadWorkspaceSkillEntries,
   resolveSkillsPromptForRun,
   syncSkillsToWorkspace,
-} from "./skills/workspace.js";
+} from "./skills/workspace.ts";
 
-export function resolveSkillsInstallPreferences(config?: OpenClawConfig): SkillsInstallPreferences {
+export function resolveSkillsInstallPreferences(config?: CmlHiveAssistConfig): SkillsInstallPreferences {
   const raw = config?.skills?.install;
   const preferBrew = raw?.preferBrew ?? true;
   const managerRaw = typeof raw?.nodeManager === "string" ? raw.nodeManager.trim() : "";

@@ -1,12 +1,12 @@
 import type { Command } from "commander";
 import JSON5 from "json5";
-import { readConfigFileSnapshot, writeConfigFile } from "../config/config.js";
-import { danger, info } from "../globals.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { shortenHomePath } from "../utils.js";
-import { formatCliCommand } from "./command-format.js";
+import { readConfigFileSnapshot, writeConfigFile } from "../config/config.ts";
+import { danger, info } from "../globals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { shortenHomePath } from "../utils.ts";
+import { formatCliCommand } from "./command-format.ts";
 
 type PathSegment = string;
 
@@ -222,7 +222,7 @@ export function registerConfigCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/config", "docs.openclaw.ai/cli/config")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/config", "docs.cml-hive-assist.ai/cli/config")}\n`,
     )
     .option(
       "--section <section>",
@@ -232,7 +232,7 @@ export function registerConfigCli(program: Command) {
     )
     .action(async (opts) => {
       const { CONFIGURE_WIZARD_SECTIONS, configureCommand, configureCommandWithSections } =
-        await import("../commands/configure.js");
+        await import("../commands/configure.ts");
       const sections: string[] = Array.isArray(opts.section)
         ? opts.section
             .map((value: unknown) => (typeof value === "string" ? value.trim() : ""))

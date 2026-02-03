@@ -14,23 +14,23 @@ function makeTempDir() {
 }
 
 async function withStateDir<T>(stateDir: string, fn: () => Promise<T>) {
-  const prev = process.env.OPENCLAW_STATE_DIR;
-  const prevBundled = process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
-  process.env.OPENCLAW_STATE_DIR = stateDir;
-  process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
+  const prev = process.env.CML_HIVE_ASSIST_STATE_DIR;
+  const prevBundled = process.env.CML_HIVE_ASSIST_BUNDLED_PLUGINS_DIR;
+  process.env.CML_HIVE_ASSIST_STATE_DIR = stateDir;
+  process.env.CML_HIVE_ASSIST_BUNDLED_PLUGINS_DIR = "/nonexistent/bundled/plugins";
   vi.resetModules();
   try {
     return await fn();
   } finally {
     if (prev === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.CML_HIVE_ASSIST_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = prev;
+      process.env.CML_HIVE_ASSIST_STATE_DIR = prev;
     }
     if (prevBundled === undefined) {
-      delete process.env.OPENCLAW_BUNDLED_PLUGINS_DIR;
+      delete process.env.CML_HIVE_ASSIST_BUNDLED_PLUGINS_DIR;
     } else {
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = prevBundled;
+      process.env.CML_HIVE_ASSIST_BUNDLED_PLUGINS_DIR = prevBundled;
     }
     vi.resetModules();
   }
@@ -46,7 +46,7 @@ afterEach(() => {
   }
 });
 
-describe("discoverOpenClawPlugins", () => {
+describe("discoverCmlHiveAssistPlugins", () => {
   it("discovers global and workspace extensions", async () => {
     const stateDir = makeTempDir();
     const workspaceDir = path.join(stateDir, "workspace");
@@ -60,8 +60,8 @@ describe("discoverOpenClawPlugins", () => {
     fs.writeFileSync(path.join(workspaceExt, "beta.ts"), "export default function () {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverOpenClawPlugins } = await import("./discovery.js");
-      return discoverOpenClawPlugins({ workspaceDir });
+      const { discoverCmlHiveAssistPlugins } = await import("./discovery.js");
+      return discoverCmlHiveAssistPlugins({ workspaceDir });
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -78,7 +78,7 @@ describe("discoverOpenClawPlugins", () => {
       path.join(globalExt, "package.json"),
       JSON.stringify({
         name: "pack",
-        openclaw: { extensions: ["./src/one.ts", "./src/two.ts"] },
+        cml-hive-assist: { extensions: ["./src/one.ts", "./src/two.ts"] },
       }),
       "utf-8",
     );
@@ -94,8 +94,8 @@ describe("discoverOpenClawPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverOpenClawPlugins } = await import("./discovery.js");
-      return discoverOpenClawPlugins({});
+      const { discoverCmlHiveAssistPlugins } = await import("./discovery.js");
+      return discoverCmlHiveAssistPlugins({});
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -112,7 +112,7 @@ describe("discoverOpenClawPlugins", () => {
       path.join(globalExt, "package.json"),
       JSON.stringify({
         name: "@openclaw/voice-call",
-        openclaw: { extensions: ["./src/index.ts"] },
+        cml-hive-assist: { extensions: ["./src/index.ts"] },
       }),
       "utf-8",
     );
@@ -123,8 +123,8 @@ describe("discoverOpenClawPlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverOpenClawPlugins } = await import("./discovery.js");
-      return discoverOpenClawPlugins({});
+      const { discoverCmlHiveAssistPlugins } = await import("./discovery.js");
+      return discoverCmlHiveAssistPlugins({});
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -140,15 +140,15 @@ describe("discoverOpenClawPlugins", () => {
       path.join(packDir, "package.json"),
       JSON.stringify({
         name: "@openclaw/demo-plugin-dir",
-        openclaw: { extensions: ["./index.js"] },
+        cml-hive-assist: { extensions: ["./index.js"] },
       }),
       "utf-8",
     );
     fs.writeFileSync(path.join(packDir, "index.js"), "module.exports = {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      const { discoverOpenClawPlugins } = await import("./discovery.js");
-      return discoverOpenClawPlugins({ extraPaths: [packDir] });
+      const { discoverCmlHiveAssistPlugins } = await import("./discovery.js");
+      return discoverCmlHiveAssistPlugins({ extraPaths: [packDir] });
     });
 
     const ids = candidates.map((c) => c.idHint);

@@ -1,13 +1,13 @@
 import type { Logger as TsLogger } from "tslog";
 import { Chalk } from "chalk";
-import { CHAT_CHANNEL_ORDER } from "../channels/registry.js";
-import { isVerbose } from "../globals.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
-import { clearActiveProgressLine } from "../terminal/progress-line.js";
-import { getConsoleSettings, shouldLogSubsystemToConsole } from "./console.js";
-import { type LogLevel, levelToMinLevel } from "./levels.js";
-import { getChildLogger } from "./logger.js";
-import { loggingState } from "./state.js";
+import { CHAT_CHANNEL_ORDER } from "../channels/registry.ts";
+import { isVerbose } from "../globals.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
+import { clearActiveProgressLine } from "../terminal/progress-line.ts";
+import { getConsoleSettings, shouldLogSubsystemToConsole } from "./console.ts";
+import { type LogLevel, levelToMinLevel } from "./levels.ts";
+import { getChildLogger } from "./logger.ts";
+import { loggingState } from "./state.ts";
 
 type LogObj = { date?: Date } & Record<string, unknown>;
 

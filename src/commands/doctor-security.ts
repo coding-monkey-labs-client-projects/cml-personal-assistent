@@ -1,14 +1,14 @@
-import type { ChannelId } from "../channels/plugins/types.js";
-import type { OpenClawConfig, GatewayBindMode } from "../config/config.js";
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { listChannelPlugins } from "../channels/plugins/index.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { resolveGatewayAuth } from "../gateway/auth.js";
-import { isLoopbackHost, resolveGatewayBindHost } from "../gateway/net.js";
-import { readChannelAllowFromStore } from "../pairing/pairing-store.js";
-import { note } from "../terminal/note.js";
+import type { ChannelId } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig, GatewayBindMode } from "../config/config.ts";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { listChannelPlugins } from "../channels/plugins/index.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { resolveGatewayAuth } from "../gateway/auth.ts";
+import { isLoopbackHost, resolveGatewayBindHost } from "../gateway/net.ts";
+import { readChannelAllowFromStore } from "../pairing/pairing-store.ts";
+import { note } from "../terminal/note.ts";
 
-export async function noteSecurityWarnings(cfg: OpenClawConfig) {
+export async function noteSecurityWarnings(cfg: CmlHiveAssistConfig) {
   const warnings: string[] = [];
   const auditHint = `- Run: ${formatCliCommand("openclaw security audit --deep")}`;
 

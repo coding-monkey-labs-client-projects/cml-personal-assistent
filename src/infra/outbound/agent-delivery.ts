@@ -1,21 +1,21 @@
-import type { ChannelOutboundTargetMode } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry } from "../../config/sessions.js";
-import type { OutboundTargetResolution } from "./targets.js";
-import { DEFAULT_CHAT_CHANNEL } from "../../channels/registry.js";
-import { normalizeAccountId } from "../../utils/account-id.js";
+import type { ChannelOutboundTargetMode } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry } from "../../config/sessions.ts";
+import type { OutboundTargetResolution } from "./targets.ts";
+import { DEFAULT_CHAT_CHANNEL } from "../../channels/registry.ts";
+import { normalizeAccountId } from "../../utils/account-id.ts";
 import {
   INTERNAL_MESSAGE_CHANNEL,
   isDeliverableMessageChannel,
   isGatewayMessageChannel,
   normalizeMessageChannel,
   type GatewayMessageChannel,
-} from "../../utils/message-channel.js";
+} from "../../utils/message-channel.ts";
 import {
   resolveOutboundTarget,
   resolveSessionDeliveryTarget,
   type SessionDeliveryTarget,
-} from "./targets.js";
+} from "./targets.ts";
 
 export type AgentDeliveryPlan = {
   baseDelivery: SessionDeliveryTarget;
@@ -102,7 +102,7 @@ export function resolveAgentDeliveryPlan(params: {
 }
 
 export function resolveAgentOutboundTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   plan: AgentDeliveryPlan;
   targetMode?: ChannelOutboundTargetMode;
   validateExplicitTarget?: boolean;

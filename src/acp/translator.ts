@@ -20,20 +20,20 @@ import type {
 } from "@agentclientprotocol/sdk";
 import { PROTOCOL_VERSION } from "@agentclientprotocol/sdk";
 import { randomUUID } from "node:crypto";
-import type { GatewayClient } from "../gateway/client.js";
-import type { EventFrame } from "../gateway/protocol/index.js";
-import type { SessionsListResult } from "../gateway/session-utils.js";
-import { getAvailableCommands } from "./commands.js";
+import type { GatewayClient } from "../gateway/client.ts";
+import type { EventFrame } from "../gateway/protocol/index.ts";
+import type { SessionsListResult } from "../gateway/session-utils.ts";
+import { getAvailableCommands } from "./commands.ts";
 import {
   extractAttachmentsFromPrompt,
   extractTextFromPrompt,
   formatToolTitle,
   inferToolKind,
-} from "./event-mapper.js";
-import { readBool, readNumber, readString } from "./meta.js";
-import { parseSessionMeta, resetSessionIfNeeded, resolveSessionKey } from "./session-mapper.js";
-import { defaultAcpSessionStore, type AcpSessionStore } from "./session.js";
-import { ACP_AGENT_INFO, type AcpServerOptions } from "./types.js";
+} from "./event-mapper.ts";
+import { readBool, readNumber, readString } from "./meta.ts";
+import { parseSessionMeta, resetSessionIfNeeded, resolveSessionKey } from "./session-mapper.ts";
+import { defaultAcpSessionStore, type AcpSessionStore } from "./session.ts";
+import { ACP_AGENT_INFO, type AcpServerOptions } from "./types.ts";
 
 type PendingPrompt = {
   sessionId: string;

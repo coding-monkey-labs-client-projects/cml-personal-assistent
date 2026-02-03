@@ -1,14 +1,14 @@
-import type { ModelCatalogEntry } from "../../agents/model-catalog.js";
-import type { createDefaultDeps } from "../../cli/deps.js";
-import type { HealthSummary } from "../../commands/health.js";
-import type { CronService } from "../../cron/service.js";
-import type { createSubsystemLogger } from "../../logging/subsystem.js";
-import type { WizardSession } from "../../wizard/session.js";
-import type { ChatAbortControllerEntry } from "../chat-abort.js";
-import type { NodeRegistry } from "../node-registry.js";
-import type { ConnectParams, ErrorShape, RequestFrame } from "../protocol/index.js";
-import type { ChannelRuntimeSnapshot } from "../server-channels.js";
-import type { DedupeEntry } from "../server-shared.js";
+import type { ModelCatalogEntry } from "../../agents/model-catalog.ts";
+import type { createDefaultDeps } from "../../cli/deps.ts";
+import type { HealthSummary } from "../../commands/health.ts";
+import type { CronService } from "../../cron/service.ts";
+import type { createSubsystemLogger } from "../../logging/subsystem.ts";
+import type { WizardSession } from "../../wizard/session.ts";
+import type { ChatAbortControllerEntry } from "../chat-abort.ts";
+import type { NodeRegistry } from "../node-registry.ts";
+import type { ConnectParams, ErrorShape, RequestFrame } from "../protocol/index.ts";
+import type { ChannelRuntimeSnapshot } from "../server-channels.ts";
+import type { DedupeEntry } from "../server-shared.ts";
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
 
@@ -66,22 +66,22 @@ export type GatewayRequestContext = {
   purgeWizardSession: (id: string) => void;
   getRuntimeSnapshot: () => ChannelRuntimeSnapshot;
   startChannel: (
-    channel: import("../../channels/plugins/types.js").ChannelId,
+    channel: import("../../channels/plugins/types.ts").ChannelId,
     accountId?: string,
   ) => Promise<void>;
   stopChannel: (
-    channel: import("../../channels/plugins/types.js").ChannelId,
+    channel: import("../../channels/plugins/types.ts").ChannelId,
     accountId?: string,
   ) => Promise<void>;
   markChannelLoggedOut: (
-    channelId: import("../../channels/plugins/types.js").ChannelId,
+    channelId: import("../../channels/plugins/types.ts").ChannelId,
     cleared: boolean,
     accountId?: string,
   ) => void;
   wizardRunner: (
-    opts: import("../../commands/onboard-types.js").OnboardOptions,
-    runtime: import("../../runtime.js").RuntimeEnv,
-    prompter: import("../../wizard/prompts.js").WizardPrompter,
+    opts: import("../../commands/onboard-types.ts").OnboardOptions,
+    runtime: import("../../runtime.ts").RuntimeEnv,
+    prompter: import("../../wizard/prompts.ts").WizardPrompter,
   ) => Promise<void>;
   broadcastVoiceWakeChanged: (triggers: string[]) => void;
 };

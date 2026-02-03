@@ -1,13 +1,13 @@
-import type { ChannelAccountSnapshot, ChannelPlugin } from "../../channels/plugins/types.js";
-import { loadAuthProfileStore } from "../../agents/auth-profiles.js";
-import { listChannelPlugins } from "../../channels/plugins/index.js";
-import { buildChannelAccountSnapshot } from "../../channels/plugins/status.js";
-import { withProgress } from "../../cli/progress.js";
-import { formatUsageReportLines, loadProviderUsageSummary } from "../../infra/provider-usage.js";
-import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { formatChannelAccountLabel, requireValidConfig } from "./shared.js";
+import type { ChannelAccountSnapshot, ChannelPlugin } from "../../channels/plugins/types.ts";
+import { loadAuthProfileStore } from "../../agents/auth-profiles.ts";
+import { listChannelPlugins } from "../../channels/plugins/index.ts";
+import { buildChannelAccountSnapshot } from "../../channels/plugins/status.ts";
+import { withProgress } from "../../cli/progress.ts";
+import { formatUsageReportLines, loadProviderUsageSummary } from "../../infra/provider-usage.ts";
+import { defaultRuntime, type RuntimeEnv } from "../../runtime.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { formatChannelAccountLabel, requireValidConfig } from "./shared.ts";
 
 export type ChannelsListOptions = {
   json?: boolean;

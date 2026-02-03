@@ -1,9 +1,9 @@
 import type { Command } from "commander";
-import type { ProgramContext } from "./context.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { isRich, theme } from "../../terminal/theme.js";
-import { formatCliBannerLine, hasEmittedCliBanner } from "../banner.js";
-import { replaceCliName, resolveCliName } from "../cli-name.js";
+import type { ProgramContext } from "./context.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { isRich, theme } from "../../terminal/theme.ts";
+import { formatCliBannerLine, hasEmittedCliBanner } from "../banner.ts";
+import { replaceCliName, resolveCliName } from "../cli-name.ts";
 
 const CLI_NAME = resolveCliName();
 
@@ -41,7 +41,7 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     )
     .option(
       "--profile <name>",
-      "Use a named profile (isolates OPENCLAW_STATE_DIR/OPENCLAW_CONFIG_PATH under ~/.openclaw-<name>)",
+      "Use a named profile (isolates CML_HIVE_ASSIST_STATE_DIR/CML_HIVE_ASSIST_CONFIG_PATH under ~/.openclaw-<name>)",
     );
 
   program.option("--no-color", "Disable ANSI colors", false);
@@ -89,7 +89,7 @@ export function configureProgramHelp(program: Command, ctx: ProgramContext) {
     if (command !== program) {
       return "";
     }
-    const docs = formatDocsLink("/cli", "docs.openclaw.ai/cli");
+    const docs = formatDocsLink("/cli", "docs.cml-hive-assist.ai/cli");
     return `\n${theme.heading("Examples:")}\n${fmtExamples}\n\n${theme.muted("Docs:")} ${docs}\n`;
   });
 }

@@ -1,15 +1,15 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { MsgContext } from "../templating.js";
-import type { ReplyPayload } from "../types.js";
-import { resolveSessionAgentId } from "../../agents/agent-scope.js";
-import { getFinishedSession, getSession, markExited } from "../../agents/bash-process-registry.js";
-import { createExecTool } from "../../agents/bash-tools.js";
-import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.js";
-import { killProcessTree } from "../../agents/shell-utils.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { logVerbose } from "../../globals.js";
-import { clampInt } from "../../utils.js";
-import { stripMentions, stripStructuralPrefixes } from "./mentions.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { MsgContext } from "../templating.ts";
+import type { ReplyPayload } from "../types.ts";
+import { resolveSessionAgentId } from "../../agents/agent-scope.ts";
+import { getFinishedSession, getSession, markExited } from "../../agents/bash-process-registry.ts";
+import { createExecTool } from "../../agents/bash-tools.ts";
+import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.ts";
+import { killProcessTree } from "../../agents/shell-utils.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { logVerbose } from "../../globals.ts";
+import { clampInt } from "../../utils.ts";
+import { stripMentions, stripStructuralPrefixes } from "./mentions.ts";
 
 const CHAT_BASH_SCOPE_KEY = "chat:bash";
 const DEFAULT_FOREGROUND_MS = 2000;
@@ -33,7 +33,7 @@ type ActiveBashJob =
 
 let activeJob: ActiveBashJob | null = null;
 
-function resolveForegroundMs(cfg: OpenClawConfig): number {
+function resolveForegroundMs(cfg: CmlHiveAssistConfig): number {
   const raw = cfg.commands?.bashForegroundMs;
   if (typeof raw !== "number" || Number.isNaN(raw)) {
     return DEFAULT_FOREGROUND_MS;
@@ -97,7 +97,7 @@ function parseBashRequest(raw: string): BashRequest | null {
 
 function resolveRawCommandBody(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
   isGroup: boolean;
 }) {
@@ -205,7 +205,7 @@ function formatElevatedUnavailableMessage(params: {
 
 export async function handleBashChatCommand(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
   sessionKey: string;
   isGroup: boolean;
@@ -217,7 +217,7 @@ export async function handleBashChatCommand(params: {
 }): Promise<ReplyPayload> {
   if (params.cfg.commands?.bash !== true) {
     return {
-      text: "⚠️ bash is disabled. Set commands.bash=true to enable. Docs: https://docs.openclaw.ai/tools/slash-commands#config",
+      text: "⚠️ bash is disabled. Set commands.bash=true to enable. Docs: https://docs.cml-hive-assist.ai/tools/slash-commands#config",
     };
   }
 

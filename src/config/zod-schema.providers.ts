@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { ChannelHeartbeatVisibilitySchema } from "./zod-schema.channels.js";
-import { GroupPolicySchema } from "./zod-schema.core.js";
+import { ChannelHeartbeatVisibilitySchema } from "./zod-schema.channels.ts";
+import { GroupPolicySchema } from "./zod-schema.core.ts";
 import {
   BlueBubblesConfigSchema,
   DiscordConfigSchema,
@@ -10,12 +10,12 @@ import {
   SignalConfigSchema,
   SlackConfigSchema,
   TelegramConfigSchema,
-} from "./zod-schema.providers-core.js";
-import { WhatsAppConfigSchema } from "./zod-schema.providers-whatsapp.js";
+} from "./zod-schema.providers-core.ts";
+import { WhatsAppConfigSchema } from "./zod-schema.providers-whatsapp.ts";
 
-export * from "./zod-schema.providers-core.js";
-export * from "./zod-schema.providers-whatsapp.js";
-export { ChannelHeartbeatVisibilitySchema } from "./zod-schema.channels.js";
+export * from "./zod-schema.providers-core.ts";
+export * from "./zod-schema.providers-whatsapp.ts";
+export { ChannelHeartbeatVisibilitySchema } from "./zod-schema.channels.ts";
 
 export const ChannelsSchema = z
   .object({

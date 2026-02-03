@@ -1,17 +1,17 @@
-import type { CliDeps } from "../cli/deps.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { loadConfig } from "../config/config.js";
-import { resolveAgentMainSessionKey } from "../config/sessions.js";
-import { runCronIsolatedAgentTurn } from "../cron/isolated-agent.js";
-import { appendCronRunLog, resolveCronRunLogPath } from "../cron/run-log.js";
-import { CronService } from "../cron/service.js";
-import { resolveCronStorePath } from "../cron/store.js";
-import { runHeartbeatOnce } from "../infra/heartbeat-runner.js";
-import { requestHeartbeatNow } from "../infra/heartbeat-wake.js";
-import { enqueueSystemEvent } from "../infra/system-events.js";
-import { getChildLogger } from "../logging.js";
-import { normalizeAgentId } from "../routing/session-key.js";
-import { defaultRuntime } from "../runtime.js";
+import type { CliDeps } from "../cli/deps.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { loadConfig } from "../config/config.ts";
+import { resolveAgentMainSessionKey } from "../config/sessions.ts";
+import { runCronIsolatedAgentTurn } from "../cron/isolated-agent.ts";
+import { appendCronRunLog, resolveCronRunLogPath } from "../cron/run-log.ts";
+import { CronService } from "../cron/service.ts";
+import { resolveCronStorePath } from "../cron/store.ts";
+import { runHeartbeatOnce } from "../infra/heartbeat-runner.ts";
+import { requestHeartbeatNow } from "../infra/heartbeat-wake.ts";
+import { enqueueSystemEvent } from "../infra/system-events.ts";
+import { getChildLogger } from "../logging.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
+import { defaultRuntime } from "../runtime.ts";
 
 export type GatewayCronState = {
   cron: CronService;
@@ -26,7 +26,7 @@ export function buildGatewayCronService(params: {
 }): GatewayCronState {
   const cronLogger = getChildLogger({ module: "cron" });
   const storePath = resolveCronStorePath(params.cfg.cron?.store);
-  const cronEnabled = process.env.OPENCLAW_SKIP_CRON !== "1" && params.cfg.cron?.enabled !== false;
+  const cronEnabled = process.env.CML_HIVE_ASSIST_SKIP_CRON !== "1" && params.cfg.cron?.enabled !== false;
 
   const resolveCronAgent = (requested?: string | null) => {
     const runtimeConfig = loadConfig();

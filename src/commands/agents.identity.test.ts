@@ -27,7 +27,7 @@ const runtime: RuntimeEnv = {
 };
 
 const baseSnapshot = {
-  path: "/tmp/openclaw.json",
+  path: "/tmp/cml-hive-assist.json",
   exists: true,
   raw: "{}",
   parsed: {},
@@ -53,10 +53,10 @@ describe("agents set-identity command", () => {
     await fs.writeFile(
       path.join(workspace, "IDENTITY.md"),
       [
-        "- Name: OpenClaw",
+        "- Name: CmlHiveAssist",
         "- Creature: helpful sloth",
         "- Emoji: :)",
-        "- Avatar: avatars/openclaw.png",
+        "- Avatar: avatars/cml-hive-assist.png",
         "",
       ].join("\n"),
       "utf-8",
@@ -82,10 +82,10 @@ describe("agents set-identity command", () => {
     };
     const main = written.agents?.list?.find((entry) => entry.id === "main");
     expect(main?.identity).toEqual({
-      name: "OpenClaw",
+      name: "CmlHiveAssist",
       theme: "helpful sloth",
       emoji: ":)",
-      avatar: "avatars/openclaw.png",
+      avatar: "avatars/cml-hive-assist.png",
     });
   });
 
@@ -121,10 +121,10 @@ describe("agents set-identity command", () => {
     await fs.writeFile(
       path.join(workspace, "IDENTITY.md"),
       [
-        "- Name: OpenClaw",
+        "- Name: CmlHiveAssist",
         "- Theme: space lobster",
         "- Emoji: :)",
-        "- Avatar: avatars/openclaw.png",
+        "- Avatar: avatars/cml-hive-assist.png",
         "",
       ].join("\n"),
       "utf-8",

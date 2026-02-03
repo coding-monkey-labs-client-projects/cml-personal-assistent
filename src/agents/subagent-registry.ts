@@ -1,13 +1,13 @@
-import { loadConfig } from "../config/config.js";
-import { callGateway } from "../gateway/call.js";
-import { onAgentEvent } from "../infra/agent-events.js";
-import { type DeliveryContext, normalizeDeliveryContext } from "../utils/delivery-context.js";
-import { runSubagentAnnounceFlow, type SubagentRunOutcome } from "./subagent-announce.js";
+import { loadConfig } from "../config/config.ts";
+import { callGateway } from "../gateway/call.ts";
+import { onAgentEvent } from "../infra/agent-events.ts";
+import { type DeliveryContext, normalizeDeliveryContext } from "../utils/delivery-context.ts";
+import { runSubagentAnnounceFlow, type SubagentRunOutcome } from "./subagent-announce.ts";
 import {
   loadSubagentRegistryFromDisk,
   saveSubagentRegistryToDisk,
-} from "./subagent-registry.store.js";
-import { resolveAgentTimeoutMs } from "./timeout.js";
+} from "./subagent-registry.store.ts";
+import { resolveAgentTimeoutMs } from "./timeout.ts";
 
 export type SubagentRunRecord = {
   runId: string;

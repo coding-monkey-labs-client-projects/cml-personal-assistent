@@ -1,19 +1,19 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/config.js";
-import { createSubsystemLogger } from "../../logging/subsystem.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { createSubsystemLogger } from "../../logging/subsystem.ts";
 import {
   normalizePluginsConfig,
   resolveEnableState,
   resolveMemorySlotDecision,
-} from "../../plugins/config-state.js";
-import { loadPluginManifestRegistry } from "../../plugins/manifest-registry.js";
+} from "../../plugins/config-state.ts";
+import { loadPluginManifestRegistry } from "../../plugins/manifest-registry.ts";
 
 const log = createSubsystemLogger("skills");
 
 export function resolvePluginSkillDirs(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
 }): string[] {
   const workspaceDir = params.workspaceDir.trim();
   if (!workspaceDir) {

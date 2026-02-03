@@ -2,48 +2,48 @@ import { Client } from "@buape/carbon";
 import { GatewayIntents, GatewayPlugin } from "@buape/carbon/gateway";
 import { Routes } from "discord-api-types/v10";
 import { inspect } from "node:util";
-import type { HistoryEntry } from "../../auto-reply/reply/history.js";
-import type { OpenClawConfig, ReplyToMode } from "../../config/config.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import { resolveTextChunkLimit } from "../../auto-reply/chunk.js";
-import { listNativeCommandSpecsForConfig } from "../../auto-reply/commands-registry.js";
-import { listSkillCommandsForAgents } from "../../auto-reply/skill-commands.js";
-import { mergeAllowlist, summarizeMapping } from "../../channels/allowlists/resolve-utils.js";
+import type { HistoryEntry } from "../../auto-reply/reply/history.ts";
+import type { CmlHiveAssistConfig, ReplyToMode } from "../../config/config.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import { resolveTextChunkLimit } from "../../auto-reply/chunk.ts";
+import { listNativeCommandSpecsForConfig } from "../../auto-reply/commands-registry.ts";
+import { listSkillCommandsForAgents } from "../../auto-reply/skill-commands.ts";
+import { mergeAllowlist, summarizeMapping } from "../../channels/allowlists/resolve-utils.ts";
 import {
   isNativeCommandsExplicitlyDisabled,
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
-} from "../../config/commands.js";
-import { loadConfig } from "../../config/config.js";
-import { danger, logVerbose, shouldLogVerbose, warn } from "../../globals.js";
-import { formatErrorMessage } from "../../infra/errors.js";
-import { createDiscordRetryRunner } from "../../infra/retry-policy.js";
-import { createSubsystemLogger } from "../../logging/subsystem.js";
-import { resolveDiscordAccount } from "../accounts.js";
-import { attachDiscordGatewayLogging } from "../gateway-logging.js";
-import { getDiscordGatewayEmitter, waitForDiscordGatewayStop } from "../monitor.gateway.js";
-import { fetchDiscordApplicationId } from "../probe.js";
-import { resolveDiscordChannelAllowlist } from "../resolve-channels.js";
-import { resolveDiscordUserAllowlist } from "../resolve-users.js";
-import { normalizeDiscordToken } from "../token.js";
-import { createExecApprovalButton, DiscordExecApprovalHandler } from "./exec-approvals.js";
+} from "../../config/commands.ts";
+import { loadConfig } from "../../config/config.ts";
+import { danger, logVerbose, shouldLogVerbose, warn } from "../../globals.ts";
+import { formatErrorMessage } from "../../infra/errors.ts";
+import { createDiscordRetryRunner } from "../../infra/retry-policy.ts";
+import { createSubsystemLogger } from "../../logging/subsystem.ts";
+import { resolveDiscordAccount } from "../accounts.ts";
+import { attachDiscordGatewayLogging } from "../gateway-logging.ts";
+import { getDiscordGatewayEmitter, waitForDiscordGatewayStop } from "../monitor.gateway.ts";
+import { fetchDiscordApplicationId } from "../probe.ts";
+import { resolveDiscordChannelAllowlist } from "../resolve-channels.ts";
+import { resolveDiscordUserAllowlist } from "../resolve-users.ts";
+import { normalizeDiscordToken } from "../token.ts";
+import { createExecApprovalButton, DiscordExecApprovalHandler } from "./exec-approvals.ts";
 import {
   DiscordMessageListener,
   DiscordPresenceListener,
   DiscordReactionListener,
   DiscordReactionRemoveListener,
   registerDiscordListener,
-} from "./listeners.js";
-import { createDiscordMessageHandler } from "./message-handler.js";
+} from "./listeners.ts";
+import { createDiscordMessageHandler } from "./message-handler.ts";
 import {
   createDiscordCommandArgFallbackButton,
   createDiscordNativeCommand,
-} from "./native-command.js";
+} from "./native-command.ts";
 
 export type MonitorDiscordOpts = {
   token?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   mediaMaxMb?: number;
@@ -121,7 +121,7 @@ function formatDiscordDeployErrorDetails(err: unknown): string {
 }
 
 function resolveDiscordGatewayIntents(
-  intentsConfig?: import("../../config/types.discord.js").DiscordIntentsConfig,
+  intentsConfig?: import("../../config/types.discord.ts").DiscordIntentsConfig,
 ): number {
   let intents =
     GatewayIntents.Guilds |

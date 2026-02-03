@@ -1,19 +1,19 @@
 import { type FilesUploadV2Arguments, type WebClient } from "@slack/web-api";
-import type { SlackTokenSource } from "./accounts.js";
+import type { SlackTokenSource } from "./accounts.ts";
 import {
   chunkMarkdownTextWithMode,
   resolveChunkMode,
   resolveTextChunkLimit,
-} from "../auto-reply/chunk.js";
-import { loadConfig } from "../config/config.js";
-import { resolveMarkdownTableMode } from "../config/markdown-tables.js";
-import { logVerbose } from "../globals.js";
-import { loadWebMedia } from "../web/media.js";
-import { resolveSlackAccount } from "./accounts.js";
-import { createSlackWebClient } from "./client.js";
-import { markdownToSlackMrkdwnChunks } from "./format.js";
-import { parseSlackTarget } from "./targets.js";
-import { resolveSlackBotToken } from "./token.js";
+} from "../auto-reply/chunk.ts";
+import { loadConfig } from "../config/config.ts";
+import { resolveMarkdownTableMode } from "../config/markdown-tables.ts";
+import { logVerbose } from "../globals.ts";
+import { loadWebMedia } from "../web/media.ts";
+import { resolveSlackAccount } from "./accounts.ts";
+import { createSlackWebClient } from "./client.ts";
+import { markdownToSlackMrkdwnChunks } from "./format.ts";
+import { parseSlackTarget } from "./targets.ts";
+import { resolveSlackBotToken } from "./token.ts";
 
 const SLACK_TEXT_LIMIT = 4000;
 

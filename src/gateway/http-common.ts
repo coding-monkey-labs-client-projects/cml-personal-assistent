@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { readJsonBody } from "./hooks.js";
+import { readJsonBody } from "./hooks.ts";
 
 export function sendJson(res: ServerResponse, status: number, body: unknown) {
   res.statusCode = status;

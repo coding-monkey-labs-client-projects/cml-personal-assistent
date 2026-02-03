@@ -3,22 +3,22 @@ import type {
   GatewayBindMode,
   GatewayTailscaleConfig,
   loadConfig,
-} from "../config/config.js";
+} from "../config/config.ts";
 import {
   assertGatewayAuthConfigured,
   type ResolvedGatewayAuth,
   resolveGatewayAuth,
-} from "./auth.js";
-import { normalizeControlUiBasePath } from "./control-ui-shared.js";
-import { resolveHooksConfig } from "./hooks.js";
-import { isLoopbackHost, resolveGatewayBindHost } from "./net.js";
+} from "./auth.ts";
+import { normalizeControlUiBasePath } from "./control-ui-shared.ts";
+import { resolveHooksConfig } from "./hooks.ts";
+import { isLoopbackHost, resolveGatewayBindHost } from "./net.ts";
 
 export type GatewayRuntimeConfig = {
   bindHost: string;
   controlUiEnabled: boolean;
   openAiChatCompletionsEnabled: boolean;
   openResponsesEnabled: boolean;
-  openResponsesConfig?: import("../config/types.gateway.js").GatewayHttpResponsesConfig;
+  openResponsesConfig?: import("../config/types.gateway.ts").GatewayHttpResponsesConfig;
   controlUiBasePath: string;
   resolvedAuth: ResolvedGatewayAuth;
   authMode: ResolvedGatewayAuth["mode"];
@@ -77,12 +77,12 @@ export async function resolveGatewayRuntimeConfig(params: {
     (authMode === "token" && hasToken) || (authMode === "password" && hasPassword);
   const hooksConfig = resolveHooksConfig(params.cfg);
   const canvasHostEnabled =
-    process.env.OPENCLAW_SKIP_CANVAS_HOST !== "1" && params.cfg.canvasHost?.enabled !== false;
+    process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST !== "1" && params.cfg.canvasHost?.enabled !== false;
 
   assertGatewayAuthConfigured(resolvedAuth);
   if (tailscaleMode === "funnel" && authMode !== "password") {
     throw new Error(
-      "tailscale funnel requires gateway auth mode=password (set gateway.auth.password or OPENCLAW_GATEWAY_PASSWORD)",
+      "tailscale funnel requires gateway auth mode=password (set gateway.auth.password or CML_HIVE_ASSIST_GATEWAY_PASSWORD)",
     );
   }
   if (tailscaleMode !== "off" && !isLoopbackHost(bindHost)) {
@@ -90,7 +90,7 @@ export async function resolveGatewayRuntimeConfig(params: {
   }
   if (!isLoopbackHost(bindHost) && !hasSharedSecret) {
     throw new Error(
-      `refusing to bind gateway to ${bindHost}:${params.port} without auth (set gateway.auth.token/password, or set OPENCLAW_GATEWAY_TOKEN/OPENCLAW_GATEWAY_PASSWORD)`,
+      `refusing to bind gateway to ${bindHost}:${params.port} without auth (set gateway.auth.token/password, or set CML_HIVE_ASSIST_GATEWAY_TOKEN/CML_HIVE_ASSIST_GATEWAY_PASSWORD)`,
     );
   }
 

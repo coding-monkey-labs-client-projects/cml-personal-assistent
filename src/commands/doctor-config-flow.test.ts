@@ -10,7 +10,7 @@ describe("doctor config flow", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             gateway: { auth: { mode: "token", token: 123 } },
@@ -38,7 +38,7 @@ describe("doctor config flow", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             bridge: { bind: "auto" },

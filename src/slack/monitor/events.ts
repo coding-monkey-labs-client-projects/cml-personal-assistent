@@ -1,11 +1,11 @@
-import type { ResolvedSlackAccount } from "../accounts.js";
-import type { SlackMonitorContext } from "./context.js";
-import type { SlackMessageHandler } from "./message-handler.js";
-import { registerSlackChannelEvents } from "./events/channels.js";
-import { registerSlackMemberEvents } from "./events/members.js";
-import { registerSlackMessageEvents } from "./events/messages.js";
-import { registerSlackPinEvents } from "./events/pins.js";
-import { registerSlackReactionEvents } from "./events/reactions.js";
+import type { ResolvedSlackAccount } from "../accounts.ts";
+import type { SlackMonitorContext } from "./context.ts";
+import type { SlackMessageHandler } from "./message-handler.ts";
+import { registerSlackChannelEvents } from "./events/channels.ts";
+import { registerSlackMemberEvents } from "./events/members.ts";
+import { registerSlackMessageEvents } from "./events/messages.ts";
+import { registerSlackPinEvents } from "./events/pins.ts";
+import { registerSlackReactionEvents } from "./events/reactions.ts";
 
 export function registerSlackMonitorEvents(params: {
   ctx: SlackMonitorContext;

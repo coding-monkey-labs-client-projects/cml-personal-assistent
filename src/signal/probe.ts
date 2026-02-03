@@ -1,4 +1,4 @@
-import { signalCheck, signalRpcRequest } from "./client.js";
+import { signalCheck, signalRpcRequest } from "./client.ts";
 
 export type SignalProbe = {
   ok: boolean;

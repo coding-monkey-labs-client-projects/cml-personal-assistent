@@ -5,15 +5,15 @@ import type {
   CronJobPatch,
   CronPayload,
   CronPayloadPatch,
-} from "../types.js";
-import type { CronServiceState } from "./state.js";
-import { computeNextRunAtMs } from "../schedule.js";
+} from "../types.ts";
+import type { CronServiceState } from "./state.ts";
+import { computeNextRunAtMs } from "../schedule.ts";
 import {
   normalizeOptionalAgentId,
   normalizeOptionalText,
   normalizePayloadToSystemText,
   normalizeRequiredName,
-} from "./normalize.js";
+} from "./normalize.ts";
 
 const STUCK_RUN_MS = 2 * 60 * 60 * 1000;
 

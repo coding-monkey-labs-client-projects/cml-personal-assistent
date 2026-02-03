@@ -1,4 +1,4 @@
-import type { IconName } from "./icons.js";
+import type { IconName } from "./icons.ts";
 
 export const TAB_GROUPS = [
   { label: "Chat", tabs: ["chat"] },
@@ -203,7 +203,7 @@ export function subtitleForTab(tab: Tab) {
     case "chat":
       return "Direct gateway chat session for quick interventions.";
     case "config":
-      return "Edit ~/.openclaw/openclaw.json safely.";
+      return "Edit ~/.cml-hive-assist/cml-hive-assist.json safely.";
     case "debug":
       return "Gateway snapshots, events, and manual RPC calls.";
     case "logs":

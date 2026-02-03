@@ -1,4 +1,4 @@
-import { normalizeE164 } from "../utils.js";
+import { normalizeE164 } from "../utils.ts";
 
 export type IMessageService = "imessage" | "sms" | "auto";
 

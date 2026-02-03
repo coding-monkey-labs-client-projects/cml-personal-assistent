@@ -1,31 +1,31 @@
 import crypto from "node:crypto";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { TemplateContext } from "../templating.js";
-import type { VerboseLevel } from "../thinking.js";
-import type { GetReplyOptions } from "../types.js";
-import type { FollowupRun } from "./queue.js";
-import { resolveAgentModelFallbacksOverride } from "../../agents/agent-scope.js";
-import { runWithModelFallback } from "../../agents/model-fallback.js";
-import { isCliProvider } from "../../agents/model-selection.js";
-import { runEmbeddedPiAgent } from "../../agents/pi-embedded.js";
-import { resolveSandboxConfigForAgent, resolveSandboxRuntimeStatus } from "../../agents/sandbox.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { TemplateContext } from "../templating.ts";
+import type { VerboseLevel } from "../thinking.ts";
+import type { GetReplyOptions } from "../types.ts";
+import type { FollowupRun } from "./queue.ts";
+import { resolveAgentModelFallbacksOverride } from "../../agents/agent-scope.ts";
+import { runWithModelFallback } from "../../agents/model-fallback.ts";
+import { isCliProvider } from "../../agents/model-selection.ts";
+import { runEmbeddedPiAgent } from "../../agents/pi-embedded.ts";
+import { resolveSandboxConfigForAgent, resolveSandboxRuntimeStatus } from "../../agents/sandbox.ts";
 import {
   resolveAgentIdFromSessionKey,
   type SessionEntry,
   updateSessionStoreEntry,
-} from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
-import { registerAgentRunContext } from "../../infra/agent-events.js";
-import { buildThreadingToolContext, resolveEnforceFinalTag } from "./agent-runner-utils.js";
+} from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
+import { registerAgentRunContext } from "../../infra/agent-events.ts";
+import { buildThreadingToolContext, resolveEnforceFinalTag } from "./agent-runner-utils.ts";
 import {
   resolveMemoryFlushContextWindowTokens,
   resolveMemoryFlushSettings,
   shouldRunMemoryFlush,
-} from "./memory-flush.js";
-import { incrementCompactionCount } from "./session-updates.js";
+} from "./memory-flush.ts";
+import { incrementCompactionCount } from "./session-updates.ts";
 
 export async function runMemoryFlushIfNeeded(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   followupRun: FollowupRun;
   sessionCtx: TemplateContext;
   opts?: GetReplyOptions;

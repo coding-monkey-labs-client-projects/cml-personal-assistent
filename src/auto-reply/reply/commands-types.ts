@@ -1,11 +1,11 @@
-import type { SkillCommandSpec } from "../../agents/skills.js";
-import type { ChannelId } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry, SessionScope } from "../../config/sessions.js";
-import type { MsgContext } from "../templating.js";
-import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.js";
-import type { ReplyPayload } from "../types.js";
-import type { InlineDirectives } from "./directive-handling.js";
+import type { SkillCommandSpec } from "../../agents/skills.ts";
+import type { ChannelId } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry, SessionScope } from "../../config/sessions.ts";
+import type { MsgContext } from "../templating.ts";
+import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.ts";
+import type { ReplyPayload } from "../types.ts";
+import type { InlineDirectives } from "./directive-handling.ts";
 
 export type CommandContext = {
   surface: string;
@@ -23,7 +23,7 @@ export type CommandContext = {
 
 export type HandleCommandsParams = {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   command: CommandContext;
   agentId?: string;
   directives: InlineDirectives;

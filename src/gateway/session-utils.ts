@@ -5,13 +5,13 @@ import type {
   GatewaySessionRow,
   GatewaySessionsDefaults,
   SessionsListResult,
-} from "./session-utils.types.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { lookupContextTokens } from "../agents/context.js";
-import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { resolveConfiguredModelRef } from "../agents/model-selection.js";
-import { type OpenClawConfig, loadConfig } from "../config/config.js";
-import { resolveStateDir } from "../config/paths.js";
+} from "./session-utils.types.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { lookupContextTokens } from "../agents/context.ts";
+import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { resolveConfiguredModelRef } from "../agents/model-selection.ts";
+import { type CmlHiveAssistConfig, loadConfig } from "../config/config.ts";
+import { resolveStateDir } from "../config/paths.ts";
 import {
   buildGroupDisplayName,
   canonicalizeMainSessionAlias,
@@ -20,17 +20,17 @@ import {
   resolveStorePath,
   type SessionEntry,
   type SessionScope,
-} from "../config/sessions.js";
+} from "../config/sessions.ts";
 import {
   normalizeAgentId,
   normalizeMainKey,
   parseAgentSessionKey,
-} from "../routing/session-key.js";
-import { normalizeSessionDeliveryFields } from "../utils/delivery-context.js";
+} from "../routing/session-key.ts";
+import { normalizeSessionDeliveryFields } from "../utils/delivery-context.ts";
 import {
   readFirstUserMessageFromTranscript,
   readLastMessagePreviewFromTranscript,
-} from "./session-utils.fs.js";
+} from "./session-utils.fs.ts";
 
 export {
   archiveFileOnDisk,
@@ -40,7 +40,7 @@ export {
   readSessionPreviewItemsFromTranscript,
   readSessionMessages,
   resolveSessionTranscriptCandidates,
-} from "./session-utils.fs.js";
+} from "./session-utils.fs.ts";
 export type {
   GatewayAgentRow,
   GatewaySessionRow,
@@ -49,7 +49,7 @@ export type {
   SessionsPatchResult,
   SessionsPreviewEntry,
   SessionsPreviewResult,
-} from "./session-utils.types.js";
+} from "./session-utils.types.ts";
 
 const DERIVED_TITLE_MAX_LEN = 60;
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
@@ -90,7 +90,7 @@ function isWorkspaceRelativePath(value: string): boolean {
 }
 
 function resolveIdentityAvatarUrl(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   agentId: string,
   avatar: string | undefined,
 ): string | undefined {
@@ -238,7 +238,7 @@ function listExistingAgentIdsFromDisk(): string[] {
   }
 }
 
-function listConfiguredAgentIds(cfg: OpenClawConfig): string[] {
+function listConfiguredAgentIds(cfg: CmlHiveAssistConfig): string[] {
   const agents = cfg.agents?.list ?? [];
   if (agents.length > 0) {
     const ids = new Set<string>();
@@ -270,7 +270,7 @@ function listConfiguredAgentIds(cfg: OpenClawConfig): string[] {
   return sorted;
 }
 
-export function listAgentsForGateway(cfg: OpenClawConfig): {
+export function listAgentsForGateway(cfg: CmlHiveAssistConfig): {
   defaultId: string;
   mainKey: string;
   scope: SessionScope;
@@ -338,12 +338,12 @@ function canonicalizeSessionKeyForAgent(agentId: string, key: string): string {
   return `agent:${normalizeAgentId(agentId)}:${key}`;
 }
 
-function resolveDefaultStoreAgentId(cfg: OpenClawConfig): string {
+function resolveDefaultStoreAgentId(cfg: CmlHiveAssistConfig): string {
   return normalizeAgentId(resolveDefaultAgentId(cfg));
 }
 
 export function resolveSessionStoreKey(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   sessionKey: string;
 }): string {
   const raw = params.sessionKey.trim();
@@ -376,7 +376,7 @@ export function resolveSessionStoreKey(params: {
   return canonicalizeSessionKeyForAgent(agentId, raw);
 }
 
-function resolveSessionStoreAgentId(cfg: OpenClawConfig, canonicalKey: string): string {
+function resolveSessionStoreAgentId(cfg: CmlHiveAssistConfig, canonicalKey: string): string {
   if (canonicalKey === "global" || canonicalKey === "unknown") {
     return resolveDefaultStoreAgentId(cfg);
   }
@@ -401,7 +401,7 @@ function canonicalizeSpawnedByForAgent(agentId: string, spawnedBy?: string): str
   return `agent:${normalizeAgentId(agentId)}:${raw}`;
 }
 
-export function resolveGatewaySessionStoreTarget(params: { cfg: OpenClawConfig; key: string }): {
+export function resolveGatewaySessionStoreTarget(params: { cfg: CmlHiveAssistConfig; key: string }): {
   agentId: string;
   storePath: string;
   canonicalKey: string;
@@ -459,7 +459,7 @@ function mergeSessionEntryIntoCombined(params: {
   }
 }
 
-export function loadCombinedSessionStoreForGateway(cfg: OpenClawConfig): {
+export function loadCombinedSessionStoreForGateway(cfg: CmlHiveAssistConfig): {
   storePath: string;
   store: Record<string, SessionEntry>;
 } {
@@ -502,7 +502,7 @@ export function loadCombinedSessionStoreForGateway(cfg: OpenClawConfig): {
   return { storePath, store: combined };
 }
 
-export function getSessionDefaults(cfg: OpenClawConfig): GatewaySessionsDefaults {
+export function getSessionDefaults(cfg: CmlHiveAssistConfig): GatewaySessionsDefaults {
   const resolved = resolveConfiguredModelRef({
     cfg,
     defaultProvider: DEFAULT_PROVIDER,
@@ -520,7 +520,7 @@ export function getSessionDefaults(cfg: OpenClawConfig): GatewaySessionsDefaults
 }
 
 export function resolveSessionModelRef(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   entry?: SessionEntry,
 ): { provider: string; model: string } {
   const resolved = resolveConfiguredModelRef({
@@ -539,10 +539,10 @@ export function resolveSessionModelRef(
 }
 
 export function listSessionsFromStore(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   storePath: string;
   store: Record<string, SessionEntry>;
-  opts: import("./protocol/index.js").SessionsListParams;
+  opts: import("./protocol/index.ts").SessionsListParams;
 }): SessionsListResult {
   const { cfg, storePath, store, opts } = params;
   const now = Date.now();

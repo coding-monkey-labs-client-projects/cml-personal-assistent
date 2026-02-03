@@ -1,10 +1,10 @@
-import type { GatewayRequestHandlers } from "./types.js";
+import type { GatewayRequestHandlers } from "./types.ts";
 import {
   ErrorCodes,
   errorShape,
   formatValidationErrors,
   validateTalkModeParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 
 export const talkHandlers: GatewayRequestHandlers = {
   "talk.mode": ({ params, respond, context, client, isWebchatConnect }) => {

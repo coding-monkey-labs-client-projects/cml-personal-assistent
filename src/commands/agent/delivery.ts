@@ -1,26 +1,26 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry } from "../../config/sessions.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import type { AgentCommandOpts } from "./types.js";
-import { AGENT_LANE_NESTED } from "../../agents/lanes.js";
-import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.js";
-import { createOutboundSendDeps, type CliDeps } from "../../cli/outbound-send-deps.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry } from "../../config/sessions.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import type { AgentCommandOpts } from "./types.ts";
+import { AGENT_LANE_NESTED } from "../../agents/lanes.ts";
+import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.ts";
+import { createOutboundSendDeps, type CliDeps } from "../../cli/outbound-send-deps.ts";
 import {
   resolveAgentDeliveryPlan,
   resolveAgentOutboundTarget,
-} from "../../infra/outbound/agent-delivery.js";
-import { deliverOutboundPayloads } from "../../infra/outbound/deliver.js";
-import { buildOutboundResultEnvelope } from "../../infra/outbound/envelope.js";
+} from "../../infra/outbound/agent-delivery.ts";
+import { deliverOutboundPayloads } from "../../infra/outbound/deliver.ts";
+import { buildOutboundResultEnvelope } from "../../infra/outbound/envelope.ts";
 import {
   formatOutboundPayloadLog,
   type NormalizedOutboundPayload,
   normalizeOutboundPayloads,
   normalizeOutboundPayloadsForJson,
-} from "../../infra/outbound/payloads.js";
-import { isInternalMessageChannel } from "../../utils/message-channel.js";
+} from "../../infra/outbound/payloads.ts";
+import { isInternalMessageChannel } from "../../utils/message-channel.ts";
 
 type RunResult = Awaited<
-  ReturnType<(typeof import("../../agents/pi-embedded.js"))["runEmbeddedPiAgent"]>
+  ReturnType<(typeof import("../../agents/pi-embedded.ts"))["runEmbeddedPiAgent"]>
 >;
 
 const NESTED_LOG_PREFIX = "[agent:nested]";
@@ -58,7 +58,7 @@ function logNestedOutput(runtime: RuntimeEnv, opts: AgentCommandOpts, output: st
 }
 
 export async function deliverAgentCommandResult(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   deps: CliDeps;
   runtime: RuntimeEnv;
   opts: AgentCommandOpts;

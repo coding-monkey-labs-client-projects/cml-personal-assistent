@@ -1,12 +1,12 @@
-import type { ReplyPayload } from "../types.js";
-import { sanitizeUserFacingText } from "../../agents/pi-embedded-helpers.js";
-import { stripHeartbeatToken } from "../heartbeat.js";
-import { HEARTBEAT_TOKEN, isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.js";
-import { hasLineDirectives, parseLineDirectives } from "./line-directives.js";
+import type { ReplyPayload } from "../types.ts";
+import { sanitizeUserFacingText } from "../../agents/pi-embedded-helpers.ts";
+import { stripHeartbeatToken } from "../heartbeat.ts";
+import { HEARTBEAT_TOKEN, isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.ts";
+import { hasLineDirectives, parseLineDirectives } from "./line-directives.ts";
 import {
   resolveResponsePrefixTemplate,
   type ResponsePrefixContext,
-} from "./response-prefix-template.js";
+} from "./response-prefix-template.ts";
 
 export type NormalizeReplySkipReason = "empty" | "silent" | "heartbeat";
 

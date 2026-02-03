@@ -1,26 +1,26 @@
-import type { CommandHandler } from "./commands-types.js";
-import { resolveChannelConfigWrites } from "../../channels/plugins/config-writes.js";
-import { normalizeChannelId } from "../../channels/registry.js";
+import type { CommandHandler } from "./commands-types.ts";
+import { resolveChannelConfigWrites } from "../../channels/plugins/config-writes.ts";
+import { normalizeChannelId } from "../../channels/registry.ts";
 import {
   getConfigValueAtPath,
   parseConfigPath,
   setConfigValueAtPath,
   unsetConfigValueAtPath,
-} from "../../config/config-paths.js";
+} from "../../config/config-paths.ts";
 import {
   readConfigFileSnapshot,
   validateConfigObjectWithPlugins,
   writeConfigFile,
-} from "../../config/config.js";
+} from "../../config/config.ts";
 import {
   getConfigOverrides,
   resetConfigOverrides,
   setConfigOverride,
   unsetConfigOverride,
-} from "../../config/runtime-overrides.js";
-import { logVerbose } from "../../globals.js";
-import { parseConfigCommand } from "./config-commands.js";
-import { parseDebugCommand } from "./debug-commands.js";
+} from "../../config/runtime-overrides.ts";
+import { logVerbose } from "../../globals.ts";
+import { parseConfigCommand } from "./config-commands.ts";
+import { parseDebugCommand } from "./debug-commands.ts";
 
 export const handleConfigCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {

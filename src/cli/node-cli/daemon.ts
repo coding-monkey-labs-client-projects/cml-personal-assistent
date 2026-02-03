@@ -1,30 +1,30 @@
-import type { GatewayServiceRuntime } from "../../daemon/service-runtime.js";
-import { buildNodeInstallPlan } from "../../commands/node-daemon-install-helpers.js";
+import type { GatewayServiceRuntime } from "../../daemon/service-runtime.ts";
+import { buildNodeInstallPlan } from "../../commands/node-daemon-install-helpers.ts";
 import {
   DEFAULT_NODE_DAEMON_RUNTIME,
   isNodeDaemonRuntime,
-} from "../../commands/node-daemon-runtime.js";
-import { resolveIsNixMode } from "../../config/paths.js";
+} from "../../commands/node-daemon-runtime.ts";
+import { resolveIsNixMode } from "../../config/paths.ts";
 import {
   resolveNodeLaunchAgentLabel,
   resolveNodeSystemdServiceName,
   resolveNodeWindowsTaskName,
-} from "../../daemon/constants.js";
-import { resolveGatewayLogPaths } from "../../daemon/launchd.js";
-import { resolveNodeService } from "../../daemon/node-service.js";
-import { renderSystemdUnavailableHints } from "../../daemon/systemd-hints.js";
-import { isSystemdUserServiceAvailable } from "../../daemon/systemd.js";
-import { isWSL } from "../../infra/wsl.js";
-import { loadNodeHostConfig } from "../../node-host/config.js";
-import { defaultRuntime } from "../../runtime.js";
-import { colorize, isRich, theme } from "../../terminal/theme.js";
-import { formatCliCommand } from "../command-format.js";
+} from "../../daemon/constants.ts";
+import { resolveGatewayLogPaths } from "../../daemon/launchd.ts";
+import { resolveNodeService } from "../../daemon/node-service.ts";
+import { renderSystemdUnavailableHints } from "../../daemon/systemd-hints.ts";
+import { isSystemdUserServiceAvailable } from "../../daemon/systemd.ts";
+import { isWSL } from "../../infra/wsl.ts";
+import { loadNodeHostConfig } from "../../node-host/config.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { colorize, isRich, theme } from "../../terminal/theme.ts";
+import { formatCliCommand } from "../command-format.ts";
 import {
   buildDaemonServiceSnapshot,
   createNullWriter,
   emitDaemonActionJson,
-} from "../daemon-cli/response.js";
-import { formatRuntimeStatus, parsePort } from "../daemon-cli/shared.js";
+} from "../daemon-cli/response.ts";
+import { formatRuntimeStatus, parsePort } from "../daemon-cli/shared.ts";
 
 type NodeDaemonInstallOptions = {
   host?: string;
@@ -588,7 +588,7 @@ export async function runNodeDaemonStatus(opts: NodeDaemonStatusOptions = {}) {
   };
   const hintEnv = {
     ...baseEnv,
-    OPENCLAW_LOG_PREFIX: baseEnv.OPENCLAW_LOG_PREFIX ?? "node",
+    CML_HIVE_ASSIST_LOG_PREFIX: baseEnv.CML_HIVE_ASSIST_LOG_PREFIX ?? "node",
   } as NodeJS.ProcessEnv;
 
   if (runtime?.missingUnit) {

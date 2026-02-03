@@ -1,7 +1,7 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { DiscordActionConfig } from "../../config/config.js";
-import { banMemberDiscord, kickMemberDiscord, timeoutMemberDiscord } from "../../discord/send.js";
-import { type ActionGate, jsonResult, readStringParam } from "./common.js";
+import type { DiscordActionConfig } from "../../config/config.ts";
+import { banMemberDiscord, kickMemberDiscord, timeoutMemberDiscord } from "../../discord/send.ts";
+import { type ActionGate, jsonResult, readStringParam } from "./common.ts";
 
 export async function handleDiscordModerationAction(
   action: string,

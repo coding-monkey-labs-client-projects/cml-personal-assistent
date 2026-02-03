@@ -1,14 +1,14 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ConfiguredEntry } from "./list.types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ConfiguredEntry } from "./list.types.ts";
 import {
   buildModelAliasIndex,
   parseModelRef,
   resolveConfiguredModelRef,
   resolveModelRefFromString,
-} from "../../agents/model-selection.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER, modelKey } from "./shared.js";
+} from "../../agents/model-selection.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER, modelKey } from "./shared.ts";
 
-export function resolveConfiguredEntries(cfg: OpenClawConfig) {
+export function resolveConfiguredEntries(cfg: CmlHiveAssistConfig) {
   const resolvedDefault = resolveConfiguredModelRef({
     cfg,
     defaultProvider: DEFAULT_PROVIDER,

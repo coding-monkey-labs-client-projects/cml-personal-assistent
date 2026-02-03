@@ -1,4 +1,4 @@
-import type { NodeListNode, PairedNode, PairingList, PendingRequest } from "./types.js";
+import type { NodeListNode, PairedNode, PairingList, PendingRequest } from "./types.ts";
 
 export function formatAge(msAgo: number) {
   const s = Math.max(0, Math.floor(msAgo / 1000));

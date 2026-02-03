@@ -1,6 +1,6 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import { CONFIG_DIR } from "../utils.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { CONFIG_DIR } from "../utils.ts";
 import {
   hasBinary,
   isBundledSkillAllowed,
@@ -14,7 +14,7 @@ import {
   type SkillEligibilityContext,
   type SkillInstallSpec,
   type SkillsInstallPreferences,
-} from "./skills.js";
+} from "./skills.ts";
 
 export type SkillStatusConfigCheck = {
   path: string;
@@ -164,7 +164,7 @@ function normalizeInstallOptions(
 
 function buildSkillStatus(
   entry: SkillEntry,
-  config?: OpenClawConfig,
+  config?: CmlHiveAssistConfig,
   prefs?: SkillsInstallPreferences,
   eligibility?: SkillEligibilityContext,
 ): SkillStatusEntry {
@@ -282,7 +282,7 @@ function buildSkillStatus(
 export function buildWorkspaceSkillStatus(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedSkillsDir?: string;
     entries?: SkillEntry[];
     eligibility?: SkillEligibilityContext;

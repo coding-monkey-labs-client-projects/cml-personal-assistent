@@ -1,18 +1,18 @@
 import type { MessageEvent, StickerEventMessage, EventSource, PostbackEvent } from "@line/bot-sdk";
-import type { OpenClawConfig } from "../config/config.js";
-import type { ResolvedLineAccount } from "./types.js";
-import { formatInboundEnvelope, resolveEnvelopeFormatOptions } from "../auto-reply/envelope.js";
-import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.js";
-import { formatLocationText, toLocationContext } from "../channels/location.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ResolvedLineAccount } from "./types.ts";
+import { formatInboundEnvelope, resolveEnvelopeFormatOptions } from "../auto-reply/envelope.ts";
+import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.ts";
+import { formatLocationText, toLocationContext } from "../channels/location.ts";
 import {
   readSessionUpdatedAt,
   recordSessionMetaFromInbound,
   resolveStorePath,
   updateLastRoute,
-} from "../config/sessions.js";
-import { logVerbose, shouldLogVerbose } from "../globals.js";
-import { recordChannelActivity } from "../infra/channel-activity.js";
-import { resolveAgentRoute } from "../routing/resolve-route.js";
+} from "../config/sessions.ts";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
+import { recordChannelActivity } from "../infra/channel-activity.ts";
+import { resolveAgentRoute } from "../routing/resolve-route.ts";
 
 interface MediaRef {
   path: string;
@@ -22,7 +22,7 @@ interface MediaRef {
 interface BuildLineMessageContextParams {
   event: MessageEvent;
   allMedia: MediaRef[];
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   account: ResolvedLineAccount;
 }
 
@@ -308,7 +308,7 @@ export async function buildLineMessageContext(params: BuildLineMessageContextPar
 
 export async function buildLinePostbackContext(params: {
   event: PostbackEvent;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   account: ResolvedLineAccount;
 }) {
   const { event, cfg, account } = params;

@@ -16,11 +16,11 @@ import type {
   CommandArgValues,
   CommandArgs,
   NativeCommandSpec,
-} from "../../auto-reply/commands-registry.js";
-import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { OpenClawConfig, loadConfig } from "../../config/config.js";
-import { resolveEffectiveMessagesConfig, resolveHumanDelayConfig } from "../../agents/identity.js";
-import { resolveChunkMode, resolveTextChunkLimit } from "../../auto-reply/chunk.js";
+} from "../../auto-reply/commands-registry.ts";
+import type { ReplyPayload } from "../../auto-reply/types.ts";
+import type { CmlHiveAssistConfig, loadConfig } from "../../config/config.ts";
+import { resolveEffectiveMessagesConfig, resolveHumanDelayConfig } from "../../agents/identity.ts";
+import { resolveChunkMode, resolveTextChunkLimit } from "../../auto-reply/chunk.ts";
 import {
   buildCommandTextFromArgs,
   findCommandByNativeName,
@@ -29,18 +29,18 @@ import {
   resolveCommandArgChoices,
   resolveCommandArgMenu,
   serializeCommandArgs,
-} from "../../auto-reply/commands-registry.js";
-import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.js";
-import { dispatchReplyWithDispatcher } from "../../auto-reply/reply/provider-dispatcher.js";
-import { resolveCommandAuthorizedFromAuthorizers } from "../../channels/command-gating.js";
-import { buildPairingReply } from "../../pairing/pairing-messages.js";
+} from "../../auto-reply/commands-registry.ts";
+import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.ts";
+import { dispatchReplyWithDispatcher } from "../../auto-reply/reply/provider-dispatcher.ts";
+import { resolveCommandAuthorizedFromAuthorizers } from "../../channels/command-gating.ts";
+import { buildPairingReply } from "../../pairing/pairing-messages.ts";
 import {
   readChannelAllowFromStore,
   upsertChannelPairingRequest,
-} from "../../pairing/pairing-store.js";
-import { resolveAgentRoute } from "../../routing/resolve-route.js";
-import { loadWebMedia } from "../../web/media.js";
-import { chunkDiscordTextWithMode } from "../chunk.js";
+} from "../../pairing/pairing-store.ts";
+import { resolveAgentRoute } from "../../routing/resolve-route.ts";
+import { loadWebMedia } from "../../web/media.ts";
+import { chunkDiscordTextWithMode } from "../chunk.ts";
 import {
   allowListMatches,
   isDiscordGroupAllowedByPolicy,
@@ -49,12 +49,12 @@ import {
   resolveDiscordChannelConfigWithFallback,
   resolveDiscordGuildEntry,
   resolveDiscordUserAllowed,
-} from "./allow-list.js";
-import { resolveDiscordChannelInfo } from "./message-utils.js";
-import { resolveDiscordSenderIdentity } from "./sender-identity.js";
-import { resolveDiscordThreadParentInfo } from "./threading.js";
+} from "./allow-list.ts";
+import { resolveDiscordChannelInfo } from "./message-utils.ts";
+import { resolveDiscordSenderIdentity } from "./sender-identity.ts";
+import { resolveDiscordThreadParentInfo } from "./threading.ts";
 
-type DiscordConfig = NonNullable<OpenClawConfig["channels"]>["discord"];
+type DiscordConfig = NonNullable<CmlHiveAssistConfig["channels"]>["discord"];
 
 function buildDiscordCommandOptions(params: {
   command: ChatCommandDefinition;

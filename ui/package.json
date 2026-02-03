@@ -1,5 +1,5 @@
 {
-  "name": "openclaw-control-ui",
+  "name": "cml-hive-assist-control-ui",
   "private": true,
   "type": "module",
   "scripts": {

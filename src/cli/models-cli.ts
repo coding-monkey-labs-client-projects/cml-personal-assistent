@@ -24,11 +24,11 @@ import {
   modelsSetCommand,
   modelsSetImageCommand,
   modelsStatusCommand,
-} from "../commands/models.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { resolveOptionFromCommand, runCommandWithRuntime } from "./cli-utils.js";
+} from "../commands/models.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { resolveOptionFromCommand, runCommandWithRuntime } from "./cli-utils.ts";
 
 function runModelsCommand(action: () => Promise<void>) {
   return runCommandWithRuntime(defaultRuntime, action);
@@ -42,12 +42,12 @@ export function registerModelsCli(program: Command) {
     .option("--status-plain", "Plain output (alias for `models status --plain`)", false)
     .option(
       "--agent <id>",
-      "Agent id to inspect (overrides OPENCLAW_AGENT_DIR/PI_CODING_AGENT_DIR)",
+      "Agent id to inspect (overrides CML_HIVE_ASSIST_AGENT_DIR/PI_CODING_AGENT_DIR)",
     )
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/models", "docs.openclaw.ai/cli/models")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/models", "docs.cml-hive-assist.ai/cli/models")}\n`,
     );
 
   models
@@ -90,7 +90,7 @@ export function registerModelsCli(program: Command) {
     .option("--probe-max-tokens <n>", "Probe max tokens (best-effort)")
     .option(
       "--agent <id>",
-      "Agent id to inspect (overrides OPENCLAW_AGENT_DIR/PI_CODING_AGENT_DIR)",
+      "Agent id to inspect (overrides CML_HIVE_ASSIST_AGENT_DIR/PI_CODING_AGENT_DIR)",
     )
     .action(async (opts, command) => {
       const agent =

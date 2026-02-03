@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/line",
+  "name": "@cml-hive-assist/line",
   "version": "2026.2.1",
-  "description": "OpenClaw LINE channel plugin",
+  "description": "CmlHiveAssist LINE channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ],
@@ -21,7 +21,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/line",
+      "npmSpec": "@cml-hive-assist/line",
       "localPath": "extensions/line",
       "defaultChoice": "npm"
     }

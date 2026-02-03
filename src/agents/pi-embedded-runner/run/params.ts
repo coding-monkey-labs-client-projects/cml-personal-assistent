@@ -1,11 +1,11 @@
 import type { ImageContent } from "@mariozechner/pi-ai";
-import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.js";
-import type { AgentStreamParams } from "../../../commands/agent/types.js";
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { enqueueCommand } from "../../../process/command-queue.js";
-import type { ExecElevatedDefaults, ExecToolDefaults } from "../../bash-tools.js";
-import type { BlockReplyChunking, ToolResultFormat } from "../../pi-embedded-subscribe.js";
-import type { SkillSnapshot } from "../../skills.js";
+import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.ts";
+import type { AgentStreamParams } from "../../../commands/agent/types.ts";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { enqueueCommand } from "../../../process/command-queue.ts";
+import type { ExecElevatedDefaults, ExecToolDefaults } from "../../bash-tools.ts";
+import type { BlockReplyChunking, ToolResultFormat } from "../../pi-embedded-subscribe.ts";
+import type { SkillSnapshot } from "../../skills.ts";
 
 // Simplified tool definition for client-provided tools (OpenResponses hosted tools)
 export type ClientToolDefinition = {
@@ -50,7 +50,7 @@ export type RunEmbeddedPiAgentParams = {
   sessionFile: string;
   workspaceDir: string;
   agentDir?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   skillsSnapshot?: SkillSnapshot;
   prompt: string;
   images?: ImageContent[];

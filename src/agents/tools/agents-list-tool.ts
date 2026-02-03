@@ -1,14 +1,14 @@
 import { Type } from "@sinclair/typebox";
-import type { AnyAgentTool } from "./common.js";
-import { loadConfig } from "../../config/config.js";
+import type { AnyAgentTool } from "./common.ts";
+import { loadConfig } from "../../config/config.ts";
 import {
   DEFAULT_AGENT_ID,
   normalizeAgentId,
   parseAgentSessionKey,
-} from "../../routing/session-key.js";
-import { resolveAgentConfig } from "../agent-scope.js";
-import { jsonResult } from "./common.js";
-import { resolveInternalSessionKey, resolveMainSessionAlias } from "./sessions-helpers.js";
+} from "../../routing/session-key.ts";
+import { resolveAgentConfig } from "../agent-scope.ts";
+import { jsonResult } from "./common.ts";
+import { resolveInternalSessionKey, resolveMainSessionAlias } from "./sessions-helpers.ts";
 
 const AgentsListToolSchema = Type.Object({});
 

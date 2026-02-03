@@ -1,9 +1,9 @@
-import type { PortListener, PortListenerKind, PortUsage } from "./ports-types.js";
-import { formatCliCommand } from "../cli/command-format.js";
+import type { PortListener, PortListenerKind, PortUsage } from "./ports-types.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
 
 export function classifyPortListener(listener: PortListener, port: number): PortListenerKind {
   const raw = `${listener.commandLine ?? ""} ${listener.command ?? ""}`.trim().toLowerCase();
-  if (raw.includes("openclaw")) {
+  if (raw.includes("cml-hive-assist")) {
     return "gateway";
   }
   if (raw.includes("ssh")) {

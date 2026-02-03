@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveSignalAccount } from "./accounts.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveSignalAccount } from "./accounts.ts";
 
 export type SignalReactionLevel = "off" | "ack" | "minimal" | "extensive";
 
@@ -23,7 +23,7 @@ export type ResolvedSignalReactionLevel = {
  * - "extensive": Agent can react liberally
  */
 export function resolveSignalReactionLevel(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string;
 }): ResolvedSignalReactionLevel {
   const account = resolveSignalAccount({

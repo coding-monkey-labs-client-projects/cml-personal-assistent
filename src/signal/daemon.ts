@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import type { RuntimeEnv } from "../runtime.js";
+import type { RuntimeEnv } from "../runtime.ts";
 
 export type SignalDaemonOpts = {
   cliPath: string;

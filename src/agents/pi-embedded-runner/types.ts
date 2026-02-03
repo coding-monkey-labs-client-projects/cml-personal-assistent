@@ -1,5 +1,5 @@
-import type { SessionSystemPromptReport } from "../../config/sessions/types.js";
-import type { MessagingToolSend } from "../pi-embedded-messaging.js";
+import type { SessionSystemPromptReport } from "../../config/sessions/types.ts";
+import type { MessagingToolSend } from "../pi-embedded-messaging.ts";
 
 export type EmbeddedPiAgentMeta = {
   sessionId: string;

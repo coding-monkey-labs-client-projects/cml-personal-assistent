@@ -3,10 +3,10 @@ import type { Api, Model } from "@mariozechner/pi-ai";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveStateDir } from "../config/paths.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveUserPath } from "../utils.js";
-import { parseBooleanValue } from "../utils/boolean.js";
+import { resolveStateDir } from "../config/paths.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveUserPath } from "../utils.ts";
+import { parseBooleanValue } from "../utils/boolean.ts";
 
 type PayloadLogStage = "request" | "usage";
 
@@ -40,8 +40,8 @@ const writers = new Map<string, PayloadLogWriter>();
 const log = createSubsystemLogger("agent/anthropic-payload");
 
 function resolvePayloadLogConfig(env: NodeJS.ProcessEnv): PayloadLogConfig {
-  const enabled = parseBooleanValue(env.OPENCLAW_ANTHROPIC_PAYLOAD_LOG) ?? false;
-  const fileOverride = env.OPENCLAW_ANTHROPIC_PAYLOAD_LOG_FILE?.trim();
+  const enabled = parseBooleanValue(env.CML_HIVE_ASSIST_ANTHROPIC_PAYLOAD_LOG) ?? false;
+  const fileOverride = env.CML_HIVE_ASSIST_ANTHROPIC_PAYLOAD_LOG_FILE?.trim();
   const filePath = fileOverride
     ? resolveUserPath(fileOverride)
     : path.join(resolveStateDir(env), "logs", "anthropic-payload.jsonl");

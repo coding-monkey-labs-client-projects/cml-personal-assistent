@@ -1,14 +1,14 @@
 ---
-summary: "CLI reference for `openclaw setup` (initialize config + workspace)"
+summary: "CLI reference for `cml-hive-assist setup` (initialize config + workspace)"
 read_when:
   - You’re doing first-run setup without the full onboarding wizard
   - You want to set the default workspace path
 title: "setup"
 ---
 
-# `openclaw setup`
+# `cml-hive-assist setup`
 
-Initialize `~/.openclaw/openclaw.json` and the agent workspace.
+Initialize `~/.cml-hive-assist/cml-hive-assist.json` and the agent workspace.
 
 Related:
 
@@ -18,12 +18,12 @@ Related:
 ## Examples
 
 ```bash
-openclaw setup
-openclaw setup --workspace ~/.openclaw/workspace
+cml-hive-assist setup
+cml-hive-assist setup --workspace ~/.cml-hive-assist/workspace
 ```
 
 To run the wizard via setup:
 
 ```bash
-openclaw setup --wizard
+cml-hive-assist setup --wizard
 ```

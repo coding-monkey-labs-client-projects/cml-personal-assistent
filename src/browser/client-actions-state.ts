@@ -1,5 +1,5 @@
-import type { BrowserActionOk, BrowserActionTargetOk } from "./client-actions-types.js";
-import { fetchBrowserJson } from "./client-fetch.js";
+import type { BrowserActionOk, BrowserActionTargetOk } from "./client-actions-types.ts";
+import { fetchBrowserJson } from "./client-fetch.ts";
 
 function buildProfileQuery(profile?: string): string {
   return profile ? `?profile=${encodeURIComponent(profile)}` : "";

@@ -46,7 +46,7 @@ describe("agent concurrency defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify({}, null, 2),
         "utf-8",
       );

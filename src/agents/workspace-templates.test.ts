@@ -16,7 +16,7 @@ describe("resolveWorkspaceTemplateDir", () => {
   it("resolves templates from package root when module url is dist-rooted", async () => {
     resetWorkspaceTemplateDirCache();
     const root = await makeTempRoot();
-    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "openclaw" }));
+    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "cml-hive-assist" }));
 
     const templatesDir = path.join(root, "docs", "reference", "templates");
     await fs.mkdir(templatesDir, { recursive: true });

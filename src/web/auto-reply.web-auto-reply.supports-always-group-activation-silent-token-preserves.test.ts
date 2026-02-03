@@ -248,7 +248,7 @@ describe("web auto-reply", () => {
 
     expect(resolver).not.toHaveBeenCalled();
 
-    // Text-based mentionPatterns still work (user can type "openclaw" explicitly).
+    // Text-based mentionPatterns still work (user can type "cml-hive-assist" explicitly).
     await capturedOnMessage?.({
       body: "openclaw ping",
       from: "123@g.us",

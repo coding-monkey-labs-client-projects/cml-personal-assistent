@@ -1,9 +1,9 @@
 import type { Command } from "commander";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { runTui } from "../tui/tui.js";
-import { parseTimeoutMs } from "./parse-timeout.js";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { runTui } from "../tui/tui.ts";
+import { parseTimeoutMs } from "./parse-timeout.ts";
 
 export function registerTuiCli(program: Command) {
   program
@@ -20,7 +20,7 @@ export function registerTuiCli(program: Command) {
     .option("--history-limit <n>", "History entries to load", "200")
     .addHelpText(
       "after",
-      () => `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/tui", "docs.openclaw.ai/cli/tui")}\n`,
+      () => `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/tui", "docs.cml-hive-assist.ai/cli/tui")}\n`,
     )
     .action(async (opts) => {
       try {

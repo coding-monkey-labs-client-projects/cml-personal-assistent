@@ -1,14 +1,14 @@
 import type { Command } from "commander";
-import { danger } from "../../globals.js";
-import { sanitizeAgentId } from "../../routing/session-key.js";
-import { defaultRuntime } from "../../runtime.js";
-import { addGatewayClientOptions, callGatewayFromCli } from "../gateway-rpc.js";
+import { danger } from "../../globals.ts";
+import { sanitizeAgentId } from "../../routing/session-key.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { addGatewayClientOptions, callGatewayFromCli } from "../gateway-rpc.ts";
 import {
   getCronChannelOptions,
   parseAtMs,
   parseDurationMs,
   warnIfCronSchedulerDisabled,
-} from "./shared.js";
+} from "./shared.ts";
 
 const assignIf = (
   target: Record<string, unknown>,

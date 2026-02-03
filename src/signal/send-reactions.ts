@@ -2,9 +2,9 @@
  * Signal reactions via signal-cli JSON-RPC API
  */
 
-import { loadConfig } from "../config/config.js";
-import { resolveSignalAccount } from "./accounts.js";
-import { signalRpcRequest } from "./client.js";
+import { loadConfig } from "../config/config.ts";
+import { resolveSignalAccount } from "./accounts.ts";
+import { signalRpcRequest } from "./client.ts";
 
 export type SignalReactionOpts = {
   baseUrl?: string;

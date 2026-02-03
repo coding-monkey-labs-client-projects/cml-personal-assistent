@@ -1,8 +1,8 @@
 import type { ChannelType, Client, Message } from "@buape/carbon";
 import type { APIAttachment } from "discord-api-types/v10";
-import { logVerbose } from "../../globals.js";
-import { fetchRemoteMedia } from "../../media/fetch.js";
-import { saveMediaBuffer } from "../../media/store.js";
+import { logVerbose } from "../../globals.ts";
+import { fetchRemoteMedia } from "../../media/fetch.ts";
+import { saveMediaBuffer } from "../../media/store.ts";
 
 export type DiscordMediaInfo = {
   path: string;

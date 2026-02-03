@@ -1,4 +1,4 @@
-import OpenClawDiscovery
+import CmlHiveAssistDiscovery
 import Foundation
 
 enum GatewayDiscoveryHelpers {

@@ -1,5 +1,5 @@
 import type { Server as HttpServer } from "node:http";
-import { GatewayLockError } from "../../infra/gateway-lock.js";
+import { GatewayLockError } from "../../infra/gateway-lock.ts";
 
 export async function listenGatewayHttpServer(params: {
   httpServer: HttpServer;

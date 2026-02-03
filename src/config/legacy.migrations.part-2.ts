@@ -7,7 +7,7 @@ import {
   type LegacyConfigMigration,
   mapLegacyAudioTranscription,
   mergeMissing,
-} from "./legacy.shared.js";
+} from "./legacy.shared.ts";
 
 export const LEGACY_CONFIG_MIGRATIONS_PART_2: LegacyConfigMigration[] = [
   {

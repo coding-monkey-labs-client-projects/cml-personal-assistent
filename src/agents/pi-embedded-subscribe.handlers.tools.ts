@@ -1,17 +1,17 @@
 import type { AgentEvent } from "@mariozechner/pi-agent-core";
-import type { EmbeddedPiSubscribeContext } from "./pi-embedded-subscribe.handlers.types.js";
-import { emitAgentEvent } from "../infra/agent-events.js";
-import { normalizeTextForComparison } from "./pi-embedded-helpers.js";
-import { isMessagingTool, isMessagingToolSendAction } from "./pi-embedded-messaging.js";
+import type { EmbeddedPiSubscribeContext } from "./pi-embedded-subscribe.handlers.types.ts";
+import { emitAgentEvent } from "../infra/agent-events.ts";
+import { normalizeTextForComparison } from "./pi-embedded-helpers.ts";
+import { isMessagingTool, isMessagingToolSendAction } from "./pi-embedded-messaging.ts";
 import {
   extractToolErrorMessage,
   extractToolResultText,
   extractMessagingToolSend,
   isToolResultError,
   sanitizeToolResult,
-} from "./pi-embedded-subscribe.tools.js";
-import { inferToolMetaFromArgs } from "./pi-embedded-utils.js";
-import { normalizeToolName } from "./tool-policy.js";
+} from "./pi-embedded-subscribe.tools.ts";
+import { inferToolMetaFromArgs } from "./pi-embedded-utils.ts";
+import { normalizeToolName } from "./tool-policy.ts";
 
 function extendExecMeta(toolName: string, args: unknown, meta?: string): string | undefined {
   const normalized = toolName.trim().toLowerCase();

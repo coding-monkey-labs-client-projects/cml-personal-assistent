@@ -16,8 +16,8 @@ Native Linux companion apps are planned. Contributions are welcome if you want t
 ## Beginner quick path (VPS)
 
 1. Install Node 22+
-2. `npm i -g openclaw@latest`
-3. `openclaw onboard --install-daemon`
+2. `npm i -g cml-hive-assist@latest`
+3. `cml-hive-assist onboard --install-daemon`
 4. From your laptop: `ssh -N -L 18789:127.0.0.1:18789 <user>@<host>`
 5. Open `http://127.0.0.1:18789/` and paste your token
 
@@ -39,19 +39,19 @@ Step-by-step VPS guide: [exe.dev](/platforms/exe-dev)
 Use one of these:
 
 ```
-openclaw onboard --install-daemon
+cml-hive-assist onboard --install-daemon
 ```
 
 Or:
 
 ```
-openclaw gateway install
+cml-hive-assist gateway install
 ```
 
 Or:
 
 ```
-openclaw configure
+cml-hive-assist configure
 ```
 
 Select **Gateway service** when prompted.
@@ -59,27 +59,27 @@ Select **Gateway service** when prompted.
 Repair/migrate:
 
 ```
-openclaw doctor
+cml-hive-assist doctor
 ```
 
 ## System control (systemd user unit)
 
-OpenClaw installs a systemd **user** service by default. Use a **system**
+CmlHiveAssist installs a systemd **user** service by default. Use a **system**
 service for shared or always-on servers. The full unit example and guidance
 live in the [Gateway runbook](/gateway).
 
 Minimal setup:
 
-Create `~/.config/systemd/user/openclaw-gateway[-<profile>].service`:
+Create `~/.config/systemd/user/cml-hive-assist-gateway[-<profile>].service`:
 
 ```
 [Unit]
-Description=OpenClaw Gateway (profile: <profile>, v<version>)
+Description=CmlHiveAssist Gateway (profile: <profile>, v<version>)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/openclaw gateway --port 18789
+ExecStart=/usr/local/bin/cml-hive-assist gateway --port 18789
 Restart=always
 RestartSec=5
 
@@ -90,5 +90,5 @@ WantedBy=default.target
 Enable it:
 
 ```
-systemctl --user enable --now openclaw-gateway[-<profile>].service
+systemctl --user enable --now cml-hive-assist-gateway[-<profile>].service
 ```

@@ -4,14 +4,14 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { Mock, vi } from "vitest";
-import type { ChannelPlugin, ChannelOutboundAdapter } from "../channels/plugins/types.js";
-import type { AgentBinding } from "../config/types.agents.js";
-import type { HooksConfig } from "../config/types.hooks.js";
-import type { TailscaleWhoisIdentity } from "../infra/tailscale.js";
-import type { PluginRegistry } from "../plugins/registry.js";
-import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
-import { setActivePluginRegistry } from "../plugins/runtime.js";
-import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
+import type { ChannelPlugin, ChannelOutboundAdapter } from "../channels/plugins/types.ts";
+import type { AgentBinding } from "../config/types.agents.ts";
+import type { HooksConfig } from "../config/types.hooks.ts";
+import type { TailscaleWhoisIdentity } from "../infra/tailscale.ts";
+import type { PluginRegistry } from "../plugins/registry.ts";
+import { applyPluginAutoEnable } from "../config/plugin-auto-enable.ts";
+import { setActivePluginRegistry } from "../plugins/runtime.ts";
+import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.ts";
 
 type StubChannelOptions = {
   id: ChannelPlugin["id"];
@@ -194,7 +194,7 @@ const testConfigRoot = {
 
 export const setTestConfigRoot = (root: string) => {
   testConfigRoot.value = root;
-  process.env.OPENCLAW_CONFIG_PATH = path.join(root, "openclaw.json");
+  process.env.CML_HIVE_ASSIST_CONFIG_PATH = path.join(root, "cml-hive-assist.json");
 };
 
 export const testTailnetIPv4 = hoisted.testTailnetIPv4;
@@ -230,7 +230,7 @@ export const sessionStoreSaveDelayMs = hoisted.sessionStoreSaveDelayMs;
 export const embeddedRunMock = hoisted.embeddedRunMock;
 
 vi.mock("../agents/pi-model-discovery.js", async () => {
-  const actual = await vi.importActual<typeof import("../agents/pi-model-discovery.js")>(
+  const actual = await vi.importActual<typeof import("../agents/pi-model-discovery.ts")>(
     "../agents/pi-model-discovery.js",
   );
 
@@ -263,7 +263,7 @@ vi.mock("../infra/tailnet.js", () => ({
 
 vi.mock("../infra/tailscale.js", async () => {
   const actual =
-    await vi.importActual<typeof import("../infra/tailscale.js")>("../infra/tailscale.js");
+    await vi.importActual<typeof import("../infra/tailscale.ts")>("../infra/tailscale.js");
   return {
     ...actual,
     readTailscaleWhoisIdentity: async () => testTailscaleWhois.value,
@@ -272,7 +272,7 @@ vi.mock("../infra/tailscale.js", async () => {
 
 vi.mock("../config/sessions.js", async () => {
   const actual =
-    await vi.importActual<typeof import("../config/sessions.js")>("../config/sessions.js");
+    await vi.importActual<typeof import("../config/sessions.ts")>("../config/sessions.js");
   return {
     ...actual,
     saveSessionStore: vi.fn(async (storePath: string, store: unknown) => {
@@ -286,8 +286,8 @@ vi.mock("../config/sessions.js", async () => {
 });
 
 vi.mock("../config/config.js", async () => {
-  const actual = await vi.importActual<typeof import("../config/config.js")>("../config/config.js");
-  const resolveConfigPath = () => path.join(testConfigRoot.value, "openclaw.json");
+  const actual = await vi.importActual<typeof import("../config/config.ts")>("../config/config.js");
+  const resolveConfigPath = () => path.join(testConfigRoot.value, "cml-hive-assist.json");
   const hashConfigRaw = (raw: string | null) =>
     crypto
       .createHash("sha256")
@@ -532,7 +532,7 @@ vi.mock("../config/config.js", async () => {
 });
 
 vi.mock("../agents/pi-embedded.js", async () => {
-  const actual = await vi.importActual<typeof import("../agents/pi-embedded.js")>(
+  const actual = await vi.importActual<typeof import("../agents/pi-embedded.ts")>(
     "../agents/pi-embedded.js",
   );
   return {
@@ -562,7 +562,7 @@ vi.mock("../web/outbound.js", () => ({
     (hoisted.sendWhatsAppMock as (...args: unknown[]) => unknown)(...args),
 }));
 vi.mock("../channels/web/index.js", async () => {
-  const actual = await vi.importActual<typeof import("../channels/web/index.js")>(
+  const actual = await vi.importActual<typeof import("../channels/web/index.ts")>(
     "../channels/web/index.js",
   );
   return {
@@ -578,7 +578,7 @@ vi.mock("../auto-reply/reply.js", () => ({
   getReplyFromConfig,
 }));
 vi.mock("../cli/deps.js", async () => {
-  const actual = await vi.importActual<typeof import("../cli/deps.js")>("../cli/deps.js");
+  const actual = await vi.importActual<typeof import("../cli/deps.ts")>("../cli/deps.js");
   const base = actual.createDefaultDeps();
   return {
     ...actual,
@@ -590,7 +590,7 @@ vi.mock("../cli/deps.js", async () => {
   };
 });
 
-process.env.OPENCLAW_SKIP_CHANNELS = "1";
-process.env.OPENCLAW_SKIP_CRON = "1";
-process.env.OPENCLAW_SKIP_CHANNELS = "1";
-process.env.OPENCLAW_SKIP_CRON = "1";
+process.env.CML_HIVE_ASSIST_SKIP_CHANNELS = "1";
+process.env.CML_HIVE_ASSIST_SKIP_CRON = "1";
+process.env.CML_HIVE_ASSIST_SKIP_CHANNELS = "1";
+process.env.CML_HIVE_ASSIST_SKIP_CRON = "1";

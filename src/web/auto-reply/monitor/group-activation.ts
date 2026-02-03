@@ -1,14 +1,14 @@
-import type { loadConfig } from "../../../config/config.js";
-import { normalizeGroupActivation } from "../../../auto-reply/group-activation.js";
+import type { loadConfig } from "../../../config/config.ts";
+import { normalizeGroupActivation } from "../../../auto-reply/group-activation.ts";
 import {
   resolveChannelGroupPolicy,
   resolveChannelGroupRequireMention,
-} from "../../../config/group-policy.js";
+} from "../../../config/group-policy.ts";
 import {
   loadSessionStore,
   resolveGroupSessionKey,
   resolveStorePath,
-} from "../../../config/sessions.js";
+} from "../../../config/sessions.ts";
 
 export function resolveGroupPolicyFor(cfg: ReturnType<typeof loadConfig>, conversationId: string) {
   const groupId = resolveGroupSessionKey({

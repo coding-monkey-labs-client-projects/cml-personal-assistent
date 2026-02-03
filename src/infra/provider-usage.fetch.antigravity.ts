@@ -1,7 +1,7 @@
-import type { ProviderUsageSnapshot, UsageWindow } from "./provider-usage.types.js";
-import { logDebug } from "../logger.js";
-import { fetchJson } from "./provider-usage.fetch.shared.js";
-import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.js";
+import type { ProviderUsageSnapshot, UsageWindow } from "./provider-usage.types.ts";
+import { logDebug } from "../logger.ts";
+import { fetchJson } from "./provider-usage.fetch.shared.ts";
+import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.ts";
 
 type LoadCodeAssistResponse = {
   availablePromptCredits?: number | string;

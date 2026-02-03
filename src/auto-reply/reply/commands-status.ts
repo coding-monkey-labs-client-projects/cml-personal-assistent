@@ -1,36 +1,36 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry, SessionScope } from "../../config/sessions.js";
-import type { MediaUnderstandingDecision } from "../../media-understanding/types.js";
-import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.js";
-import type { ReplyPayload } from "../types.js";
-import type { CommandContext } from "./commands-types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry, SessionScope } from "../../config/sessions.ts";
+import type { MediaUnderstandingDecision } from "../../media-understanding/types.ts";
+import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.ts";
+import type { ReplyPayload } from "../types.ts";
+import type { CommandContext } from "./commands-types.ts";
 import {
   resolveAgentDir,
   resolveDefaultAgentId,
   resolveSessionAgentId,
-} from "../../agents/agent-scope.js";
+} from "../../agents/agent-scope.ts";
 import {
   ensureAuthProfileStore,
   resolveAuthProfileDisplayLabel,
   resolveAuthProfileOrder,
-} from "../../agents/auth-profiles.js";
-import { getCustomProviderApiKey, resolveEnvApiKey } from "../../agents/model-auth.js";
-import { normalizeProviderId } from "../../agents/model-selection.js";
-import { listSubagentRunsForRequester } from "../../agents/subagent-registry.js";
+} from "../../agents/auth-profiles.ts";
+import { getCustomProviderApiKey, resolveEnvApiKey } from "../../agents/model-auth.ts";
+import { normalizeProviderId } from "../../agents/model-selection.ts";
+import { listSubagentRunsForRequester } from "../../agents/subagent-registry.ts";
 import {
   resolveInternalSessionKey,
   resolveMainSessionAlias,
-} from "../../agents/tools/sessions-helpers.js";
-import { logVerbose } from "../../globals.js";
+} from "../../agents/tools/sessions-helpers.ts";
+import { logVerbose } from "../../globals.ts";
 import {
   formatUsageWindowSummary,
   loadProviderUsageSummary,
   resolveUsageProviderId,
-} from "../../infra/provider-usage.js";
-import { normalizeGroupActivation } from "../group-activation.js";
-import { buildStatusMessage } from "../status.js";
-import { getFollowupQueueDepth, resolveQueueSettings } from "./queue.js";
-import { resolveSubagentLabel } from "./subagents-utils.js";
+} from "../../infra/provider-usage.ts";
+import { normalizeGroupActivation } from "../group-activation.ts";
+import { buildStatusMessage } from "../status.ts";
+import { getFollowupQueueDepth, resolveQueueSettings } from "./queue.ts";
+import { resolveSubagentLabel } from "./subagents-utils.ts";
 
 function formatApiKeySnippet(apiKey: string): string {
   const compact = apiKey.replace(/\s+/g, "");
@@ -45,7 +45,7 @@ function formatApiKeySnippet(apiKey: string): string {
 
 function resolveModelAuthLabel(
   provider?: string,
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   sessionEntry?: SessionEntry,
   agentDir?: string,
 ): string | undefined {
@@ -101,7 +101,7 @@ function resolveModelAuthLabel(
 }
 
 export async function buildStatusReply(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   command: CommandContext;
   sessionEntry?: SessionEntry;
   sessionKey: string;

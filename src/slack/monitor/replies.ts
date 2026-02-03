@@ -1,12 +1,12 @@
-import type { ChunkMode } from "../../auto-reply/chunk.js";
-import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { MarkdownTableMode } from "../../config/types.base.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import { chunkMarkdownTextWithMode } from "../../auto-reply/chunk.js";
-import { createReplyReferencePlanner } from "../../auto-reply/reply/reply-reference.js";
-import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";
-import { markdownToSlackMrkdwnChunks } from "../format.js";
-import { sendMessageSlack } from "../send.js";
+import type { ChunkMode } from "../../auto-reply/chunk.ts";
+import type { ReplyPayload } from "../../auto-reply/types.ts";
+import type { MarkdownTableMode } from "../../config/types.base.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import { chunkMarkdownTextWithMode } from "../../auto-reply/chunk.ts";
+import { createReplyReferencePlanner } from "../../auto-reply/reply/reply-reference.ts";
+import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.ts";
+import { markdownToSlackMrkdwnChunks } from "../format.ts";
+import { sendMessageSlack } from "../send.ts";
 
 export async function deliverReplies(params: {
   replies: ReplyPayload[];

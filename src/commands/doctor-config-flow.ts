@@ -1,20 +1,20 @@
 import type { ZodIssue } from "zod";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { DoctorOptions } from "./doctor-prompter.js";
-import { formatCliCommand } from "../cli/command-format.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { DoctorOptions } from "./doctor-prompter.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
 import {
-  OpenClawSchema,
+  CmlHiveAssistSchema,
   CONFIG_PATH,
   migrateLegacyConfig,
   readConfigFileSnapshot,
-} from "../config/config.js";
-import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
-import { note } from "../terminal/note.js";
-import { resolveHomeDir } from "../utils.js";
-import { normalizeLegacyConfigValues } from "./doctor-legacy-config.js";
-import { autoMigrateLegacyStateDir } from "./doctor-state-migrations.js";
+} from "../config/config.ts";
+import { applyPluginAutoEnable } from "../config/plugin-auto-enable.ts";
+import { note } from "../terminal/note.ts";
+import { resolveHomeDir } from "../utils.ts";
+import { normalizeLegacyConfigValues } from "./doctor-legacy-config.ts";
+import { autoMigrateLegacyStateDir } from "./doctor-state-migrations.ts";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === "object" && !Array.isArray(value));
@@ -73,11 +73,11 @@ function resolvePathTarget(root: unknown, path: Array<string | number>): unknown
   return current;
 }
 
-function stripUnknownConfigKeys(config: OpenClawConfig): {
-  config: OpenClawConfig;
+function stripUnknownConfigKeys(config: CmlHiveAssistConfig): {
+  config: CmlHiveAssistConfig;
   removed: string[];
 } {
-  const parsed = OpenClawSchema.safeParse(config);
+  const parsed = CmlHiveAssistSchema.safeParse(config);
   if (parsed.success) {
     return { config, removed: [] };
   }
@@ -109,7 +109,7 @@ function stripUnknownConfigKeys(config: OpenClawConfig): {
   return { config: next, removed };
 }
 
-function noteOpencodeProviderOverrides(cfg: OpenClawConfig) {
+function noteOpencodeProviderOverrides(cfg: CmlHiveAssistConfig) {
   const providers = cfg.models?.providers;
   if (!providers) {
     return;
@@ -154,7 +154,7 @@ async function maybeMigrateLegacyConfig(): Promise<string[]> {
   }
 
   const targetDir = path.join(home, ".openclaw");
-  const targetPath = path.join(targetDir, "openclaw.json");
+  const targetPath = path.join(targetDir, "cml-hive-assist.json");
   try {
     await fs.access(targetPath);
     return changes;
@@ -213,7 +213,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
 
   let snapshot = await readConfigFileSnapshot();
   const baseCfg = snapshot.config ?? {};
-  let cfg: OpenClawConfig = baseCfg;
+  let cfg: CmlHiveAssistConfig = baseCfg;
   let candidate = structuredClone(baseCfg);
   let pendingChanges = false;
   let shouldWriteConfig = false;

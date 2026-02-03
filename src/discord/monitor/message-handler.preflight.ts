@@ -2,33 +2,33 @@ import { ChannelType, MessageType, type User } from "@buape/carbon";
 import type {
   DiscordMessagePreflightContext,
   DiscordMessagePreflightParams,
-} from "./message-handler.preflight.types.js";
-import { hasControlCommand } from "../../auto-reply/command-detection.js";
-import { shouldHandleTextCommands } from "../../auto-reply/commands-registry.js";
+} from "./message-handler.preflight.types.ts";
+import { hasControlCommand } from "../../auto-reply/command-detection.ts";
+import { shouldHandleTextCommands } from "../../auto-reply/commands-registry.ts";
 import {
   recordPendingHistoryEntryIfEnabled,
   type HistoryEntry,
-} from "../../auto-reply/reply/history.js";
+} from "../../auto-reply/reply/history.ts";
 import {
   buildMentionRegexes,
   matchesMentionWithExplicit,
-} from "../../auto-reply/reply/mentions.js";
-import { formatAllowlistMatchMeta } from "../../channels/allowlist-match.js";
-import { resolveControlCommandGate } from "../../channels/command-gating.js";
-import { logInboundDrop } from "../../channels/logging.js";
-import { resolveMentionGatingWithBypass } from "../../channels/mention-gating.js";
-import { logVerbose, shouldLogVerbose } from "../../globals.js";
-import { recordChannelActivity } from "../../infra/channel-activity.js";
-import { enqueueSystemEvent } from "../../infra/system-events.js";
-import { getChildLogger } from "../../logging.js";
-import { buildPairingReply } from "../../pairing/pairing-messages.js";
+} from "../../auto-reply/reply/mentions.ts";
+import { formatAllowlistMatchMeta } from "../../channels/allowlist-match.ts";
+import { resolveControlCommandGate } from "../../channels/command-gating.ts";
+import { logInboundDrop } from "../../channels/logging.ts";
+import { resolveMentionGatingWithBypass } from "../../channels/mention-gating.ts";
+import { logVerbose, shouldLogVerbose } from "../../globals.ts";
+import { recordChannelActivity } from "../../infra/channel-activity.ts";
+import { enqueueSystemEvent } from "../../infra/system-events.ts";
+import { getChildLogger } from "../../logging.ts";
+import { buildPairingReply } from "../../pairing/pairing-messages.ts";
 import {
   readChannelAllowFromStore,
   upsertChannelPairingRequest,
-} from "../../pairing/pairing-store.js";
-import { resolveAgentRoute } from "../../routing/resolve-route.js";
-import { fetchPluralKitMessageInfo } from "../pluralkit.js";
-import { sendMessageDiscord } from "../send.js";
+} from "../../pairing/pairing-store.ts";
+import { resolveAgentRoute } from "../../routing/resolve-route.ts";
+import { fetchPluralKitMessageInfo } from "../pluralkit.ts";
+import { sendMessageDiscord } from "../send.ts";
 import {
   allowListMatches,
   isDiscordGroupAllowedByPolicy,
@@ -40,21 +40,21 @@ import {
   resolveDiscordShouldRequireMention,
   resolveDiscordUserAllowed,
   resolveGroupDmAllow,
-} from "./allow-list.js";
+} from "./allow-list.ts";
 import {
   formatDiscordUserTag,
   resolveDiscordSystemLocation,
   resolveTimestampMs,
-} from "./format.js";
-import { resolveDiscordChannelInfo, resolveDiscordMessageText } from "./message-utils.js";
-import { resolveDiscordSenderIdentity, resolveDiscordWebhookId } from "./sender-identity.js";
-import { resolveDiscordSystemEvent } from "./system-events.js";
-import { resolveDiscordThreadChannel, resolveDiscordThreadParentInfo } from "./threading.js";
+} from "./format.ts";
+import { resolveDiscordChannelInfo, resolveDiscordMessageText } from "./message-utils.ts";
+import { resolveDiscordSenderIdentity, resolveDiscordWebhookId } from "./sender-identity.ts";
+import { resolveDiscordSystemEvent } from "./system-events.ts";
+import { resolveDiscordThreadChannel, resolveDiscordThreadParentInfo } from "./threading.ts";
 
 export type {
   DiscordMessagePreflightContext,
   DiscordMessagePreflightParams,
-} from "./message-handler.preflight.types.js";
+} from "./message-handler.preflight.types.ts";
 
 export async function preflightDiscordMessage(
   params: DiscordMessagePreflightParams,

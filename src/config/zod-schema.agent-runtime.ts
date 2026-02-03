@@ -1,12 +1,12 @@
 import { z } from "zod";
-import { parseDurationMs } from "../cli/parse-duration.js";
+import { parseDurationMs } from "../cli/parse-duration.ts";
 import {
   GroupChatSchema,
   HumanDelaySchema,
   IdentitySchema,
   ToolsLinksSchema,
   ToolsMediaSchema,
-} from "./zod-schema.core.js";
+} from "./zod-schema.core.ts";
 
 export const HeartbeatSchema = z
   .object({

@@ -1,16 +1,16 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { UsageProviderId } from "./provider-usage.types.js";
+import type { UsageProviderId } from "./provider-usage.types.ts";
 import {
   ensureAuthProfileStore,
   listProfilesForProvider,
   resolveApiKeyForProfile,
   resolveAuthProfileOrder,
-} from "../agents/auth-profiles.js";
-import { getCustomProviderApiKey, resolveEnvApiKey } from "../agents/model-auth.js";
-import { normalizeProviderId } from "../agents/model-selection.js";
-import { loadConfig } from "../config/config.js";
+} from "../agents/auth-profiles.ts";
+import { getCustomProviderApiKey, resolveEnvApiKey } from "../agents/model-auth.ts";
+import { normalizeProviderId } from "../agents/model-selection.ts";
+import { loadConfig } from "../config/config.ts";
 
 export type ProviderAuth = {
   provider: UsageProviderId;

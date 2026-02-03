@@ -1,7 +1,7 @@
 import os from "node:os";
 import path from "node:path";
-import { CHANNEL_IDS } from "../../channels/registry.js";
-import { STATE_DIR } from "../../config/config.js";
+import { CHANNEL_IDS } from "../../channels/registry.ts";
+import { STATE_DIR } from "../../config/config.ts";
 
 export const DEFAULT_SANDBOX_WORKSPACE_ROOT = path.join(os.homedir(), ".openclaw", "sandboxes");
 

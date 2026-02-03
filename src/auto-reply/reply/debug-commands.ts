@@ -1,4 +1,4 @@
-import { parseConfigValue } from "./config-value.js";
+import { parseConfigValue } from "./config-value.ts";
 
 export type DebugCommand =
   | { action: "show" }

@@ -1,46 +1,46 @@
 import { ChannelType } from "@buape/carbon";
-import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { DiscordMessagePreflightContext } from "./message-handler.preflight.js";
-import { resolveAckReaction, resolveHumanDelayConfig } from "../../agents/identity.js";
-import { resolveChunkMode } from "../../auto-reply/chunk.js";
-import { dispatchInboundMessage } from "../../auto-reply/dispatch.js";
+import type { ReplyPayload } from "../../auto-reply/types.ts";
+import type { DiscordMessagePreflightContext } from "./message-handler.preflight.ts";
+import { resolveAckReaction, resolveHumanDelayConfig } from "../../agents/identity.ts";
+import { resolveChunkMode } from "../../auto-reply/chunk.ts";
+import { dispatchInboundMessage } from "../../auto-reply/dispatch.ts";
 import {
   formatInboundEnvelope,
   formatThreadStarterEnvelope,
   resolveEnvelopeFormatOptions,
-} from "../../auto-reply/envelope.js";
+} from "../../auto-reply/envelope.ts";
 import {
   buildPendingHistoryContextFromMap,
   clearHistoryEntriesIfEnabled,
-} from "../../auto-reply/reply/history.js";
-import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.js";
-import { createReplyDispatcherWithTyping } from "../../auto-reply/reply/reply-dispatcher.js";
+} from "../../auto-reply/reply/history.ts";
+import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.ts";
+import { createReplyDispatcherWithTyping } from "../../auto-reply/reply/reply-dispatcher.ts";
 import {
   removeAckReactionAfterReply,
   shouldAckReaction as shouldAckReactionGate,
-} from "../../channels/ack-reactions.js";
-import { logTypingFailure, logAckFailure } from "../../channels/logging.js";
-import { createReplyPrefixContext } from "../../channels/reply-prefix.js";
-import { recordInboundSession } from "../../channels/session.js";
-import { createTypingCallbacks } from "../../channels/typing.js";
-import { resolveMarkdownTableMode } from "../../config/markdown-tables.js";
-import { readSessionUpdatedAt, resolveStorePath } from "../../config/sessions.js";
-import { danger, logVerbose, shouldLogVerbose } from "../../globals.js";
-import { buildAgentSessionKey } from "../../routing/resolve-route.js";
-import { resolveThreadSessionKeys } from "../../routing/session-key.js";
-import { truncateUtf16Safe } from "../../utils.js";
-import { reactMessageDiscord, removeReactionDiscord } from "../send.js";
-import { normalizeDiscordSlug } from "./allow-list.js";
-import { resolveTimestampMs } from "./format.js";
+} from "../../channels/ack-reactions.ts";
+import { logTypingFailure, logAckFailure } from "../../channels/logging.ts";
+import { createReplyPrefixContext } from "../../channels/reply-prefix.ts";
+import { recordInboundSession } from "../../channels/session.ts";
+import { createTypingCallbacks } from "../../channels/typing.ts";
+import { resolveMarkdownTableMode } from "../../config/markdown-tables.ts";
+import { readSessionUpdatedAt, resolveStorePath } from "../../config/sessions.ts";
+import { danger, logVerbose, shouldLogVerbose } from "../../globals.ts";
+import { buildAgentSessionKey } from "../../routing/resolve-route.ts";
+import { resolveThreadSessionKeys } from "../../routing/session-key.ts";
+import { truncateUtf16Safe } from "../../utils.ts";
+import { reactMessageDiscord, removeReactionDiscord } from "../send.ts";
+import { normalizeDiscordSlug } from "./allow-list.ts";
+import { resolveTimestampMs } from "./format.ts";
 import {
   buildDiscordMediaPayload,
   resolveDiscordMessageText,
   resolveMediaList,
-} from "./message-utils.js";
-import { buildDirectLabel, buildGuildLabel, resolveReplyContext } from "./reply-context.js";
-import { deliverDiscordReply } from "./reply-delivery.js";
-import { resolveDiscordAutoThreadReplyPlan, resolveDiscordThreadStarter } from "./threading.js";
-import { sendTyping } from "./typing.js";
+} from "./message-utils.ts";
+import { buildDirectLabel, buildGuildLabel, resolveReplyContext } from "./reply-context.ts";
+import { deliverDiscordReply } from "./reply-delivery.ts";
+import { resolveDiscordAutoThreadReplyPlan, resolveDiscordThreadStarter } from "./threading.ts";
+import { sendTyping } from "./typing.ts";
 
 export async function processDiscordMessage(ctx: DiscordMessagePreflightContext) {
   const {

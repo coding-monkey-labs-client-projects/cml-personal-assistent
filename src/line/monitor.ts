@@ -1,18 +1,18 @@
 import type { WebhookRequestBody } from "@line/bot-sdk";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { LineChannelData, ResolvedLineAccount } from "./types.js";
-import { resolveEffectiveMessagesConfig } from "../agents/identity.js";
-import { chunkMarkdownText } from "../auto-reply/chunk.js";
-import { dispatchReplyWithBufferedBlockDispatcher } from "../auto-reply/reply/provider-dispatcher.js";
-import { danger, logVerbose } from "../globals.js";
-import { normalizePluginHttpPath } from "../plugins/http-path.js";
-import { registerPluginHttpRoute } from "../plugins/http-registry.js";
-import { deliverLineAutoReply } from "./auto-reply-delivery.js";
-import { createLineBot } from "./bot.js";
-import { processLineMessage } from "./markdown-to-line.js";
-import { sendLineReplyChunks } from "./reply-chunks.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { LineChannelData, ResolvedLineAccount } from "./types.ts";
+import { resolveEffectiveMessagesConfig } from "../agents/identity.ts";
+import { chunkMarkdownText } from "../auto-reply/chunk.ts";
+import { dispatchReplyWithBufferedBlockDispatcher } from "../auto-reply/reply/provider-dispatcher.ts";
+import { danger, logVerbose } from "../globals.ts";
+import { normalizePluginHttpPath } from "../plugins/http-path.ts";
+import { registerPluginHttpRoute } from "../plugins/http-registry.ts";
+import { deliverLineAutoReply } from "./auto-reply-delivery.ts";
+import { createLineBot } from "./bot.ts";
+import { processLineMessage } from "./markdown-to-line.ts";
+import { sendLineReplyChunks } from "./reply-chunks.ts";
 import {
   replyMessageLine,
   showLoadingAnimation,
@@ -25,15 +25,15 @@ import {
   createFlexMessage,
   createImageMessage,
   createLocationMessage,
-} from "./send.js";
-import { validateLineSignature } from "./signature.js";
-import { buildTemplateMessageFromPayload } from "./template-messages.js";
+} from "./send.ts";
+import { validateLineSignature } from "./signature.ts";
+import { buildTemplateMessageFromPayload } from "./template-messages.ts";
 
 export interface MonitorLineProviderOptions {
   channelAccessToken: string;
   channelSecret: string;
   accountId?: string;
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   runtime: RuntimeEnv;
   abortSignal?: AbortSignal;
   webhookUrl?: string;

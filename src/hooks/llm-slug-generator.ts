@@ -5,20 +5,20 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import {
   resolveDefaultAgentId,
   resolveAgentWorkspaceDir,
   resolveAgentDir,
-} from "../agents/agent-scope.js";
-import { runEmbeddedPiAgent } from "../agents/pi-embedded.js";
+} from "../agents/agent-scope.ts";
+import { runEmbeddedPiAgent } from "../agents/pi-embedded.ts";
 
 /**
  * Generate a short 1-2 word filename slug from session content using LLM
  */
 export async function generateSlugViaLLM(params: {
   sessionContent: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
 }): Promise<string | null> {
   let tempSessionFile: string | null = null;
 

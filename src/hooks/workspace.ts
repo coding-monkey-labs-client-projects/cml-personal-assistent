@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   Hook,
   HookEligibilityContext,
@@ -8,16 +8,16 @@ import type {
   HookSnapshot,
   HookSource,
   ParsedHookFrontmatter,
-} from "./types.js";
-import { MANIFEST_KEY } from "../compat/legacy-names.js";
-import { CONFIG_DIR, resolveUserPath } from "../utils.js";
-import { resolveBundledHooksDir } from "./bundled-dir.js";
-import { shouldIncludeHook } from "./config.js";
+} from "./types.ts";
+import { MANIFEST_KEY } from "../compat/legacy-names.ts";
+import { CONFIG_DIR, resolveUserPath } from "../utils.ts";
+import { resolveBundledHooksDir } from "./bundled-dir.ts";
+import { shouldIncludeHook } from "./config.ts";
 import {
   parseFrontmatter,
-  resolveOpenClawMetadata,
+  resolveCmlHiveAssistMetadata,
   resolveHookInvocationPolicy,
-} from "./frontmatter.js";
+} from "./frontmatter.ts";
 
 type HookPackageManifest = {
   name?: string;
@@ -25,7 +25,7 @@ type HookPackageManifest = {
 
 function filterHookEntries(
   entries: HookEntry[],
-  config?: OpenClawConfig,
+  config?: CmlHiveAssistConfig,
   eligibility?: HookEligibilityContext,
 ): HookEntry[] {
   return entries.filter((entry) => shouldIncludeHook({ entry, config, eligibility }));
@@ -182,7 +182,7 @@ export function loadHookEntriesFromDir(params: {
         pluginId: params.pluginId,
       },
       frontmatter,
-      metadata: resolveOpenClawMetadata(frontmatter),
+      metadata: resolveCmlHiveAssistMetadata(frontmatter),
       invocation: resolveHookInvocationPolicy(frontmatter),
     };
     return entry;
@@ -192,7 +192,7 @@ export function loadHookEntriesFromDir(params: {
 function loadHookEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
   },
@@ -253,7 +253,7 @@ function loadHookEntries(
     return {
       hook,
       frontmatter,
-      metadata: resolveOpenClawMetadata(frontmatter),
+      metadata: resolveCmlHiveAssistMetadata(frontmatter),
       invocation: resolveHookInvocationPolicy(frontmatter),
     };
   });
@@ -262,7 +262,7 @@ function loadHookEntries(
 export function buildWorkspaceHookSnapshot(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
     entries?: HookEntry[];
@@ -286,7 +286,7 @@ export function buildWorkspaceHookSnapshot(
 export function loadWorkspaceHookEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedHooksDir?: string;
     bundledHooksDir?: string;
   },

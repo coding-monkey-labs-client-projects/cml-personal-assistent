@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "./types.js";
-import { resolveUserPath } from "../utils.js";
+import type { CmlHiveAssistConfig } from "./types.ts";
+import { resolveUserPath } from "../utils.ts";
 
 const PATH_VALUE_RE = /^~(?=$|[\\/])/;
 
@@ -64,7 +64,7 @@ function normalizeAny(key: string | undefined, value: unknown): unknown {
  * Goal: accept `~/...` consistently across config file + env overrides, while
  * keeping the surface area small and predictable.
  */
-export function normalizeConfigPaths(cfg: OpenClawConfig): OpenClawConfig {
+export function normalizeConfigPaths(cfg: CmlHiveAssistConfig): CmlHiveAssistConfig {
   if (!cfg || typeof cfg !== "object") {
     return cfg;
   }

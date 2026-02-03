@@ -1,13 +1,13 @@
-import type { RuntimeEnv } from "../runtime.js";
-import type { OnboardOptions } from "./onboard-types.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { readConfigFileSnapshot } from "../config/config.js";
-import { assertSupportedRuntime } from "../infra/runtime-guard.js";
-import { defaultRuntime } from "../runtime.js";
-import { resolveUserPath } from "../utils.js";
-import { DEFAULT_WORKSPACE, handleReset } from "./onboard-helpers.js";
-import { runInteractiveOnboarding } from "./onboard-interactive.js";
-import { runNonInteractiveOnboarding } from "./onboard-non-interactive.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { OnboardOptions } from "./onboard-types.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { readConfigFileSnapshot } from "../config/config.ts";
+import { assertSupportedRuntime } from "../infra/runtime-guard.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { resolveUserPath } from "../utils.ts";
+import { DEFAULT_WORKSPACE, handleReset } from "./onboard-helpers.ts";
+import { runInteractiveOnboarding } from "./onboard-interactive.ts";
+import { runNonInteractiveOnboarding } from "./onboard-non-interactive.ts";
 
 export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv = defaultRuntime) {
   assertSupportedRuntime(runtime);
@@ -44,7 +44,7 @@ export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv =
     runtime.error(
       [
         "Non-interactive onboarding requires explicit risk acknowledgement.",
-        "Read: https://docs.openclaw.ai/security",
+        "Read: https://docs.cml-hive-assist.ai/security",
         `Re-run with: ${formatCliCommand("openclaw onboard --non-interactive --accept-risk ...")}`,
       ].join("\n"),
     );
@@ -63,10 +63,10 @@ export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv =
   if (process.platform === "win32") {
     runtime.log(
       [
-        "Windows detected — OpenClaw runs great on WSL2!",
+        "Windows detected — CmlHiveAssist runs great on WSL2!",
         "Native Windows might be trickier.",
         "Quick setup: wsl --install (one command, one reboot)",
-        "Guide: https://docs.openclaw.ai/windows",
+        "Guide: https://docs.cml-hive-assist.ai/windows",
       ].join("\n"),
     );
   }
@@ -79,4 +79,4 @@ export async function onboardCommand(opts: OnboardOptions, runtime: RuntimeEnv =
   await runInteractiveOnboarding(normalizedOpts, runtime);
 }
 
-export type { OnboardOptions } from "./onboard-types.js";
+export type { OnboardOptions } from "./onboard-types.ts";

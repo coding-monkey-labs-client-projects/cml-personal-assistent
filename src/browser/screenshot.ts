@@ -1,4 +1,4 @@
-import { getImageMetadata, resizeToJpeg } from "../media/image-ops.js";
+import { getImageMetadata, resizeToJpeg } from "../media/image-ops.ts";
 
 export const DEFAULT_BROWSER_SCREENSHOT_MAX_SIDE = 2000;
 export const DEFAULT_BROWSER_SCREENSHOT_MAX_BYTES = 5 * 1024 * 1024;

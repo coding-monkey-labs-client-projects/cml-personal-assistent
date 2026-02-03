@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { ModelCatalogEntry } from "./model-catalog.js";
-import { resolveAgentModelPrimary } from "./agent-scope.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "./defaults.js";
-import { normalizeGoogleModelId } from "./models-config.providers.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ModelCatalogEntry } from "./model-catalog.ts";
+import { resolveAgentModelPrimary } from "./agent-scope.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "./defaults.ts";
+import { normalizeGoogleModelId } from "./models-config.providers.ts";
 
 export type ModelRef = {
   provider: string;
@@ -41,7 +41,7 @@ export function normalizeProviderId(provider: string): string {
   return normalized;
 }
 
-export function isCliProvider(provider: string, cfg?: OpenClawConfig): boolean {
+export function isCliProvider(provider: string, cfg?: CmlHiveAssistConfig): boolean {
   const normalized = normalizeProviderId(provider);
   if (normalized === "claude-cli") {
     return true;
@@ -100,7 +100,7 @@ export function parseModelRef(raw: string, defaultProvider: string): ModelRef | 
 }
 
 export function buildModelAliasIndex(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   defaultProvider: string;
 }): ModelAliasIndex {
   const byAlias = new Map<string, { alias: string; ref: ModelRef }>();
@@ -151,7 +151,7 @@ export function resolveModelRefFromString(params: {
 }
 
 export function resolveConfiguredModelRef(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   defaultProvider: string;
   defaultModel: string;
 }): ModelRef {
@@ -195,7 +195,7 @@ export function resolveConfiguredModelRef(params: {
 }
 
 export function resolveDefaultModelForAgent(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
 }): ModelRef {
   const agentModelOverride = params.agentId
@@ -227,7 +227,7 @@ export function resolveDefaultModelForAgent(params: {
 }
 
 export function buildAllowedModelSet(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   catalog: ModelCatalogEntry[];
   defaultProvider: string;
   defaultModel?: string;
@@ -309,7 +309,7 @@ export type ModelRefStatus = {
 };
 
 export function getModelRefStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   catalog: ModelCatalogEntry[];
   ref: ModelRef;
   defaultProvider: string;
@@ -331,7 +331,7 @@ export function getModelRefStatus(params: {
 }
 
 export function resolveAllowedModelRef(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   catalog: ModelCatalogEntry[];
   raw: string;
   defaultProvider: string;
@@ -374,7 +374,7 @@ export function resolveAllowedModelRef(params: {
 }
 
 export function resolveThinkingDefault(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   provider: string;
   model: string;
   catalog?: ModelCatalogEntry[];
@@ -397,7 +397,7 @@ export function resolveThinkingDefault(params: {
  * Returns null if hooks.gmail.model is not set.
  */
 export function resolveHooksGmailModel(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   defaultProvider: string;
 }): ModelRef | null {
   const hooksModel = params.cfg.hooks?.gmail?.model;

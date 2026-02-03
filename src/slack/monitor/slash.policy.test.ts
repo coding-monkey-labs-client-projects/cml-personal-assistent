@@ -65,7 +65,7 @@ function createHarness(overrides?: {
     channelsConfig: overrides?.channelsConfig,
     slashCommand: {
       enabled: true,
-      name: "openclaw",
+      name: "cml-hive-assist",
       ephemeral: true,
       sessionPrefix: "slack:slash",
     },

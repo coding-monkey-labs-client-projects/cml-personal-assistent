@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { AnyAgentTool } from "./pi-tools.types.js";
-import type { SandboxToolPolicy } from "./sandbox.js";
-import { getChannelDock } from "../channels/dock.js";
-import { resolveChannelGroupToolsPolicy } from "../config/group-policy.js";
-import { resolveThreadParentSessionKey } from "../sessions/session-key-utils.js";
-import { normalizeMessageChannel } from "../utils/message-channel.js";
-import { resolveAgentConfig, resolveAgentIdFromSessionKey } from "./agent-scope.js";
-import { expandToolGroups, normalizeToolName } from "./tool-policy.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { AnyAgentTool } from "./pi-tools.types.ts";
+import type { SandboxToolPolicy } from "./sandbox.ts";
+import { getChannelDock } from "../channels/dock.ts";
+import { resolveChannelGroupToolsPolicy } from "../config/group-policy.ts";
+import { resolveThreadParentSessionKey } from "../sessions/session-key-utils.ts";
+import { normalizeMessageChannel } from "../utils/message-channel.ts";
+import { resolveAgentConfig, resolveAgentIdFromSessionKey } from "./agent-scope.ts";
+import { expandToolGroups, normalizeToolName } from "./tool-policy.ts";
 
 type CompiledPattern =
   | { kind: "all" }
@@ -95,7 +95,7 @@ const DEFAULT_SUBAGENT_TOOL_DENY = [
   "memory_get",
 ];
 
-export function resolveSubagentToolPolicy(cfg?: OpenClawConfig): SandboxToolPolicy {
+export function resolveSubagentToolPolicy(cfg?: CmlHiveAssistConfig): SandboxToolPolicy {
   const configured = cfg?.tools?.subagents?.tools;
   const deny = [
     ...DEFAULT_SUBAGENT_TOOL_DENY,
@@ -228,7 +228,7 @@ function resolveProviderToolPolicy(params: {
 }
 
 export function resolveEffectiveToolPolicy(params: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   sessionKey?: string;
   modelProvider?: string;
   modelId?: string;
@@ -273,7 +273,7 @@ export function resolveEffectiveToolPolicy(params: {
 }
 
 export function resolveGroupToolPolicy(params: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   sessionKey?: string;
   spawnedBy?: string | null;
   messageProvider?: string;

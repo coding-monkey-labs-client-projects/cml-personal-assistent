@@ -1,4 +1,4 @@
-import type { ChannelId } from "../channels/plugins/types.js";
+import type { ChannelId } from "../channels/plugins/types.ts";
 
 export type CronSchedule =
   | { kind: "at"; atMs: number }

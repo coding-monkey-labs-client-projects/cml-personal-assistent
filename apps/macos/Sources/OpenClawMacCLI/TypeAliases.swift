@@ -1,5 +1,5 @@
-import OpenClawKit
-import OpenClawProtocol
+import CmlHiveAssistKit
+import CmlHiveAssistProtocol
 
-typealias ProtoAnyCodable = OpenClawProtocol.AnyCodable
-typealias KitAnyCodable = OpenClawKit.AnyCodable
+typealias ProtoAnyCodable = CmlHiveAssistProtocol.AnyCodable
+typealias KitAnyCodable = CmlHiveAssistKit.AnyCodable

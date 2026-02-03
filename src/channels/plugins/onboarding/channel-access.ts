@@ -1,4 +1,4 @@
-import type { WizardPrompter } from "../../../wizard/prompts.js";
+import type { WizardPrompter } from "../../../wizard/prompts.ts";
 
 export type ChannelAccessPolicy = "allowlist" | "open" | "disabled";
 

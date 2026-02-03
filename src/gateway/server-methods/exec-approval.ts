@@ -1,14 +1,14 @@
-import type { ExecApprovalForwarder } from "../../infra/exec-approval-forwarder.js";
-import type { ExecApprovalDecision } from "../../infra/exec-approvals.js";
-import type { ExecApprovalManager } from "../exec-approval-manager.js";
-import type { GatewayRequestHandlers } from "./types.js";
+import type { ExecApprovalForwarder } from "../../infra/exec-approval-forwarder.ts";
+import type { ExecApprovalDecision } from "../../infra/exec-approvals.ts";
+import type { ExecApprovalManager } from "../exec-approval-manager.ts";
+import type { GatewayRequestHandlers } from "./types.ts";
 import {
   ErrorCodes,
   errorShape,
   formatValidationErrors,
   validateExecApprovalRequestParams,
   validateExecApprovalResolveParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 
 export function createExecApprovalHandlers(
   manager: ExecApprovalManager,

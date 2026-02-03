@@ -1,31 +1,31 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { InlineDirectives } from "./directive-handling.parse.js";
-import type { ElevatedLevel, ReasoningLevel } from "./directives.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { InlineDirectives } from "./directive-handling.parse.ts";
+import type { ElevatedLevel, ReasoningLevel } from "./directives.ts";
 import {
   resolveAgentDir,
   resolveDefaultAgentId,
   resolveSessionAgentId,
-} from "../../agents/agent-scope.js";
-import { lookupContextTokens } from "../../agents/context.js";
-import { DEFAULT_CONTEXT_TOKENS } from "../../agents/defaults.js";
+} from "../../agents/agent-scope.ts";
+import { lookupContextTokens } from "../../agents/context.ts";
+import { DEFAULT_CONTEXT_TOKENS } from "../../agents/defaults.ts";
 import {
   buildModelAliasIndex,
   type ModelAliasIndex,
   modelKey,
   resolveDefaultModelForAgent,
   resolveModelRefFromString,
-} from "../../agents/model-selection.js";
-import { type SessionEntry, updateSessionStore } from "../../config/sessions.js";
-import { enqueueSystemEvent } from "../../infra/system-events.js";
-import { applyVerboseOverride } from "../../sessions/level-overrides.js";
-import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.js";
-import { resolveProfileOverride } from "./directive-handling.auth.js";
-import { formatElevatedEvent, formatReasoningEvent } from "./directive-handling.shared.js";
+} from "../../agents/model-selection.ts";
+import { type SessionEntry, updateSessionStore } from "../../config/sessions.ts";
+import { enqueueSystemEvent } from "../../infra/system-events.ts";
+import { applyVerboseOverride } from "../../sessions/level-overrides.ts";
+import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.ts";
+import { resolveProfileOverride } from "./directive-handling.auth.ts";
+import { formatElevatedEvent, formatReasoningEvent } from "./directive-handling.shared.ts";
 
 export async function persistInlineDirectives(params: {
   directives: InlineDirectives;
   effectiveModelDirective?: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
   sessionEntry?: SessionEntry;
   sessionStore?: Record<string, SessionEntry>;
@@ -41,7 +41,7 @@ export async function persistInlineDirectives(params: {
   model: string;
   initialModelLabel: string;
   formatModelSwitchEvent: (label: string, alias?: string) => string;
-  agentCfg: NonNullable<OpenClawConfig["agents"]>["defaults"] | undefined;
+  agentCfg: NonNullable<CmlHiveAssistConfig["agents"]>["defaults"] | undefined;
 }): Promise<{ provider: string; model: string; contextTokens: number }> {
   const {
     directives,
@@ -227,7 +227,7 @@ export async function persistInlineDirectives(params: {
   };
 }
 
-export function resolveDefaultModel(params: { cfg: OpenClawConfig; agentId?: string }): {
+export function resolveDefaultModel(params: { cfg: CmlHiveAssistConfig; agentId?: string }): {
   defaultProvider: string;
   defaultModel: string;
   aliasIndex: ModelAliasIndex;

@@ -112,7 +112,7 @@ Client                    Gateway网关
 
 ## 运维概览
 
-- 启动：`openclaw gateway`（前台运行，日志输出到 stdout）。
+- 启动：`cml-hive-assist gateway`（前台运行，日志输出到 stdout）。
 - 健康检查：通过 WS 发送 `health`（也包含在 `hello-ok` 中）。
 - 监管：使用 launchd/systemd 实现自动重启。
 

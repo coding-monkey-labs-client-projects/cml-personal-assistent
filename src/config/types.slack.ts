@@ -4,10 +4,10 @@ import type {
   GroupPolicy,
   MarkdownConfig,
   ReplyToMode,
-} from "./types.base.js";
-import type { ChannelHeartbeatVisibilityConfig } from "./types.channels.js";
-import type { DmConfig, ProviderCommandsConfig } from "./types.messages.js";
-import type { GroupToolPolicyBySenderConfig, GroupToolPolicyConfig } from "./types.tools.js";
+} from "./types.base.ts";
+import type { ChannelHeartbeatVisibilityConfig } from "./types.channels.ts";
+import type { DmConfig, ProviderCommandsConfig } from "./types.messages.ts";
+import type { GroupToolPolicyBySenderConfig, GroupToolPolicyConfig } from "./types.tools.ts";
 
 export type SlackDmConfig = {
   /** If false, ignore all incoming Slack DMs. Default: true. */
@@ -60,7 +60,7 @@ export type SlackActionConfig = {
 export type SlackSlashCommandConfig = {
   /** Enable handling for the configured slash command (default: false). */
   enabled?: boolean;
-  /** Slash command name (default: "openclaw"). */
+  /** Slash command name (default: "cml-hive-assist"). */
   name?: string;
   /** Session key prefix for slash commands (default: "slack:slash"). */
   sessionPrefix?: string;

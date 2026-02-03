@@ -1,6 +1,6 @@
-import { resolveEmbeddedSessionLane } from "../../../agents/pi-embedded.js";
-import { clearCommandLane } from "../../../process/command-queue.js";
-import { clearFollowupQueue } from "./state.js";
+import { resolveEmbeddedSessionLane } from "../../../agents/pi-embedded.ts";
+import { clearCommandLane } from "../../../process/command-queue.ts";
+import { clearFollowupQueue } from "./state.ts";
 
 export type ClearSessionQueueResult = {
   followupCleared: number;

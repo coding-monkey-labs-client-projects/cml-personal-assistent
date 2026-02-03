@@ -1,14 +1,14 @@
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import express from "express";
-import type { ResolvedBrowserConfig } from "./config.js";
-import type { BrowserRouteRegistrar } from "./routes/types.js";
-import { registerBrowserRoutes } from "./routes/index.js";
+import type { ResolvedBrowserConfig } from "./config.ts";
+import type { BrowserRouteRegistrar } from "./routes/types.ts";
+import { registerBrowserRoutes } from "./routes/index.ts";
 import {
   type BrowserServerState,
   createBrowserRouteContext,
   type ProfileContext,
-} from "./server-context.js";
+} from "./server-context.ts";
 
 export type BrowserBridge = {
   server: Server;

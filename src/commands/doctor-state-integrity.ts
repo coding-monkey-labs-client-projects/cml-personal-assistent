@@ -1,18 +1,18 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { resolveOAuthDir, resolveStateDir } from "../config/paths.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { resolveOAuthDir, resolveStateDir } from "../config/paths.ts";
 import {
   loadSessionStore,
   resolveMainSessionKey,
   resolveSessionFilePath,
   resolveSessionTranscriptsDirForAgent,
   resolveStorePath,
-} from "../config/sessions.js";
-import { note } from "../terminal/note.js";
-import { shortenHomePath } from "../utils.js";
+} from "../config/sessions.ts";
+import { note } from "../terminal/note.ts";
+import { shortenHomePath } from "../utils.ts";
 
 type DoctorPrompterLike = {
   confirmSkipInNonInteractive: (params: {
@@ -132,7 +132,7 @@ function findOtherStateDirs(stateDir: string): string[] {
 }
 
 export async function noteStateIntegrity(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   prompter: DoctorPrompterLike,
   configPath?: string,
 ) {

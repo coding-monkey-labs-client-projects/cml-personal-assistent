@@ -1,17 +1,17 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
-import type { GatewayRequestHandlers } from "./types.js";
-import { abortEmbeddedPiRun, waitForEmbeddedPiRunEnd } from "../../agents/pi-embedded.js";
-import { stopSubagentsForRequester } from "../../auto-reply/reply/abort.js";
-import { clearSessionQueues } from "../../auto-reply/reply/queue.js";
-import { loadConfig } from "../../config/config.js";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { abortEmbeddedPiRun, waitForEmbeddedPiRunEnd } from "../../agents/pi-embedded.ts";
+import { stopSubagentsForRequester } from "../../auto-reply/reply/abort.ts";
+import { clearSessionQueues } from "../../auto-reply/reply/queue.ts";
+import { loadConfig } from "../../config/config.ts";
 import {
   loadSessionStore,
   snapshotSessionOrigin,
   resolveMainSessionKey,
   type SessionEntry,
   updateSessionStore,
-} from "../../config/sessions.js";
+} from "../../config/sessions.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -23,7 +23,7 @@ import {
   validateSessionsPreviewParams,
   validateSessionsResetParams,
   validateSessionsResolveParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 import {
   archiveFileOnDisk,
   listSessionsFromStore,
@@ -35,9 +35,9 @@ import {
   type SessionsPatchResult,
   type SessionsPreviewEntry,
   type SessionsPreviewResult,
-} from "../session-utils.js";
-import { applySessionsPatchToStore } from "../sessions-patch.js";
-import { resolveSessionKeyFromResolveParams } from "../sessions-resolve.js";
+} from "../session-utils.ts";
+import { applySessionsPatchToStore } from "../sessions-patch.ts";
+import { resolveSessionKeyFromResolveParams } from "../sessions-resolve.ts";
 
 export const sessionsHandlers: GatewayRequestHandlers = {
   "sessions.list": ({ params, respond }) => {

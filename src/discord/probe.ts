@@ -1,5 +1,5 @@
-import { resolveFetch } from "../infra/fetch.js";
-import { normalizeDiscordToken } from "./token.js";
+import { resolveFetch } from "../infra/fetch.ts";
+import { normalizeDiscordToken } from "./token.ts";
 
 const DISCORD_API_BASE = "https://discord.com/api/v10";
 

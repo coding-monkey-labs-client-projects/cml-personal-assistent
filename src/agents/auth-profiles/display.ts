@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AuthProfileStore } from "./types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AuthProfileStore } from "./types.ts";
 
 export function resolveAuthProfileDisplayLabel(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   store: AuthProfileStore;
   profileId: string;
 }): string {

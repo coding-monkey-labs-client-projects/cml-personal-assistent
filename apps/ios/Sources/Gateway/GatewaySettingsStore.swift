@@ -1,8 +1,8 @@
 import Foundation
 
 enum GatewaySettingsStore {
-    private static let gatewayService = "ai.openclaw.gateway"
-    private static let nodeService = "ai.openclaw.node"
+    private static let gatewayService = "ai.cml-hive-assist.gateway"
+    private static let nodeService = "ai.cml-hive-assist.node"
 
     private static let instanceIdDefaultsKey = "node.instanceId"
     private static let preferredGatewayStableIDDefaultsKey = "gateway.preferredStableID"

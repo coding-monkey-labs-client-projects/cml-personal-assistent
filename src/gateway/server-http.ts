@@ -7,14 +7,14 @@ import {
   type ServerResponse,
 } from "node:http";
 import { createServer as createHttpsServer } from "node:https";
-import type { CanvasHostHandler } from "../canvas-host/server.js";
-import type { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveAgentAvatar } from "../agents/identity-avatar.js";
-import { handleA2uiHttpRequest } from "../canvas-host/a2ui.js";
-import { loadConfig } from "../config/config.js";
-import { handleSlackHttpRequest } from "../slack/http/index.js";
-import { handleControlUiAvatarRequest, handleControlUiHttpRequest } from "./control-ui.js";
-import { applyHookMappings } from "./hooks-mapping.js";
+import type { CanvasHostHandler } from "../canvas-host/server.ts";
+import type { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveAgentAvatar } from "../agents/identity-avatar.ts";
+import { handleA2uiHttpRequest } from "../canvas-host/a2ui.ts";
+import { loadConfig } from "../config/config.ts";
+import { handleSlackHttpRequest } from "../slack/http/index.ts";
+import { handleControlUiAvatarRequest, handleControlUiHttpRequest } from "./control-ui.ts";
+import { applyHookMappings } from "./hooks-mapping.ts";
 import {
   extractHookToken,
   getHookChannelError,
@@ -26,10 +26,10 @@ import {
   readJsonBody,
   resolveHookChannel,
   resolveHookDeliver,
-} from "./hooks.js";
-import { handleOpenAiHttpRequest } from "./openai-http.js";
-import { handleOpenResponsesHttpRequest } from "./openresponses-http.js";
-import { handleToolsInvokeHttpRequest } from "./tools-invoke-http.js";
+} from "./hooks.ts";
+import { handleOpenAiHttpRequest } from "./openai-http.ts";
+import { handleOpenResponsesHttpRequest } from "./openresponses-http.ts";
+import { handleToolsInvokeHttpRequest } from "./tools-invoke-http.ts";
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
 
@@ -89,7 +89,7 @@ export function createHooksRequestHandler(
       logHooks.warn(
         "Hook token provided via query parameter is deprecated for security reasons. " +
           "Tokens in URLs appear in logs, browser history, and referrer headers. " +
-          "Use Authorization: Bearer <token> or X-OpenClaw-Token header instead.",
+          "Use Authorization: Bearer <token> or X-CmlHiveAssist-Token header instead.",
       );
     }
 
@@ -208,10 +208,10 @@ export function createGatewayHttpServer(opts: {
   controlUiBasePath: string;
   openAiChatCompletionsEnabled: boolean;
   openResponsesEnabled: boolean;
-  openResponsesConfig?: import("../config/types.gateway.js").GatewayHttpResponsesConfig;
+  openResponsesConfig?: import("../config/types.gateway.ts").GatewayHttpResponsesConfig;
   handleHooksRequest: HooksRequestHandler;
   handlePluginRequest?: HooksRequestHandler;
-  resolvedAuth: import("./auth.js").ResolvedGatewayAuth;
+  resolvedAuth: import("./auth.ts").ResolvedGatewayAuth;
   tlsOptions?: TlsOptions;
 }): HttpServer {
   const {

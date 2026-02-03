@@ -4,7 +4,7 @@ description: Monitor blogs and RSS/Atom feeds for updates using the blogwatcher 
 homepage: https://github.com/Hyaxia/blogwatcher
 metadata:
   {
-    "openclaw":
+    "cml-hive-assist":
       {
         "emoji": "📰",
         "requires": { "bins": ["blogwatcher"] },

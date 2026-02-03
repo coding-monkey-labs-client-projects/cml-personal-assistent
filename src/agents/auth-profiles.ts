@@ -1,24 +1,24 @@
-export { CLAUDE_CLI_PROFILE_ID, CODEX_CLI_PROFILE_ID } from "./auth-profiles/constants.js";
-export { resolveAuthProfileDisplayLabel } from "./auth-profiles/display.js";
-export { formatAuthDoctorHint } from "./auth-profiles/doctor.js";
-export { resolveApiKeyForProfile } from "./auth-profiles/oauth.js";
-export { resolveAuthProfileOrder } from "./auth-profiles/order.js";
-export { resolveAuthStorePathForDisplay } from "./auth-profiles/paths.js";
+export { CLAUDE_CLI_PROFILE_ID, CODEX_CLI_PROFILE_ID } from "./auth-profiles/constants.ts";
+export { resolveAuthProfileDisplayLabel } from "./auth-profiles/display.ts";
+export { formatAuthDoctorHint } from "./auth-profiles/doctor.ts";
+export { resolveApiKeyForProfile } from "./auth-profiles/oauth.ts";
+export { resolveAuthProfileOrder } from "./auth-profiles/order.ts";
+export { resolveAuthStorePathForDisplay } from "./auth-profiles/paths.ts";
 export {
   listProfilesForProvider,
   markAuthProfileGood,
   setAuthProfileOrder,
   upsertAuthProfile,
-} from "./auth-profiles/profiles.js";
+} from "./auth-profiles/profiles.ts";
 export {
   repairOAuthProfileIdMismatch,
   suggestOAuthProfileIdForLegacyDefault,
-} from "./auth-profiles/repair.js";
+} from "./auth-profiles/repair.ts";
 export {
   ensureAuthProfileStore,
   loadAuthProfileStore,
   saveAuthProfileStore,
-} from "./auth-profiles/store.js";
+} from "./auth-profiles/store.ts";
 export type {
   ApiKeyCredential,
   AuthProfileCredential,
@@ -28,7 +28,7 @@ export type {
   OAuthCredential,
   ProfileUsageStats,
   TokenCredential,
-} from "./auth-profiles/types.js";
+} from "./auth-profiles/types.ts";
 export {
   calculateAuthProfileCooldownMs,
   clearAuthProfileCooldown,
@@ -37,4 +37,4 @@ export {
   markAuthProfileFailure,
   markAuthProfileUsed,
   resolveProfileUnusableUntilForDisplay,
-} from "./auth-profiles/usage.js";
+} from "./auth-profiles/usage.ts";

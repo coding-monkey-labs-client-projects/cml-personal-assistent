@@ -1,17 +1,17 @@
 import type { App } from "@slack/bolt";
-import type { HistoryEntry } from "../../auto-reply/reply/history.js";
-import type { OpenClawConfig, SlackReactionNotificationMode } from "../../config/config.js";
-import type { DmPolicy, GroupPolicy } from "../../config/types.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import type { SlackMessageEvent } from "../types.js";
-import { formatAllowlistMatchMeta } from "../../channels/allowlist-match.js";
-import { resolveSessionKey, type SessionScope } from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
-import { createDedupeCache } from "../../infra/dedupe.js";
-import { getChildLogger } from "../../logging.js";
-import { normalizeAllowList, normalizeAllowListLower, normalizeSlackSlug } from "./allow-list.js";
-import { resolveSlackChannelConfig } from "./channel-config.js";
-import { isSlackChannelAllowedByPolicy } from "./policy.js";
+import type { HistoryEntry } from "../../auto-reply/reply/history.ts";
+import type { CmlHiveAssistConfig, SlackReactionNotificationMode } from "../../config/config.ts";
+import type { DmPolicy, GroupPolicy } from "../../config/types.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import type { SlackMessageEvent } from "../types.ts";
+import { formatAllowlistMatchMeta } from "../../channels/allowlist-match.ts";
+import { resolveSessionKey, type SessionScope } from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
+import { createDedupeCache } from "../../infra/dedupe.ts";
+import { getChildLogger } from "../../logging.ts";
+import { normalizeAllowList, normalizeAllowListLower, normalizeSlackSlug } from "./allow-list.ts";
+import { resolveSlackChannelConfig } from "./channel-config.ts";
+import { isSlackChannelAllowedByPolicy } from "./policy.ts";
 
 export function inferSlackChannelType(
   channelId?: string | null,
@@ -49,7 +49,7 @@ export function normalizeSlackChannelType(
 }
 
 export type SlackMonitorContext = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId: string;
   botToken: string;
   app: App;
@@ -89,7 +89,7 @@ export type SlackMonitorContext = {
   replyToMode: "off" | "first" | "all";
   threadHistoryScope: "thread" | "channel";
   threadInheritParent: boolean;
-  slashCommand: Required<import("../../config/config.js").SlackSlashCommandConfig>;
+  slashCommand: Required<import("../../config/config.ts").SlackSlashCommandConfig>;
   textLimit: number;
   ackReactionScope: string;
   mediaMaxBytes: number;
@@ -122,7 +122,7 @@ export type SlackMonitorContext = {
 };
 
 export function createSlackMonitorContext(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId: string;
   botToken: string;
   app: App;

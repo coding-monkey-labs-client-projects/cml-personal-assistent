@@ -1,12 +1,12 @@
-import type { RuntimeEnv } from "../runtime.js";
-import { withProgress } from "../cli/progress.js";
-import { loadConfig, resolveGatewayPort } from "../config/config.js";
-import { probeGateway } from "../gateway/probe.js";
-import { discoverGatewayBeacons } from "../infra/bonjour-discovery.js";
-import { resolveSshConfig } from "../infra/ssh-config.js";
-import { parseSshTarget, startSshPortForward } from "../infra/ssh-tunnel.js";
-import { resolveWideAreaDiscoveryDomain } from "../infra/widearea-dns.js";
-import { colorize, isRich, theme } from "../terminal/theme.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { withProgress } from "../cli/progress.ts";
+import { loadConfig, resolveGatewayPort } from "../config/config.ts";
+import { probeGateway } from "../gateway/probe.ts";
+import { discoverGatewayBeacons } from "../infra/bonjour-discovery.ts";
+import { resolveSshConfig } from "../infra/ssh-config.ts";
+import { parseSshTarget, startSshPortForward } from "../infra/ssh-tunnel.ts";
+import { resolveWideAreaDiscoveryDomain } from "../infra/widearea-dns.ts";
+import { colorize, isRich, theme } from "../terminal/theme.ts";
 import {
   buildNetworkHints,
   extractConfigSummary,
@@ -19,7 +19,7 @@ import {
   resolveProbeBudgetMs,
   resolveTargets,
   sanitizeSshTarget,
-} from "./gateway-status/helpers.js";
+} from "./gateway-status/helpers.ts";
 
 export async function gatewayStatusCommand(
   opts: {

@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { DiscordGuildChannelConfig, DiscordGuildEntry } from "../config/types.js";
-import { resolveDiscordAccount } from "./accounts.js";
-import { fetchChannelPermissionsDiscord } from "./send.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { DiscordGuildChannelConfig, DiscordGuildEntry } from "../config/types.ts";
+import { resolveDiscordAccount } from "./accounts.ts";
+import { fetchChannelPermissionsDiscord } from "./send.ts";
 
 export type DiscordChannelPermissionsAuditEntry = {
   channelId: string;
@@ -69,7 +69,7 @@ function listConfiguredGuildChannelKeys(
 }
 
 export function collectDiscordAuditChannelIds(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
 }) {
   const account = resolveDiscordAccount({

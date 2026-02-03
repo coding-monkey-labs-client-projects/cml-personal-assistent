@@ -1,13 +1,13 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveTextChunkLimit } from "../auto-reply/chunk.js";
-import { getChannelDock } from "../channels/dock.js";
-import { normalizeAccountId } from "../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveTextChunkLimit } from "../auto-reply/chunk.ts";
+import { getChannelDock } from "../channels/dock.ts";
+import { normalizeAccountId } from "../routing/session-key.ts";
 
 const DEFAULT_TELEGRAM_DRAFT_STREAM_MIN = 200;
 const DEFAULT_TELEGRAM_DRAFT_STREAM_MAX = 800;
 
 export function resolveTelegramDraftStreamingChunking(
-  cfg: OpenClawConfig | undefined,
+  cfg: CmlHiveAssistConfig | undefined,
   accountId?: string | null,
 ): {
   minChars: number;

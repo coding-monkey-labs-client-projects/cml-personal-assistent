@@ -7,8 +7,8 @@ extension ProcessInfo {
     }
 
     var isNixMode: Bool {
-        if let raw = getenv("OPENCLAW_NIX_MODE"), String(cString: raw) == "1" { return true }
-        return UserDefaults.standard.bool(forKey: "openclaw.nixMode")
+        if let raw = getenv("CML_HIVE_ASSIST_NIX_MODE"), String(cString: raw) == "1" { return true }
+        return UserDefaults.standard.bool(forKey: "cml-hive-assist.nixMode")
     }
 
     var isRunningTests: Bool {

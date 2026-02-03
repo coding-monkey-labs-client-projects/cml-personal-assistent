@@ -161,7 +161,7 @@ describe("resolveUserPath", () => {
   });
 
   it("expands ~/ to home dir", () => {
-    expect(resolveUserPath("~/openclaw")).toBe(path.resolve(os.homedir(), "openclaw"));
+    expect(resolveUserPath("~/openclaw")).toBe(path.resolve(os.homedir(), "cml-hive-assist"));
   });
 
   it("resolves relative paths", () => {

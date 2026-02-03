@@ -1,27 +1,27 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AnyAgentTool } from "./common.js";
-import { BLUEBUBBLES_GROUP_ACTIONS } from "../../channels/plugins/bluebubbles-actions.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AnyAgentTool } from "./common.ts";
+import { BLUEBUBBLES_GROUP_ACTIONS } from "../../channels/plugins/bluebubbles-actions.ts";
 import {
   listChannelMessageActions,
   supportsChannelMessageButtons,
   supportsChannelMessageCards,
-} from "../../channels/plugins/message-actions.js";
+} from "../../channels/plugins/message-actions.ts";
 import {
   CHANNEL_MESSAGE_ACTION_NAMES,
   type ChannelMessageActionName,
-} from "../../channels/plugins/types.js";
-import { loadConfig } from "../../config/config.js";
-import { GATEWAY_CLIENT_IDS, GATEWAY_CLIENT_MODES } from "../../gateway/protocol/client-info.js";
-import { getToolResult, runMessageAction } from "../../infra/outbound/message-action-runner.js";
-import { normalizeTargetForProvider } from "../../infra/outbound/target-normalization.js";
-import { normalizeAccountId } from "../../routing/session-key.js";
-import { normalizeMessageChannel } from "../../utils/message-channel.js";
-import { resolveSessionAgentId } from "../agent-scope.js";
-import { listChannelSupportedActions } from "../channel-tools.js";
-import { assertSandboxPath } from "../sandbox-paths.js";
-import { channelTargetSchema, channelTargetsSchema, stringEnum } from "../schema/typebox.js";
-import { jsonResult, readNumberParam, readStringParam } from "./common.js";
+} from "../../channels/plugins/types.ts";
+import { loadConfig } from "../../config/config.ts";
+import { GATEWAY_CLIENT_IDS, GATEWAY_CLIENT_MODES } from "../../gateway/protocol/client-info.ts";
+import { getToolResult, runMessageAction } from "../../infra/outbound/message-action-runner.ts";
+import { normalizeTargetForProvider } from "../../infra/outbound/target-normalization.ts";
+import { normalizeAccountId } from "../../routing/session-key.ts";
+import { normalizeMessageChannel } from "../../utils/message-channel.ts";
+import { resolveSessionAgentId } from "../agent-scope.ts";
+import { listChannelSupportedActions } from "../channel-tools.ts";
+import { assertSandboxPath } from "../sandbox-paths.ts";
+import { channelTargetSchema, channelTargetsSchema, stringEnum } from "../schema/typebox.ts";
+import { jsonResult, readNumberParam, readStringParam } from "./common.ts";
 
 const AllMessageActions = CHANNEL_MESSAGE_ACTION_NAMES;
 function buildRoutingSchema() {
@@ -247,7 +247,7 @@ const MessageToolSchema = buildMessageToolSchemaFromActions(AllMessageActions, {
 type MessageToolOptions = {
   agentAccountId?: string;
   agentSessionKey?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   currentChannelId?: string;
   currentChannelProvider?: string;
   currentThreadTs?: string;
@@ -256,7 +256,7 @@ type MessageToolOptions = {
   sandboxRoot?: string;
 };
 
-function buildMessageToolSchema(cfg: OpenClawConfig) {
+function buildMessageToolSchema(cfg: CmlHiveAssistConfig) {
   const actions = listChannelMessageActions(cfg);
   const includeButtons = supportsChannelMessageButtons(cfg);
   const includeCards = supportsChannelMessageCards(cfg);
@@ -302,7 +302,7 @@ function filterActionsForContext(params: {
 }
 
 function buildMessageToolDescription(options?: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   currentChannel?: string;
   currentChannelId?: string;
 }): string {

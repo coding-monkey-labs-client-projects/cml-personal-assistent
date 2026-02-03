@@ -7,17 +7,17 @@ import http, { type IncomingMessage, type Server, type ServerResponse } from "no
 import os from "node:os";
 import path from "node:path";
 import { type WebSocket, WebSocketServer } from "ws";
-import type { RuntimeEnv } from "../runtime.js";
-import { isTruthyEnvValue } from "../infra/env.js";
-import { SafeOpenError, openFileWithinRoot } from "../infra/fs-safe.js";
-import { detectMime } from "../media/mime.js";
-import { ensureDir, resolveUserPath } from "../utils.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { isTruthyEnvValue } from "../infra/env.ts";
+import { SafeOpenError, openFileWithinRoot } from "../infra/fs-safe.ts";
+import { detectMime } from "../media/mime.ts";
+import { ensureDir, resolveUserPath } from "../utils.ts";
 import {
   CANVAS_HOST_PATH,
   CANVAS_WS_PATH,
   handleA2uiHttpRequest,
   injectCanvasLiveReload,
-} from "./a2ui.js";
+} from "./a2ui.ts";
 
 export type CanvasHostOpts = {
   runtime: RuntimeEnv;
@@ -59,7 +59,7 @@ function defaultIndexHTML() {
   return `<!doctype html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>OpenClaw Canvas</title>
+<title>CmlHiveAssist Canvas</title>
 <style>
   html, body { height: 100%; margin: 0; background: #000; color: #fff; font: 16px/1.4 -apple-system, BlinkMacSystemFont, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
   .wrap { min-height: 100%; display: grid; place-items: center; padding: 24px; }
@@ -77,7 +77,7 @@ function defaultIndexHTML() {
 <div class="wrap">
   <div class="card">
     <div class="title">
-      <h1>OpenClaw Canvas</h1>
+      <h1>CmlHiveAssist Canvas</h1>
       <div class="sub">Interactive test page (auto-reload enabled)</div>
     </div>
 
@@ -120,11 +120,11 @@ function defaultIndexHTML() {
     const d = ev && ev.detail || {};
     log("Action status: id=" + (d.id || "?") + " ok=" + String(!!d.ok) + (d.error ? (" error=" + d.error) : ""));
   };
-  window.addEventListener("openclaw:a2ui-action-status", onStatus);
+  window.addEventListener("cml-hive-assist:a2ui-action-status", onStatus);
 
   function send(name, sourceComponentId) {
     if (!hasHelper()) {
-      log("No action bridge found. Ensure you're viewing this on an iOS/Android OpenClaw node canvas.");
+      log("No action bridge found. Ensure you're viewing this on an iOS/Android CmlHiveAssist node canvas.");
       return;
     }
     const sendUserAction =
@@ -194,10 +194,10 @@ async function resolveFilePath(rootReal: string, urlPath: string) {
 }
 
 function isDisabledByEnv() {
-  if (isTruthyEnvValue(process.env.OPENCLAW_SKIP_CANVAS_HOST)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST)) {
     return true;
   }
-  if (isTruthyEnvValue(process.env.OPENCLAW_SKIP_CANVAS_HOST)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST)) {
     return true;
   }
   if (process.env.NODE_ENV === "test") {
@@ -371,7 +371,7 @@ export async function createCanvasHostHandler(
           res.statusCode = 404;
           res.setHeader("Content-Type", "text/html; charset=utf-8");
           res.end(
-            `<!doctype html><meta charset="utf-8" /><title>OpenClaw Canvas</title><pre>Missing file.\nCreate ${rootDir}/index.html</pre>`,
+            `<!doctype html><meta charset="utf-8" /><title>CmlHiveAssist Canvas</title><pre>Missing file.\nCreate ${rootDir}/index.html</pre>`,
           );
           return true;
         }

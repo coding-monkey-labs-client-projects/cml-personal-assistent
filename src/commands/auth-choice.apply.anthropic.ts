@@ -1,12 +1,12 @@
-import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
-import { upsertAuthProfile } from "../agents/auth-profiles.js";
+import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.ts";
+import { upsertAuthProfile } from "../agents/auth-profiles.ts";
 import {
   formatApiKeyPreview,
   normalizeApiKeyInput,
   validateApiKeyInput,
-} from "./auth-choice.api-key.js";
-import { buildTokenProfileId, validateAnthropicSetupToken } from "./auth-token.js";
-import { applyAuthProfileConfig, setAnthropicApiKey } from "./onboard-auth.js";
+} from "./auth-choice.api-key.ts";
+import { buildTokenProfileId, validateAnthropicSetupToken } from "./auth-token.ts";
+import { applyAuthProfileConfig, setAnthropicApiKey } from "./onboard-auth.ts";
 
 export async function applyAuthChoiceAnthropic(
   params: ApplyAuthChoiceParams,

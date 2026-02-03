@@ -1,5 +1,5 @@
 import { messagingApi } from "@line/bot-sdk";
-import type { LineProbeResult } from "./types.js";
+import type { LineProbeResult } from "./types.ts";
 
 export async function probeLineBot(
   channelAccessToken: string,

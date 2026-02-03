@@ -1,7 +1,7 @@
-import type { GeminiEmbeddingClient } from "./embeddings-gemini.js";
-import { isTruthyEnvValue } from "../infra/env.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { hashText } from "./internal.js";
+import type { GeminiEmbeddingClient } from "./embeddings-gemini.ts";
+import { isTruthyEnvValue } from "../infra/env.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { hashText } from "./internal.ts";
 
 export type GeminiBatchRequest = {
   custom_id: string;
@@ -34,7 +34,7 @@ export type GeminiBatchOutputLine = {
 };
 
 const GEMINI_BATCH_MAX_REQUESTS = 50000;
-const debugEmbeddings = isTruthyEnvValue(process.env.OPENCLAW_DEBUG_MEMORY_EMBEDDINGS);
+const debugEmbeddings = isTruthyEnvValue(process.env.CML_HIVE_ASSIST_DEBUG_MEMORY_EMBEDDINGS);
 const log = createSubsystemLogger("memory/embeddings");
 
 const debugLog = (message: string, meta?: Record<string, unknown>) => {

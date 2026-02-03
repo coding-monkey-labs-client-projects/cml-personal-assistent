@@ -1,4 +1,4 @@
-package ai.openclaw.android
+package ai.cml-hive-assist.android
 
 internal fun normalizeMainKey(raw: String?): String {
   val trimmed = raw?.trim()

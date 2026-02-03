@@ -2,10 +2,10 @@ import {
   resolveGatewayLaunchAgentLabel,
   resolveGatewaySystemdServiceName,
   resolveGatewayWindowsTaskName,
-} from "../../daemon/constants.js";
-import { resolveGatewayLogPaths } from "../../daemon/launchd.js";
-import { getResolvedLoggerSettings } from "../../logging.js";
-import { formatCliCommand } from "../command-format.js";
+} from "../../daemon/constants.ts";
+import { resolveGatewayLogPaths } from "../../daemon/launchd.ts";
+import { getResolvedLoggerSettings } from "../../logging.ts";
+import { formatCliCommand } from "../command-format.ts";
 
 export function parsePort(raw: unknown): number | null {
   if (raw === undefined || raw === null) {
@@ -65,11 +65,11 @@ export function pickProbeHostForBind(
 }
 
 const SAFE_DAEMON_ENV_KEYS = [
-  "OPENCLAW_PROFILE",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_PORT",
-  "OPENCLAW_NIX_MODE",
+  "CML_HIVE_ASSIST_PROFILE",
+  "CML_HIVE_ASSIST_STATE_DIR",
+  "CML_HIVE_ASSIST_CONFIG_PATH",
+  "CML_HIVE_ASSIST_GATEWAY_PORT",
+  "CML_HIVE_ASSIST_NIX_MODE",
 ];
 
 export function filterDaemonEnv(env: Record<string, string> | undefined): Record<string, string> {
@@ -180,10 +180,10 @@ export function renderRuntimeHints(
       hints.push(`Launchd stdout (if installed): ${logs.stdoutPath}`);
       hints.push(`Launchd stderr (if installed): ${logs.stderrPath}`);
     } else if (process.platform === "linux") {
-      const unit = resolveGatewaySystemdServiceName(env.OPENCLAW_PROFILE);
+      const unit = resolveGatewaySystemdServiceName(env.CML_HIVE_ASSIST_PROFILE);
       hints.push(`Logs: journalctl --user -u ${unit}.service -n 200 --no-pager`);
     } else if (process.platform === "win32") {
-      const task = resolveGatewayWindowsTaskName(env.OPENCLAW_PROFILE);
+      const task = resolveGatewayWindowsTaskName(env.CML_HIVE_ASSIST_PROFILE);
       hints.push(`Logs: schtasks /Query /TN "${task}" /V /FO LIST`);
     }
   }
@@ -195,7 +195,7 @@ export function renderGatewayServiceStartHints(env: NodeJS.ProcessEnv = process.
     formatCliCommand("openclaw gateway install", env),
     formatCliCommand("openclaw gateway", env),
   ];
-  const profile = env.OPENCLAW_PROFILE;
+  const profile = env.CML_HIVE_ASSIST_PROFILE;
   switch (process.platform) {
     case "darwin": {
       const label = resolveGatewayLaunchAgentLabel(profile);

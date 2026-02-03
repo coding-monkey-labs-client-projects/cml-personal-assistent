@@ -1,12 +1,12 @@
 import crypto from "node:crypto";
-import type { MsgContext } from "../../auto-reply/templating.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { MsgContext } from "../../auto-reply/templating.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
 import {
   normalizeThinkLevel,
   normalizeVerboseLevel,
   type ThinkLevel,
   type VerboseLevel,
-} from "../../auto-reply/thinking.js";
+} from "../../auto-reply/thinking.ts";
 import {
   evaluateSessionFreshness,
   loadSessionStore,
@@ -18,8 +18,8 @@ import {
   resolveSessionKey,
   resolveStorePath,
   type SessionEntry,
-} from "../../config/sessions.js";
-import { normalizeMainKey } from "../../routing/session-key.js";
+} from "../../config/sessions.ts";
+import { normalizeMainKey } from "../../routing/session-key.ts";
 
 export type SessionResolution = {
   sessionId: string;
@@ -39,7 +39,7 @@ type SessionKeyResolution = {
 };
 
 export function resolveSessionKeyForRequest(opts: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   to?: string;
   sessionId?: string;
   sessionKey?: string;
@@ -82,7 +82,7 @@ export function resolveSessionKeyForRequest(opts: {
 }
 
 export function resolveSession(opts: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   to?: string;
   sessionId?: string;
   sessionKey?: string;

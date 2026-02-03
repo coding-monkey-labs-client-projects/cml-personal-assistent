@@ -1,30 +1,30 @@
-import type { MsgContext } from "../../auto-reply/templating.js";
-import type { ChannelId } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ResolvedMessagingTarget } from "./target-resolver.js";
-import { getChannelPlugin } from "../../channels/plugins/index.js";
-import { recordSessionMetaFromInbound, resolveStorePath } from "../../config/sessions.js";
-import { parseDiscordTarget } from "../../discord/targets.js";
-import { parseIMessageTarget, normalizeIMessageHandle } from "../../imessage/targets.js";
+import type { MsgContext } from "../../auto-reply/templating.ts";
+import type { ChannelId } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ResolvedMessagingTarget } from "./target-resolver.ts";
+import { getChannelPlugin } from "../../channels/plugins/index.ts";
+import { recordSessionMetaFromInbound, resolveStorePath } from "../../config/sessions.ts";
+import { parseDiscordTarget } from "../../discord/targets.ts";
+import { parseIMessageTarget, normalizeIMessageHandle } from "../../imessage/targets.ts";
 import {
   buildAgentSessionKey,
   type RoutePeer,
   type RoutePeerKind,
-} from "../../routing/resolve-route.js";
-import { resolveThreadSessionKeys } from "../../routing/session-key.js";
+} from "../../routing/resolve-route.ts";
+import { resolveThreadSessionKeys } from "../../routing/session-key.ts";
 import {
   resolveSignalPeerId,
   resolveSignalRecipient,
   resolveSignalSender,
-} from "../../signal/identity.js";
-import { resolveSlackAccount } from "../../slack/accounts.js";
-import { createSlackWebClient } from "../../slack/client.js";
-import { normalizeAllowListLower } from "../../slack/monitor/allow-list.js";
-import { parseSlackTarget } from "../../slack/targets.js";
-import { buildTelegramGroupPeerId } from "../../telegram/bot/helpers.js";
-import { resolveTelegramTargetChatType } from "../../telegram/inline-buttons.js";
-import { parseTelegramTarget } from "../../telegram/targets.js";
-import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.js";
+} from "../../signal/identity.ts";
+import { resolveSlackAccount } from "../../slack/accounts.ts";
+import { createSlackWebClient } from "../../slack/client.ts";
+import { normalizeAllowListLower } from "../../slack/monitor/allow-list.ts";
+import { parseSlackTarget } from "../../slack/targets.ts";
+import { buildTelegramGroupPeerId } from "../../telegram/bot/helpers.ts";
+import { resolveTelegramTargetChatType } from "../../telegram/inline-buttons.ts";
+import { parseTelegramTarget } from "../../telegram/targets.ts";
+import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.ts";
 
 export type OutboundSessionRoute = {
   sessionKey: string;
@@ -37,7 +37,7 @@ export type OutboundSessionRoute = {
 };
 
 export type ResolveOutboundSessionRouteParams = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChannelId;
   agentId: string;
   accountId?: string | null;
@@ -116,7 +116,7 @@ function inferPeerKind(params: {
 }
 
 function buildBaseSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   channel: ChannelId;
   accountId?: string | null;
@@ -134,7 +134,7 @@ function buildBaseSessionKey(params: {
 
 // Best-effort mpim detection: allowlist/config, then Slack API (if token available).
 async function resolveSlackChannelType(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   channelId: string;
 }): Promise<"channel" | "group" | "dm" | "unknown"> {
@@ -896,7 +896,7 @@ export async function resolveOutboundSessionRoute(
 }
 
 export async function ensureOutboundSessionEntry(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   channel: ChannelId;
   accountId?: string | null;

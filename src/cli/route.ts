@@ -1,11 +1,11 @@
-import { isTruthyEnvValue } from "../infra/env.js";
-import { defaultRuntime } from "../runtime.js";
-import { VERSION } from "../version.js";
-import { getCommandPath, hasHelpOrVersion } from "./argv.js";
-import { emitCliBanner } from "./banner.js";
-import { ensurePluginRegistryLoaded } from "./plugin-registry.js";
-import { findRoutedCommand } from "./program/command-registry.js";
-import { ensureConfigReady } from "./program/config-guard.js";
+import { isTruthyEnvValue } from "../infra/env.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { VERSION } from "../version.ts";
+import { getCommandPath, hasHelpOrVersion } from "./argv.ts";
+import { emitCliBanner } from "./banner.ts";
+import { ensurePluginRegistryLoaded } from "./plugin-registry.ts";
+import { findRoutedCommand } from "./program/command-registry.ts";
+import { ensureConfigReady } from "./program/config-guard.ts";
 
 async function prepareRoutedCommand(params: {
   argv: string[];
@@ -20,7 +20,7 @@ async function prepareRoutedCommand(params: {
 }
 
 export async function tryRouteCli(argv: string[]): Promise<boolean> {
-  if (isTruthyEnvValue(process.env.OPENCLAW_DISABLE_ROUTE_FIRST)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_DISABLE_ROUTE_FIRST)) {
     return false;
   }
   if (hasHelpOrVersion(argv)) {

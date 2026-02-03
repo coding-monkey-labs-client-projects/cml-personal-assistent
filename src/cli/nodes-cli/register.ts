@@ -1,14 +1,14 @@
 import type { Command } from "commander";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { registerNodesCameraCommands } from "./register.camera.js";
-import { registerNodesCanvasCommands } from "./register.canvas.js";
-import { registerNodesInvokeCommands } from "./register.invoke.js";
-import { registerNodesLocationCommands } from "./register.location.js";
-import { registerNodesNotifyCommand } from "./register.notify.js";
-import { registerNodesPairingCommands } from "./register.pairing.js";
-import { registerNodesScreenCommands } from "./register.screen.js";
-import { registerNodesStatusCommands } from "./register.status.js";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { registerNodesCameraCommands } from "./register.camera.ts";
+import { registerNodesCanvasCommands } from "./register.canvas.ts";
+import { registerNodesInvokeCommands } from "./register.invoke.ts";
+import { registerNodesLocationCommands } from "./register.location.ts";
+import { registerNodesNotifyCommand } from "./register.notify.ts";
+import { registerNodesPairingCommands } from "./register.pairing.ts";
+import { registerNodesScreenCommands } from "./register.screen.ts";
+import { registerNodesStatusCommands } from "./register.status.ts";
 
 export function registerNodesCli(program: Command) {
   const nodes = program
@@ -17,7 +17,7 @@ export function registerNodesCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/nodes", "docs.openclaw.ai/cli/nodes")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/nodes", "docs.cml-hive-assist.ai/cli/nodes")}\n`,
     );
 
   registerNodesStatusCommands(nodes);

@@ -12,7 +12,7 @@ import {
 
 describe("profile name validation", () => {
   it("accepts valid lowercase names", () => {
-    expect(isValidProfileName("openclaw")).toBe(true);
+    expect(isValidProfileName("cml-hive-assist")).toBe(true);
     expect(isValidProfileName("work")).toBe(true);
     expect(isValidProfileName("my-profile")).toBe(true);
     expect(isValidProfileName("test123")).toBe(true);
@@ -108,7 +108,7 @@ describe("getUsedPorts", () => {
 
   it("extracts ports from profile configs", () => {
     const profiles = {
-      openclaw: { cdpPort: 18792 },
+      cml-hive-assist: { cdpPort: 18792 },
       work: { cdpPort: 18793 },
       personal: { cdpPort: 18795 },
     };
@@ -233,7 +233,7 @@ describe("getUsedColors", () => {
 
   it("extracts and uppercases colors from profile configs", () => {
     const profiles = {
-      openclaw: { color: "#ff4500" },
+      cml-hive-assist: { color: "#ff4500" },
       work: { color: "#0066CC" },
     };
     const used = getUsedColors(profiles);

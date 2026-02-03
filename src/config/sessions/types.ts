@@ -1,9 +1,9 @@
 import type { Skill } from "@mariozechner/pi-coding-agent";
 import crypto from "node:crypto";
-import type { NormalizedChatType } from "../../channels/chat-type.js";
-import type { ChannelId } from "../../channels/plugins/types.js";
-import type { DeliveryContext } from "../../utils/delivery-context.js";
-import type { TtsAutoMode } from "../types.tts.js";
+import type { NormalizedChatType } from "../../channels/chat-type.ts";
+import type { ChannelId } from "../../channels/plugins/types.ts";
+import type { DeliveryContext } from "../../utils/delivery-context.ts";
+import type { TtsAutoMode } from "../types.tts.ts";
 
 export type SessionScope = "per-sender" | "global";
 

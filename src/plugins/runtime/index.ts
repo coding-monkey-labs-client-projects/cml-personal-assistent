@@ -1,9 +1,9 @@
 import { createRequire } from "node:module";
-import type { PluginRuntime } from "./types.js";
-import { resolveEffectiveMessagesConfig, resolveHumanDelayConfig } from "../../agents/identity.js";
-import { createMemoryGetTool, createMemorySearchTool } from "../../agents/tools/memory-tool.js";
-import { handleSlackAction } from "../../agents/tools/slack-actions.js";
-import { handleWhatsAppAction } from "../../agents/tools/whatsapp-actions.js";
+import type { PluginRuntime } from "./types.ts";
+import { resolveEffectiveMessagesConfig, resolveHumanDelayConfig } from "../../agents/identity.ts";
+import { createMemoryGetTool, createMemorySearchTool } from "../../agents/tools/memory-tool.ts";
+import { handleSlackAction } from "../../agents/tools/slack-actions.ts";
+import { handleWhatsAppAction } from "../../agents/tools/whatsapp-actions.ts";
 import {
   chunkByNewline,
   chunkMarkdownText,
@@ -12,77 +12,77 @@ import {
   chunkTextWithMode,
   resolveChunkMode,
   resolveTextChunkLimit,
-} from "../../auto-reply/chunk.js";
+} from "../../auto-reply/chunk.ts";
 import {
   hasControlCommand,
   isControlCommandMessage,
   shouldComputeCommandAuthorized,
-} from "../../auto-reply/command-detection.js";
-import { shouldHandleTextCommands } from "../../auto-reply/commands-registry.js";
+} from "../../auto-reply/command-detection.ts";
+import { shouldHandleTextCommands } from "../../auto-reply/commands-registry.ts";
 import {
   formatAgentEnvelope,
   formatInboundEnvelope,
   resolveEnvelopeFormatOptions,
-} from "../../auto-reply/envelope.js";
+} from "../../auto-reply/envelope.ts";
 import {
   createInboundDebouncer,
   resolveInboundDebounceMs,
-} from "../../auto-reply/inbound-debounce.js";
-import { dispatchReplyFromConfig } from "../../auto-reply/reply/dispatch-from-config.js";
-import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.js";
+} from "../../auto-reply/inbound-debounce.ts";
+import { dispatchReplyFromConfig } from "../../auto-reply/reply/dispatch-from-config.ts";
+import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.ts";
 import {
   buildMentionRegexes,
   matchesMentionPatterns,
   matchesMentionWithExplicit,
-} from "../../auto-reply/reply/mentions.js";
-import { dispatchReplyWithBufferedBlockDispatcher } from "../../auto-reply/reply/provider-dispatcher.js";
-import { createReplyDispatcherWithTyping } from "../../auto-reply/reply/reply-dispatcher.js";
-import { removeAckReactionAfterReply, shouldAckReaction } from "../../channels/ack-reactions.js";
-import { resolveCommandAuthorizedFromAuthorizers } from "../../channels/command-gating.js";
-import { discordMessageActions } from "../../channels/plugins/actions/discord.js";
-import { signalMessageActions } from "../../channels/plugins/actions/signal.js";
-import { telegramMessageActions } from "../../channels/plugins/actions/telegram.js";
-import { createWhatsAppLoginTool } from "../../channels/plugins/agent-tools/whatsapp-login.js";
-import { recordInboundSession } from "../../channels/session.js";
-import { monitorWebChannel } from "../../channels/web/index.js";
-import { registerMemoryCli } from "../../cli/memory-cli.js";
-import { loadConfig, writeConfigFile } from "../../config/config.js";
+} from "../../auto-reply/reply/mentions.ts";
+import { dispatchReplyWithBufferedBlockDispatcher } from "../../auto-reply/reply/provider-dispatcher.ts";
+import { createReplyDispatcherWithTyping } from "../../auto-reply/reply/reply-dispatcher.ts";
+import { removeAckReactionAfterReply, shouldAckReaction } from "../../channels/ack-reactions.ts";
+import { resolveCommandAuthorizedFromAuthorizers } from "../../channels/command-gating.ts";
+import { discordMessageActions } from "../../channels/plugins/actions/discord.ts";
+import { signalMessageActions } from "../../channels/plugins/actions/signal.ts";
+import { telegramMessageActions } from "../../channels/plugins/actions/telegram.ts";
+import { createWhatsAppLoginTool } from "../../channels/plugins/agent-tools/whatsapp-login.ts";
+import { recordInboundSession } from "../../channels/session.ts";
+import { monitorWebChannel } from "../../channels/web/index.ts";
+import { registerMemoryCli } from "../../cli/memory-cli.ts";
+import { loadConfig, writeConfigFile } from "../../config/config.ts";
 import {
   resolveChannelGroupPolicy,
   resolveChannelGroupRequireMention,
-} from "../../config/group-policy.js";
-import { resolveMarkdownTableMode } from "../../config/markdown-tables.js";
-import { resolveStateDir } from "../../config/paths.js";
+} from "../../config/group-policy.ts";
+import { resolveMarkdownTableMode } from "../../config/markdown-tables.ts";
+import { resolveStateDir } from "../../config/paths.ts";
 import {
   readSessionUpdatedAt,
   recordSessionMetaFromInbound,
   resolveStorePath,
   updateLastRoute,
-} from "../../config/sessions.js";
-import { auditDiscordChannelPermissions } from "../../discord/audit.js";
+} from "../../config/sessions.ts";
+import { auditDiscordChannelPermissions } from "../../discord/audit.ts";
 import {
   listDiscordDirectoryGroupsLive,
   listDiscordDirectoryPeersLive,
-} from "../../discord/directory-live.js";
-import { monitorDiscordProvider } from "../../discord/monitor.js";
-import { probeDiscord } from "../../discord/probe.js";
-import { resolveDiscordChannelAllowlist } from "../../discord/resolve-channels.js";
-import { resolveDiscordUserAllowlist } from "../../discord/resolve-users.js";
-import { sendMessageDiscord, sendPollDiscord } from "../../discord/send.js";
-import { shouldLogVerbose } from "../../globals.js";
-import { monitorIMessageProvider } from "../../imessage/monitor.js";
-import { probeIMessage } from "../../imessage/probe.js";
-import { sendMessageIMessage } from "../../imessage/send.js";
-import { getChannelActivity, recordChannelActivity } from "../../infra/channel-activity.js";
-import { enqueueSystemEvent } from "../../infra/system-events.js";
+} from "../../discord/directory-live.ts";
+import { monitorDiscordProvider } from "../../discord/monitor.ts";
+import { probeDiscord } from "../../discord/probe.ts";
+import { resolveDiscordChannelAllowlist } from "../../discord/resolve-channels.ts";
+import { resolveDiscordUserAllowlist } from "../../discord/resolve-users.ts";
+import { sendMessageDiscord, sendPollDiscord } from "../../discord/send.ts";
+import { shouldLogVerbose } from "../../globals.ts";
+import { monitorIMessageProvider } from "../../imessage/monitor.ts";
+import { probeIMessage } from "../../imessage/probe.ts";
+import { sendMessageIMessage } from "../../imessage/send.ts";
+import { getChannelActivity, recordChannelActivity } from "../../infra/channel-activity.ts";
+import { enqueueSystemEvent } from "../../infra/system-events.ts";
 import {
   listLineAccountIds,
   normalizeAccountId as normalizeLineAccountId,
   resolveDefaultLineAccountId,
   resolveLineAccount,
-} from "../../line/accounts.js";
-import { monitorLineProvider } from "../../line/monitor.js";
-import { probeLineBot } from "../../line/probe.js";
+} from "../../line/accounts.ts";
+import { monitorLineProvider } from "../../line/monitor.ts";
+import { probeLineBot } from "../../line/probe.ts";
 import {
   createQuickReplyItems,
   pushMessageLine,
@@ -92,58 +92,58 @@ import {
   pushLocationMessage,
   pushTextMessageWithQuickReplies,
   sendMessageLine,
-} from "../../line/send.js";
-import { buildTemplateMessageFromPayload } from "../../line/template-messages.js";
-import { getChildLogger } from "../../logging.js";
-import { normalizeLogLevel } from "../../logging/levels.js";
-import { convertMarkdownTables } from "../../markdown/tables.js";
-import { isVoiceCompatibleAudio } from "../../media/audio.js";
-import { mediaKindFromMime } from "../../media/constants.js";
-import { fetchRemoteMedia } from "../../media/fetch.js";
-import { getImageMetadata, resizeToJpeg } from "../../media/image-ops.js";
-import { detectMime } from "../../media/mime.js";
-import { saveMediaBuffer } from "../../media/store.js";
-import { buildPairingReply } from "../../pairing/pairing-messages.js";
+} from "../../line/send.ts";
+import { buildTemplateMessageFromPayload } from "../../line/template-messages.ts";
+import { getChildLogger } from "../../logging.ts";
+import { normalizeLogLevel } from "../../logging/levels.ts";
+import { convertMarkdownTables } from "../../markdown/tables.ts";
+import { isVoiceCompatibleAudio } from "../../media/audio.ts";
+import { mediaKindFromMime } from "../../media/constants.ts";
+import { fetchRemoteMedia } from "../../media/fetch.ts";
+import { getImageMetadata, resizeToJpeg } from "../../media/image-ops.ts";
+import { detectMime } from "../../media/mime.ts";
+import { saveMediaBuffer } from "../../media/store.ts";
+import { buildPairingReply } from "../../pairing/pairing-messages.ts";
 import {
   readChannelAllowFromStore,
   upsertChannelPairingRequest,
-} from "../../pairing/pairing-store.js";
-import { runCommandWithTimeout } from "../../process/exec.js";
-import { resolveAgentRoute } from "../../routing/resolve-route.js";
-import { monitorSignalProvider } from "../../signal/index.js";
-import { probeSignal } from "../../signal/probe.js";
-import { sendMessageSignal } from "../../signal/send.js";
+} from "../../pairing/pairing-store.ts";
+import { runCommandWithTimeout } from "../../process/exec.ts";
+import { resolveAgentRoute } from "../../routing/resolve-route.ts";
+import { monitorSignalProvider } from "../../signal/index.ts";
+import { probeSignal } from "../../signal/probe.ts";
+import { sendMessageSignal } from "../../signal/send.ts";
 import {
   listSlackDirectoryGroupsLive,
   listSlackDirectoryPeersLive,
-} from "../../slack/directory-live.js";
-import { monitorSlackProvider } from "../../slack/index.js";
-import { probeSlack } from "../../slack/probe.js";
-import { resolveSlackChannelAllowlist } from "../../slack/resolve-channels.js";
-import { resolveSlackUserAllowlist } from "../../slack/resolve-users.js";
-import { sendMessageSlack } from "../../slack/send.js";
+} from "../../slack/directory-live.ts";
+import { monitorSlackProvider } from "../../slack/index.ts";
+import { probeSlack } from "../../slack/probe.ts";
+import { resolveSlackChannelAllowlist } from "../../slack/resolve-channels.ts";
+import { resolveSlackUserAllowlist } from "../../slack/resolve-users.ts";
+import { sendMessageSlack } from "../../slack/send.ts";
 import {
   auditTelegramGroupMembership,
   collectTelegramUnmentionedGroupIds,
-} from "../../telegram/audit.js";
-import { monitorTelegramProvider } from "../../telegram/monitor.js";
-import { probeTelegram } from "../../telegram/probe.js";
-import { sendMessageTelegram } from "../../telegram/send.js";
-import { resolveTelegramToken } from "../../telegram/token.js";
-import { textToSpeechTelephony } from "../../tts/tts.js";
-import { getActiveWebListener } from "../../web/active-listener.js";
+} from "../../telegram/audit.ts";
+import { monitorTelegramProvider } from "../../telegram/monitor.ts";
+import { probeTelegram } from "../../telegram/probe.ts";
+import { sendMessageTelegram } from "../../telegram/send.ts";
+import { resolveTelegramToken } from "../../telegram/token.ts";
+import { textToSpeechTelephony } from "../../tts/tts.ts";
+import { getActiveWebListener } from "../../web/active-listener.ts";
 import {
   getWebAuthAgeMs,
   logoutWeb,
   logWebSelfId,
   readWebSelfId,
   webAuthExists,
-} from "../../web/auth-store.js";
-import { startWebLoginWithQr, waitForWebLogin } from "../../web/login-qr.js";
-import { loginWeb } from "../../web/login.js";
-import { loadWebMedia } from "../../web/media.js";
-import { sendMessageWhatsApp, sendPollWhatsApp } from "../../web/outbound.js";
-import { formatNativeDependencyHint } from "./native-deps.js";
+} from "../../web/auth-store.ts";
+import { startWebLoginWithQr, waitForWebLogin } from "../../web/login-qr.ts";
+import { loginWeb } from "../../web/login.ts";
+import { loadWebMedia } from "../../web/media.ts";
+import { sendMessageWhatsApp, sendPollWhatsApp } from "../../web/outbound.ts";
+import { formatNativeDependencyHint } from "./native-deps.ts";
 
 let cachedVersion: string | null = null;
 
@@ -356,4 +356,4 @@ export function createPluginRuntime(): PluginRuntime {
   };
 }
 
-export type { PluginRuntime } from "./types.js";
+export type { PluginRuntime } from "./types.ts";

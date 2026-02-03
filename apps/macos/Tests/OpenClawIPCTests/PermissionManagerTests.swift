@@ -1,7 +1,7 @@
-import OpenClawIPC
+import CmlHiveAssistIPC
 import CoreLocation
 import Testing
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
 @Suite(.serialized)
 @MainActor

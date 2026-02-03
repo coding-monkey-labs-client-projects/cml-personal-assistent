@@ -1,30 +1,30 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ReplyPayload } from "../types.js";
-import type { InlineDirectives } from "./directive-handling.parse.js";
-import { resolveAuthStorePathForDisplay } from "../../agents/auth-profiles.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ReplyPayload } from "../types.ts";
+import type { InlineDirectives } from "./directive-handling.parse.ts";
+import { resolveAuthStorePathForDisplay } from "../../agents/auth-profiles.ts";
 import {
   type ModelAliasIndex,
   modelKey,
   normalizeProviderId,
   resolveConfiguredModelRef,
   resolveModelRefFromString,
-} from "../../agents/model-selection.js";
-import { shortenHomePath } from "../../utils.js";
-import { resolveModelsCommandReply } from "./commands-models.js";
+} from "../../agents/model-selection.ts";
+import { shortenHomePath } from "../../utils.ts";
+import { resolveModelsCommandReply } from "./commands-models.ts";
 import {
   formatAuthLabel,
   type ModelAuthDetailMode,
   resolveAuthLabel,
   resolveProfileOverride,
-} from "./directive-handling.auth.js";
+} from "./directive-handling.auth.ts";
 import {
   type ModelPickerCatalogEntry,
   resolveProviderEndpointLabel,
-} from "./directive-handling.model-picker.js";
-import { type ModelDirectiveSelection, resolveModelDirectiveSelection } from "./model-selection.js";
+} from "./directive-handling.model-picker.ts";
+import { type ModelDirectiveSelection, resolveModelDirectiveSelection } from "./model-selection.ts";
 
 function buildModelPickerCatalog(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   defaultProvider: string;
   defaultModel: string;
   aliasIndex: ModelAliasIndex;
@@ -167,7 +167,7 @@ function buildModelPickerCatalog(params: {
 
 export async function maybeHandleModelDirectiveInfo(params: {
   directives: InlineDirectives;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir: string;
   activeAgentId: string;
   provider: string;
@@ -295,7 +295,7 @@ export async function maybeHandleModelDirectiveInfo(params: {
 
 export function resolveModelSelectionFromDirective(params: {
   directives: InlineDirectives;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir: string;
   defaultProvider: string;
   defaultModel: string;

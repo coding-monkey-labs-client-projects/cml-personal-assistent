@@ -87,7 +87,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "cml-hive-assist"),
             },
           },
           channels: { whatsapp: { allowFrom: ["*"] } },
@@ -146,7 +146,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "cml-hive-assist"),
             },
           },
           channels: { telegram: { allowFrom: ["*"] } },
@@ -195,7 +195,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "cml-hive-assist"),
             },
           },
           channels: { whatsapp: { allowFrom: ["*"] } },
@@ -253,7 +253,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "cml-hive-assist"),
             },
           },
           channels: { telegram: { allowFrom: ["*"] } },
@@ -295,7 +295,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "cml-hive-assist"),
             },
           },
           channels: { telegram: { allowFrom: ["*"], streamMode: "block" } },

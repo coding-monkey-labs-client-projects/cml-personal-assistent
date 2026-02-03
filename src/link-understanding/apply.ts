@@ -1,8 +1,8 @@
-import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.js";
-import { formatLinkUnderstandingBody } from "./format.js";
-import { runLinkUnderstanding } from "./runner.js";
+import type { MsgContext } from "../auto-reply/templating.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.ts";
+import { formatLinkUnderstandingBody } from "./format.ts";
+import { runLinkUnderstanding } from "./runner.ts";
 
 export type ApplyLinkUnderstandingResult = {
   outputs: string[];
@@ -11,7 +11,7 @@ export type ApplyLinkUnderstandingResult = {
 
 export async function applyLinkUnderstanding(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
 }): Promise<ApplyLinkUnderstandingResult> {
   const result = await runLinkUnderstanding({
     cfg: params.cfg,

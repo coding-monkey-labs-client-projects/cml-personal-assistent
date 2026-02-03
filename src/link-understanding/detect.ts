@@ -1,4 +1,4 @@
-import { DEFAULT_MAX_LINKS } from "./defaults.js";
+import { DEFAULT_MAX_LINKS } from "./defaults.ts";
 
 // Remove markdown link syntax so only bare URLs are considered.
 const MARKDOWN_LINK_RE = /\[[^\]]*]\((https?:\/\/\S+?)\)/gi;

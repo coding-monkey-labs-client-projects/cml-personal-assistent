@@ -1,8 +1,8 @@
 import crypto from "node:crypto";
 import path from "node:path";
-import { normalizeAgentId } from "../../routing/session-key.js";
-import { resolveUserPath } from "../../utils.js";
-import { resolveAgentIdFromSessionKey } from "../agent-scope.js";
+import { normalizeAgentId } from "../../routing/session-key.ts";
+import { resolveUserPath } from "../../utils.ts";
+import { resolveAgentIdFromSessionKey } from "../agent-scope.ts";
 
 export function slugifySessionKey(value: string) {
   const trimmed = value.trim() || "session";

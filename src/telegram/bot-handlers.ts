@@ -1,28 +1,28 @@
-import type { TelegramMessage } from "./bot/types.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
+import type { TelegramMessage } from "./bot/types.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
 // @ts-nocheck
-import { hasControlCommand } from "../auto-reply/command-detection.js";
+import { hasControlCommand } from "../auto-reply/command-detection.ts";
 import {
   createInboundDebouncer,
   resolveInboundDebounceMs,
-} from "../auto-reply/inbound-debounce.js";
-import { buildCommandsPaginationKeyboard } from "../auto-reply/reply/commands-info.js";
-import { listSkillCommandsForAgents } from "../auto-reply/skill-commands.js";
-import { buildCommandsMessagePaginated } from "../auto-reply/status.js";
-import { resolveChannelConfigWrites } from "../channels/plugins/config-writes.js";
-import { loadConfig } from "../config/config.js";
-import { writeConfigFile } from "../config/io.js";
-import { danger, logVerbose, warn } from "../globals.js";
-import { readChannelAllowFromStore } from "../pairing/pairing-store.js";
-import { withTelegramApiErrorLogging } from "./api-logging.js";
-import { firstDefined, isSenderAllowed, normalizeAllowFromWithStore } from "./bot-access.js";
-import { RegisterTelegramHandlerParams } from "./bot-native-commands.js";
-import { MEDIA_GROUP_TIMEOUT_MS, type MediaGroupEntry } from "./bot-updates.js";
-import { resolveMedia } from "./bot/delivery.js";
-import { resolveTelegramForumThreadId } from "./bot/helpers.js";
-import { migrateTelegramGroupConfig } from "./group-migration.js";
-import { resolveTelegramInlineButtonsScope } from "./inline-buttons.js";
-import { buildInlineKeyboard } from "./send.js";
+} from "../auto-reply/inbound-debounce.ts";
+import { buildCommandsPaginationKeyboard } from "../auto-reply/reply/commands-info.ts";
+import { listSkillCommandsForAgents } from "../auto-reply/skill-commands.ts";
+import { buildCommandsMessagePaginated } from "../auto-reply/status.ts";
+import { resolveChannelConfigWrites } from "../channels/plugins/config-writes.ts";
+import { loadConfig } from "../config/config.ts";
+import { writeConfigFile } from "../config/io.ts";
+import { danger, logVerbose, warn } from "../globals.ts";
+import { readChannelAllowFromStore } from "../pairing/pairing-store.ts";
+import { withTelegramApiErrorLogging } from "./api-logging.ts";
+import { firstDefined, isSenderAllowed, normalizeAllowFromWithStore } from "./bot-access.ts";
+import { RegisterTelegramHandlerParams } from "./bot-native-commands.ts";
+import { MEDIA_GROUP_TIMEOUT_MS, type MediaGroupEntry } from "./bot-updates.ts";
+import { resolveMedia } from "./bot/delivery.ts";
+import { resolveTelegramForumThreadId } from "./bot/helpers.ts";
+import { migrateTelegramGroupConfig } from "./group-migration.ts";
+import { resolveTelegramInlineButtonsScope } from "./inline-buttons.ts";
+import { buildInlineKeyboard } from "./send.ts";
 
 export const registerTelegramHandlers = ({
   cfg,

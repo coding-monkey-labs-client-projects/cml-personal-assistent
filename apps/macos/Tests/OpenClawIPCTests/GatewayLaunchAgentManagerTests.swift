@@ -1,16 +1,16 @@
 import Foundation
 import Testing
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
 @Suite struct GatewayLaunchAgentManagerTests {
     @Test func launchAgentPlistSnapshotParsesArgsAndEnv() throws {
         let url = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-launchd-\(UUID().uuidString).plist")
+            .appendingPathComponent("cml-hive-assist-launchd-\(UUID().uuidString).plist")
         let plist: [String: Any] = [
-            "ProgramArguments": ["openclaw", "gateway-daemon", "--port", "18789", "--bind", "loopback"],
+            "ProgramArguments": ["cml-hive-assist", "gateway-daemon", "--port", "18789", "--bind", "loopback"],
             "EnvironmentVariables": [
-                "OPENCLAW_GATEWAY_TOKEN": " secret ",
-                "OPENCLAW_GATEWAY_PASSWORD": "pw",
+                "CML_HIVE_ASSIST_GATEWAY_TOKEN": " secret ",
+                "CML_HIVE_ASSIST_GATEWAY_PASSWORD": "pw",
             ],
         ]
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
@@ -26,9 +26,9 @@ import Testing
 
     @Test func launchAgentPlistSnapshotAllowsMissingBind() throws {
         let url = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-launchd-\(UUID().uuidString).plist")
+            .appendingPathComponent("cml-hive-assist-launchd-\(UUID().uuidString).plist")
         let plist: [String: Any] = [
-            "ProgramArguments": ["openclaw", "gateway-daemon", "--port", "18789"],
+            "ProgramArguments": ["cml-hive-assist", "gateway-daemon", "--port", "18789"],
         ]
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
         try data.write(to: url, options: [.atomic])

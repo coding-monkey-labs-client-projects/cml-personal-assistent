@@ -1,16 +1,16 @@
 import { z } from "zod";
-import { ToolsSchema } from "./zod-schema.agent-runtime.js";
-import { AgentsSchema, AudioSchema, BindingsSchema, BroadcastSchema } from "./zod-schema.agents.js";
-import { ApprovalsSchema } from "./zod-schema.approvals.js";
-import { HexColorSchema, ModelsConfigSchema } from "./zod-schema.core.js";
-import { HookMappingSchema, HooksGmailSchema, InternalHooksSchema } from "./zod-schema.hooks.js";
-import { ChannelsSchema } from "./zod-schema.providers.js";
+import { ToolsSchema } from "./zod-schema.agent-runtime.ts";
+import { AgentsSchema, AudioSchema, BindingsSchema, BroadcastSchema } from "./zod-schema.agents.ts";
+import { ApprovalsSchema } from "./zod-schema.approvals.ts";
+import { HexColorSchema, ModelsConfigSchema } from "./zod-schema.core.ts";
+import { HookMappingSchema, HooksGmailSchema, InternalHooksSchema } from "./zod-schema.hooks.ts";
+import { ChannelsSchema } from "./zod-schema.providers.ts";
 import {
   CommandsSchema,
   MessagesSchema,
   SessionSchema,
   SessionSendPolicySchema,
-} from "./zod-schema.session.js";
+} from "./zod-schema.session.ts";
 
 const BrowserSnapshotDefaultsSchema = z
   .object({
@@ -87,7 +87,7 @@ const MemorySchema = z
   .strict()
   .optional();
 
-export const OpenClawSchema = z
+export const CmlHiveAssistSchema = z
   .object({
     meta: z
       .object({

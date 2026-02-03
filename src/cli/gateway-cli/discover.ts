@@ -1,5 +1,5 @@
-import type { GatewayBonjourBeacon } from "../../infra/bonjour-discovery.js";
-import { colorize, theme } from "../../terminal/theme.js";
+import type { GatewayBonjourBeacon } from "../../infra/bonjour-discovery.ts";
+import { colorize, theme } from "../../terminal/theme.ts";
 
 export type GatewayDiscoverOpts = {
   timeout?: string;

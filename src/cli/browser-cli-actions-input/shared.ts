@@ -1,8 +1,8 @@
 import type { Command } from "commander";
-import type { BrowserFormField } from "../../browser/client-actions-core.js";
-import { danger } from "../../globals.js";
-import { defaultRuntime } from "../../runtime.js";
-import { callBrowserRequest, type BrowserParentOpts } from "../browser-cli-shared.js";
+import type { BrowserFormField } from "../../browser/client-actions-core.ts";
+import { danger } from "../../globals.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { callBrowserRequest, type BrowserParentOpts } from "../browser-cli-shared.ts";
 
 export type BrowserActionContext = {
   parent: BrowserParentOpts;

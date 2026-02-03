@@ -1,26 +1,26 @@
 import path from "node:path";
-import type { BrowserRouteContext } from "../server-context.js";
-import type { BrowserRouteRegistrar } from "./types.js";
-import { ensureMediaDir, saveMediaBuffer } from "../../media/store.js";
-import { captureScreenshot, snapshotAria } from "../cdp.js";
+import type { BrowserRouteContext } from "../server-context.ts";
+import type { BrowserRouteRegistrar } from "./types.ts";
+import { ensureMediaDir, saveMediaBuffer } from "../../media/store.ts";
+import { captureScreenshot, snapshotAria } from "../cdp.ts";
 import {
   DEFAULT_AI_SNAPSHOT_EFFICIENT_DEPTH,
   DEFAULT_AI_SNAPSHOT_EFFICIENT_MAX_CHARS,
   DEFAULT_AI_SNAPSHOT_MAX_CHARS,
-} from "../constants.js";
+} from "../constants.ts";
 import {
   DEFAULT_BROWSER_SCREENSHOT_MAX_BYTES,
   DEFAULT_BROWSER_SCREENSHOT_MAX_SIDE,
   normalizeBrowserScreenshot,
-} from "../screenshot.js";
+} from "../screenshot.ts";
 import {
   getPwAiModule,
   handleRouteError,
   readBody,
   requirePwAi,
   resolveProfileContext,
-} from "./agent.shared.js";
-import { jsonError, toBoolean, toNumber, toStringOrEmpty } from "./utils.js";
+} from "./agent.shared.ts";
+import { jsonError, toBoolean, toNumber, toStringOrEmpty } from "./utils.ts";
 
 export function registerBrowserAgentSnapshotRoutes(
   app: BrowserRouteRegistrar,

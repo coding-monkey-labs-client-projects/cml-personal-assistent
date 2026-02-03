@@ -1,26 +1,26 @@
 import type { Component, TUI } from "@mariozechner/pi-tui";
-import type { ChatLog } from "./components/chat-log.js";
-import type { GatewayChatClient } from "./gateway-chat.js";
+import type { ChatLog } from "./components/chat-log.ts";
+import type { GatewayChatClient } from "./gateway-chat.ts";
 import type {
   AgentSummary,
   GatewayStatusSummary,
   TuiOptions,
   TuiStateAccess,
-} from "./tui-types.js";
+} from "./tui-types.ts";
 import {
   formatThinkingLevels,
   normalizeUsageDisplay,
   resolveResponseUsageMode,
-} from "../auto-reply/thinking.js";
-import { normalizeAgentId } from "../routing/session-key.js";
-import { formatRelativeTime } from "../utils/time-format.js";
-import { helpText, parseCommand } from "./commands.js";
+} from "../auto-reply/thinking.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
+import { formatRelativeTime } from "../utils/time-format.ts";
+import { helpText, parseCommand } from "./commands.ts";
 import {
   createFilterableSelectList,
   createSearchableSelectList,
   createSettingsList,
-} from "./components/selectors.js";
-import { formatStatusSummary } from "./tui-status-summary.js";
+} from "./components/selectors.ts";
+import { formatStatusSummary } from "./tui-status-summary.ts";
 
 type CommandHandlerContext = {
   client: GatewayChatClient;

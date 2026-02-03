@@ -1,16 +1,16 @@
 import { cancel, multiselect as clackMultiselect, isCancel } from "@clack/prompts";
-import type { RuntimeEnv } from "../../runtime.js";
-import { resolveApiKeyForProvider } from "../../agents/model-auth.js";
-import { type ModelScanResult, scanOpenRouterModels } from "../../agents/model-scan.js";
-import { withProgressTotals } from "../../cli/progress.js";
-import { loadConfig } from "../../config/config.js";
-import { logConfigUpdated } from "../../config/logging.js";
+import type { RuntimeEnv } from "../../runtime.ts";
+import { resolveApiKeyForProvider } from "../../agents/model-auth.ts";
+import { type ModelScanResult, scanOpenRouterModels } from "../../agents/model-scan.ts";
+import { withProgressTotals } from "../../cli/progress.ts";
+import { loadConfig } from "../../config/config.ts";
+import { logConfigUpdated } from "../../config/logging.ts";
 import {
   stylePromptHint,
   stylePromptMessage,
   stylePromptTitle,
-} from "../../terminal/prompt-style.js";
-import { formatMs, formatTokenK, updateConfig } from "./shared.js";
+} from "../../terminal/prompt-style.ts";
+import { formatMs, formatTokenK, updateConfig } from "./shared.ts";
 
 const MODEL_PAD = 42;
 const CTX_PAD = 8;

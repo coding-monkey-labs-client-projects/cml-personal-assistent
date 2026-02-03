@@ -1,19 +1,19 @@
 import type { Command } from "commander";
-import type { NodesRpcOpts } from "./types.js";
-import { randomIdempotencyKey } from "../../gateway/call.js";
-import { defaultRuntime } from "../../runtime.js";
-import { renderTable } from "../../terminal/table.js";
-import { shortenHomePath } from "../../utils.js";
+import type { NodesRpcOpts } from "./types.ts";
+import { randomIdempotencyKey } from "../../gateway/call.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { renderTable } from "../../terminal/table.ts";
+import { shortenHomePath } from "../../utils.ts";
 import {
   type CameraFacing,
   cameraTempPath,
   parseCameraClipPayload,
   parseCameraSnapPayload,
   writeBase64ToFile,
-} from "../nodes-camera.js";
-import { parseDurationMs } from "../parse-duration.js";
-import { getNodesTheme, runNodesCommand } from "./cli-utils.js";
-import { callGatewayCli, nodesCallOpts, resolveNodeId } from "./rpc.js";
+} from "../nodes-camera.ts";
+import { parseDurationMs } from "../parse-duration.ts";
+import { getNodesTheme, runNodesCommand } from "./cli-utils.ts";
+import { callGatewayCli, nodesCallOpts, resolveNodeId } from "./rpc.ts";
 
 const parseFacing = (value: string): CameraFacing => {
   const v = String(value ?? "")

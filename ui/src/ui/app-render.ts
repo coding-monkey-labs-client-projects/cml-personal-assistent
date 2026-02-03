@@ -1,9 +1,9 @@
 import { html, nothing } from "lit";
 import type { AppViewState } from "./app-view-state.ts";
-import { parseAgentSessionKey } from "../../../src/routing/session-key.js";
+import { parseAgentSessionKey } from "../../../src/routing/session-key.ts";
 import { ChatHost, refreshChatAvatar } from "./app-chat.ts";
 import { renderChatControls, renderTab, renderThemeToggle } from "./app-render.helpers.ts";
-import { OpenClawApp } from "./app.ts";
+import { CmlHiveAssistApp } from "./app.ts";
 import { loadAgentFileContent, loadAgentFiles, saveAgentFile } from "./controllers/agent-files.ts";
 import { loadAgentIdentities, loadAgentIdentity } from "./controllers/agent-identity.ts";
 import { loadAgentSkills } from "./controllers/agent-skills.ts";
@@ -124,7 +124,7 @@ export function renderApp(state: AppViewState) {
           </button>
           <div class="brand">
             <div class="brand-logo">
-              <img src="/favicon.svg" alt="OpenClaw" />
+              <img src="/favicon.svg" alt="CmlHiveAssist" />
             </div>
             <div class="brand-text">
               <div class="brand-title">OPENCLAW</div>
@@ -175,7 +175,7 @@ export function renderApp(state: AppViewState) {
           <div class="nav-group__items">
             <a
               class="nav-item nav-item--external"
-              href="https://docs.openclaw.ai"
+              href="https://docs.cml-hive-assist.ai"
               target="_blank"
               rel="noreferrer"
               title="Docs (opens in new tab)"
@@ -216,7 +216,7 @@ export function renderApp(state: AppViewState) {
                 onSessionKeyChange: (next) => {
                   state.sessionKey = next;
                   state.chatMessage = "";
-                  (state as unknown as OpenClawApp).resetToolStream();
+                  (state as unknown as CmlHiveAssistApp).resetToolStream();
                   state.applySettings({
                     ...state.settings,
                     sessionKey: next,
@@ -828,10 +828,10 @@ export function renderApp(state: AppViewState) {
                   state.chatAttachments = [];
                   state.chatStream = null;
                   state.chatRunId = null;
-                  (state as unknown as OpenClawApp).chatStreamStartedAt = null;
+                  (state as unknown as CmlHiveAssistApp).chatStreamStartedAt = null;
                   state.chatQueue = [];
-                  (state as unknown as OpenClawApp).resetToolStream();
-                  (state as unknown as OpenClawApp).resetChatScroll();
+                  (state as unknown as CmlHiveAssistApp).resetToolStream();
+                  (state as unknown as CmlHiveAssistApp).resetChatScroll();
                   state.applySettings({
                     ...state.settings,
                     sessionKey: next,
@@ -873,28 +873,28 @@ export function renderApp(state: AppViewState) {
                     chatFocusMode: !state.settings.chatFocusMode,
                   });
                 },
-                onChatScroll: (event) => (state as unknown as OpenClawApp).handleChatScroll(event),
+                onChatScroll: (event) => (state as unknown as CmlHiveAssistApp).handleChatScroll(event),
                 onDraftChange: (next) => (state.chatMessage = next),
                 attachments: state.chatAttachments,
                 onAttachmentsChange: (next) => (state.chatAttachments = next),
-                onSend: () => (state as unknown as OpenClawApp).handleSendChat(),
+                onSend: () => (state as unknown as CmlHiveAssistApp).handleSendChat(),
                 canAbort: Boolean(state.chatRunId),
-                onAbort: () => void (state as unknown as OpenClawApp).handleAbortChat(),
-                onQueueRemove: (id) => (state as unknown as OpenClawApp).removeQueuedMessage(id),
+                onAbort: () => void (state as unknown as CmlHiveAssistApp).handleAbortChat(),
+                onQueueRemove: (id) => (state as unknown as CmlHiveAssistApp).removeQueuedMessage(id),
                 onNewSession: () =>
-                  (state as unknown as OpenClawApp).handleSendChat("/new", { restoreDraft: true }),
+                  (state as unknown as CmlHiveAssistApp).handleSendChat("/new", { restoreDraft: true }),
                 showNewMessages: state.chatNewMessagesBelow,
                 onScrollToBottom: () => state.scrollToBottom(),
                 // Sidebar props for tool output viewing
-                sidebarOpen: (state as unknown as OpenClawApp).sidebarOpen,
-                sidebarContent: (state as unknown as OpenClawApp).sidebarContent,
-                sidebarError: (state as unknown as OpenClawApp).sidebarError,
-                splitRatio: (state as unknown as OpenClawApp).splitRatio,
+                sidebarOpen: (state as unknown as CmlHiveAssistApp).sidebarOpen,
+                sidebarContent: (state as unknown as CmlHiveAssistApp).sidebarContent,
+                sidebarError: (state as unknown as CmlHiveAssistApp).sidebarError,
+                splitRatio: (state as unknown as CmlHiveAssistApp).splitRatio,
                 onOpenSidebar: (content: string) =>
-                  (state as unknown as OpenClawApp).handleOpenSidebar(content),
-                onCloseSidebar: () => (state as unknown as OpenClawApp).handleCloseSidebar(),
+                  (state as unknown as CmlHiveAssistApp).handleOpenSidebar(content),
+                onCloseSidebar: () => (state as unknown as CmlHiveAssistApp).handleCloseSidebar(),
                 onSplitRatioChange: (ratio: number) =>
-                  (state as unknown as OpenClawApp).handleSplitRatioChange(ratio),
+                  (state as unknown as CmlHiveAssistApp).handleSplitRatioChange(ratio),
                 assistantName: state.assistantName,
                 assistantAvatar: state.assistantAvatar,
               })
@@ -919,27 +919,27 @@ export function renderApp(state: AppViewState) {
                 formMode: state.configFormMode,
                 formValue: state.configForm,
                 originalValue: state.configFormOriginal,
-                searchQuery: (state as unknown as OpenClawApp).configSearchQuery,
-                activeSection: (state as unknown as OpenClawApp).configActiveSection,
-                activeSubsection: (state as unknown as OpenClawApp).configActiveSubsection,
+                searchQuery: (state as unknown as CmlHiveAssistApp).configSearchQuery,
+                activeSection: (state as unknown as CmlHiveAssistApp).configActiveSection,
+                activeSubsection: (state as unknown as CmlHiveAssistApp).configActiveSubsection,
                 onRawChange: (next) => {
                   state.configRaw = next;
                 },
                 onFormModeChange: (mode) => (state.configFormMode = mode),
                 onFormPatch: (path, value) =>
-                  updateConfigFormValue(state as unknown as OpenClawApp, path, value),
+                  updateConfigFormValue(state as unknown as CmlHiveAssistApp, path, value),
                 onSearchChange: (query) =>
-                  ((state as unknown as OpenClawApp).configSearchQuery = query),
+                  ((state as unknown as CmlHiveAssistApp).configSearchQuery = query),
                 onSectionChange: (section) => {
-                  (state as unknown as OpenClawApp).configActiveSection = section;
-                  (state as unknown as OpenClawApp).configActiveSubsection = null;
+                  (state as unknown as CmlHiveAssistApp).configActiveSection = section;
+                  (state as unknown as CmlHiveAssistApp).configActiveSubsection = null;
                 },
                 onSubsectionChange: (section) =>
-                  ((state as unknown as OpenClawApp).configActiveSubsection = section),
-                onReload: () => loadConfig(state as unknown as OpenClawApp),
-                onSave: () => saveConfig(state as unknown as OpenClawApp),
-                onApply: () => applyConfig(state as unknown as OpenClawApp),
-                onUpdate: () => runUpdate(state as unknown as OpenClawApp),
+                  ((state as unknown as CmlHiveAssistApp).configActiveSubsection = section),
+                onReload: () => loadConfig(state as unknown as CmlHiveAssistApp),
+                onSave: () => saveConfig(state as unknown as CmlHiveAssistApp),
+                onApply: () => applyConfig(state as unknown as CmlHiveAssistApp),
+                onUpdate: () => runUpdate(state as unknown as CmlHiveAssistApp),
               })
             : nothing
         }
@@ -983,8 +983,8 @@ export function renderApp(state: AppViewState) {
                 onToggleAutoFollow: (next) => (state.logsAutoFollow = next),
                 onRefresh: () => loadLogs(state as unknown as LogsState, { reset: true }),
                 onExport: (lines, label) =>
-                  (state as unknown as OpenClawApp).exportLogs(lines, label),
-                onScroll: (event) => (state as unknown as OpenClawApp).handleLogsScroll(event),
+                  (state as unknown as CmlHiveAssistApp).exportLogs(lines, label),
+                onScroll: (event) => (state as unknown as CmlHiveAssistApp).handleLogsScroll(event),
               })
             : nothing
         }

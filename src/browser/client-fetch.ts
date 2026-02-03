@@ -1,9 +1,9 @@
-import { formatCliCommand } from "../cli/command-format.js";
+import { formatCliCommand } from "../cli/command-format.ts";
 import {
   createBrowserControlContext,
   startBrowserControlServiceFromConfig,
-} from "./control-service.js";
-import { createBrowserRouteDispatcher } from "./routes/dispatcher.js";
+} from "./control-service.ts";
+import { createBrowserRouteDispatcher } from "./routes/dispatcher.ts";
 
 function isAbsoluteHttp(url: string): boolean {
   return /^https?:\/\//i.test(url.trim());
@@ -12,7 +12,7 @@ function isAbsoluteHttp(url: string): boolean {
 function enhanceBrowserFetchError(url: string, err: unknown, timeoutMs: number): Error {
   const hint = isAbsoluteHttp(url)
     ? "If this is a sandboxed session, ensure the sandbox browser is running and try again."
-    : `Start (or restart) the OpenClaw gateway (OpenClaw.app menubar, or \`${formatCliCommand("openclaw gateway")}\`) and try again.`;
+    : `Start (or restart) the CmlHiveAssist gateway (CmlHiveAssist.app menubar, or \`${formatCliCommand("openclaw gateway")}\`) and try again.`;
   const msg = String(err);
   const msgLower = msg.toLowerCase();
   const looksLikeTimeout =

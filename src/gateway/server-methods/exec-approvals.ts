@@ -1,4 +1,4 @@
-import type { GatewayRequestHandlers, RespondFn } from "./types.js";
+import type { GatewayRequestHandlers, RespondFn } from "./types.ts";
 import {
   ensureExecApprovals,
   normalizeExecApprovals,
@@ -7,7 +7,7 @@ import {
   saveExecApprovals,
   type ExecApprovalsFile,
   type ExecApprovalsSnapshot,
-} from "../../infra/exec-approvals.js";
+} from "../../infra/exec-approvals.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -16,8 +16,8 @@ import {
   validateExecApprovalsNodeGetParams,
   validateExecApprovalsNodeSetParams,
   validateExecApprovalsSetParams,
-} from "../protocol/index.js";
-import { respondUnavailableOnThrow, safeParseJson } from "./nodes.helpers.js";
+} from "../protocol/index.ts";
+import { respondUnavailableOnThrow, safeParseJson } from "./nodes.helpers.ts";
 
 function resolveBaseHash(params: unknown): string | null {
   const raw = (params as { baseHash?: unknown })?.baseHash;

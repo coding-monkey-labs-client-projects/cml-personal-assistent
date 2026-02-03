@@ -1,20 +1,20 @@
-import type { SessionSystemPromptReport } from "../../config/sessions/types.js";
-import type { ReplyPayload } from "../types.js";
-import type { HandleCommandsParams } from "./commands-types.js";
-import { resolveSessionAgentIds } from "../../agents/agent-scope.js";
-import { resolveBootstrapContextForRun } from "../../agents/bootstrap-files.js";
-import { resolveDefaultModelForAgent } from "../../agents/model-selection.js";
-import { resolveBootstrapMaxChars } from "../../agents/pi-embedded-helpers.js";
-import { createOpenClawCodingTools } from "../../agents/pi-tools.js";
-import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.js";
-import { buildWorkspaceSkillSnapshot } from "../../agents/skills.js";
-import { getSkillsSnapshotVersion } from "../../agents/skills/refresh.js";
-import { buildSystemPromptParams } from "../../agents/system-prompt-params.js";
-import { buildSystemPromptReport } from "../../agents/system-prompt-report.js";
-import { buildAgentSystemPrompt } from "../../agents/system-prompt.js";
-import { buildToolSummaryMap } from "../../agents/tool-summaries.js";
-import { getRemoteSkillEligibility } from "../../infra/skills-remote.js";
-import { buildTtsSystemPromptHint } from "../../tts/tts.js";
+import type { SessionSystemPromptReport } from "../../config/sessions/types.ts";
+import type { ReplyPayload } from "../types.ts";
+import type { HandleCommandsParams } from "./commands-types.ts";
+import { resolveSessionAgentIds } from "../../agents/agent-scope.ts";
+import { resolveBootstrapContextForRun } from "../../agents/bootstrap-files.ts";
+import { resolveDefaultModelForAgent } from "../../agents/model-selection.ts";
+import { resolveBootstrapMaxChars } from "../../agents/pi-embedded-helpers.ts";
+import { createCmlHiveAssistCodingTools } from "../../agents/pi-tools.ts";
+import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.ts";
+import { buildWorkspaceSkillSnapshot } from "../../agents/skills.ts";
+import { getSkillsSnapshotVersion } from "../../agents/skills/refresh.ts";
+import { buildSystemPromptParams } from "../../agents/system-prompt-params.ts";
+import { buildSystemPromptReport } from "../../agents/system-prompt-report.ts";
+import { buildAgentSystemPrompt } from "../../agents/system-prompt.ts";
+import { buildToolSummaryMap } from "../../agents/tool-summaries.ts";
+import { getRemoteSkillEligibility } from "../../infra/skills-remote.ts";
+import { buildTtsSystemPromptHint } from "../../tts/tts.ts";
 
 function estimateTokensFromChars(chars: number): number {
   return Math.ceil(Math.max(0, chars) / 4);
@@ -83,7 +83,7 @@ async function resolveContextReport(
   });
   const tools = (() => {
     try {
-      return createOpenClawCodingTools({
+      return createCmlHiveAssistCodingTools({
         config: params.cfg,
         workspaceDir,
         sessionKey: params.sessionKey,

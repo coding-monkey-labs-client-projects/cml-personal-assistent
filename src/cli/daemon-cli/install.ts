@@ -1,16 +1,16 @@
-import type { DaemonInstallOptions } from "./types.js";
-import { buildGatewayInstallPlan } from "../../commands/daemon-install-helpers.js";
+import type { DaemonInstallOptions } from "./types.ts";
+import { buildGatewayInstallPlan } from "../../commands/daemon-install-helpers.ts";
 import {
   DEFAULT_GATEWAY_DAEMON_RUNTIME,
   isGatewayDaemonRuntime,
-} from "../../commands/daemon-runtime.js";
-import { loadConfig, resolveGatewayPort } from "../../config/config.js";
-import { resolveIsNixMode } from "../../config/paths.js";
-import { resolveGatewayService } from "../../daemon/service.js";
-import { defaultRuntime } from "../../runtime.js";
-import { formatCliCommand } from "../command-format.js";
-import { buildDaemonServiceSnapshot, createNullWriter, emitDaemonActionJson } from "./response.js";
-import { parsePort } from "./shared.js";
+} from "../../commands/daemon-runtime.ts";
+import { loadConfig, resolveGatewayPort } from "../../config/config.ts";
+import { resolveIsNixMode } from "../../config/paths.ts";
+import { resolveGatewayService } from "../../daemon/service.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { formatCliCommand } from "../command-format.ts";
+import { buildDaemonServiceSnapshot, createNullWriter, emitDaemonActionJson } from "./response.ts";
+import { parsePort } from "./shared.ts";
 
 export async function runDaemonInstall(opts: DaemonInstallOptions) {
   const json = Boolean(opts.json);
@@ -96,7 +96,7 @@ export async function runDaemonInstall(opts: DaemonInstallOptions) {
   const { programArguments, workingDirectory, environment } = await buildGatewayInstallPlan({
     env: process.env,
     port,
-    token: opts.token || cfg.gateway?.auth?.token || process.env.OPENCLAW_GATEWAY_TOKEN,
+    token: opts.token || cfg.gateway?.auth?.token || process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN,
     runtime: runtimeRaw,
     warn: (message) => {
       if (json) {

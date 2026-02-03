@@ -1,5 +1,5 @@
-import type { PairingChannel } from "./pairing-store.js";
-import { formatCliCommand } from "../cli/command-format.js";
+import type { PairingChannel } from "./pairing-store.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
 
 export function buildPairingReply(params: {
   channel: PairingChannel;
@@ -8,7 +8,7 @@ export function buildPairingReply(params: {
 }): string {
   const { channel, idLine, code } = params;
   return [
-    "OpenClaw: access not configured.",
+    "CmlHiveAssist: access not configured.",
     "",
     idLine,
     "",

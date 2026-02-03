@@ -1,8 +1,8 @@
-import type { AnnounceTarget } from "./sessions-send-helpers.js";
-import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.js";
-import { callGateway } from "../../gateway/call.js";
-import { SessionListRow } from "./sessions-helpers.js";
-import { resolveAnnounceTargetFromKey } from "./sessions-send-helpers.js";
+import type { AnnounceTarget } from "./sessions-send-helpers.ts";
+import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.ts";
+import { callGateway } from "../../gateway/call.ts";
+import { SessionListRow } from "./sessions-helpers.ts";
+import { resolveAnnounceTargetFromKey } from "./sessions-send-helpers.ts";
 
 export async function resolveAnnounceTarget(params: {
   sessionKey: string;

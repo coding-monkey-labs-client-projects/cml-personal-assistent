@@ -1,18 +1,18 @@
-import { formatCliCommand } from "../cli/command-format.js";
-import { resolveOpenClawPackageRoot } from "../infra/openclaw-root.js";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
 import {
   checkUpdateStatus,
   compareSemverStrings,
   type UpdateCheckResult,
-} from "../infra/update-check.js";
-import { VERSION } from "../version.js";
+} from "../infra/update-check.ts";
+import { VERSION } from "../version.ts";
 
 export async function getUpdateCheckResult(params: {
   timeoutMs: number;
   fetchGit: boolean;
   includeRegistry: boolean;
 }): Promise<UpdateCheckResult> {
-  const root = await resolveOpenClawPackageRoot({
+  const root = await resolveCmlHiveAssistPackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),

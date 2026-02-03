@@ -1,8 +1,8 @@
-import type { AnyAgentTool } from "../agents/tools/common.js";
-import type { OpenClawPluginToolContext } from "./types.js";
-import { normalizeToolName } from "../agents/tool-policy.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { loadOpenClawPlugins } from "./loader.js";
+import type { AnyAgentTool } from "../agents/tools/common.ts";
+import type { CmlHiveAssistPluginToolContext } from "./types.ts";
+import { normalizeToolName } from "../agents/tool-policy.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { loadCmlHiveAssistPlugins } from "./loader.ts";
 
 const log = createSubsystemLogger("plugins");
 
@@ -41,11 +41,11 @@ function isOptionalToolAllowed(params: {
 }
 
 export function resolvePluginTools(params: {
-  context: OpenClawPluginToolContext;
+  context: CmlHiveAssistPluginToolContext;
   existingToolNames?: Set<string>;
   toolAllowlist?: string[];
 }): AnyAgentTool[] {
-  const registry = loadOpenClawPlugins({
+  const registry = loadCmlHiveAssistPlugins({
     config: params.context.config,
     workspaceDir: params.context.workspaceDir,
     logger: {

@@ -1,7 +1,7 @@
-import type { CronJobCreate, CronJobPatch } from "./types.js";
-import { sanitizeAgentId } from "../routing/session-key.js";
-import { parseAbsoluteTimeMs } from "./parse.js";
-import { migrateLegacyCronPayload } from "./payload-migration.js";
+import type { CronJobCreate, CronJobPatch } from "./types.ts";
+import { sanitizeAgentId } from "../routing/session-key.ts";
+import { parseAbsoluteTimeMs } from "./parse.ts";
+import { migrateLegacyCronPayload } from "./payload-migration.ts";
 
 type UnknownRecord = Record<string, unknown>;
 

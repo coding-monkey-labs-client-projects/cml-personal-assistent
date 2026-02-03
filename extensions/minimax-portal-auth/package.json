@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/minimax-portal-auth",
+  "name": "@cml-hive-assist/minimax-portal-auth",
   "version": "2026.2.1",
-  "description": "OpenClaw MiniMax Portal OAuth provider plugin",
+  "description": "CmlHiveAssist MiniMax Portal OAuth provider plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ]

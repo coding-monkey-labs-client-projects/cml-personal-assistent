@@ -1,15 +1,15 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { type CommandOptions, runCommandWithTimeout } from "../process/exec.js";
-import { trimLogTail } from "./restart-sentinel.js";
-import { DEV_BRANCH, isBetaTag, isStableTag, type UpdateChannel } from "./update-channels.js";
-import { compareSemverStrings } from "./update-check.js";
+import { type CommandOptions, runCommandWithTimeout } from "../process/exec.ts";
+import { trimLogTail } from "./restart-sentinel.ts";
+import { DEV_BRANCH, isBetaTag, isStableTag, type UpdateChannel } from "./update-channels.ts";
+import { compareSemverStrings } from "./update-check.ts";
 import {
   cleanupGlobalRenameDirs,
   detectGlobalInstallManagerForRoot,
   globalInstallArgs,
-} from "./update-global.js";
+} from "./update-global.ts";
 
 export type UpdateStepResult = {
   name: string;
@@ -69,7 +69,7 @@ const DEFAULT_TIMEOUT_MS = 20 * 60_000;
 const MAX_LOG_CHARS = 8000;
 const PREFLIGHT_MAX_COMMITS = 10;
 const START_DIRS = ["cwd", "argv1", "process"];
-const DEFAULT_PACKAGE_NAME = "openclaw";
+const DEFAULT_PACKAGE_NAME = "cml-hive-assist";
 const CORE_PACKAGE_NAMES = new Set([DEFAULT_PACKAGE_NAME]);
 
 function normalizeDir(value?: string | null) {
@@ -753,9 +753,9 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
     const doctorStep = await runStep(
       step(
         "openclaw doctor",
-        managerScriptArgs(manager, "openclaw", ["doctor", "--non-interactive"]),
+        managerScriptArgs(manager, "cml-hive-assist", ["doctor", "--non-interactive"]),
         gitRoot,
-        { OPENCLAW_UPDATE_IN_PROGRESS: "1" },
+        { CML_HIVE_ASSIST_UPDATE_IN_PROGRESS: "1" },
       ),
     );
     steps.push(doctorStep);

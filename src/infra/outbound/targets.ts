@@ -1,20 +1,20 @@
-import type { ChannelOutboundTargetMode } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry } from "../../config/sessions.js";
-import type { AgentDefaultsConfig } from "../../config/types.agent-defaults.js";
+import type { ChannelOutboundTargetMode } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry } from "../../config/sessions.ts";
+import type { AgentDefaultsConfig } from "../../config/types.agent-defaults.ts";
 import type {
   DeliverableMessageChannel,
   GatewayMessageChannel,
-} from "../../utils/message-channel.js";
-import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { deliveryContextFromSession } from "../../utils/delivery-context.js";
+} from "../../utils/message-channel.ts";
+import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { deliveryContextFromSession } from "../../utils/delivery-context.ts";
 import {
   INTERNAL_MESSAGE_CHANNEL,
   isDeliverableMessageChannel,
   normalizeMessageChannel,
-} from "../../utils/message-channel.js";
-import { missingTargetError } from "./target-errors.js";
+} from "../../utils/message-channel.ts";
+import { missingTargetError } from "./target-errors.ts";
 
 export type OutboundChannel = DeliverableMessageChannel | "none";
 
@@ -119,7 +119,7 @@ export function resolveOutboundTarget(params: {
   channel: GatewayMessageChannel;
   to?: string;
   allowFrom?: string[];
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   accountId?: string | null;
   mode?: ChannelOutboundTargetMode;
 }): OutboundTargetResolution {
@@ -172,7 +172,7 @@ export function resolveOutboundTarget(params: {
 }
 
 export function resolveHeartbeatDeliveryTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   entry?: SessionEntry;
   heartbeat?: AgentDefaultsConfig["heartbeat"];
 }): OutboundTarget {
@@ -295,7 +295,7 @@ function resolveHeartbeatSenderId(params: {
 }
 
 export function resolveHeartbeatSenderContext(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   entry?: SessionEntry;
   delivery: OutboundTarget;
 }): HeartbeatSenderContext {

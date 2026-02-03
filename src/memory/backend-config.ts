@@ -1,16 +1,16 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { SessionSendPolicyConfig } from "../config/types.base.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { SessionSendPolicyConfig } from "../config/types.base.ts";
 import type {
   MemoryBackend,
   MemoryCitationsMode,
   MemoryQmdConfig,
   MemoryQmdIndexPath,
-} from "../config/types.memory.js";
-import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
-import { parseDurationMs } from "../cli/parse-duration.js";
-import { resolveUserPath } from "../utils.js";
-import { splitShellArgs } from "../utils/shell-argv.js";
+} from "../config/types.memory.ts";
+import { resolveAgentWorkspaceDir } from "../agents/agent-scope.ts";
+import { parseDurationMs } from "../cli/parse-duration.ts";
+import { resolveUserPath } from "../utils.ts";
+import { splitShellArgs } from "../utils/shell-argv.ts";
 
 export type ResolvedMemoryBackendConfig = {
   backend: MemoryBackend;
@@ -228,7 +228,7 @@ function resolveDefaultCollections(
 }
 
 export function resolveMemoryBackendConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
 }): ResolvedMemoryBackendConfig {
   const backend = params.cfg.memory?.backend ?? DEFAULT_BACKEND;

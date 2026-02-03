@@ -1,11 +1,11 @@
 import type { Command } from "commander";
-import { messageCommand } from "../../../commands/message.js";
-import { danger, setVerbose } from "../../../globals.js";
-import { CHANNEL_TARGET_DESCRIPTION } from "../../../infra/outbound/channel-target.js";
-import { defaultRuntime } from "../../../runtime.js";
-import { runCommandWithRuntime } from "../../cli-utils.js";
-import { createDefaultDeps } from "../../deps.js";
-import { ensurePluginRegistryLoaded } from "../../plugin-registry.js";
+import { messageCommand } from "../../../commands/message.ts";
+import { danger, setVerbose } from "../../../globals.ts";
+import { CHANNEL_TARGET_DESCRIPTION } from "../../../infra/outbound/channel-target.ts";
+import { defaultRuntime } from "../../../runtime.ts";
+import { runCommandWithRuntime } from "../../cli-utils.ts";
+import { createDefaultDeps } from "../../deps.ts";
+import { ensurePluginRegistryLoaded } from "../../plugin-registry.ts";
 
 export type MessageCliHelpers = {
   withMessageBase: (command: Command) => Command;

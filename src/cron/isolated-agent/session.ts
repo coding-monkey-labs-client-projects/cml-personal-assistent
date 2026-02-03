@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
-import type { OpenClawConfig } from "../../config/config.js";
-import { loadSessionStore, resolveStorePath, type SessionEntry } from "../../config/sessions.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { loadSessionStore, resolveStorePath, type SessionEntry } from "../../config/sessions.ts";
 
 export function resolveCronSession(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   sessionKey: string;
   nowMs: number;
   agentId: string;

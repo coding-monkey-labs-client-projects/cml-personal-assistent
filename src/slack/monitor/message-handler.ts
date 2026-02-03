@@ -1,14 +1,14 @@
-import type { ResolvedSlackAccount } from "../accounts.js";
-import type { SlackMessageEvent } from "../types.js";
-import type { SlackMonitorContext } from "./context.js";
-import { hasControlCommand } from "../../auto-reply/command-detection.js";
+import type { ResolvedSlackAccount } from "../accounts.ts";
+import type { SlackMessageEvent } from "../types.ts";
+import type { SlackMonitorContext } from "./context.ts";
+import { hasControlCommand } from "../../auto-reply/command-detection.ts";
 import {
   createInboundDebouncer,
   resolveInboundDebounceMs,
-} from "../../auto-reply/inbound-debounce.js";
-import { dispatchPreparedSlackMessage } from "./message-handler/dispatch.js";
-import { prepareSlackMessage } from "./message-handler/prepare.js";
-import { createSlackThreadTsResolver } from "./thread-resolution.js";
+} from "../../auto-reply/inbound-debounce.ts";
+import { dispatchPreparedSlackMessage } from "./message-handler/dispatch.ts";
+import { prepareSlackMessage } from "./message-handler/prepare.ts";
+import { createSlackThreadTsResolver } from "./thread-resolution.ts";
 
 export type SlackMessageHandler = (
   message: SlackMessageEvent,

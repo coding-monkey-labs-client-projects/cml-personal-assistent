@@ -1,11 +1,11 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createOpenClawTools } from "../agents/openclaw-tools.js";
+import { createCmlHiveAssistTools } from "../agents/openclaw-tools.ts";
 import {
   filterToolsByPolicy,
   resolveEffectiveToolPolicy,
   resolveGroupToolPolicy,
   resolveSubagentToolPolicy,
-} from "../agents/pi-tools.policy.js";
+} from "../agents/pi-tools.policy.ts";
 import {
   buildPluginToolGroups,
   collectExplicitAllowlist,
@@ -13,23 +13,23 @@ import {
   normalizeToolName,
   resolveToolProfilePolicy,
   stripPluginOnlyAllowlist,
-} from "../agents/tool-policy.js";
-import { loadConfig } from "../config/config.js";
-import { resolveMainSessionKey } from "../config/sessions.js";
-import { logWarn } from "../logger.js";
-import { isTestDefaultMemorySlotDisabled } from "../plugins/config-state.js";
-import { getPluginToolMeta } from "../plugins/tools.js";
-import { isSubagentSessionKey } from "../routing/session-key.js";
-import { normalizeMessageChannel } from "../utils/message-channel.js";
-import { authorizeGatewayConnect, type ResolvedGatewayAuth } from "./auth.js";
+} from "../agents/tool-policy.ts";
+import { loadConfig } from "../config/config.ts";
+import { resolveMainSessionKey } from "../config/sessions.ts";
+import { logWarn } from "../logger.ts";
+import { isTestDefaultMemorySlotDisabled } from "../plugins/config-state.ts";
+import { getPluginToolMeta } from "../plugins/tools.ts";
+import { isSubagentSessionKey } from "../routing/session-key.ts";
+import { normalizeMessageChannel } from "../utils/message-channel.ts";
+import { authorizeGatewayConnect, type ResolvedGatewayAuth } from "./auth.ts";
 import {
   readJsonBodyOrError,
   sendInvalidRequest,
   sendJson,
   sendMethodNotAllowed,
   sendUnauthorized,
-} from "./http-common.js";
-import { getBearerToken, getHeader } from "./http-utils.js";
+} from "./http-common.ts";
+import { getBearerToken, getHeader } from "./http-utils.ts";
 
 const DEFAULT_BODY_BYTES = 2 * 1024 * 1024;
 const MEMORY_TOOL_NAMES = new Set(["memory_search", "memory_get"]);
@@ -211,7 +211,7 @@ export async function handleToolsInvokeHttpRequest(
     : undefined;
 
   // Build tool list (core + plugin tools).
-  const allTools = createOpenClawTools({
+  const allTools = createCmlHiveAssistTools({
     agentSessionKey: sessionKey,
     agentChannel: messageChannel ?? undefined,
     agentAccountId: accountId,

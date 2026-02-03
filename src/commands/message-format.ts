@@ -1,11 +1,11 @@
-import type { ChannelId, ChannelMessageActionName } from "../channels/plugins/types.js";
-import type { OutboundDeliveryResult } from "../infra/outbound/deliver.js";
-import type { MessageActionRunResult } from "../infra/outbound/message-action-runner.js";
-import { getChannelPlugin } from "../channels/plugins/index.js";
-import { formatGatewaySummary, formatOutboundDeliverySummary } from "../infra/outbound/format.js";
-import { formatTargetDisplay } from "../infra/outbound/target-resolver.js";
-import { renderTable } from "../terminal/table.js";
-import { isRich, theme } from "../terminal/theme.js";
+import type { ChannelId, ChannelMessageActionName } from "../channels/plugins/types.ts";
+import type { OutboundDeliveryResult } from "../infra/outbound/deliver.ts";
+import type { MessageActionRunResult } from "../infra/outbound/message-action-runner.ts";
+import { getChannelPlugin } from "../channels/plugins/index.ts";
+import { formatGatewaySummary, formatOutboundDeliverySummary } from "../infra/outbound/format.ts";
+import { formatTargetDisplay } from "../infra/outbound/target-resolver.ts";
+import { renderTable } from "../terminal/table.ts";
+import { isRich, theme } from "../terminal/theme.ts";
 
 const shortenText = (value: string, maxLen: number) => {
   const chars = Array.from(value);

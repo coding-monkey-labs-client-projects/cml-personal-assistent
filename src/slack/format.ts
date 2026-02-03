@@ -1,6 +1,6 @@
-import type { MarkdownTableMode } from "../config/types.base.js";
-import { chunkMarkdownIR, markdownToIR, type MarkdownLinkSpan } from "../markdown/ir.js";
-import { renderMarkdownWithMarkers } from "../markdown/render.js";
+import type { MarkdownTableMode } from "../config/types.base.ts";
+import { chunkMarkdownIR, markdownToIR, type MarkdownLinkSpan } from "../markdown/ir.ts";
+import { renderMarkdownWithMarkers } from "../markdown/render.ts";
 
 // Escape special characters for Slack mrkdwn format.
 // Preserve Slack's angle-bracket tokens so mentions and links stay intact.

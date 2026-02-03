@@ -1,5 +1,5 @@
 import type { Bot } from "grammy";
-import { buildTelegramThreadParams, type TelegramThreadSpec } from "./bot/helpers.js";
+import { buildTelegramThreadParams, type TelegramThreadSpec } from "./bot/helpers.ts";
 
 const TELEGRAM_DRAFT_MAX_CHARS = 4096;
 const DEFAULT_THROTTLE_MS = 300;

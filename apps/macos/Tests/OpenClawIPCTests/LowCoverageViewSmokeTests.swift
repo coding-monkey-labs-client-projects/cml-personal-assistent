@@ -1,9 +1,9 @@
 import AppKit
-import OpenClawProtocol
+import CmlHiveAssistProtocol
 import SwiftUI
 import Testing
 
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
 @Suite(.serialized)
 @MainActor

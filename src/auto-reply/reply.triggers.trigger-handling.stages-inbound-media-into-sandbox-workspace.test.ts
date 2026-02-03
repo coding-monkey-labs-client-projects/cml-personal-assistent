@@ -54,7 +54,7 @@ describe("stageSandboxMedia", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: join(home, "openclaw"),
+              workspace: join(home, "cml-hive-assist"),
               sandbox: {
                 mode: "non-main",
                 workspaceRoot: join(home, "sandboxes"),
@@ -65,7 +65,7 @@ describe("stageSandboxMedia", () => {
           session: { store: join(home, "sessions.json") },
         },
         sessionKey: "agent:main:main",
-        workspaceDir: join(home, "openclaw"),
+        workspaceDir: join(home, "cml-hive-assist"),
       });
 
       const stagedPath = `media/inbound/${basename(mediaPath)}`;

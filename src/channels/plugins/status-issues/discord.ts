@@ -1,5 +1,5 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.js";
-import { appendMatchMetadata, asString, isRecord } from "./shared.js";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.ts";
+import { appendMatchMetadata, asString, isRecord } from "./shared.ts";
 
 type DiscordIntentSummary = {
   messageContent?: "enabled" | "limited" | "disabled";

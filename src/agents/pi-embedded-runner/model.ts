@@ -1,16 +1,16 @@
 import type { Api, Model } from "@mariozechner/pi-ai";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ModelDefinitionConfig } from "../../config/types.js";
-import { resolveOpenClawAgentDir } from "../agent-paths.js";
-import { DEFAULT_CONTEXT_TOKENS } from "../defaults.js";
-import { normalizeModelCompat } from "../model-compat.js";
-import { normalizeProviderId } from "../model-selection.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ModelDefinitionConfig } from "../../config/types.ts";
+import { resolveCmlHiveAssistAgentDir } from "../agent-paths.ts";
+import { DEFAULT_CONTEXT_TOKENS } from "../defaults.ts";
+import { normalizeModelCompat } from "../model-compat.ts";
+import { normalizeProviderId } from "../model-selection.ts";
 import {
   discoverAuthStorage,
   discoverModels,
   type AuthStorage,
   type ModelRegistry,
-} from "../pi-model-discovery.js";
+} from "../pi-model-discovery.ts";
 
 type InlineModelEntry = ModelDefinitionConfig & { provider: string; baseUrl?: string };
 type InlineProviderConfig = {
@@ -36,7 +36,7 @@ export function buildInlineProviderModels(
   });
 }
 
-export function buildModelAliasLines(cfg?: OpenClawConfig) {
+export function buildModelAliasLines(cfg?: CmlHiveAssistConfig) {
   const models = cfg?.agents?.defaults?.models ?? {};
   const entries: Array<{ alias: string; model: string }> = [];
   for (const [keyRaw, entryRaw] of Object.entries(models)) {
@@ -59,14 +59,14 @@ export function resolveModel(
   provider: string,
   modelId: string,
   agentDir?: string,
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
 ): {
   model?: Model<Api>;
   error?: string;
   authStorage: AuthStorage;
   modelRegistry: ModelRegistry;
 } {
-  const resolvedAgentDir = agentDir ?? resolveOpenClawAgentDir();
+  const resolvedAgentDir = agentDir ?? resolveCmlHiveAssistAgentDir();
   const authStorage = discoverAuthStorage(resolvedAgentDir);
   const modelRegistry = discoverModels(authStorage, resolvedAgentDir);
   const model = modelRegistry.find(provider, modelId) as Model<Api> | null;

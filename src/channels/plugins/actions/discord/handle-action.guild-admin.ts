@@ -1,11 +1,11 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { ChannelMessageActionContext } from "../../types.js";
+import type { ChannelMessageActionContext } from "../../types.ts";
 import {
   readNumberParam,
   readStringArrayParam,
   readStringParam,
-} from "../../../../agents/tools/common.js";
-import { handleDiscordAction } from "../../../../agents/tools/discord-actions.js";
+} from "../../../../agents/tools/common.ts";
+import { handleDiscordAction } from "../../../../agents/tools/discord-actions.ts";
 
 type Ctx = Pick<ChannelMessageActionContext, "action" | "params" | "cfg" | "accountId">;
 

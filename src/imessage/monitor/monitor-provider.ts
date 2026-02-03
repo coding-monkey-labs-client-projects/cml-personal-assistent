@@ -1,59 +1,59 @@
 import fs from "node:fs/promises";
-import type { IMessagePayload, MonitorIMessageOpts } from "./types.js";
-import { resolveHumanDelayConfig } from "../../agents/identity.js";
-import { resolveTextChunkLimit } from "../../auto-reply/chunk.js";
-import { hasControlCommand } from "../../auto-reply/command-detection.js";
-import { dispatchInboundMessage } from "../../auto-reply/dispatch.js";
+import type { IMessagePayload, MonitorIMessageOpts } from "./types.ts";
+import { resolveHumanDelayConfig } from "../../agents/identity.ts";
+import { resolveTextChunkLimit } from "../../auto-reply/chunk.ts";
+import { hasControlCommand } from "../../auto-reply/command-detection.ts";
+import { dispatchInboundMessage } from "../../auto-reply/dispatch.ts";
 import {
   formatInboundEnvelope,
   formatInboundFromLabel,
   resolveEnvelopeFormatOptions,
-} from "../../auto-reply/envelope.js";
+} from "../../auto-reply/envelope.ts";
 import {
   createInboundDebouncer,
   resolveInboundDebounceMs,
-} from "../../auto-reply/inbound-debounce.js";
+} from "../../auto-reply/inbound-debounce.ts";
 import {
   buildPendingHistoryContextFromMap,
   clearHistoryEntriesIfEnabled,
   DEFAULT_GROUP_HISTORY_LIMIT,
   recordPendingHistoryEntryIfEnabled,
   type HistoryEntry,
-} from "../../auto-reply/reply/history.js";
-import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.js";
-import { buildMentionRegexes, matchesMentionPatterns } from "../../auto-reply/reply/mentions.js";
-import { createReplyDispatcher } from "../../auto-reply/reply/reply-dispatcher.js";
-import { resolveControlCommandGate } from "../../channels/command-gating.js";
-import { logInboundDrop } from "../../channels/logging.js";
-import { createReplyPrefixContext } from "../../channels/reply-prefix.js";
-import { recordInboundSession } from "../../channels/session.js";
-import { loadConfig } from "../../config/config.js";
+} from "../../auto-reply/reply/history.ts";
+import { finalizeInboundContext } from "../../auto-reply/reply/inbound-context.ts";
+import { buildMentionRegexes, matchesMentionPatterns } from "../../auto-reply/reply/mentions.ts";
+import { createReplyDispatcher } from "../../auto-reply/reply/reply-dispatcher.ts";
+import { resolveControlCommandGate } from "../../channels/command-gating.ts";
+import { logInboundDrop } from "../../channels/logging.ts";
+import { createReplyPrefixContext } from "../../channels/reply-prefix.ts";
+import { recordInboundSession } from "../../channels/session.ts";
+import { loadConfig } from "../../config/config.ts";
 import {
   resolveChannelGroupPolicy,
   resolveChannelGroupRequireMention,
-} from "../../config/group-policy.js";
-import { readSessionUpdatedAt, resolveStorePath } from "../../config/sessions.js";
-import { danger, logVerbose, shouldLogVerbose } from "../../globals.js";
-import { waitForTransportReady } from "../../infra/transport-ready.js";
-import { mediaKindFromMime } from "../../media/constants.js";
-import { buildPairingReply } from "../../pairing/pairing-messages.js";
+} from "../../config/group-policy.ts";
+import { readSessionUpdatedAt, resolveStorePath } from "../../config/sessions.ts";
+import { danger, logVerbose, shouldLogVerbose } from "../../globals.ts";
+import { waitForTransportReady } from "../../infra/transport-ready.ts";
+import { mediaKindFromMime } from "../../media/constants.ts";
+import { buildPairingReply } from "../../pairing/pairing-messages.ts";
 import {
   readChannelAllowFromStore,
   upsertChannelPairingRequest,
-} from "../../pairing/pairing-store.js";
-import { resolveAgentRoute } from "../../routing/resolve-route.js";
-import { truncateUtf16Safe } from "../../utils.js";
-import { resolveIMessageAccount } from "../accounts.js";
-import { createIMessageRpcClient } from "../client.js";
-import { probeIMessage } from "../probe.js";
-import { sendMessageIMessage } from "../send.js";
+} from "../../pairing/pairing-store.ts";
+import { resolveAgentRoute } from "../../routing/resolve-route.ts";
+import { truncateUtf16Safe } from "../../utils.ts";
+import { resolveIMessageAccount } from "../accounts.ts";
+import { createIMessageRpcClient } from "../client.ts";
+import { probeIMessage } from "../probe.ts";
+import { sendMessageIMessage } from "../send.ts";
 import {
   formatIMessageChatTarget,
   isAllowedIMessageSender,
   normalizeIMessageHandle,
-} from "../targets.js";
-import { deliverReplies } from "./deliver.js";
-import { normalizeAllowList, resolveRuntime } from "./runtime.js";
+} from "../targets.ts";
+import { deliverReplies } from "./deliver.ts";
+import { normalizeAllowList, resolveRuntime } from "./runtime.ts";
 
 /**
  * Try to detect remote host from an SSH wrapper script like:

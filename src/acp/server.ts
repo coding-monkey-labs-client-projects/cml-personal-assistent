@@ -2,14 +2,14 @@
 import { AgentSideConnection, ndJsonStream } from "@agentclientprotocol/sdk";
 import { Readable, Writable } from "node:stream";
 import { fileURLToPath } from "node:url";
-import type { AcpServerOptions } from "./types.js";
-import { loadConfig } from "../config/config.js";
-import { resolveGatewayAuth } from "../gateway/auth.js";
-import { buildGatewayConnectionDetails } from "../gateway/call.js";
-import { GatewayClient } from "../gateway/client.js";
-import { isMainModule } from "../infra/is-main.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
-import { AcpGatewayAgent } from "./translator.js";
+import type { AcpServerOptions } from "./types.ts";
+import { loadConfig } from "../config/config.ts";
+import { resolveGatewayAuth } from "../gateway/auth.ts";
+import { buildGatewayConnectionDetails } from "../gateway/call.ts";
+import { GatewayClient } from "../gateway/client.ts";
+import { isMainModule } from "../infra/is-main.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.ts";
+import { AcpGatewayAgent } from "./translator.ts";
 
 export function serveAcpGateway(opts: AcpServerOptions = {}): void {
   const cfg = loadConfig();
@@ -25,12 +25,12 @@ export function serveAcpGateway(opts: AcpServerOptions = {}): void {
   const token =
     opts.gatewayToken ??
     (isRemoteMode ? remote?.token?.trim() : undefined) ??
-    process.env.OPENCLAW_GATEWAY_TOKEN ??
+    process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN ??
     auth.token;
   const password =
     opts.gatewayPassword ??
     (isRemoteMode ? remote?.password?.trim() : undefined) ??
-    process.env.OPENCLAW_GATEWAY_PASSWORD ??
+    process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD ??
     auth.password;
 
   let agent: AcpGatewayAgent | null = null;

@@ -1,18 +1,18 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AnyAgentTool } from "./common.js";
-import { fetchWithSsrFGuard } from "../../infra/net/fetch-guard.js";
-import { SsrFBlockedError } from "../../infra/net/ssrf.js";
-import { wrapExternalContent, wrapWebContent } from "../../security/external-content.js";
-import { stringEnum } from "../schema/typebox.js";
-import { jsonResult, readNumberParam, readStringParam } from "./common.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AnyAgentTool } from "./common.ts";
+import { fetchWithSsrFGuard } from "../../infra/net/fetch-guard.ts";
+import { SsrFBlockedError } from "../../infra/net/ssrf.ts";
+import { wrapExternalContent, wrapWebContent } from "../../security/external-content.ts";
+import { stringEnum } from "../schema/typebox.ts";
+import { jsonResult, readNumberParam, readStringParam } from "./common.ts";
 import {
   extractReadableContent,
   htmlToMarkdown,
   markdownToText,
   truncateText,
   type ExtractMode,
-} from "./web-fetch-utils.js";
+} from "./web-fetch-utils.ts";
 import {
   CacheEntry,
   DEFAULT_CACHE_TTL_MINUTES,
@@ -24,9 +24,9 @@ import {
   resolveTimeoutSeconds,
   withTimeout,
   writeCache,
-} from "./web-shared.js";
+} from "./web-shared.ts";
 
-export { extractReadableContent } from "./web-fetch-utils.js";
+export { extractReadableContent } from "./web-fetch-utils.ts";
 
 const EXTRACT_MODES = ["markdown", "text"] as const;
 
@@ -56,7 +56,7 @@ const WebFetchSchema = Type.Object({
   ),
 });
 
-type WebFetchConfig = NonNullable<OpenClawConfig["tools"]>["web"] extends infer Web
+type WebFetchConfig = NonNullable<CmlHiveAssistConfig["tools"]>["web"] extends infer Web
   ? Web extends { fetch?: infer Fetch }
     ? Fetch
     : undefined
@@ -73,7 +73,7 @@ type FirecrawlFetchConfig =
     }
   | undefined;
 
-function resolveFetchConfig(cfg?: OpenClawConfig): WebFetchConfig {
+function resolveFetchConfig(cfg?: CmlHiveAssistConfig): WebFetchConfig {
   const fetch = cfg?.tools?.web?.fetch;
   if (!fetch || typeof fetch !== "object") {
     return undefined;
@@ -615,7 +615,7 @@ function resolveFirecrawlEndpoint(baseUrl: string): string {
 }
 
 export function createWebFetchTool(options?: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   sandboxed?: boolean;
 }): AnyAgentTool | null {
   const fetch = resolveFetchConfig(options?.config);

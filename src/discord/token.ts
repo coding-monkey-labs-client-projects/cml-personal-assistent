@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.ts";
 
 export type DiscordTokenSource = "env" | "config" | "none";
 
@@ -20,7 +20,7 @@ export function normalizeDiscordToken(raw?: string | null): string | undefined {
 }
 
 export function resolveDiscordToken(
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   opts: { accountId?: string | null; envToken?: string | null } = {},
 ): DiscordTokenResolution {
   const accountId = normalizeAccountId(opts.accountId);

@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/llm-task",
+  "name": "@cml-hive-assist/llm-task",
   "version": "2026.2.1",
-  "description": "OpenClaw JSON-only LLM task plugin",
+  "description": "CmlHiveAssist JSON-only LLM task plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ]

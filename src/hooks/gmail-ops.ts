@@ -1,17 +1,17 @@
 import { spawn } from "node:child_process";
-import { formatCliCommand } from "../cli/command-format.js";
+import { formatCliCommand } from "../cli/command-format.ts";
 import {
-  type OpenClawConfig,
+  type CmlHiveAssistConfig,
   CONFIG_PATH,
   loadConfig,
   readConfigFileSnapshot,
   resolveGatewayPort,
   validateConfigObjectWithPlugins,
   writeConfigFile,
-} from "../config/config.js";
-import { runCommandWithTimeout } from "../process/exec.js";
-import { defaultRuntime } from "../runtime.js";
-import { displayPath } from "../utils.js";
+} from "../config/config.ts";
+import { runCommandWithTimeout } from "../process/exec.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { displayPath } from "../utils.ts";
 import {
   ensureDependency,
   ensureGcloudAuth,
@@ -20,7 +20,7 @@ import {
   ensureTopic,
   resolveProjectIdFromGogCredentials,
   runGcloud,
-} from "./gmail-setup-utils.js";
+} from "./gmail-setup-utils.ts";
 import {
   buildDefaultHookUrl,
   buildGogWatchServeArgs,
@@ -42,7 +42,7 @@ import {
   normalizeServePath,
   parseTopicPath,
   resolveGmailHookRuntimeConfig,
-} from "./gmail.js";
+} from "./gmail.ts";
 
 export type GmailSetupOptions = {
   account: string;
@@ -209,7 +209,7 @@ export async function runGmailSetup(opts: GmailSetupOptions) {
     true,
   );
 
-  const nextConfig: OpenClawConfig = {
+  const nextConfig: CmlHiveAssistConfig = {
     ...baseConfig,
     hooks: {
       ...baseConfig.hooks,

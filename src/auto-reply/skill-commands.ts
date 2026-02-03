@@ -1,9 +1,9 @@
 import fs from "node:fs";
-import type { OpenClawConfig } from "../config/config.js";
-import { listAgentIds, resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
-import { buildWorkspaceSkillCommandSpecs, type SkillCommandSpec } from "../agents/skills.js";
-import { getRemoteSkillEligibility } from "../infra/skills-remote.js";
-import { listChatCommands } from "./commands-registry.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { listAgentIds, resolveAgentWorkspaceDir } from "../agents/agent-scope.ts";
+import { buildWorkspaceSkillCommandSpecs, type SkillCommandSpec } from "../agents/skills.ts";
+import { getRemoteSkillEligibility } from "../infra/skills-remote.ts";
+import { listChatCommands } from "./commands-registry.ts";
 
 function resolveReservedCommandNames(): Set<string> {
   const reserved = new Set<string>();
@@ -24,7 +24,7 @@ function resolveReservedCommandNames(): Set<string> {
 
 export function listSkillCommandsForWorkspace(params: {
   workspaceDir: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   skillFilter?: string[];
 }): SkillCommandSpec[] {
   return buildWorkspaceSkillCommandSpecs(params.workspaceDir, {
@@ -36,7 +36,7 @@ export function listSkillCommandsForWorkspace(params: {
 }
 
 export function listSkillCommandsForAgents(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentIds?: string[];
 }): SkillCommandSpec[] {
   const used = resolveReservedCommandNames();

@@ -15,7 +15,7 @@ import {
   expandToolGroups,
   normalizeToolName,
   resolveToolProfilePolicy,
-} from "../../../../src/agents/tool-policy.js";
+} from "../../../../src/agents/tool-policy.ts";
 import { formatAgo } from "../format.ts";
 import {
   formatCronPayload,
@@ -1672,10 +1672,10 @@ type SkillGroup = {
 };
 
 const SKILL_SOURCE_GROUPS: Array<{ id: string; label: string; sources: string[] }> = [
-  { id: "workspace", label: "Workspace Skills", sources: ["openclaw-workspace"] },
-  { id: "built-in", label: "Built-in Skills", sources: ["openclaw-bundled"] },
-  { id: "installed", label: "Installed Skills", sources: ["openclaw-managed"] },
-  { id: "extra", label: "Extra Skills", sources: ["openclaw-extra"] },
+  { id: "workspace", label: "Workspace Skills", sources: ["cml-hive-assist-workspace"] },
+  { id: "built-in", label: "Built-in Skills", sources: ["cml-hive-assist-bundled"] },
+  { id: "installed", label: "Installed Skills", sources: ["cml-hive-assist-managed"] },
+  { id: "extra", label: "Extra Skills", sources: ["cml-hive-assist-extra"] },
 ];
 
 function groupSkills(skills: SkillStatusEntry[]): SkillGroup[] {

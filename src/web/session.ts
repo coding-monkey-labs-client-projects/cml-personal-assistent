@@ -8,17 +8,17 @@ import {
 import { randomUUID } from "node:crypto";
 import fsSync from "node:fs";
 import qrcode from "qrcode-terminal";
-import { formatCliCommand } from "../cli/command-format.js";
-import { danger, success } from "../globals.js";
-import { getChildLogger, toPinoLikeLogger } from "../logging.js";
-import { ensureDir, resolveUserPath } from "../utils.js";
-import { VERSION } from "../version.js";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { danger, success } from "../globals.ts";
+import { getChildLogger, toPinoLikeLogger } from "../logging.ts";
+import { ensureDir, resolveUserPath } from "../utils.ts";
+import { VERSION } from "../version.ts";
 import {
   maybeRestoreCredsFromBackup,
   resolveDefaultWebAuthDir,
   resolveWebCredsBackupPath,
   resolveWebCredsPath,
-} from "./auth-store.js";
+} from "./auth-store.ts";
 
 export {
   getWebAuthAgeMs,
@@ -28,7 +28,7 @@ export {
   readWebSelfId,
   WA_WEB_AUTH_DIR,
   webAuthExists,
-} from "./auth-store.js";
+} from "./auth-store.ts";
 
 let credsSaveQueue: Promise<void> = Promise.resolve();
 function enqueueSaveCreds(
@@ -117,7 +117,7 @@ export async function createWaSocket(
     version,
     logger,
     printQRInTerminal: false,
-    browser: ["openclaw", "cli", VERSION],
+    browser: ["cml-hive-assist", "cli", VERSION],
     syncFullHistory: false,
     markOnlineOnConnect: false,
   });

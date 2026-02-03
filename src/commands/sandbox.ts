@@ -1,5 +1,5 @@
 import { confirm as clackConfirm } from "@clack/prompts";
-import type { RuntimeEnv } from "../runtime.js";
+import type { RuntimeEnv } from "../runtime.ts";
 import {
   listSandboxBrowsers,
   listSandboxContainers,
@@ -7,14 +7,14 @@ import {
   removeSandboxContainer,
   type SandboxBrowserInfo,
   type SandboxContainerInfo,
-} from "../agents/sandbox.js";
+} from "../agents/sandbox.ts";
 import {
   displayBrowsers,
   displayContainers,
   displayRecreatePreview,
   displayRecreateResult,
   displaySummary,
-} from "./sandbox-display.js";
+} from "./sandbox-display.ts";
 
 // --- Types ---
 

@@ -5,25 +5,25 @@ import {
 } from "@mariozechner/pi-coding-agent";
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
 import type {
   ParsedSkillFrontmatter,
   SkillEligibilityContext,
   SkillCommandSpec,
   SkillEntry,
   SkillSnapshot,
-} from "./types.js";
-import { createSubsystemLogger } from "../../logging/subsystem.js";
-import { CONFIG_DIR, resolveUserPath } from "../../utils.js";
-import { resolveBundledSkillsDir } from "./bundled-dir.js";
-import { shouldIncludeSkill } from "./config.js";
+} from "./types.ts";
+import { createSubsystemLogger } from "../../logging/subsystem.ts";
+import { CONFIG_DIR, resolveUserPath } from "../../utils.ts";
+import { resolveBundledSkillsDir } from "./bundled-dir.ts";
+import { shouldIncludeSkill } from "./config.ts";
 import {
   parseFrontmatter,
-  resolveOpenClawMetadata,
+  resolveCmlHiveAssistMetadata,
   resolveSkillInvocationPolicy,
-} from "./frontmatter.js";
-import { resolvePluginSkillDirs } from "./plugin-skills.js";
-import { serializeByKey } from "./serialize.js";
+} from "./frontmatter.ts";
+import { resolvePluginSkillDirs } from "./plugin-skills.ts";
+import { serializeByKey } from "./serialize.ts";
 
 const fsp = fs.promises;
 const skillsLogger = createSubsystemLogger("skills");
@@ -43,7 +43,7 @@ function debugSkillCommandOnce(
 
 function filterSkillEntries(
   entries: SkillEntry[],
-  config?: OpenClawConfig,
+  config?: CmlHiveAssistConfig,
   skillFilter?: string[],
   eligibility?: SkillEligibilityContext,
 ): SkillEntry[] {
@@ -99,7 +99,7 @@ function resolveUniqueSkillCommandName(base: string, used: Set<string>): string 
 function loadSkillEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
   },
@@ -181,7 +181,7 @@ function loadSkillEntries(
     return {
       skill,
       frontmatter,
-      metadata: resolveOpenClawMetadata(frontmatter),
+      metadata: resolveCmlHiveAssistMetadata(frontmatter),
       invocation: resolveSkillInvocationPolicy(frontmatter),
     };
   });
@@ -191,7 +191,7 @@ function loadSkillEntries(
 export function buildWorkspaceSkillSnapshot(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     entries?: SkillEntry[];
@@ -228,7 +228,7 @@ export function buildWorkspaceSkillSnapshot(
 export function buildWorkspaceSkillsPrompt(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     entries?: SkillEntry[];
@@ -256,7 +256,7 @@ export function buildWorkspaceSkillsPrompt(
 export function resolveSkillsPromptForRun(params: {
   skillsSnapshot?: SkillSnapshot;
   entries?: SkillEntry[];
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   workspaceDir: string;
 }): string {
   const snapshotPrompt = params.skillsSnapshot?.prompt?.trim();
@@ -276,7 +276,7 @@ export function resolveSkillsPromptForRun(params: {
 export function loadWorkspaceSkillEntries(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
   },
@@ -287,7 +287,7 @@ export function loadWorkspaceSkillEntries(
 export async function syncSkillsToWorkspace(params: {
   sourceWorkspaceDir: string;
   targetWorkspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   managedSkillsDir?: string;
   bundledSkillsDir?: string;
 }) {
@@ -326,7 +326,7 @@ export async function syncSkillsToWorkspace(params: {
 
 export function filterWorkspaceSkillEntries(
   entries: SkillEntry[],
-  config?: OpenClawConfig,
+  config?: CmlHiveAssistConfig,
 ): SkillEntry[] {
   return filterSkillEntries(entries, config);
 }
@@ -334,7 +334,7 @@ export function filterWorkspaceSkillEntries(
 export function buildWorkspaceSkillCommandSpecs(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     entries?: SkillEntry[];

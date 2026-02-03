@@ -8,24 +8,24 @@ import type {
   PostbackEvent,
   EventSource,
 } from "@line/bot-sdk";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { LineGroupConfig, ResolvedLineAccount } from "./types.js";
-import { danger, logVerbose } from "../globals.js";
-import { resolvePairingIdLabel } from "../pairing/pairing-labels.js";
-import { buildPairingReply } from "../pairing/pairing-messages.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { LineGroupConfig, ResolvedLineAccount } from "./types.ts";
+import { danger, logVerbose } from "../globals.ts";
+import { resolvePairingIdLabel } from "../pairing/pairing-labels.ts";
+import { buildPairingReply } from "../pairing/pairing-messages.ts";
 import {
   readChannelAllowFromStore,
   upsertChannelPairingRequest,
-} from "../pairing/pairing-store.js";
-import { firstDefined, isSenderAllowed, normalizeAllowFromWithStore } from "./bot-access.js";
+} from "../pairing/pairing-store.ts";
+import { firstDefined, isSenderAllowed, normalizeAllowFromWithStore } from "./bot-access.ts";
 import {
   buildLineMessageContext,
   buildLinePostbackContext,
   type LineInboundContext,
-} from "./bot-message-context.js";
-import { downloadLineMedia } from "./download.js";
-import { pushMessageLine, replyMessageLine } from "./send.js";
+} from "./bot-message-context.ts";
+import { downloadLineMedia } from "./download.ts";
+import { pushMessageLine, replyMessageLine } from "./send.ts";
 
 interface MediaRef {
   path: string;
@@ -33,7 +33,7 @@ interface MediaRef {
 }
 
 export interface LineHandlerContext {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   account: ResolvedLineAccount;
   runtime: RuntimeEnv;
   mediaMaxBytes: number;

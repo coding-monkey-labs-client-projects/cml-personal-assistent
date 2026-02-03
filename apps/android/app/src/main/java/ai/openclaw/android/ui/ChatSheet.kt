@@ -1,8 +1,8 @@
-package ai.openclaw.android.ui
+package ai.cml-hive-assist.android.ui
 
 import androidx.compose.runtime.Composable
-import ai.openclaw.android.MainViewModel
-import ai.openclaw.android.ui.chat.ChatSheetContent
+import ai.cml-hive-assist.android.MainViewModel
+import ai.cml-hive-assist.android.ui.chat.ChatSheetContent
 
 @Composable
 fun ChatSheet(viewModel: MainViewModel) {

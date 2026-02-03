@@ -1,20 +1,20 @@
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { DmPolicy } from "../../../config/types.js";
-import type { WizardPrompter } from "../../../wizard/prompts.js";
-import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
-import { formatCliCommand } from "../../../cli/command-format.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { DmPolicy } from "../../../config/types.ts";
+import type { WizardPrompter } from "../../../wizard/prompts.ts";
+import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.ts";
+import { formatCliCommand } from "../../../cli/command-format.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.ts";
 import {
   listTelegramAccountIds,
   resolveDefaultTelegramAccountId,
   resolveTelegramAccount,
-} from "../../../telegram/accounts.js";
-import { formatDocsLink } from "../../../terminal/links.js";
-import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
+} from "../../../telegram/accounts.ts";
+import { formatDocsLink } from "../../../terminal/links.ts";
+import { addWildcardAllowFrom, promptAccountId } from "./helpers.ts";
 
 const channel = "telegram" as const;
 
-function setTelegramDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
+function setTelegramDmPolicy(cfg: CmlHiveAssistConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.telegram?.allowFrom) : undefined;
   return {
@@ -38,7 +38,7 @@ async function noteTelegramTokenHelp(prompter: WizardPrompter): Promise<void> {
       "3) Copy the token (looks like 123456:ABC...)",
       "Tip: you can also set TELEGRAM_BOT_TOKEN in your env.",
       `Docs: ${formatDocsLink("/telegram")}`,
-      "Website: https://openclaw.ai",
+      "Website: https://cml-hive-assist.ai",
     ].join("\n"),
     "Telegram bot token",
   );
@@ -51,17 +51,17 @@ async function noteTelegramUserIdHelp(prompter: WizardPrompter): Promise<void> {
       "2) Or call https://api.telegram.org/bot<bot_token>/getUpdates and read message.from.id",
       "3) Third-party: DM @userinfobot or @getidsbot",
       `Docs: ${formatDocsLink("/telegram")}`,
-      "Website: https://openclaw.ai",
+      "Website: https://cml-hive-assist.ai",
     ].join("\n"),
     "Telegram user id",
   );
 }
 
 async function promptTelegramAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   accountId: string;
-}): Promise<OpenClawConfig> {
+}): Promise<CmlHiveAssistConfig> {
   const { cfg, prompter, accountId } = params;
   const resolved = resolveTelegramAccount({ cfg, accountId });
   const existingAllowFrom = resolved.config.allowFrom ?? [];
@@ -176,10 +176,10 @@ async function promptTelegramAllowFrom(params: {
 }
 
 async function promptTelegramAllowFromForAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<CmlHiveAssistConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)

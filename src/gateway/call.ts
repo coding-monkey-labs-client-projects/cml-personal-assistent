@@ -1,29 +1,29 @@
 import { randomUUID } from "node:crypto";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import {
   loadConfig,
   resolveConfigPath,
   resolveGatewayPort,
   resolveStateDir,
-} from "../config/config.js";
-import { loadOrCreateDeviceIdentity } from "../infra/device-identity.js";
-import { pickPrimaryTailnetIPv4 } from "../infra/tailnet.js";
-import { loadGatewayTlsRuntime } from "../infra/tls/gateway.js";
+} from "../config/config.ts";
+import { loadOrCreateDeviceIdentity } from "../infra/device-identity.ts";
+import { pickPrimaryTailnetIPv4 } from "../infra/tailnet.ts";
+import { loadGatewayTlsRuntime } from "../infra/tls/gateway.ts";
 import {
   GATEWAY_CLIENT_MODES,
   GATEWAY_CLIENT_NAMES,
   type GatewayClientMode,
   type GatewayClientName,
-} from "../utils/message-channel.js";
-import { GatewayClient } from "./client.js";
-import { PROTOCOL_VERSION } from "./protocol/index.js";
+} from "../utils/message-channel.ts";
+import { GatewayClient } from "./client.ts";
+import { PROTOCOL_VERSION } from "./protocol/index.ts";
 
 export type CallGatewayOptions = {
   url?: string;
   token?: string;
   password?: string;
   tlsFingerprint?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   method: string;
   params?: unknown;
   expectFinal?: boolean;
@@ -52,7 +52,7 @@ export type GatewayConnectionDetails = {
 };
 
 export function buildGatewayConnectionDetails(
-  options: { config?: OpenClawConfig; url?: string; configPath?: string } = {},
+  options: { config?: CmlHiveAssistConfig; url?: string; configPath?: string } = {},
 ): GatewayConnectionDetails {
   const config = options.config ?? loadConfig();
   const configPath =
@@ -160,7 +160,7 @@ export async function callGateway<T = Record<string, unknown>>(
       ? typeof remote?.token === "string" && remote.token.trim().length > 0
         ? remote.token.trim()
         : undefined
-      : process.env.OPENCLAW_GATEWAY_TOKEN?.trim() ||
+      : process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN?.trim() ||
         process.env.CLAWDBOT_GATEWAY_TOKEN?.trim() ||
         (typeof authToken === "string" && authToken.trim().length > 0
           ? authToken.trim()
@@ -169,7 +169,7 @@ export async function callGateway<T = Record<string, unknown>>(
     (typeof opts.password === "string" && opts.password.trim().length > 0
       ? opts.password.trim()
       : undefined) ||
-    process.env.OPENCLAW_GATEWAY_PASSWORD?.trim() ||
+    process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD?.trim() ||
     process.env.CLAWDBOT_GATEWAY_PASSWORD?.trim() ||
     (isRemoteMode
       ? typeof remote?.password === "string" && remote.password.trim().length > 0

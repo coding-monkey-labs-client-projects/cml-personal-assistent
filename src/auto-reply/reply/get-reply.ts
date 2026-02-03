@@ -1,29 +1,29 @@
-import type { MsgContext } from "../templating.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
+import type { MsgContext } from "../templating.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
 import {
   resolveAgentDir,
   resolveAgentWorkspaceDir,
   resolveSessionAgentId,
   resolveAgentSkillsFilter,
-} from "../../agents/agent-scope.js";
-import { resolveModelRefFromString } from "../../agents/model-selection.js";
-import { resolveAgentTimeoutMs } from "../../agents/timeout.js";
-import { DEFAULT_AGENT_WORKSPACE_DIR, ensureAgentWorkspace } from "../../agents/workspace.js";
-import { type OpenClawConfig, loadConfig } from "../../config/config.js";
-import { applyLinkUnderstanding } from "../../link-understanding/apply.js";
-import { applyMediaUnderstanding } from "../../media-understanding/apply.js";
-import { defaultRuntime } from "../../runtime.js";
-import { resolveCommandAuthorization } from "../command-auth.js";
-import { SILENT_REPLY_TOKEN } from "../tokens.js";
-import { resolveDefaultModel } from "./directive-handling.js";
-import { resolveReplyDirectives } from "./get-reply-directives.js";
-import { handleInlineActions } from "./get-reply-inline-actions.js";
-import { runPreparedReply } from "./get-reply-run.js";
-import { finalizeInboundContext } from "./inbound-context.js";
-import { applyResetModelOverride } from "./session-reset-model.js";
-import { initSessionState } from "./session.js";
-import { stageSandboxMedia } from "./stage-sandbox-media.js";
-import { createTypingController } from "./typing.js";
+} from "../../agents/agent-scope.ts";
+import { resolveModelRefFromString } from "../../agents/model-selection.ts";
+import { resolveAgentTimeoutMs } from "../../agents/timeout.ts";
+import { DEFAULT_AGENT_WORKSPACE_DIR, ensureAgentWorkspace } from "../../agents/workspace.ts";
+import { type CmlHiveAssistConfig, loadConfig } from "../../config/config.ts";
+import { applyLinkUnderstanding } from "../../link-understanding/apply.ts";
+import { applyMediaUnderstanding } from "../../media-understanding/apply.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { resolveCommandAuthorization } from "../command-auth.ts";
+import { SILENT_REPLY_TOKEN } from "../tokens.ts";
+import { resolveDefaultModel } from "./directive-handling.ts";
+import { resolveReplyDirectives } from "./get-reply-directives.ts";
+import { handleInlineActions } from "./get-reply-inline-actions.ts";
+import { runPreparedReply } from "./get-reply-run.ts";
+import { finalizeInboundContext } from "./inbound-context.ts";
+import { applyResetModelOverride } from "./session-reset-model.ts";
+import { initSessionState } from "./session.ts";
+import { stageSandboxMedia } from "./stage-sandbox-media.ts";
+import { createTypingController } from "./typing.ts";
 
 function mergeSkillFilters(channelFilter?: string[], agentFilter?: string[]): string[] | undefined {
   const normalize = (list?: string[]) => {
@@ -53,9 +53,9 @@ function mergeSkillFilters(channelFilter?: string[], agentFilter?: string[]): st
 export async function getReplyFromConfig(
   ctx: MsgContext,
   opts?: GetReplyOptions,
-  configOverride?: OpenClawConfig,
+  configOverride?: CmlHiveAssistConfig,
 ): Promise<ReplyPayload | ReplyPayload[] | undefined> {
-  const isFastTestEnv = process.env.OPENCLAW_TEST_FAST === "1";
+  const isFastTestEnv = process.env.CML_HIVE_ASSIST_TEST_FAST === "1";
   const cfg = configOverride ?? loadConfig();
   const targetSessionKey =
     ctx.CommandSource === "native" ? ctx.CommandTargetSessionKey?.trim() : undefined;

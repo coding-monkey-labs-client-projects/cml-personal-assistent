@@ -1,13 +1,13 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { MsgContext } from "../templating.js";
-import type { CommandContext } from "./commands-types.js";
-import { resolveCommandAuthorization } from "../command-auth.js";
-import { normalizeCommandBody } from "../commands-registry.js";
-import { stripMentions } from "./mentions.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { MsgContext } from "../templating.ts";
+import type { CommandContext } from "./commands-types.ts";
+import { resolveCommandAuthorization } from "../command-auth.ts";
+import { normalizeCommandBody } from "../commands-registry.ts";
+import { stripMentions } from "./mentions.ts";
 
 export function buildCommandContext(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
   sessionKey?: string;
   isGroup: boolean;

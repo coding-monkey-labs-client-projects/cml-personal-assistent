@@ -1,23 +1,23 @@
 import type { ChannelType, Client, User } from "@buape/carbon";
-import type { HistoryEntry } from "../../auto-reply/reply/history.js";
-import type { ReplyToMode } from "../../config/config.js";
-import type { resolveAgentRoute } from "../../routing/resolve-route.js";
-import type { DiscordChannelConfigResolved, DiscordGuildEntryResolved } from "./allow-list.js";
-import type { DiscordChannelInfo } from "./message-utils.js";
-import type { DiscordSenderIdentity } from "./sender-identity.js";
+import type { HistoryEntry } from "../../auto-reply/reply/history.ts";
+import type { ReplyToMode } from "../../config/config.ts";
+import type { resolveAgentRoute } from "../../routing/resolve-route.ts";
+import type { DiscordChannelConfigResolved, DiscordGuildEntryResolved } from "./allow-list.ts";
+import type { DiscordChannelInfo } from "./message-utils.ts";
+import type { DiscordSenderIdentity } from "./sender-identity.ts";
 
-export type { DiscordSenderIdentity } from "./sender-identity.js";
-import type { DiscordThreadChannel } from "./threading.js";
+export type { DiscordSenderIdentity } from "./sender-identity.ts";
+import type { DiscordThreadChannel } from "./threading.ts";
 
-export type LoadedConfig = ReturnType<typeof import("../../config/config.js").loadConfig>;
-export type RuntimeEnv = import("../../runtime.js").RuntimeEnv;
+export type LoadedConfig = ReturnType<typeof import("../../config/config.ts").loadConfig>;
+export type RuntimeEnv = import("../../runtime.ts").RuntimeEnv;
 
-export type DiscordMessageEvent = import("./listeners.js").DiscordMessageEvent;
+export type DiscordMessageEvent = import("./listeners.ts").DiscordMessageEvent;
 
 export type DiscordMessagePreflightContext = {
   cfg: LoadedConfig;
   discordConfig: NonNullable<
-    import("../../config/config.js").OpenClawConfig["channels"]
+    import("../../config/config.ts").CmlHiveAssistConfig["channels"]
   >["discord"];
   accountId: string;
   token: string;

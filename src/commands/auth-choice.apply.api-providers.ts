@@ -1,16 +1,16 @@
-import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
-import { ensureAuthProfileStore, resolveAuthProfileOrder } from "../agents/auth-profiles.js";
-import { resolveEnvApiKey } from "../agents/model-auth.js";
+import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.ts";
+import { ensureAuthProfileStore, resolveAuthProfileOrder } from "../agents/auth-profiles.ts";
+import { resolveEnvApiKey } from "../agents/model-auth.ts";
 import {
   formatApiKeyPreview,
   normalizeApiKeyInput,
   validateApiKeyInput,
-} from "./auth-choice.api-key.js";
-import { applyDefaultModelChoice } from "./auth-choice.default-model.js";
+} from "./auth-choice.api-key.ts";
+import { applyDefaultModelChoice } from "./auth-choice.default-model.ts";
 import {
   applyGoogleGeminiModelDefault,
   GOOGLE_GEMINI_DEFAULT_MODEL,
-} from "./google-gemini-model-default.js";
+} from "./google-gemini-model-default.ts";
 import {
   applyAuthProfileConfig,
   applyKimiCodeConfig,
@@ -48,8 +48,8 @@ import {
   setXiaomiApiKey,
   setZaiApiKey,
   ZAI_DEFAULT_MODEL_REF,
-} from "./onboard-auth.js";
-import { OPENCODE_ZEN_DEFAULT_MODEL } from "./opencode-zen-model-default.js";
+} from "./onboard-auth.ts";
+import { OPENCODE_ZEN_DEFAULT_MODEL } from "./opencode-zen-model-default.ts";
 
 export async function applyAuthChoiceApiProviders(
   params: ApplyAuthChoiceParams,

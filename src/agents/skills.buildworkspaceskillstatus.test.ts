@@ -36,7 +36,7 @@ describe("buildWorkspaceSkillStatus", () => {
       name: "status-skill",
       description: "Needs setup",
       metadata:
-        '{"openclaw":{"requires":{"bins":["fakebin"],"env":["ENV_KEY"],"config":["browser.enabled"]},"install":[{"id":"brew","kind":"brew","formula":"fakebin","bins":["fakebin"],"label":"Install fakebin"}]}}',
+        '{"cml-hive-assist":{"requires":{"bins":["fakebin"],"env":["ENV_KEY"],"config":["browser.enabled"]},"install":[{"id":"brew","kind":"brew","formula":"fakebin","bins":["fakebin"],"label":"Install fakebin"}]}}',
     });
 
     const report = buildWorkspaceSkillStatus(workspaceDir, {
@@ -60,7 +60,7 @@ describe("buildWorkspaceSkillStatus", () => {
       dir: skillDir,
       name: "os-skill",
       description: "Darwin only",
-      metadata: '{"openclaw":{"os":["darwin"]}}',
+      metadata: '{"cml-hive-assist":{"os":["darwin"]}}',
     });
 
     const report = buildWorkspaceSkillStatus(workspaceDir, {
@@ -81,7 +81,7 @@ describe("buildWorkspaceSkillStatus", () => {
     const workspaceDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-"));
     const bundledDir = path.join(workspaceDir, ".bundled");
     const bundledSkillDir = path.join(bundledDir, "peekaboo");
-    const originalBundled = process.env.OPENCLAW_BUNDLED_SKILLS_DIR;
+    const originalBundled = process.env.CML_HIVE_ASSIST_BUNDLED_SKILLS_DIR;
 
     await writeSkill({
       dir: bundledSkillDir,
@@ -91,7 +91,7 @@ describe("buildWorkspaceSkillStatus", () => {
     });
 
     try {
-      process.env.OPENCLAW_BUNDLED_SKILLS_DIR = bundledDir;
+      process.env.CML_HIVE_ASSIST_BUNDLED_SKILLS_DIR = bundledDir;
       const report = buildWorkspaceSkillStatus(workspaceDir, {
         managedSkillsDir: path.join(workspaceDir, ".managed"),
         config: { skills: { allowBundled: ["other-skill"] } },
@@ -103,9 +103,9 @@ describe("buildWorkspaceSkillStatus", () => {
       expect(skill?.eligible).toBe(false);
     } finally {
       if (originalBundled === undefined) {
-        delete process.env.OPENCLAW_BUNDLED_SKILLS_DIR;
+        delete process.env.CML_HIVE_ASSIST_BUNDLED_SKILLS_DIR;
       } else {
-        process.env.OPENCLAW_BUNDLED_SKILLS_DIR = originalBundled;
+        process.env.CML_HIVE_ASSIST_BUNDLED_SKILLS_DIR = originalBundled;
       }
     }
   });
@@ -119,7 +119,7 @@ describe("buildWorkspaceSkillStatus", () => {
       name: "install-skill",
       description: "OS-specific installs",
       metadata:
-        '{"openclaw":{"requires":{"bins":["missing-bin"]},"install":[{"id":"mac","kind":"download","os":["darwin"],"url":"https://example.com/mac.tar.bz2"},{"id":"linux","kind":"download","os":["linux"],"url":"https://example.com/linux.tar.bz2"},{"id":"win","kind":"download","os":["win32"],"url":"https://example.com/win.tar.bz2"}]}}',
+        '{"cml-hive-assist":{"requires":{"bins":["missing-bin"]},"install":[{"id":"mac","kind":"download","os":["darwin"],"url":"https://example.com/mac.tar.bz2"},{"id":"linux","kind":"download","os":["linux"],"url":"https://example.com/linux.tar.bz2"},{"id":"win","kind":"download","os":["win32"],"url":"https://example.com/win.tar.bz2"}]}}',
     });
 
     const report = buildWorkspaceSkillStatus(workspaceDir, {

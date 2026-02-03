@@ -1,11 +1,11 @@
 import type { Command } from "commander";
-import { danger } from "../globals.js";
+import { danger } from "../globals.ts";
 import {
   type GmailRunOptions,
   type GmailSetupOptions,
   runGmailService,
   runGmailSetup,
-} from "../hooks/gmail-ops.js";
+} from "../hooks/gmail-ops.ts";
 import {
   DEFAULT_GMAIL_LABEL,
   DEFAULT_GMAIL_MAX_BYTES,
@@ -15,10 +15,10 @@ import {
   DEFAULT_GMAIL_SERVE_PORT,
   DEFAULT_GMAIL_SUBSCRIPTION,
   DEFAULT_GMAIL_TOPIC,
-} from "../hooks/gmail.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
+} from "../hooks/gmail.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
 
 export function registerWebhooksCli(program: Command) {
   const webhooks = program
@@ -27,21 +27,21 @@ export function registerWebhooksCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/webhooks", "docs.openclaw.ai/cli/webhooks")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/webhooks", "docs.cml-hive-assist.ai/cli/webhooks")}\n`,
     );
 
   const gmail = webhooks.command("gmail").description("Gmail Pub/Sub hooks (via gogcli)");
 
   gmail
     .command("setup")
-    .description("Configure Gmail watch + Pub/Sub + OpenClaw hooks")
+    .description("Configure Gmail watch + Pub/Sub + CmlHiveAssist hooks")
     .requiredOption("--account <email>", "Gmail account to watch")
     .option("--project <id>", "GCP project id (OAuth client owner)")
     .option("--topic <name>", "Pub/Sub topic name", DEFAULT_GMAIL_TOPIC)
     .option("--subscription <name>", "Pub/Sub subscription name", DEFAULT_GMAIL_SUBSCRIPTION)
     .option("--label <label>", "Gmail label to watch", DEFAULT_GMAIL_LABEL)
-    .option("--hook-url <url>", "OpenClaw hook URL")
-    .option("--hook-token <token>", "OpenClaw hook token")
+    .option("--hook-url <url>", "CmlHiveAssist hook URL")
+    .option("--hook-token <token>", "CmlHiveAssist hook token")
     .option("--push-token <token>", "Push token for gog watch serve")
     .option("--bind <host>", "gog watch serve bind host", DEFAULT_GMAIL_SERVE_BIND)
     .option("--port <port>", "gog watch serve port", String(DEFAULT_GMAIL_SERVE_PORT))
@@ -78,8 +78,8 @@ export function registerWebhooksCli(program: Command) {
     .option("--topic <topic>", "Pub/Sub topic path (projects/.../topics/..)")
     .option("--subscription <name>", "Pub/Sub subscription name")
     .option("--label <label>", "Gmail label to watch")
-    .option("--hook-url <url>", "OpenClaw hook URL")
-    .option("--hook-token <token>", "OpenClaw hook token")
+    .option("--hook-url <url>", "CmlHiveAssist hook URL")
+    .option("--hook-token <token>", "CmlHiveAssist hook token")
     .option("--push-token <token>", "Push token for gog watch serve")
     .option("--bind <host>", "gog watch serve bind host")
     .option("--port <port>", "gog watch serve port")

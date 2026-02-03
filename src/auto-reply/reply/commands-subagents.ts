@@ -1,30 +1,30 @@
 import crypto from "node:crypto";
-import type { SubagentRunRecord } from "../../agents/subagent-registry.js";
-import type { CommandHandler } from "./commands-types.js";
-import { AGENT_LANE_SUBAGENT } from "../../agents/lanes.js";
-import { abortEmbeddedPiRun } from "../../agents/pi-embedded.js";
-import { listSubagentRunsForRequester } from "../../agents/subagent-registry.js";
+import type { SubagentRunRecord } from "../../agents/subagent-registry.ts";
+import type { CommandHandler } from "./commands-types.ts";
+import { AGENT_LANE_SUBAGENT } from "../../agents/lanes.ts";
+import { abortEmbeddedPiRun } from "../../agents/pi-embedded.ts";
+import { listSubagentRunsForRequester } from "../../agents/subagent-registry.ts";
 import {
   extractAssistantText,
   resolveInternalSessionKey,
   resolveMainSessionAlias,
   sanitizeTextContent,
   stripToolMessages,
-} from "../../agents/tools/sessions-helpers.js";
-import { loadSessionStore, resolveStorePath, updateSessionStore } from "../../config/sessions.js";
-import { callGateway } from "../../gateway/call.js";
-import { logVerbose } from "../../globals.js";
-import { parseAgentSessionKey } from "../../routing/session-key.js";
-import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.js";
-import { stopSubagentsForRequester } from "./abort.js";
-import { clearSessionQueues } from "./queue.js";
+} from "../../agents/tools/sessions-helpers.ts";
+import { loadSessionStore, resolveStorePath, updateSessionStore } from "../../config/sessions.ts";
+import { callGateway } from "../../gateway/call.ts";
+import { logVerbose } from "../../globals.ts";
+import { parseAgentSessionKey } from "../../routing/session-key.ts";
+import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.ts";
+import { stopSubagentsForRequester } from "./abort.ts";
+import { clearSessionQueues } from "./queue.ts";
 import {
   formatAgeShort,
   formatDurationShort,
   formatRunLabel,
   formatRunStatus,
   sortSubagentRuns,
-} from "./subagents-utils.js";
+} from "./subagents-utils.ts";
 
 type SubagentTargetResolution = {
   entry?: SubagentRunRecord;

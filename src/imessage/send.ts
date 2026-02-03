@@ -1,12 +1,12 @@
-import { loadConfig } from "../config/config.js";
-import { resolveMarkdownTableMode } from "../config/markdown-tables.js";
-import { convertMarkdownTables } from "../markdown/tables.js";
-import { mediaKindFromMime } from "../media/constants.js";
-import { saveMediaBuffer } from "../media/store.js";
-import { loadWebMedia } from "../web/media.js";
-import { resolveIMessageAccount } from "./accounts.js";
-import { createIMessageRpcClient, type IMessageRpcClient } from "./client.js";
-import { formatIMessageChatTarget, type IMessageService, parseIMessageTarget } from "./targets.js";
+import { loadConfig } from "../config/config.ts";
+import { resolveMarkdownTableMode } from "../config/markdown-tables.ts";
+import { convertMarkdownTables } from "../markdown/tables.ts";
+import { mediaKindFromMime } from "../media/constants.ts";
+import { saveMediaBuffer } from "../media/store.ts";
+import { loadWebMedia } from "../web/media.ts";
+import { resolveIMessageAccount } from "./accounts.ts";
+import { createIMessageRpcClient, type IMessageRpcClient } from "./client.ts";
+import { formatIMessageChatTarget, type IMessageService, parseIMessageTarget } from "./targets.ts";
 
 export type IMessageSendOpts = {
   cliPath?: string;

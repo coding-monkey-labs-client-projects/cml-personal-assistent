@@ -7,12 +7,12 @@
 
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { OpenClawConfig } from "../config/config.js";
-import type { InternalHookHandler } from "./internal-hooks.js";
-import { resolveHookConfig } from "./config.js";
-import { shouldIncludeHook } from "./config.js";
-import { registerInternalHook } from "./internal-hooks.js";
-import { loadWorkspaceHookEntries } from "./workspace.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { InternalHookHandler } from "./internal-hooks.ts";
+import { resolveHookConfig } from "./config.ts";
+import { shouldIncludeHook } from "./config.ts";
+import { registerInternalHook } from "./internal-hooks.ts";
+import { loadWorkspaceHookEntries } from "./workspace.ts";
 
 /**
  * Load and register all hook handlers
@@ -21,7 +21,7 @@ import { loadWorkspaceHookEntries } from "./workspace.js";
  * 1. Directory-based discovery (bundled, managed, workspace)
  * 2. Legacy config handlers (backwards compatibility)
  *
- * @param cfg - OpenClaw configuration
+ * @param cfg - CmlHiveAssist configuration
  * @param workspaceDir - Workspace directory for hook discovery
  * @returns Number of handlers successfully loaded
  *
@@ -34,7 +34,7 @@ import { loadWorkspaceHookEntries } from "./workspace.js";
  * ```
  */
 export async function loadInternalHooks(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   workspaceDir: string,
 ): Promise<number> {
   // Check if hooks are enabled

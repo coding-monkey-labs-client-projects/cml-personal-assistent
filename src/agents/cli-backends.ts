@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { CliBackendConfig } from "../config/types.js";
-import { normalizeProviderId } from "./model-selection.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { CliBackendConfig } from "../config/types.ts";
+import { normalizeProviderId } from "./model-selection.ts";
 
 export type ResolvedCliBackend = {
   id: string;
@@ -107,7 +107,7 @@ function mergeBackendConfig(base: CliBackendConfig, override?: CliBackendConfig)
   };
 }
 
-export function resolveCliBackendIds(cfg?: OpenClawConfig): Set<string> {
+export function resolveCliBackendIds(cfg?: CmlHiveAssistConfig): Set<string> {
   const ids = new Set<string>([
     normalizeBackendKey("claude-cli"),
     normalizeBackendKey("codex-cli"),
@@ -121,7 +121,7 @@ export function resolveCliBackendIds(cfg?: OpenClawConfig): Set<string> {
 
 export function resolveCliBackendConfig(
   provider: string,
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
 ): ResolvedCliBackend | null {
   const normalized = normalizeBackendKey(provider);
   const configured = cfg?.agents?.defaults?.cliBackends ?? {};

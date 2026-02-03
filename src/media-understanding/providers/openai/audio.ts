@@ -1,6 +1,6 @@
 import path from "node:path";
-import type { AudioTranscriptionRequest, AudioTranscriptionResult } from "../../types.js";
-import { fetchWithTimeoutGuarded, normalizeBaseUrl, readErrorResponse } from "../shared.js";
+import type { AudioTranscriptionRequest, AudioTranscriptionResult } from "../../types.ts";
+import { fetchWithTimeoutGuarded, normalizeBaseUrl, readErrorResponse } from "../shared.ts";
 
 export const DEFAULT_OPENAI_AUDIO_BASE_URL = "https://api.openai.com/v1";
 const DEFAULT_OPENAI_AUDIO_MODEL = "gpt-4o-mini-transcribe";

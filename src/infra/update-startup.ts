@@ -1,12 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { loadConfig } from "../config/config.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { resolveStateDir } from "../config/paths.js";
-import { VERSION } from "../version.js";
-import { resolveOpenClawPackageRoot } from "./openclaw-root.js";
-import { normalizeUpdateChannel, DEFAULT_PACKAGE_CHANNEL } from "./update-channels.js";
-import { compareSemverStrings, resolveNpmChannelTag, checkUpdateStatus } from "./update-check.js";
+import type { loadConfig } from "../config/config.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { resolveStateDir } from "../config/paths.ts";
+import { VERSION } from "../version.ts";
+import { resolveCmlHiveAssistPackageRoot } from "./openclaw-root.ts";
+import { normalizeUpdateChannel, DEFAULT_PACKAGE_CHANNEL } from "./update-channels.ts";
+import { compareSemverStrings, resolveNpmChannelTag, checkUpdateStatus } from "./update-check.ts";
 
 type UpdateCheckState = {
   lastCheckedAt?: string;
@@ -68,7 +68,7 @@ export async function runGatewayUpdateCheck(params: {
     }
   }
 
-  const root = await resolveOpenClawPackageRoot({
+  const root = await resolveCmlHiveAssistPackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),

@@ -1,6 +1,6 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.js";
-import { formatCliCommand } from "../../../cli/command-format.js";
-import { asString, isRecord } from "./shared.js";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.ts";
+import { formatCliCommand } from "../../../cli/command-format.ts";
+import { asString, isRecord } from "./shared.ts";
 
 type WhatsAppAccountStatus = {
   accountId?: unknown;

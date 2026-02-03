@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/mattermost",
+  "name": "@cml-hive-assist/mattermost",
   "version": "2026.2.1",
-  "description": "OpenClaw Mattermost channel plugin",
+  "description": "CmlHiveAssist Mattermost channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ],
@@ -20,7 +20,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@openclaw/mattermost",
+      "npmSpec": "@cml-hive-assist/mattermost",
       "localPath": "extensions/mattermost",
       "defaultChoice": "npm"
     }

@@ -1,17 +1,17 @@
-import { type AriaSnapshotNode, formatAriaSnapshot, type RawAXNode } from "./cdp.js";
+import { type AriaSnapshotNode, formatAriaSnapshot, type RawAXNode } from "./cdp.ts";
 import {
   buildRoleSnapshotFromAiSnapshot,
   buildRoleSnapshotFromAriaSnapshot,
   getRoleSnapshotStats,
   type RoleSnapshotOptions,
   type RoleRefMap,
-} from "./pw-role-snapshot.js";
+} from "./pw-role-snapshot.ts";
 import {
   ensurePageState,
   getPageForTargetId,
   storeRoleRefsForTarget,
   type WithSnapshotForAI,
-} from "./pw-session.js";
+} from "./pw-session.ts";
 
 export async function snapshotAriaViaPlaywright(opts: {
   cdpUrl: string;

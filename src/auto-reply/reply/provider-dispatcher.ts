@@ -1,22 +1,22 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { DispatchInboundResult } from "../dispatch.js";
-import type { FinalizedMsgContext, MsgContext } from "../templating.js";
-import type { GetReplyOptions } from "../types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { DispatchInboundResult } from "../dispatch.ts";
+import type { FinalizedMsgContext, MsgContext } from "../templating.ts";
+import type { GetReplyOptions } from "../types.ts";
 import type {
   ReplyDispatcherOptions,
   ReplyDispatcherWithTypingOptions,
-} from "./reply-dispatcher.js";
+} from "./reply-dispatcher.ts";
 import {
   dispatchInboundMessageWithBufferedDispatcher,
   dispatchInboundMessageWithDispatcher,
-} from "../dispatch.js";
+} from "../dispatch.ts";
 
 export async function dispatchReplyWithBufferedBlockDispatcher(params: {
   ctx: MsgContext | FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   dispatcherOptions: ReplyDispatcherWithTypingOptions;
   replyOptions?: Omit<GetReplyOptions, "onToolResult" | "onBlockReply">;
-  replyResolver?: typeof import("../reply.js").getReplyFromConfig;
+  replyResolver?: typeof import("../reply.ts").getReplyFromConfig;
 }): Promise<DispatchInboundResult> {
   return await dispatchInboundMessageWithBufferedDispatcher({
     ctx: params.ctx,
@@ -29,10 +29,10 @@ export async function dispatchReplyWithBufferedBlockDispatcher(params: {
 
 export async function dispatchReplyWithDispatcher(params: {
   ctx: MsgContext | FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   dispatcherOptions: ReplyDispatcherOptions;
   replyOptions?: Omit<GetReplyOptions, "onToolResult" | "onBlockReply">;
-  replyResolver?: typeof import("../reply.js").getReplyFromConfig;
+  replyResolver?: typeof import("../reply.ts").getReplyFromConfig;
 }): Promise<DispatchInboundResult> {
   return await dispatchInboundMessageWithDispatcher({
     ctx: params.ctx,

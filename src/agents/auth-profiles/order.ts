@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AuthProfileStore } from "./types.js";
-import { normalizeProviderId } from "../model-selection.js";
-import { listProfilesForProvider } from "./profiles.js";
-import { isProfileInCooldown } from "./usage.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AuthProfileStore } from "./types.ts";
+import { normalizeProviderId } from "../model-selection.ts";
+import { listProfilesForProvider } from "./profiles.ts";
+import { isProfileInCooldown } from "./usage.ts";
 
 function resolveProfileUnusableUntil(stats: {
   cooldownUntil?: number;
@@ -18,7 +18,7 @@ function resolveProfileUnusableUntil(stats: {
 }
 
 export function resolveAuthProfileOrder(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   store: AuthProfileStore;
   provider: string;
   preferredProfile?: string;

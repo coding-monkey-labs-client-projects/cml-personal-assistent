@@ -317,7 +317,7 @@ export function createProductCarousel(
 // ReplyPayload Conversion
 // ============================================================================
 
-import type { LineTemplateMessagePayload } from "./types.js";
+import type { LineTemplateMessagePayload } from "./types.ts";
 
 /**
  * Convert a TemplateMessagePayload from ReplyPayload to a LINE TemplateMessage

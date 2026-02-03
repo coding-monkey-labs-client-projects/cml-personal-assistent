@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { ToolPolicySchema } from "./zod-schema.agent-runtime.js";
-import { ChannelHeartbeatVisibilitySchema } from "./zod-schema.channels.js";
+import { ToolPolicySchema } from "./zod-schema.agent-runtime.ts";
+import { ChannelHeartbeatVisibilitySchema } from "./zod-schema.channels.ts";
 import {
   BlockStreamingCoalesceSchema,
   DmConfigSchema,
   DmPolicySchema,
   GroupPolicySchema,
   MarkdownConfigSchema,
-} from "./zod-schema.core.js";
+} from "./zod-schema.core.ts";
 
 const ToolPolicyBySenderSchema = z.record(z.string(), ToolPolicySchema).optional();
 

@@ -1,8 +1,8 @@
-import { loadConfig } from "../config/config.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveBrowserConfig, resolveProfile } from "./config.js";
-import { ensureChromeExtensionRelayServer } from "./extension-relay.js";
-import { type BrowserServerState, createBrowserRouteContext } from "./server-context.js";
+import { loadConfig } from "../config/config.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveBrowserConfig, resolveProfile } from "./config.ts";
+import { ensureChromeExtensionRelayServer } from "./extension-relay.ts";
+import { type BrowserServerState, createBrowserRouteContext } from "./server-context.ts";
 
 let state: BrowserServerState | null = null;
 const log = createSubsystemLogger("browser");
@@ -80,7 +80,7 @@ export async function stopBrowserControlService(): Promise<void> {
 
   // Optional: Playwright is not always available (e.g. embedded gateway builds).
   try {
-    const mod = await import("./pw-ai.js");
+    const mod = await import("./pw-ai.ts");
     await mod.closePlaywrightBrowserConnection();
   } catch {
     // ignore

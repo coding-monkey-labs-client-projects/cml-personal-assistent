@@ -1,23 +1,23 @@
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { DmPolicy } from "../../../config/types.js";
-import type { WizardPrompter } from "../../../wizard/prompts.js";
-import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
-import { formatCliCommand } from "../../../cli/command-format.js";
-import { detectBinary } from "../../../commands/onboard-helpers.js";
-import { installSignalCli } from "../../../commands/signal-install.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { DmPolicy } from "../../../config/types.ts";
+import type { WizardPrompter } from "../../../wizard/prompts.ts";
+import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.ts";
+import { formatCliCommand } from "../../../cli/command-format.ts";
+import { detectBinary } from "../../../commands/onboard-helpers.ts";
+import { installSignalCli } from "../../../commands/signal-install.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.ts";
 import {
   listSignalAccountIds,
   resolveDefaultSignalAccountId,
   resolveSignalAccount,
-} from "../../../signal/accounts.js";
-import { formatDocsLink } from "../../../terminal/links.js";
-import { normalizeE164 } from "../../../utils.js";
-import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
+} from "../../../signal/accounts.ts";
+import { formatDocsLink } from "../../../terminal/links.ts";
+import { normalizeE164 } from "../../../utils.ts";
+import { addWildcardAllowFrom, promptAccountId } from "./helpers.ts";
 
 const channel = "signal" as const;
 
-function setSignalDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
+function setSignalDmPolicy(cfg: CmlHiveAssistConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.signal?.allowFrom) : undefined;
   return {
@@ -34,10 +34,10 @@ function setSignalDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
 }
 
 function setSignalAllowFrom(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   accountId: string,
   allowFrom: string[],
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -80,10 +80,10 @@ function isUuidLike(value: string): boolean {
 }
 
 async function promptSignalAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<CmlHiveAssistConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)
@@ -300,7 +300,7 @@ export const signalOnboardingAdapter: ChannelOnboardingAdapter = {
 
     await prompter.note(
       [
-        'Link device with: signal-cli link -n "OpenClaw"',
+        'Link device with: signal-cli link -n "CmlHiveAssist"',
         "Scan QR in Signal → Linked Devices",
         `Then run: ${formatCliCommand("openclaw gateway call channels.status --params '{\"probe\":true}'")}`,
         `Docs: ${formatDocsLink("/signal", "signal")}`,

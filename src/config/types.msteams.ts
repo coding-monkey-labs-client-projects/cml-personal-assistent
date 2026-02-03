@@ -3,10 +3,10 @@ import type {
   DmPolicy,
   GroupPolicy,
   MarkdownConfig,
-} from "./types.base.js";
-import type { ChannelHeartbeatVisibilityConfig } from "./types.channels.js";
-import type { DmConfig } from "./types.messages.js";
-import type { GroupToolPolicyBySenderConfig, GroupToolPolicyConfig } from "./types.tools.js";
+} from "./types.base.ts";
+import type { ChannelHeartbeatVisibilityConfig } from "./types.channels.ts";
+import type { DmConfig } from "./types.messages.ts";
+import type { GroupToolPolicyBySenderConfig, GroupToolPolicyConfig } from "./types.tools.ts";
 
 export type MSTeamsWebhookConfig = {
   /** Port for the webhook server. Default: 3978. */

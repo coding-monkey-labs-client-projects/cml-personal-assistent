@@ -1,4 +1,4 @@
-import { stripReasoningTagsFromText } from "../../../src/shared/text/reasoning-tags.js";
+import { stripReasoningTagsFromText } from "../../../src/shared/text/reasoning-tags.ts";
 
 export function formatMs(ms?: number | null): string {
   if (!ms && ms !== 0) {

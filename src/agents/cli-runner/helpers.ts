@@ -4,15 +4,15 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { ThinkLevel } from "../../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { CliBackendConfig } from "../../config/types.js";
-import type { EmbeddedContextFile } from "../pi-embedded-helpers.js";
-import { runExec } from "../../process/exec.js";
-import { buildTtsSystemPromptHint } from "../../tts/tts.js";
-import { resolveDefaultModelForAgent } from "../model-selection.js";
-import { buildSystemPromptParams } from "../system-prompt-params.js";
-import { buildAgentSystemPrompt } from "../system-prompt.js";
+import type { ThinkLevel } from "../../auto-reply/thinking.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { CliBackendConfig } from "../../config/types.ts";
+import type { EmbeddedContextFile } from "../pi-embedded-helpers.ts";
+import { runExec } from "../../process/exec.ts";
+import { buildTtsSystemPromptHint } from "../../tts/tts.ts";
+import { resolveDefaultModelForAgent } from "../model-selection.ts";
+import { buildSystemPromptParams } from "../system-prompt-params.ts";
+import { buildAgentSystemPrompt } from "../system-prompt.ts";
 
 const CLI_RUN_QUEUE = new Map<string, Promise<unknown>>();
 
@@ -101,7 +101,7 @@ function tokenToRegex(token: string): string {
 }
 
 /**
- * Cleanup suspended OpenClaw CLI processes that have accumulated.
+ * Cleanup suspended CmlHiveAssist CLI processes that have accumulated.
  * Only cleans up if there are more than the threshold (default: 10).
  */
 export async function cleanupSuspendedCliProcesses(
@@ -177,7 +177,7 @@ export type CliOutput = {
   usage?: CliUsage;
 };
 
-function buildModelAliasLines(cfg?: OpenClawConfig) {
+function buildModelAliasLines(cfg?: CmlHiveAssistConfig) {
   const models = cfg?.agents?.defaults?.models ?? {};
   const entries: Array<{ alias: string; model: string }> = [];
   for (const [keyRaw, entryRaw] of Object.entries(models)) {
@@ -198,7 +198,7 @@ function buildModelAliasLines(cfg?: OpenClawConfig) {
 
 export function buildSystemPrompt(params: {
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   defaultThinkLevel?: ThinkLevel;
   extraSystemPrompt?: string;
   ownerNumbers?: string[];
@@ -220,7 +220,7 @@ export function buildSystemPrompt(params: {
     workspaceDir: params.workspaceDir,
     cwd: process.cwd(),
     runtime: {
-      host: "openclaw",
+      host: "cml-hive-assist",
       os: `${os.type()} ${os.release()}`,
       arch: os.arch(),
       node: process.version,

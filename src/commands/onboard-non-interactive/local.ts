@@ -1,29 +1,29 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import type { OnboardOptions } from "../onboard-types.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { resolveGatewayPort, writeConfigFile } from "../../config/config.js";
-import { logConfigUpdated } from "../../config/logging.js";
-import { DEFAULT_GATEWAY_DAEMON_RUNTIME } from "../daemon-runtime.js";
-import { healthCommand } from "../health.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import type { OnboardOptions } from "../onboard-types.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { resolveGatewayPort, writeConfigFile } from "../../config/config.ts";
+import { logConfigUpdated } from "../../config/logging.ts";
+import { DEFAULT_GATEWAY_DAEMON_RUNTIME } from "../daemon-runtime.ts";
+import { healthCommand } from "../health.ts";
 import {
   applyWizardMetadata,
   DEFAULT_WORKSPACE,
   ensureWorkspaceAndSessions,
   resolveControlUiLinks,
   waitForGatewayReachable,
-} from "../onboard-helpers.js";
-import { applyNonInteractiveAuthChoice } from "./local/auth-choice.js";
-import { installGatewayDaemonNonInteractive } from "./local/daemon-install.js";
-import { applyNonInteractiveGatewayConfig } from "./local/gateway-config.js";
-import { logNonInteractiveOnboardingJson } from "./local/output.js";
-import { applyNonInteractiveSkillsConfig } from "./local/skills-config.js";
-import { resolveNonInteractiveWorkspaceDir } from "./local/workspace.js";
+} from "../onboard-helpers.ts";
+import { applyNonInteractiveAuthChoice } from "./local/auth-choice.ts";
+import { installGatewayDaemonNonInteractive } from "./local/daemon-install.ts";
+import { applyNonInteractiveGatewayConfig } from "./local/gateway-config.ts";
+import { logNonInteractiveOnboardingJson } from "./local/output.ts";
+import { applyNonInteractiveSkillsConfig } from "./local/skills-config.ts";
+import { resolveNonInteractiveWorkspaceDir } from "./local/workspace.ts";
 
 export async function runNonInteractiveOnboardingLocal(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
+  baseConfig: CmlHiveAssistConfig;
 }) {
   const { opts, runtime, baseConfig } = params;
   const mode = "local" as const;
@@ -34,7 +34,7 @@ export async function runNonInteractiveOnboardingLocal(params: {
     defaultWorkspaceDir: DEFAULT_WORKSPACE,
   });
 
-  let nextConfig: OpenClawConfig = {
+  let nextConfig: CmlHiveAssistConfig = {
     ...baseConfig,
     agents: {
       ...baseConfig.agents,
@@ -128,7 +128,7 @@ export async function runNonInteractiveOnboardingLocal(params: {
 
   if (!opts.json) {
     runtime.log(
-      `Tip: run \`${formatCliCommand("openclaw configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.openclaw.ai/tools/web`,
+      `Tip: run \`${formatCliCommand("openclaw configure --section web")}\` to store your Brave API key for web_search. Docs: https://docs.cml-hive-assist.ai/tools/web`,
     );
   }
 }

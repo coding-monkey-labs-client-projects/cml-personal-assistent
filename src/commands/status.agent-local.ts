@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
-import { loadConfig } from "../config/config.js";
-import { loadSessionStore, resolveStorePath } from "../config/sessions.js";
-import { listAgentsForGateway } from "../gateway/session-utils.js";
+import { resolveAgentWorkspaceDir } from "../agents/agent-scope.ts";
+import { loadConfig } from "../config/config.ts";
+import { loadSessionStore, resolveStorePath } from "../config/sessions.ts";
+import { listAgentsForGateway } from "../gateway/session-utils.ts";
 
 export type AgentLocalStatus = {
   id: string;

@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { AgentModelListConfig } from "../config/types.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { AgentModelListConfig } from "../config/types.ts";
 
 export const GOOGLE_GEMINI_DEFAULT_MODEL = "google/gemini-3-pro-preview";
 
@@ -13,8 +13,8 @@ function resolvePrimaryModel(model?: AgentModelListConfig | string): string | un
   return undefined;
 }
 
-export function applyGoogleGeminiModelDefault(cfg: OpenClawConfig): {
-  next: OpenClawConfig;
+export function applyGoogleGeminiModelDefault(cfg: CmlHiveAssistConfig): {
+  next: CmlHiveAssistConfig;
   changed: boolean;
 } {
   const current = resolvePrimaryModel(cfg.agents?.defaults?.model)?.trim();

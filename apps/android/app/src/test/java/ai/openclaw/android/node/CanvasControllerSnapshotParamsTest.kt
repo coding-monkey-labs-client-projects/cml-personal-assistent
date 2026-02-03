@@ -1,4 +1,4 @@
-package ai.openclaw.android.node
+package ai.cml-hive-assist.android.node
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull

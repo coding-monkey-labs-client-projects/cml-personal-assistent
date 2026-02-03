@@ -1,13 +1,13 @@
-import type { NodeDaemonRuntime } from "./node-daemon-runtime.js";
-import { formatNodeServiceDescription } from "../daemon/constants.js";
-import { resolveNodeProgramArguments } from "../daemon/program-args.js";
+import type { NodeDaemonRuntime } from "./node-daemon-runtime.ts";
+import { formatNodeServiceDescription } from "../daemon/constants.ts";
+import { resolveNodeProgramArguments } from "../daemon/program-args.ts";
 import {
   renderSystemNodeWarning,
   resolvePreferredNodePath,
   resolveSystemNodeInfo,
-} from "../daemon/runtime-paths.js";
-import { buildNodeServiceEnvironment } from "../daemon/service-env.js";
-import { resolveGatewayDevMode } from "./daemon-install-helpers.js";
+} from "../daemon/runtime-paths.ts";
+import { buildNodeServiceEnvironment } from "../daemon/service-env.ts";
+import { resolveGatewayDevMode } from "./daemon-install-helpers.ts";
 
 type WarnFn = (message: string, title?: string) => void;
 
@@ -60,7 +60,7 @@ export async function buildNodeInstallPlan(params: {
 
   const environment = buildNodeServiceEnvironment({ env: params.env });
   const description = formatNodeServiceDescription({
-    version: environment.OPENCLAW_SERVICE_VERSION,
+    version: environment.CML_HIVE_ASSIST_SERVICE_VERSION,
   });
 
   return { programArguments, workingDirectory, environment, description };

@@ -3,7 +3,7 @@ import {
   SANDBOX_BROWSER_REGISTRY_PATH,
   SANDBOX_REGISTRY_PATH,
   SANDBOX_STATE_DIR,
-} from "./constants.js";
+} from "./constants.ts";
 
 export type SandboxRegistryEntry = {
   containerName: string;

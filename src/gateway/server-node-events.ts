@@ -1,15 +1,15 @@
 import { randomUUID } from "node:crypto";
-import type { NodeEvent, NodeEventContext } from "./server-node-events-types.js";
-import { normalizeChannelId } from "../channels/plugins/index.js";
-import { agentCommand } from "../commands/agent.js";
-import { loadConfig } from "../config/config.js";
-import { updateSessionStore } from "../config/sessions.js";
-import { requestHeartbeatNow } from "../infra/heartbeat-wake.js";
-import { enqueueSystemEvent } from "../infra/system-events.js";
-import { normalizeMainKey } from "../routing/session-key.js";
-import { defaultRuntime } from "../runtime.js";
-import { loadSessionEntry } from "./session-utils.js";
-import { formatForLog } from "./ws-log.js";
+import type { NodeEvent, NodeEventContext } from "./server-node-events-types.ts";
+import { normalizeChannelId } from "../channels/plugins/index.ts";
+import { agentCommand } from "../commands/agent.ts";
+import { loadConfig } from "../config/config.ts";
+import { updateSessionStore } from "../config/sessions.ts";
+import { requestHeartbeatNow } from "../infra/heartbeat-wake.ts";
+import { enqueueSystemEvent } from "../infra/system-events.ts";
+import { normalizeMainKey } from "../routing/session-key.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { loadSessionEntry } from "./session-utils.ts";
+import { formatForLog } from "./ws-log.ts";
 
 export const handleNodeEvent = async (ctx: NodeEventContext, nodeId: string, evt: NodeEvent) => {
   switch (evt.event) {

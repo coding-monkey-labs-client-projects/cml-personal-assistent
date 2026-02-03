@@ -1,34 +1,34 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { DmPolicy } from "../../../config/types.js";
-import type { RuntimeEnv } from "../../../runtime.js";
-import type { WizardPrompter } from "../../../wizard/prompts.js";
-import type { ChannelOnboardingAdapter } from "../onboarding-types.js";
-import { loginWeb } from "../../../channel-web.js";
-import { formatCliCommand } from "../../../cli/command-format.js";
-import { mergeWhatsAppConfig } from "../../../config/merge-config.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.js";
-import { formatDocsLink } from "../../../terminal/links.js";
-import { normalizeE164 } from "../../../utils.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { DmPolicy } from "../../../config/types.ts";
+import type { RuntimeEnv } from "../../../runtime.ts";
+import type { WizardPrompter } from "../../../wizard/prompts.ts";
+import type { ChannelOnboardingAdapter } from "../onboarding-types.ts";
+import { loginWeb } from "../../../channel-web.ts";
+import { formatCliCommand } from "../../../cli/command-format.ts";
+import { mergeWhatsAppConfig } from "../../../config/merge-config.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.ts";
+import { formatDocsLink } from "../../../terminal/links.ts";
+import { normalizeE164 } from "../../../utils.ts";
 import {
   listWhatsAppAccountIds,
   resolveDefaultWhatsAppAccountId,
   resolveWhatsAppAuthDir,
-} from "../../../web/accounts.js";
-import { promptAccountId } from "./helpers.js";
+} from "../../../web/accounts.ts";
+import { promptAccountId } from "./helpers.ts";
 
 const channel = "whatsapp" as const;
 
-function setWhatsAppDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy): OpenClawConfig {
+function setWhatsAppDmPolicy(cfg: CmlHiveAssistConfig, dmPolicy: DmPolicy): CmlHiveAssistConfig {
   return mergeWhatsAppConfig(cfg, { dmPolicy });
 }
 
-function setWhatsAppAllowFrom(cfg: OpenClawConfig, allowFrom?: string[]): OpenClawConfig {
+function setWhatsAppAllowFrom(cfg: CmlHiveAssistConfig, allowFrom?: string[]): CmlHiveAssistConfig {
   return mergeWhatsAppConfig(cfg, { allowFrom }, { unsetOnUndefined: ["allowFrom"] });
 }
 
-function setWhatsAppSelfChatMode(cfg: OpenClawConfig, selfChatMode: boolean): OpenClawConfig {
+function setWhatsAppSelfChatMode(cfg: CmlHiveAssistConfig, selfChatMode: boolean): CmlHiveAssistConfig {
   return mergeWhatsAppConfig(cfg, { selfChatMode });
 }
 
@@ -41,25 +41,25 @@ async function pathExists(filePath: string): Promise<boolean> {
   }
 }
 
-async function detectWhatsAppLinked(cfg: OpenClawConfig, accountId: string): Promise<boolean> {
+async function detectWhatsAppLinked(cfg: CmlHiveAssistConfig, accountId: string): Promise<boolean> {
   const { authDir } = resolveWhatsAppAuthDir({ cfg, accountId });
   const credsPath = path.join(authDir, "creds.json");
   return await pathExists(credsPath);
 }
 
 async function promptWhatsAppAllowFrom(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   _runtime: RuntimeEnv,
   prompter: WizardPrompter,
   options?: { forceAllowlist?: boolean },
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   const existingPolicy = cfg.channels?.whatsapp?.dmPolicy ?? "pairing";
   const existingAllowFrom = cfg.channels?.whatsapp?.allowFrom ?? [];
   const existingLabel = existingAllowFrom.length > 0 ? existingAllowFrom.join(", ") : "unset";
 
   if (options?.forceAllowlist) {
     await prompter.note(
-      "We need the sender/owner number so OpenClaw can allowlist you.",
+      "We need the sender/owner number so CmlHiveAssist can allowlist you.",
       "WhatsApp number",
     );
     const entry = await prompter.text({
@@ -115,13 +115,13 @@ async function promptWhatsAppAllowFrom(
     message: "WhatsApp phone setup",
     options: [
       { value: "personal", label: "This is my personal phone number" },
-      { value: "separate", label: "Separate phone just for OpenClaw" },
+      { value: "separate", label: "Separate phone just for CmlHiveAssist" },
     ],
   });
 
   if (phoneMode === "personal") {
     await prompter.note(
-      "We need the sender/owner number so OpenClaw can allowlist you.",
+      "We need the sender/owner number so CmlHiveAssist can allowlist you.",
       "WhatsApp number",
     );
     const entry = await prompter.text({

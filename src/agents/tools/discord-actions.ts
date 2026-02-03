@@ -1,9 +1,9 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { OpenClawConfig } from "../../config/config.js";
-import { createActionGate, readStringParam } from "./common.js";
-import { handleDiscordGuildAction } from "./discord-actions-guild.js";
-import { handleDiscordMessagingAction } from "./discord-actions-messaging.js";
-import { handleDiscordModerationAction } from "./discord-actions-moderation.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { createActionGate, readStringParam } from "./common.ts";
+import { handleDiscordGuildAction } from "./discord-actions-guild.ts";
+import { handleDiscordMessagingAction } from "./discord-actions-messaging.ts";
+import { handleDiscordModerationAction } from "./discord-actions-moderation.ts";
 
 const messagingActions = new Set([
   "react",
@@ -53,7 +53,7 @@ const moderationActions = new Set(["timeout", "kick", "ban"]);
 
 export async function handleDiscordAction(
   params: Record<string, unknown>,
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
 ): Promise<AgentToolResult<unknown>> {
   const action = readStringParam(params, "action", { required: true });
   const isActionEnabled = createActionGate(cfg.channels?.discord?.actions);

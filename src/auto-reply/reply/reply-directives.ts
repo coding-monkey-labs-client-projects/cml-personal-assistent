@@ -1,6 +1,6 @@
-import { splitMediaFromOutput } from "../../media/parse.js";
-import { parseInlineDirectives } from "../../utils/directive-tags.js";
-import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.js";
+import { splitMediaFromOutput } from "../../media/parse.ts";
+import { parseInlineDirectives } from "../../utils/directive-tags.ts";
+import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.ts";
 
 export type ReplyDirectiveParseResult = {
   text: string;

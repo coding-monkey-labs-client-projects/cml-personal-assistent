@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import CmlHiveAssistProtocol
 import Observation
 import SwiftUI
 
@@ -231,15 +231,15 @@ private struct SkillRow: View {
 
     private var sourceLabel: String {
         switch self.skill.source {
-        case "openclaw-bundled":
+        case "cml-hive-assist-bundled":
             "Bundled"
-        case "openclaw-managed":
+        case "cml-hive-assist-managed":
             "Managed"
-        case "openclaw-workspace":
+        case "cml-hive-assist-workspace":
             "Workspace"
-        case "openclaw-extra":
+        case "cml-hive-assist-extra":
             "Extra"
-        case "openclaw-plugin":
+        case "cml-hive-assist-plugin":
             "Plugin"
         default:
             self.skill.source
@@ -580,7 +580,7 @@ extension SkillsSettings {
         let skill = SkillStatus(
             name: "Test Skill",
             description: "Test description",
-            source: "openclaw-bundled",
+            source: "cml-hive-assist-bundled",
             filePath: "/tmp/skills/test",
             baseDir: "/tmp/skills",
             skillKey: "test",

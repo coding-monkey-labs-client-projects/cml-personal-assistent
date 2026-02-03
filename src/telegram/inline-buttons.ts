@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { TelegramInlineButtonsScope } from "../config/types.telegram.js";
-import { listTelegramAccountIds, resolveTelegramAccount } from "./accounts.js";
-import { parseTelegramTarget } from "./targets.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { TelegramInlineButtonsScope } from "../config/types.telegram.ts";
+import { listTelegramAccountIds, resolveTelegramAccount } from "./accounts.ts";
+import { parseTelegramTarget } from "./targets.ts";
 
 const DEFAULT_INLINE_BUTTONS_SCOPE: TelegramInlineButtonsScope = "allowlist";
 
@@ -42,7 +42,7 @@ function resolveInlineButtonsScopeFromCapabilities(
 }
 
 export function resolveTelegramInlineButtonsScope(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
 }): TelegramInlineButtonsScope {
   const account = resolveTelegramAccount({ cfg: params.cfg, accountId: params.accountId });
@@ -50,7 +50,7 @@ export function resolveTelegramInlineButtonsScope(params: {
 }
 
 export function isTelegramInlineButtonsEnabled(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
 }): boolean {
   if (params.accountId) {

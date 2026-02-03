@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import CmlHiveAssistProtocol
 import Foundation
 
 struct SkillsStatusReport: Codable {

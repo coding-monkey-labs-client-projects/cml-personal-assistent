@@ -1,20 +1,20 @@
-import type { ReplyPayload } from "../auto-reply/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { SignalReactionNotificationMode } from "../config/types.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { chunkTextWithMode, resolveChunkMode, resolveTextChunkLimit } from "../auto-reply/chunk.js";
-import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "../auto-reply/reply/history.js";
-import { loadConfig } from "../config/config.js";
-import { waitForTransportReady } from "../infra/transport-ready.js";
-import { saveMediaBuffer } from "../media/store.js";
-import { normalizeE164 } from "../utils.js";
-import { resolveSignalAccount } from "./accounts.js";
-import { signalCheck, signalRpcRequest } from "./client.js";
-import { spawnSignalDaemon } from "./daemon.js";
-import { isSignalSenderAllowed, type resolveSignalSender } from "./identity.js";
-import { createSignalEventHandler } from "./monitor/event-handler.js";
-import { sendMessageSignal } from "./send.js";
-import { runSignalSseLoop } from "./sse-reconnect.js";
+import type { ReplyPayload } from "../auto-reply/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { SignalReactionNotificationMode } from "../config/types.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { chunkTextWithMode, resolveChunkMode, resolveTextChunkLimit } from "../auto-reply/chunk.ts";
+import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "../auto-reply/reply/history.ts";
+import { loadConfig } from "../config/config.ts";
+import { waitForTransportReady } from "../infra/transport-ready.ts";
+import { saveMediaBuffer } from "../media/store.ts";
+import { normalizeE164 } from "../utils.ts";
+import { resolveSignalAccount } from "./accounts.ts";
+import { signalCheck, signalRpcRequest } from "./client.ts";
+import { spawnSignalDaemon } from "./daemon.ts";
+import { isSignalSenderAllowed, type resolveSignalSender } from "./identity.ts";
+import { createSignalEventHandler } from "./monitor/event-handler.ts";
+import { sendMessageSignal } from "./send.ts";
+import { runSignalSseLoop } from "./sse-reconnect.ts";
 
 type SignalReactionMessage = {
   emoji?: string | null;
@@ -40,7 +40,7 @@ export type MonitorSignalOpts = {
   abortSignal?: AbortSignal;
   account?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   baseUrl?: string;
   autoStart?: boolean;
   startupTimeoutMs?: number;

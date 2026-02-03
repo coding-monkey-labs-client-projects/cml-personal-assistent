@@ -1,14 +1,14 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AnyAgentTool } from "./common.js";
-import { resolveAgentDir } from "../../agents/agent-scope.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AnyAgentTool } from "./common.ts";
+import { resolveAgentDir } from "../agent-scope.ts";
 import {
   ensureAuthProfileStore,
   resolveAuthProfileDisplayLabel,
   resolveAuthProfileOrder,
-} from "../../agents/auth-profiles.js";
-import { getCustomProviderApiKey, resolveEnvApiKey } from "../../agents/model-auth.js";
-import { loadModelCatalog } from "../../agents/model-catalog.js";
+} from "../auth-profiles.ts";
+import { getCustomProviderApiKey, resolveEnvApiKey } from "../model-auth.ts";
+import { loadModelCatalog } from "../model-catalog.ts";
 import {
   buildAllowedModelSet,
   buildModelAliasIndex,
@@ -16,37 +16,37 @@ import {
   normalizeProviderId,
   resolveDefaultModelForAgent,
   resolveModelRefFromString,
-} from "../../agents/model-selection.js";
-import { normalizeGroupActivation } from "../../auto-reply/group-activation.js";
-import { getFollowupQueueDepth, resolveQueueSettings } from "../../auto-reply/reply/queue.js";
-import { buildStatusMessage } from "../../auto-reply/status.js";
-import { loadConfig } from "../../config/config.js";
+} from "../model-selection.ts";
+import { normalizeGroupActivation } from "../../auto-reply/group-activation.ts";
+import { getFollowupQueueDepth, resolveQueueSettings } from "../../auto-reply/reply/queue.ts";
+import { buildStatusMessage } from "../../auto-reply/status.ts";
+import { loadConfig } from "../../config/config.ts";
 import {
   loadSessionStore,
   resolveStorePath,
   type SessionEntry,
   updateSessionStore,
-} from "../../config/sessions.js";
-import { loadCombinedSessionStoreForGateway } from "../../gateway/session-utils.js";
+} from "../../config/sessions.ts";
+import { loadCombinedSessionStoreForGateway } from "../../gateway/session-utils.ts";
 import {
   formatUsageWindowSummary,
   loadProviderUsageSummary,
   resolveUsageProviderId,
-} from "../../infra/provider-usage.js";
+} from "../../infra/provider-usage.ts";
 import {
   buildAgentMainSessionKey,
   DEFAULT_AGENT_ID,
   resolveAgentIdFromSessionKey,
-} from "../../routing/session-key.js";
-import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.js";
-import { formatUserTime, resolveUserTimeFormat, resolveUserTimezone } from "../date-time.js";
-import { readStringParam } from "./common.js";
+} from "../../routing/session-key.ts";
+import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.ts";
+import { formatUserTime, resolveUserTimeFormat, resolveUserTimezone } from "../date-time.ts";
+import { readStringParam } from "./common.ts";
 import {
   shouldResolveSessionIdInput,
   resolveInternalSessionKey,
   resolveMainSessionAlias,
   createAgentToAgentPolicy,
-} from "./sessions-helpers.js";
+} from "./sessions-helpers.ts";
 
 const SessionStatusToolSchema = Type.Object({
   sessionKey: Type.Optional(Type.String()),
@@ -66,7 +66,7 @@ function formatApiKeySnippet(apiKey: string): string {
 
 function resolveModelAuthLabel(params: {
   provider?: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   sessionEntry?: SessionEntry;
   agentDir?: string;
 }): string | undefined {
@@ -164,7 +164,7 @@ function resolveSessionEntry(params: {
 }
 
 function resolveSessionKeyFromSessionId(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   sessionId: string;
   agentId?: string;
 }): string | null {
@@ -186,7 +186,7 @@ function resolveSessionKeyFromSessionId(params: {
 }
 
 async function resolveModelOverride(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   raw: string;
   sessionEntry?: SessionEntry;
   agentId: string;
@@ -250,7 +250,7 @@ async function resolveModelOverride(params: {
 
 export function createSessionStatusTool(opts?: {
   agentSessionKey?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
 }): AnyAgentTool {
   return {
     label: "Session Status",

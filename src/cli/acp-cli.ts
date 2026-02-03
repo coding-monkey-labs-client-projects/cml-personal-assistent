@@ -1,9 +1,9 @@
 import type { Command } from "commander";
-import { runAcpClientInteractive } from "../acp/client.js";
-import { serveAcpGateway } from "../acp/server.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
+import { runAcpClientInteractive } from "../acp/client.ts";
+import { serveAcpGateway } from "../acp/server.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
 
 export function registerAcpCli(program: Command) {
   const acp = program.command("acp").description("Run an ACP bridge backed by the Gateway");
@@ -20,7 +20,7 @@ export function registerAcpCli(program: Command) {
     .option("--verbose, -v", "Verbose logging to stderr", false)
     .addHelpText(
       "after",
-      () => `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/acp", "docs.openclaw.ai/cli/acp")}\n`,
+      () => `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/acp", "docs.cml-hive-assist.ai/cli/acp")}\n`,
     )
     .action((opts) => {
       try {

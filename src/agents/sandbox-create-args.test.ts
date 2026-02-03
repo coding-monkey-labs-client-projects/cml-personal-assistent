@@ -33,7 +33,7 @@ describe("buildSandboxCreateArgs", () => {
       cfg,
       scopeKey: "main",
       createdAtMs: 1700000000000,
-      labels: { "openclaw.sandboxBrowser": "1" },
+      labels: { "cml-hive-assist.sandboxBrowser": "1" },
     });
 
     expect(args).toEqual(
@@ -42,13 +42,13 @@ describe("buildSandboxCreateArgs", () => {
         "--name",
         "openclaw-sbx-test",
         "--label",
-        "openclaw.sandbox=1",
+        "cml-hive-assist.sandbox=1",
         "--label",
-        "openclaw.sessionKey=main",
+        "cml-hive-assist.sessionKey=main",
         "--label",
-        "openclaw.createdAtMs=1700000000000",
+        "cml-hive-assist.createdAtMs=1700000000000",
         "--label",
-        "openclaw.sandboxBrowser=1",
+        "cml-hive-assist.sandboxBrowser=1",
         "--read-only",
         "--tmpfs",
         "/tmp",

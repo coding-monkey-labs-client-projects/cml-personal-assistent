@@ -1,5 +1,5 @@
-import { replaceCliName, resolveCliName } from "./cli-name.js";
-import { normalizeProfileName } from "./profile-utils.js";
+import { replaceCliName, resolveCliName } from "./cli-name.ts";
+import { normalizeProfileName } from "./profile-utils.ts";
 
 const CLI_PREFIX_RE = /^(?:pnpm|npm|bunx|npx)\s+openclaw\b|^openclaw\b/;
 const PROFILE_FLAG_RE = /(?:^|\s)--profile(?:\s|=|$)/;
@@ -11,7 +11,7 @@ export function formatCliCommand(
 ): string {
   const cliName = resolveCliName();
   const normalizedCommand = replaceCliName(command, cliName);
-  const profile = normalizeProfileName(env.OPENCLAW_PROFILE);
+  const profile = normalizeProfileName(env.CML_HIVE_ASSIST_PROFILE);
   if (!profile) {
     return normalizedCommand;
   }

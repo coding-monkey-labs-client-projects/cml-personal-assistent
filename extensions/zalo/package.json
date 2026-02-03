@@ -1,16 +1,16 @@
 {
-  "name": "@openclaw/zalo",
+  "name": "@cml-hive-assist/zalo",
   "version": "2026.2.1",
-  "description": "OpenClaw Zalo channel plugin",
+  "description": "CmlHiveAssist Zalo channel plugin",
   "type": "module",
   "dependencies": {
-    "openclaw": "workspace:*",
+    "cml-hive-assist": "workspace:*",
     "undici": "7.20.0"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/zalo",
+      "npmSpec": "@cml-hive-assist/zalo",
       "localPath": "extensions/zalo",
       "defaultChoice": "npm"
     }

@@ -1,16 +1,16 @@
 import type { ImageContent } from "@mariozechner/pi-ai";
-import type { ThinkLevel } from "../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { EmbeddedPiRunResult } from "./pi-embedded-runner.js";
-import { resolveHeartbeatPrompt } from "../auto-reply/heartbeat.js";
-import { shouldLogVerbose } from "../globals.js";
-import { isTruthyEnvValue } from "../infra/env.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { runCommandWithTimeout } from "../process/exec.js";
-import { resolveUserPath } from "../utils.js";
-import { resolveSessionAgentIds } from "./agent-scope.js";
-import { makeBootstrapWarn, resolveBootstrapContextForRun } from "./bootstrap-files.js";
-import { resolveCliBackendConfig } from "./cli-backends.js";
+import type { ThinkLevel } from "../auto-reply/thinking.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { EmbeddedPiRunResult } from "./pi-embedded-runner.ts";
+import { resolveHeartbeatPrompt } from "../auto-reply/heartbeat.ts";
+import { shouldLogVerbose } from "../globals.ts";
+import { isTruthyEnvValue } from "../infra/env.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { runCommandWithTimeout } from "../process/exec.ts";
+import { resolveUserPath } from "../utils.ts";
+import { resolveSessionAgentIds } from "./agent-scope.ts";
+import { makeBootstrapWarn, resolveBootstrapContextForRun } from "./bootstrap-files.ts";
+import { resolveCliBackendConfig } from "./cli-backends.ts";
 import {
   appendImagePathsToPrompt,
   buildCliArgs,
@@ -25,10 +25,10 @@ import {
   resolveSessionIdToSend,
   resolveSystemPromptUsage,
   writeCliImages,
-} from "./cli-runner/helpers.js";
-import { resolveOpenClawDocsPath } from "./docs-path.js";
-import { FailoverError, resolveFailoverStatus } from "./failover-error.js";
-import { classifyFailoverReason, isFailoverErrorMessage } from "./pi-embedded-helpers.js";
+} from "./cli-runner/helpers.ts";
+import { resolveCmlHiveAssistDocsPath } from "./docs-path.ts";
+import { FailoverError, resolveFailoverStatus } from "./failover-error.ts";
+import { classifyFailoverReason, isFailoverErrorMessage } from "./pi-embedded-helpers.ts";
 
 const log = createSubsystemLogger("agent/claude-cli");
 
@@ -37,7 +37,7 @@ export async function runCliAgent(params: {
   sessionKey?: string;
   sessionFile: string;
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   prompt: string;
   provider: string;
   model?: string;
@@ -45,7 +45,7 @@ export async function runCliAgent(params: {
   timeoutMs: number;
   runId: string;
   extraSystemPrompt?: string;
-  streamParams?: import("../commands/agent/types.js").AgentStreamParams;
+  streamParams?: import("../commands/agent/types.ts").AgentStreamParams;
   ownerNumbers?: string[];
   cliSessionId?: string;
   images?: ImageContent[];
@@ -86,7 +86,7 @@ export async function runCliAgent(params: {
     sessionAgentId === defaultAgentId
       ? resolveHeartbeatPrompt(params.config?.agents?.defaults?.heartbeat?.prompt)
       : undefined;
-  const docsPath = await resolveOpenClawDocsPath({
+  const docsPath = await resolveCmlHiveAssistDocsPath({
     workspaceDir,
     argv1: process.argv[1],
     cwd: process.cwd(),
@@ -167,7 +167,7 @@ export async function runCliAgent(params: {
       log.info(
         `cli exec: provider=${params.provider} model=${normalizedModel} promptChars=${params.prompt.length}`,
       );
-      const logOutputText = isTruthyEnvValue(process.env.OPENCLAW_CLAUDE_CLI_LOG_OUTPUT);
+      const logOutputText = isTruthyEnvValue(process.env.CML_HIVE_ASSIST_CLAUDE_CLI_LOG_OUTPUT);
       if (logOutputText) {
         const logArgs: string[] = [];
         for (let i = 0; i < args.length; i += 1) {
@@ -313,7 +313,7 @@ export async function runClaudeCliAgent(params: {
   sessionKey?: string;
   sessionFile: string;
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   prompt: string;
   provider?: string;
   model?: string;

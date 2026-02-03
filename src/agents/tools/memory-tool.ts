@@ -1,14 +1,14 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { MemoryCitationsMode } from "../../config/types.memory.js";
-import type { MemorySearchResult } from "../../memory/types.js";
-import type { AnyAgentTool } from "./common.js";
-import { resolveMemoryBackendConfig } from "../../memory/backend-config.js";
-import { getMemorySearchManager } from "../../memory/index.js";
-import { parseAgentSessionKey } from "../../routing/session-key.js";
-import { resolveSessionAgentId } from "../agent-scope.js";
-import { resolveMemorySearchConfig } from "../memory-search.js";
-import { jsonResult, readNumberParam, readStringParam } from "./common.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { MemoryCitationsMode } from "../../config/types.memory.ts";
+import type { MemorySearchResult } from "../../memory/types.ts";
+import type { AnyAgentTool } from "./common.ts";
+import { resolveMemoryBackendConfig } from "../../memory/backend-config.ts";
+import { getMemorySearchManager } from "../../memory/index.ts";
+import { parseAgentSessionKey } from "../../routing/session-key.ts";
+import { resolveSessionAgentId } from "../agent-scope.ts";
+import { resolveMemorySearchConfig } from "../memory-search.ts";
+import { jsonResult, readNumberParam, readStringParam } from "./common.ts";
 
 const MemorySearchSchema = Type.Object({
   query: Type.String(),
@@ -23,7 +23,7 @@ const MemoryGetSchema = Type.Object({
 });
 
 export function createMemorySearchTool(options: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   agentSessionKey?: string;
 }): AnyAgentTool | null {
   const cfg = options.config;
@@ -88,7 +88,7 @@ export function createMemorySearchTool(options: {
 }
 
 export function createMemoryGetTool(options: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   agentSessionKey?: string;
 }): AnyAgentTool | null {
   const cfg = options.config;
@@ -134,7 +134,7 @@ export function createMemoryGetTool(options: {
   };
 }
 
-function resolveMemoryCitationsMode(cfg: OpenClawConfig): MemoryCitationsMode {
+function resolveMemoryCitationsMode(cfg: CmlHiveAssistConfig): MemoryCitationsMode {
   const mode = cfg.memory?.citations;
   if (mode === "on" || mode === "off" || mode === "auto") {
     return mode;

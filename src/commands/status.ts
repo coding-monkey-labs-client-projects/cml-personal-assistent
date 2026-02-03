@@ -1,3 +1,3 @@
-export { statusCommand } from "./status.command.js";
-export { getStatusSummary } from "./status.summary.js";
-export type { SessionStatus, StatusSummary } from "./status.types.js";
+export { statusCommand } from "./status.command.ts";
+export { getStatusSummary } from "./status.summary.ts";
+export type { SessionStatus, StatusSummary } from "./status.types.ts";

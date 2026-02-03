@@ -7,9 +7,9 @@ import type {
   Response,
 } from "playwright-core";
 import { chromium } from "playwright-core";
-import { formatErrorMessage } from "../infra/errors.js";
-import { getHeadersWithAuth } from "./cdp.helpers.js";
-import { getChromeWebSocketUrl } from "./chrome.js";
+import { formatErrorMessage } from "../infra/errors.ts";
+import { getHeadersWithAuth } from "./cdp.helpers.ts";
+import { getChromeWebSocketUrl } from "./chrome.ts";
 
 export type BrowserConsoleMessage = {
   type: string;

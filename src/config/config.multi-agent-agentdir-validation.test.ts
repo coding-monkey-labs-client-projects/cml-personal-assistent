@@ -29,7 +29,7 @@ describe("multi-agent agentDir validation", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             agents: {

@@ -1,18 +1,18 @@
 {
-  "name": "@openclaw/googlechat",
+  "name": "@cml-hive-assist/googlechat",
   "version": "2026.2.1",
-  "description": "OpenClaw Google Chat channel plugin",
+  "description": "CmlHiveAssist Google Chat channel plugin",
   "type": "module",
   "dependencies": {
     "google-auth-library": "^10.5.0"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.1.26"
+    "cml-hive-assist": ">=2026.1.26"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ],
@@ -31,7 +31,7 @@
       "order": 55
     },
     "install": {
-      "npmSpec": "@openclaw/googlechat",
+      "npmSpec": "@cml-hive-assist/googlechat",
       "localPath": "extensions/googlechat",
       "defaultChoice": "npm"
     }

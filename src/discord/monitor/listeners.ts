@@ -6,24 +6,24 @@ import {
   MessageReactionRemoveListener,
   PresenceUpdateListener,
 } from "@buape/carbon";
-import { danger } from "../../globals.js";
-import { formatDurationSeconds } from "../../infra/format-duration.js";
-import { enqueueSystemEvent } from "../../infra/system-events.js";
-import { createSubsystemLogger } from "../../logging/subsystem.js";
-import { resolveAgentRoute } from "../../routing/resolve-route.js";
+import { danger } from "../../globals.ts";
+import { formatDurationSeconds } from "../../infra/format-duration.ts";
+import { enqueueSystemEvent } from "../../infra/system-events.ts";
+import { createSubsystemLogger } from "../../logging/subsystem.ts";
+import { resolveAgentRoute } from "../../routing/resolve-route.ts";
 import {
   normalizeDiscordSlug,
   resolveDiscordChannelConfigWithFallback,
   resolveDiscordGuildEntry,
   shouldEmitDiscordReactionNotification,
-} from "./allow-list.js";
-import { formatDiscordReactionEmoji, formatDiscordUserTag } from "./format.js";
-import { resolveDiscordChannelInfo } from "./message-utils.js";
-import { setPresence } from "./presence-cache.js";
+} from "./allow-list.ts";
+import { formatDiscordReactionEmoji, formatDiscordUserTag } from "./format.ts";
+import { resolveDiscordChannelInfo } from "./message-utils.ts";
+import { setPresence } from "./presence-cache.ts";
 
-type LoadedConfig = ReturnType<typeof import("../../config/config.js").loadConfig>;
-type RuntimeEnv = import("../../runtime.js").RuntimeEnv;
-type Logger = ReturnType<typeof import("../../logging/subsystem.js").createSubsystemLogger>;
+type LoadedConfig = ReturnType<typeof import("../../config/config.ts").loadConfig>;
+type RuntimeEnv = import("../../runtime.ts").RuntimeEnv;
+type Logger = ReturnType<typeof import("../../logging/subsystem.ts").createSubsystemLogger>;
 
 export type DiscordMessageEvent = Parameters<MessageCreateListener["handle"]>[0];
 
@@ -100,7 +100,7 @@ export class DiscordReactionListener extends MessageReactionAddListener {
       accountId: string;
       runtime: RuntimeEnv;
       botUserId?: string;
-      guildEntries?: Record<string, import("./allow-list.js").DiscordGuildEntryResolved>;
+      guildEntries?: Record<string, import("./allow-list.ts").DiscordGuildEntryResolved>;
       logger: Logger;
     },
   ) {
@@ -138,7 +138,7 @@ export class DiscordReactionRemoveListener extends MessageReactionRemoveListener
       accountId: string;
       runtime: RuntimeEnv;
       botUserId?: string;
-      guildEntries?: Record<string, import("./allow-list.js").DiscordGuildEntryResolved>;
+      guildEntries?: Record<string, import("./allow-list.ts").DiscordGuildEntryResolved>;
       logger: Logger;
     },
   ) {
@@ -176,7 +176,7 @@ async function handleDiscordReactionEvent(params: {
   cfg: LoadedConfig;
   accountId: string;
   botUserId?: string;
-  guildEntries?: Record<string, import("./allow-list.js").DiscordGuildEntryResolved>;
+  guildEntries?: Record<string, import("./allow-list.ts").DiscordGuildEntryResolved>;
   logger: Logger;
 }) {
   try {

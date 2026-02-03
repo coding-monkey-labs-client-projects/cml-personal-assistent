@@ -1,13 +1,13 @@
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { RuntimeEnv } from "../../../runtime.js";
-import type { AuthChoice, OnboardOptions } from "../../onboard-types.js";
-import { upsertAuthProfile } from "../../../agents/auth-profiles.js";
-import { normalizeProviderId } from "../../../agents/model-selection.js";
-import { parseDurationMs } from "../../../cli/parse-duration.js";
-import { upsertSharedEnvVar } from "../../../infra/env-file.js";
-import { shortenHomePath } from "../../../utils.js";
-import { buildTokenProfileId, validateAnthropicSetupToken } from "../../auth-token.js";
-import { applyGoogleGeminiModelDefault } from "../../google-gemini-model-default.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { RuntimeEnv } from "../../../runtime.ts";
+import type { AuthChoice, OnboardOptions } from "../../onboard-types.ts";
+import { upsertAuthProfile } from "../../../agents/auth-profiles.ts";
+import { normalizeProviderId } from "../../../agents/model-selection.ts";
+import { parseDurationMs } from "../../../cli/parse-duration.ts";
+import { upsertSharedEnvVar } from "../../../infra/env-file.ts";
+import { shortenHomePath } from "../../../utils.ts";
+import { buildTokenProfileId, validateAnthropicSetupToken } from "../../auth-token.ts";
+import { applyGoogleGeminiModelDefault } from "../../google-gemini-model-default.ts";
 import {
   applyAuthProfileConfig,
   applyKimiCodeConfig,
@@ -33,16 +33,16 @@ import {
   setVercelAiGatewayApiKey,
   setXiaomiApiKey,
   setZaiApiKey,
-} from "../../onboard-auth.js";
-import { resolveNonInteractiveApiKey } from "../api-keys.js";
+} from "../../onboard-auth.ts";
+import { resolveNonInteractiveApiKey } from "../api-keys.ts";
 
 export async function applyNonInteractiveAuthChoice(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: CmlHiveAssistConfig;
   authChoice: AuthChoice;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: OpenClawConfig;
-}): Promise<OpenClawConfig | null> {
+  baseConfig: CmlHiveAssistConfig;
+}): Promise<CmlHiveAssistConfig | null> {
   const { authChoice, opts, runtime, baseConfig } = params;
   let nextConfig = params.nextConfig;
 

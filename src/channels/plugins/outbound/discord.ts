@@ -1,5 +1,5 @@
-import type { ChannelOutboundAdapter } from "../types.js";
-import { sendMessageDiscord, sendPollDiscord } from "../../../discord/send.js";
+import type { ChannelOutboundAdapter } from "../types.ts";
+import { sendMessageDiscord, sendPollDiscord } from "../../../discord/send.ts";
 
 export const discordOutbound: ChannelOutboundAdapter = {
   deliveryMode: "direct",

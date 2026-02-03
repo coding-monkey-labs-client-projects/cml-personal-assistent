@@ -1,20 +1,20 @@
-import type { BrowserFormField } from "../client-actions-core.js";
-import type { BrowserRouteContext } from "../server-context.js";
-import type { BrowserRouteRegistrar } from "./types.js";
+import type { BrowserFormField } from "../client-actions-core.ts";
+import type { BrowserRouteContext } from "../server-context.ts";
+import type { BrowserRouteRegistrar } from "./types.ts";
 import {
   type ActKind,
   isActKind,
   parseClickButton,
   parseClickModifiers,
-} from "./agent.act.shared.js";
+} from "./agent.act.shared.ts";
 import {
   handleRouteError,
   readBody,
   requirePwAi,
   resolveProfileContext,
   SELECTOR_UNSUPPORTED_MESSAGE,
-} from "./agent.shared.js";
-import { jsonError, toBoolean, toNumber, toStringArray, toStringOrEmpty } from "./utils.js";
+} from "./agent.shared.ts";
+import { jsonError, toBoolean, toNumber, toStringArray, toStringOrEmpty } from "./utils.ts";
 
 export function registerBrowserAgentActRoutes(
   app: BrowserRouteRegistrar,

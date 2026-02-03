@@ -1,27 +1,27 @@
-import type { GatewayBindMode, GatewayControlUiConfig } from "../../config/types.js";
-import type { FindExtraGatewayServicesOptions } from "../../daemon/inspect.js";
-import type { ServiceConfigAudit } from "../../daemon/service-audit.js";
-import type { GatewayRpcOpts } from "./types.js";
+import type { GatewayBindMode, GatewayControlUiConfig } from "../../config/types.ts";
+import type { FindExtraGatewayServicesOptions } from "../../daemon/inspect.ts";
+import type { ServiceConfigAudit } from "../../daemon/service-audit.ts";
+import type { GatewayRpcOpts } from "./types.ts";
 import {
   createConfigIO,
   resolveConfigPath,
   resolveGatewayPort,
   resolveStateDir,
-} from "../../config/config.js";
-import { readLastGatewayErrorLine } from "../../daemon/diagnostics.js";
-import { findExtraGatewayServices } from "../../daemon/inspect.js";
-import { auditGatewayServiceConfig } from "../../daemon/service-audit.js";
-import { resolveGatewayService } from "../../daemon/service.js";
-import { resolveGatewayBindHost } from "../../gateway/net.js";
+} from "../../config/config.ts";
+import { readLastGatewayErrorLine } from "../../daemon/diagnostics.ts";
+import { findExtraGatewayServices } from "../../daemon/inspect.ts";
+import { auditGatewayServiceConfig } from "../../daemon/service-audit.ts";
+import { resolveGatewayService } from "../../daemon/service.ts";
+import { resolveGatewayBindHost } from "../../gateway/net.ts";
 import {
   formatPortDiagnostics,
   inspectPortUsage,
   type PortListener,
   type PortUsageStatus,
-} from "../../infra/ports.js";
-import { pickPrimaryTailnetIPv4 } from "../../infra/tailnet.js";
-import { probeGatewayStatus } from "./probe.js";
-import { normalizeListenerAddress, parsePortFromArgs, pickProbeHostForBind } from "./shared.js";
+} from "../../infra/ports.ts";
+import { pickPrimaryTailnetIPv4 } from "../../infra/tailnet.ts";
+import { probeGatewayStatus } from "./probe.ts";
+import { normalizeListenerAddress, parsePortFromArgs, pickProbeHostForBind } from "./shared.ts";
 
 type ConfigSummary = {
   path: string;
@@ -225,11 +225,11 @@ export async function gatherDaemonStatus(
         url: probeUrl,
         token:
           opts.rpc.token ||
-          mergedDaemonEnv.OPENCLAW_GATEWAY_TOKEN ||
+          mergedDaemonEnv.CML_HIVE_ASSIST_GATEWAY_TOKEN ||
           daemonCfg.gateway?.auth?.token,
         password:
           opts.rpc.password ||
-          mergedDaemonEnv.OPENCLAW_GATEWAY_PASSWORD ||
+          mergedDaemonEnv.CML_HIVE_ASSIST_GATEWAY_PASSWORD ||
           daemonCfg.gateway?.auth?.password,
         timeoutMs,
         json: opts.rpc.json,

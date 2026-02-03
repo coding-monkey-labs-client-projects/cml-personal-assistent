@@ -1,9 +1,9 @@
-export { applyMediaUnderstanding } from "./apply.js";
-export { formatMediaUnderstandingBody } from "./format.js";
-export { resolveMediaUnderstandingScope } from "./scope.js";
+export { applyMediaUnderstanding } from "./apply.ts";
+export { formatMediaUnderstandingBody } from "./format.ts";
+export { resolveMediaUnderstandingScope } from "./scope.ts";
 export type {
   MediaAttachment,
   MediaUnderstandingOutput,
   MediaUnderstandingProvider,
   MediaUnderstandingKind,
-} from "./types.js";
+} from "./types.ts";

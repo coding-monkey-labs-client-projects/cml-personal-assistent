@@ -45,7 +45,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "openclaw", version: "1.0.0" }),
+      JSON.stringify({ name: "cml-hive-assist", version: "1.0.0" }),
       "utf-8",
     );
     const { runner, calls } = createRunner({
@@ -70,7 +70,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "openclaw", version: "1.0.0" }),
+      JSON.stringify({ name: "cml-hive-assist", version: "1.0.0" }),
       "utf-8",
     );
     const { runner, calls } = createRunner({
@@ -103,7 +103,7 @@ describe("runGatewayUpdate", () => {
     await fs.mkdir(path.join(tempDir, ".git"));
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "openclaw", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
+      JSON.stringify({ name: "cml-hive-assist", version: "1.0.0", packageManager: "pnpm@8.0.0" }),
       "utf-8",
     );
     const stableTag = "v1.0.1-1";
@@ -139,7 +139,7 @@ describe("runGatewayUpdate", () => {
   it("skips update when no git root", async () => {
     await fs.writeFile(
       path.join(tempDir, "package.json"),
-      JSON.stringify({ name: "openclaw", packageManager: "pnpm@8.0.0" }),
+      JSON.stringify({ name: "cml-hive-assist", packageManager: "pnpm@8.0.0" }),
       "utf-8",
     );
     await fs.writeFile(path.join(tempDir, "pnpm-lock.yaml"), "", "utf-8");
@@ -163,11 +163,11 @@ describe("runGatewayUpdate", () => {
 
   it("updates global npm installs when detected", async () => {
     const nodeModules = path.join(tempDir, "node_modules");
-    const pkgRoot = path.join(nodeModules, "openclaw");
+    const pkgRoot = path.join(nodeModules, "cml-hive-assist");
     await fs.mkdir(pkgRoot, { recursive: true });
     await fs.writeFile(
       path.join(pkgRoot, "package.json"),
-      JSON.stringify({ name: "openclaw", version: "1.0.0" }),
+      JSON.stringify({ name: "cml-hive-assist", version: "1.0.0" }),
       "utf-8",
     );
 
@@ -184,7 +184,7 @@ describe("runGatewayUpdate", () => {
       if (key === "npm i -g openclaw@latest") {
         await fs.writeFile(
           path.join(pkgRoot, "package.json"),
-          JSON.stringify({ name: "openclaw", version: "2.0.0" }),
+          JSON.stringify({ name: "cml-hive-assist", version: "2.0.0" }),
           "utf-8",
         );
         return { stdout: "ok", stderr: "", code: 0 };
@@ -210,13 +210,13 @@ describe("runGatewayUpdate", () => {
 
   it("cleans stale npm rename dirs before global update", async () => {
     const nodeModules = path.join(tempDir, "node_modules");
-    const pkgRoot = path.join(nodeModules, "openclaw");
+    const pkgRoot = path.join(nodeModules, "cml-hive-assist");
     const staleDir = path.join(nodeModules, ".openclaw-stale");
     await fs.mkdir(staleDir, { recursive: true });
     await fs.mkdir(pkgRoot, { recursive: true });
     await fs.writeFile(
       path.join(pkgRoot, "package.json"),
-      JSON.stringify({ name: "openclaw", version: "1.0.0" }),
+      JSON.stringify({ name: "cml-hive-assist", version: "1.0.0" }),
       "utf-8",
     );
 
@@ -252,11 +252,11 @@ describe("runGatewayUpdate", () => {
 
   it("updates global npm installs with tag override", async () => {
     const nodeModules = path.join(tempDir, "node_modules");
-    const pkgRoot = path.join(nodeModules, "openclaw");
+    const pkgRoot = path.join(nodeModules, "cml-hive-assist");
     await fs.mkdir(pkgRoot, { recursive: true });
     await fs.writeFile(
       path.join(pkgRoot, "package.json"),
-      JSON.stringify({ name: "openclaw", version: "1.0.0" }),
+      JSON.stringify({ name: "cml-hive-assist", version: "1.0.0" }),
       "utf-8",
     );
 
@@ -273,7 +273,7 @@ describe("runGatewayUpdate", () => {
       if (key === "npm i -g openclaw@beta") {
         await fs.writeFile(
           path.join(pkgRoot, "package.json"),
-          JSON.stringify({ name: "openclaw", version: "2.0.0" }),
+          JSON.stringify({ name: "cml-hive-assist", version: "2.0.0" }),
           "utf-8",
         );
         return { stdout: "ok", stderr: "", code: 0 };
@@ -305,11 +305,11 @@ describe("runGatewayUpdate", () => {
 
     try {
       const bunGlobalRoot = path.join(bunInstall, "install", "global", "node_modules");
-      const pkgRoot = path.join(bunGlobalRoot, "openclaw");
+      const pkgRoot = path.join(bunGlobalRoot, "cml-hive-assist");
       await fs.mkdir(pkgRoot, { recursive: true });
       await fs.writeFile(
         path.join(pkgRoot, "package.json"),
-        JSON.stringify({ name: "openclaw", version: "1.0.0" }),
+        JSON.stringify({ name: "cml-hive-assist", version: "1.0.0" }),
         "utf-8",
       );
 
@@ -329,7 +329,7 @@ describe("runGatewayUpdate", () => {
         if (key === "bun add -g openclaw@latest") {
           await fs.writeFile(
             path.join(pkgRoot, "package.json"),
-            JSON.stringify({ name: "openclaw", version: "2.0.0" }),
+            JSON.stringify({ name: "cml-hive-assist", version: "2.0.0" }),
             "utf-8",
           );
           return { stdout: "ok", stderr: "", code: 0 };

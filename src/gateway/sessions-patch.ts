@@ -1,10 +1,10 @@
 import { randomUUID } from "node:crypto";
-import type { ModelCatalogEntry } from "../agents/model-catalog.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { SessionEntry } from "../config/sessions.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { resolveAllowedModelRef, resolveConfiguredModelRef } from "../agents/model-selection.js";
-import { normalizeGroupActivation } from "../auto-reply/group-activation.js";
+import type { ModelCatalogEntry } from "../agents/model-catalog.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { SessionEntry } from "../config/sessions.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { resolveAllowedModelRef, resolveConfiguredModelRef } from "../agents/model-selection.ts";
+import { normalizeGroupActivation } from "../auto-reply/group-activation.ts";
 import {
   formatThinkingLevels,
   formatXHighModelHint,
@@ -13,18 +13,18 @@ import {
   normalizeThinkLevel,
   normalizeUsageDisplay,
   supportsXHighThinking,
-} from "../auto-reply/thinking.js";
-import { isSubagentSessionKey } from "../routing/session-key.js";
-import { applyVerboseOverride, parseVerboseOverride } from "../sessions/level-overrides.js";
-import { applyModelOverrideToSessionEntry } from "../sessions/model-overrides.js";
-import { normalizeSendPolicy } from "../sessions/send-policy.js";
-import { parseSessionLabel } from "../sessions/session-label.js";
+} from "../auto-reply/thinking.ts";
+import { isSubagentSessionKey } from "../routing/session-key.ts";
+import { applyVerboseOverride, parseVerboseOverride } from "../sessions/level-overrides.ts";
+import { applyModelOverrideToSessionEntry } from "../sessions/model-overrides.ts";
+import { normalizeSendPolicy } from "../sessions/send-policy.ts";
+import { parseSessionLabel } from "../sessions/session-label.ts";
 import {
   ErrorCodes,
   type ErrorShape,
   errorShape,
   type SessionsPatchParams,
-} from "./protocol/index.js";
+} from "./protocol/index.ts";
 
 function invalid(message: string): { ok: false; error: ErrorShape } {
   return { ok: false, error: errorShape(ErrorCodes.INVALID_REQUEST, message) };
@@ -55,7 +55,7 @@ function normalizeExecAsk(raw: string): "off" | "on-miss" | "always" | undefined
 }
 
 export async function applySessionsPatchToStore(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   store: Record<string, SessionEntry>;
   storeKey: string;
   patch: SessionsPatchParams;

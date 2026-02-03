@@ -1,12 +1,12 @@
 import { Type } from "@sinclair/typebox";
-import { loadConfig } from "../../config/config.js";
-import { normalizeCronJobCreate, normalizeCronJobPatch } from "../../cron/normalize.js";
-import { truncateUtf16Safe } from "../../utils.js";
-import { resolveSessionAgentId } from "../agent-scope.js";
-import { optionalStringEnum, stringEnum } from "../schema/typebox.js";
-import { type AnyAgentTool, jsonResult, readStringParam } from "./common.js";
-import { callGatewayTool, type GatewayCallOptions } from "./gateway.js";
-import { resolveInternalSessionKey, resolveMainSessionAlias } from "./sessions-helpers.js";
+import { loadConfig } from "../../config/config.ts";
+import { normalizeCronJobCreate, normalizeCronJobPatch } from "../../cron/normalize.ts";
+import { truncateUtf16Safe } from "../../utils.ts";
+import { resolveSessionAgentId } from "../agent-scope.ts";
+import { optionalStringEnum, stringEnum } from "../schema/typebox.ts";
+import { type AnyAgentTool, jsonResult, readStringParam } from "./common.ts";
+import { callGatewayTool, type GatewayCallOptions } from "./gateway.ts";
+import { resolveInternalSessionKey, resolveMainSessionAlias } from "./sessions-helpers.ts";
 
 // NOTE: We use Type.Object({}, { additionalProperties: true }) for job/patch
 // instead of CronAddParamsSchema/CronJobPatchSchema because the gateway schemas

@@ -1,5 +1,5 @@
-import { redactToolDetail } from "../logging/redact.js";
-import { shortenHomeInString } from "../utils.js";
+import { redactToolDetail } from "../logging/redact.ts";
+import { shortenHomeInString } from "../utils.ts";
 import TOOL_DISPLAY_JSON from "./tool-display.json" with { type: "json" };
 
 type ToolDisplayActionSpec = {

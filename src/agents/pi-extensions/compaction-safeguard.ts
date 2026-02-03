@@ -10,8 +10,8 @@ import {
   pruneHistoryForContextShare,
   resolveContextWindowTokens,
   summarizeInStages,
-} from "../compaction.js";
-import { getCompactionSafeguardRuntime } from "./compaction-safeguard-runtime.js";
+} from "../compaction.ts";
+import { getCompactionSafeguardRuntime } from "./compaction-safeguard-runtime.ts";
 const FALLBACK_SUMMARY =
   "Summary unavailable due to context limits. Older messages were truncated.";
 const TURN_PREFIX_INSTRUCTIONS =

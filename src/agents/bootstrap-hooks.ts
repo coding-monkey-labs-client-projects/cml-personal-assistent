@@ -1,13 +1,13 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { AgentBootstrapHookContext } from "../hooks/internal-hooks.js";
-import type { WorkspaceBootstrapFile } from "./workspace.js";
-import { createInternalHookEvent, triggerInternalHook } from "../hooks/internal-hooks.js";
-import { resolveAgentIdFromSessionKey } from "../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { AgentBootstrapHookContext } from "../hooks/internal-hooks.ts";
+import type { WorkspaceBootstrapFile } from "./workspace.ts";
+import { createInternalHookEvent, triggerInternalHook } from "../hooks/internal-hooks.ts";
+import { resolveAgentIdFromSessionKey } from "../routing/session-key.ts";
 
 export async function applyBootstrapHookOverrides(params: {
   files: WorkspaceBootstrapFile[];
   workspaceDir: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   sessionKey?: string;
   sessionId?: string;
   agentId?: string;

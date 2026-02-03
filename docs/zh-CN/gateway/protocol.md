@@ -16,7 +16,7 @@ x-i18n:
 
 # Gateway网关协议 (WebSocket)
 
-Gateway网关 WebSocket 协议是 OpenClaw 的**统一控制平面 + 节点传输层**。所有客户端（CLI、Web UI、macOS 应用、iOS/Android 节点、无头节点）均通过 WebSocket 连接，并在握手时声明其**角色** + **作用域**。
+Gateway网关 WebSocket 协议是 CmlHiveAssist 的**统一控制平面 + 节点传输层**。所有客户端（CLI、Web UI、macOS 应用、iOS/Android 节点、无头节点）均通过 WebSocket 连接，并在握手时声明其**角色** + **作用域**。
 
 ## 传输
 
@@ -58,7 +58,7 @@ Gateway网关 → 客户端（连接前挑战）：
     "permissions": {},
     "auth": { "token": "…" },
     "locale": "en-US",
-    "userAgent": "openclaw-cli/1.2.3",
+    "userAgent": "cml-hive-assist-cli/1.2.3",
     "device": {
       "id": "device_fingerprint",
       "publicKey": "…",
@@ -116,7 +116,7 @@ Gateway网关 → 客户端：
     "permissions": { "camera.capture": true, "screen.record": false },
     "auth": { "token": "…" },
     "locale": "en-US",
-    "userAgent": "openclaw-ios/1.2.3",
+    "userAgent": "cml-hive-assist-ios/1.2.3",
     "device": {
       "id": "device_fingerprint",
       "publicKey": "…",

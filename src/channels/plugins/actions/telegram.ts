@@ -1,14 +1,14 @@
-import type { ChannelMessageActionAdapter, ChannelMessageActionName } from "../types.js";
+import type { ChannelMessageActionAdapter, ChannelMessageActionName } from "../types.ts";
 import {
   createActionGate,
   readNumberParam,
   readStringArrayParam,
   readStringOrNumberParam,
   readStringParam,
-} from "../../../agents/tools/common.js";
-import { handleTelegramAction } from "../../../agents/tools/telegram-actions.js";
-import { listEnabledTelegramAccounts } from "../../../telegram/accounts.js";
-import { isTelegramInlineButtonsEnabled } from "../../../telegram/inline-buttons.js";
+} from "../../../agents/tools/common.ts";
+import { handleTelegramAction } from "../../../agents/tools/telegram-actions.ts";
+import { listEnabledTelegramAccounts } from "../../../telegram/accounts.ts";
+import { isTelegramInlineButtonsEnabled } from "../../../telegram/inline-buttons.ts";
 
 const providerId = "telegram";
 

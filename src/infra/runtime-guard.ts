@@ -1,5 +1,5 @@
 import process from "node:process";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
 
 export type RuntimeKind = "node" | "unknown";
 
@@ -92,7 +92,7 @@ export function assertSupportedRuntime(
       `Detected: ${runtimeLabel} (exec: ${execLabel}).`,
       `PATH searched: ${details.pathEnv}`,
       "Install Node: https://nodejs.org/en/download",
-      "Upgrade Node and re-run openclaw.",
+      "Upgrade Node and re-run cml-hive-assist.",
     ].join("\n"),
   );
   runtime.exit(1);

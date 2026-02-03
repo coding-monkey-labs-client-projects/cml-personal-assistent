@@ -1,13 +1,13 @@
-import type { RuntimeEnv } from "../runtime.js";
-import { readConfigFileSnapshot, resolveGatewayPort } from "../config/config.js";
-import { copyToClipboard } from "../infra/clipboard.js";
-import { defaultRuntime } from "../runtime.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { readConfigFileSnapshot, resolveGatewayPort } from "../config/config.ts";
+import { copyToClipboard } from "../infra/clipboard.ts";
+import { defaultRuntime } from "../runtime.ts";
 import {
   detectBrowserOpenSupport,
   formatControlUiSshHint,
   openUrl,
   resolveControlUiLinks,
-} from "./onboard-helpers.js";
+} from "./onboard-helpers.ts";
 
 type DashboardOptions = {
   noOpen?: boolean;
@@ -23,7 +23,7 @@ export async function dashboardCommand(
   const bind = cfg.gateway?.bind ?? "loopback";
   const basePath = cfg.gateway?.controlUi?.basePath;
   const customBindHost = cfg.gateway?.customBindHost;
-  const token = cfg.gateway?.auth?.token ?? process.env.OPENCLAW_GATEWAY_TOKEN ?? "";
+  const token = cfg.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN ?? "";
 
   const links = resolveControlUiLinks({
     port,
@@ -57,7 +57,7 @@ export async function dashboardCommand(
   }
 
   if (opened) {
-    runtime.log("Opened in your browser. Keep that tab to control OpenClaw.");
+    runtime.log("Opened in your browser. Keep that tab to control CmlHiveAssist.");
   } else if (hint) {
     runtime.log(hint);
   }

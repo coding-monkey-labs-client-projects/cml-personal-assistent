@@ -1,4 +1,4 @@
-package ai.openclaw.android.node
+package ai.cml-hive-assist.android.node
 
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive

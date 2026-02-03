@@ -1,7 +1,7 @@
-import type { BrowserRouteContext } from "../server-context.js";
-import type { BrowserRouteRegistrar } from "./types.js";
-import { handleRouteError, readBody, requirePwAi, resolveProfileContext } from "./agent.shared.js";
-import { jsonError, toBoolean, toNumber, toStringOrEmpty } from "./utils.js";
+import type { BrowserRouteContext } from "../server-context.ts";
+import type { BrowserRouteRegistrar } from "./types.ts";
+import { handleRouteError, readBody, requirePwAi, resolveProfileContext } from "./agent.shared.ts";
+import { jsonError, toBoolean, toNumber, toStringOrEmpty } from "./utils.ts";
 
 export function registerBrowserAgentStorageRoutes(
   app: BrowserRouteRegistrar,

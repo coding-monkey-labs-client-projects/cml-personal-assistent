@@ -1,19 +1,19 @@
-import type { ChannelId } from "../../channels/plugins/types.js";
-import type { ChannelChoice } from "../onboard-types.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.js";
-import { listChannelPluginCatalogEntries } from "../../channels/plugins/catalog.js";
-import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.js";
-import { writeConfigFile, type OpenClawConfig } from "../../config/config.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
-import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
-import { createClackPrompter } from "../../wizard/clack-prompter.js";
-import { setupChannels } from "../onboard-channels.js";
+import type { ChannelId } from "../../channels/plugins/types.ts";
+import type { ChannelChoice } from "../onboard-types.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.ts";
+import { listChannelPluginCatalogEntries } from "../../channels/plugins/catalog.ts";
+import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.ts";
+import { writeConfigFile, type CmlHiveAssistConfig } from "../../config/config.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.ts";
+import { defaultRuntime, type RuntimeEnv } from "../../runtime.ts";
+import { createClackPrompter } from "../../wizard/clack-prompter.ts";
+import { setupChannels } from "../onboard-channels.ts";
 import {
   ensureOnboardingPluginInstalled,
   reloadOnboardingPluginRegistry,
-} from "../onboarding/plugin-install.js";
-import { applyAccountName, applyChannelAccountConfig } from "./add-mutators.js";
-import { channelLabel, requireValidConfig, shouldUseWizard } from "./shared.js";
+} from "../onboarding/plugin-install.ts";
+import { applyAccountName, applyChannelAccountConfig } from "./add-mutators.ts";
+import { channelLabel, requireValidConfig, shouldUseWizard } from "./shared.ts";
 
 export type ChannelsAddOptions = {
   channel?: string;
@@ -62,7 +62,7 @@ function parseList(value: string | undefined): string[] | undefined {
   return parsed.length > 0 ? parsed : undefined;
 }
 
-function resolveCatalogChannelEntry(raw: string, cfg: OpenClawConfig | null) {
+function resolveCatalogChannelEntry(raw: string, cfg: CmlHiveAssistConfig | null) {
   const trimmed = raw.trim().toLowerCase();
   if (!trimmed) {
     return undefined;

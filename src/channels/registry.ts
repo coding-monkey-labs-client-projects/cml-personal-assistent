@@ -1,6 +1,6 @@
-import type { ChannelMeta } from "./plugins/types.js";
-import type { ChannelId } from "./plugins/types.js";
-import { requireActivePluginRegistry } from "../plugins/runtime.js";
+import type { ChannelMeta } from "./plugins/types.ts";
+import type { ChannelId } from "./plugins/types.ts";
+import { requireActivePluginRegistry } from "../plugins/runtime.ts";
 
 // Channel docking: add new core channels here (order + meta + aliases), then
 // register the plugin in its extension entrypoint and keep protocol IDs in sync.
@@ -22,7 +22,7 @@ export const DEFAULT_CHAT_CHANNEL: ChatChannelId = "whatsapp";
 
 export type ChatChannelMeta = ChannelMeta;
 
-const WEBSITE_URL = "https://openclaw.ai";
+const WEBSITE_URL = "https://cml-hive-assist.ai";
 
 const CHAT_CHANNEL_META: Record<ChatChannelId, ChannelMeta> = {
   telegram: {

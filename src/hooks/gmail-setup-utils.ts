@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
-import { hasBinary } from "../agents/skills.js";
-import { runCommandWithTimeout, type SpawnResult } from "../process/exec.js";
-import { resolveUserPath } from "../utils.js";
-import { normalizeServePath } from "./gmail.js";
+import { hasBinary } from "../agents/skills.ts";
+import { runCommandWithTimeout, type SpawnResult } from "../process/exec.ts";
+import { resolveUserPath } from "../utils.ts";
+import { normalizeServePath } from "./gmail.ts";
 
 let cachedPythonPath: string | null | undefined;
 const MAX_OUTPUT_CHARS = 800;

@@ -1,22 +1,22 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { FinalizedMsgContext } from "../templating.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
-import type { ReplyDispatcher, ReplyDispatchKind } from "./reply-dispatcher.js";
-import { resolveSessionAgentId } from "../../agents/agent-scope.js";
-import { loadSessionStore, resolveStorePath } from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
-import { isDiagnosticsEnabled } from "../../infra/diagnostic-events.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { FinalizedMsgContext } from "../templating.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
+import type { ReplyDispatcher, ReplyDispatchKind } from "./reply-dispatcher.ts";
+import { resolveSessionAgentId } from "../../agents/agent-scope.ts";
+import { loadSessionStore, resolveStorePath } from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
+import { isDiagnosticsEnabled } from "../../infra/diagnostic-events.ts";
 import {
   logMessageProcessed,
   logMessageQueued,
   logSessionStateChange,
-} from "../../logging/diagnostic.js";
-import { getGlobalHookRunner } from "../../plugins/hook-runner-global.js";
-import { maybeApplyTtsToPayload, normalizeTtsAutoMode, resolveTtsConfig } from "../../tts/tts.js";
-import { getReplyFromConfig } from "../reply.js";
-import { formatAbortReplyText, tryFastAbortFromMessage } from "./abort.js";
-import { shouldSkipDuplicateInbound } from "./inbound-dedupe.js";
-import { isRoutableChannel, routeReply } from "./route-reply.js";
+} from "../../logging/diagnostic.ts";
+import { getGlobalHookRunner } from "../../plugins/hook-runner-global.ts";
+import { maybeApplyTtsToPayload, normalizeTtsAutoMode, resolveTtsConfig } from "../../tts/tts.ts";
+import { getReplyFromConfig } from "../reply.ts";
+import { formatAbortReplyText, tryFastAbortFromMessage } from "./abort.ts";
+import { shouldSkipDuplicateInbound } from "./inbound-dedupe.ts";
+import { isRoutableChannel, routeReply } from "./route-reply.ts";
 
 const AUDIO_PLACEHOLDER_RE = /^<media:audio>(\s*\([^)]*\))?$/i;
 const AUDIO_HEADER_RE = /^\[Audio\b/i;
@@ -55,7 +55,7 @@ const isInboundAudioContext = (ctx: FinalizedMsgContext): boolean => {
 
 const resolveSessionTtsAuto = (
   ctx: FinalizedMsgContext,
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
 ): string | undefined => {
   const targetSessionKey =
     ctx.CommandSource === "native" ? ctx.CommandTargetSessionKey?.trim() : undefined;
@@ -81,7 +81,7 @@ export type DispatchFromConfigResult = {
 
 export async function dispatchReplyFromConfig(params: {
   ctx: FinalizedMsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   dispatcher: ReplyDispatcher;
   replyOptions?: Omit<GetReplyOptions, "onToolResult" | "onBlockReply">;
   replyResolver?: typeof getReplyFromConfig;

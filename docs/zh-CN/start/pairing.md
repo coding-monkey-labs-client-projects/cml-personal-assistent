@@ -2,7 +2,7 @@
 read_when:
   - 设置私信访问控制时
   - 配对新的 iOS/Android 节点时
-  - 审查 OpenClaw 安全态势时
+  - 审查 CmlHiveAssist 安全态势时
 summary: 配对概览：审批谁可以私信你 + 哪些节点可以加入
 title: 配对
 x-i18n:
@@ -16,7 +16,7 @@ x-i18n:
 
 # 配对
 
-"配对"是 OpenClaw 的显式**所有者审批**步骤。
+"配对"是 CmlHiveAssist 的显式**所有者审批**步骤。
 它用于两个场景：
 
 1. **私信配对**（谁被允许与机器人对话）
@@ -39,15 +39,15 @@ x-i18n:
 ### 批准发送者
 
 ```bash
-openclaw pairing list telegram
-openclaw pairing approve telegram <CODE>
+cml-hive-assist pairing list telegram
+cml-hive-assist pairing approve telegram <CODE>
 ```
 
 支持的渠道：`telegram`、`whatsapp`、`signal`、`imessage`、`discord`、`slack`。
 
 ### 状态存储位置
 
-存储在 `~/.openclaw/credentials/` 下：
+存储在 `~/.cml-hive-assist/credentials/` 下：
 
 - 待处理请求：`<channel>-pairing.json`
 - 已批准的允许列表存储：`<channel>-allowFrom.json`
@@ -61,21 +61,21 @@ openclaw pairing approve telegram <CODE>
 ### 批准节点设备
 
 ```bash
-openclaw devices list
-openclaw devices approve <requestId>
-openclaw devices reject <requestId>
+cml-hive-assist devices list
+cml-hive-assist devices approve <requestId>
+cml-hive-assist devices reject <requestId>
 ```
 
 ### 状态存储位置
 
-存储在 `~/.openclaw/devices/` 下：
+存储在 `~/.cml-hive-assist/devices/` 下：
 
 - `pending.json`（短期有效；待处理请求会过期）
 - `paired.json`（已配对设备 + 令牌）
 
 ### 注意事项
 
-- 旧版 `node.pair.*` API（CLI：`openclaw nodes pending/approve`）是一个独立的 Gateway网关所拥有的配对存储。WebSocket 节点仍然需要设备配对。
+- 旧版 `node.pair.*` API（CLI：`cml-hive-assist nodes pending/approve`）是一个独立的 Gateway网关所拥有的配对存储。WebSocket 节点仍然需要设备配对。
 
 ## 相关文档
 

@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { GatewayBonjourBeacon } from "../infra/bonjour-discovery.js";
-import type { WizardPrompter } from "../wizard/prompts.js";
-import { discoverGatewayBeacons } from "../infra/bonjour-discovery.js";
-import { resolveWideAreaDiscoveryDomain } from "../infra/widearea-dns.js";
-import { detectBinary } from "./onboard-helpers.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { GatewayBonjourBeacon } from "../infra/bonjour-discovery.ts";
+import type { WizardPrompter } from "../wizard/prompts.ts";
+import { discoverGatewayBeacons } from "../infra/bonjour-discovery.ts";
+import { resolveWideAreaDiscoveryDomain } from "../infra/widearea-dns.ts";
+import { detectBinary } from "./onboard-helpers.ts";
 
 const DEFAULT_GATEWAY_URL = "ws://127.0.0.1:18789";
 
@@ -28,9 +28,9 @@ function ensureWsUrl(value: string): string {
 }
 
 export async function promptRemoteGatewayConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   prompter: WizardPrompter,
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   let selectedBeacon: GatewayBonjourBeacon | null = null;
   let suggestedUrl = cfg.gateway?.remote?.url ?? DEFAULT_GATEWAY_URL;
 
@@ -46,7 +46,7 @@ export async function promptRemoteGatewayConfig(
     await prompter.note(
       [
         "Bonjour discovery requires dns-sd (macOS) or avahi-browse (Linux).",
-        "Docs: https://docs.openclaw.ai/gateway/discovery",
+        "Docs: https://docs.cml-hive-assist.ai/gateway/discovery",
       ].join("\n"),
       "Discovery",
     );
@@ -102,7 +102,7 @@ export async function promptRemoteGatewayConfig(
             `ssh -N -L 18789:127.0.0.1:18789 <user>@${host}${
               selectedBeacon.sshPort ? ` -p ${selectedBeacon.sshPort}` : ""
             }`,
-            "Docs: https://docs.openclaw.ai/gateway/remote",
+            "Docs: https://docs.cml-hive-assist.ai/gateway/remote",
           ].join("\n"),
           "SSH tunnel",
         );

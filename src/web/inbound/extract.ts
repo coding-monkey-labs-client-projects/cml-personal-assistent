@@ -4,10 +4,10 @@ import {
   getContentType,
   normalizeMessageContent,
 } from "@whiskeysockets/baileys";
-import { formatLocationText, type NormalizedLocation } from "../../channels/location.js";
-import { logVerbose } from "../../globals.js";
-import { jidToE164 } from "../../utils.js";
-import { parseVcard } from "../vcard.js";
+import { formatLocationText, type NormalizedLocation } from "../../channels/location.ts";
+import { logVerbose } from "../../globals.ts";
+import { jidToE164 } from "../../utils.ts";
+import { parseVcard } from "../vcard.ts";
 
 function unwrapMessage(message: proto.IMessage | undefined): proto.IMessage | undefined {
   const normalized = normalizeMessageContent(message);

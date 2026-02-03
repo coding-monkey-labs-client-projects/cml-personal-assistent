@@ -111,7 +111,7 @@ describe("discord tool result dispatch", () => {
       {
         message: {
           id: "m2",
-          content: "openclaw: hello",
+          content: "cml-hive-assist: hello",
           channelId: "c1",
           timestamp: new Date().toISOString(),
           type: MessageType.Default,
@@ -191,7 +191,7 @@ describe("discord tool result dispatch", () => {
       {
         message: {
           id: "m2",
-          content: "openclaw: hello",
+          content: "cml-hive-assist: hello",
           channelId: "c1",
           timestamp: new Date().toISOString(),
           type: MessageType.Default,
@@ -288,7 +288,7 @@ describe("discord tool result dispatch", () => {
             mentionedEveryone: false,
             mentionedUsers: [],
             mentionedRoles: [],
-            author: { id: "bot-id", bot: true, username: "OpenClaw" },
+            author: { id: "bot-id", bot: true, username: "CmlHiveAssist" },
           },
         },
         author: { id: "u1", bot: false, username: "Ada" },

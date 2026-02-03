@@ -1,9 +1,9 @@
-import type { ChannelOutboundAdapter } from "../types.js";
-import { chunkText } from "../../../auto-reply/chunk.js";
-import { shouldLogVerbose } from "../../../globals.js";
-import { missingTargetError } from "../../../infra/outbound/target-errors.js";
-import { sendPollWhatsApp } from "../../../web/outbound.js";
-import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../../whatsapp/normalize.js";
+import type { ChannelOutboundAdapter } from "../types.ts";
+import { chunkText } from "../../../auto-reply/chunk.ts";
+import { shouldLogVerbose } from "../../../globals.ts";
+import { missingTargetError } from "../../../infra/outbound/target-errors.ts";
+import { sendPollWhatsApp } from "../../../web/outbound.ts";
+import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../../whatsapp/normalize.ts";
 
 export const whatsappOutbound: ChannelOutboundAdapter = {
   deliveryMode: "gateway",
@@ -59,7 +59,7 @@ export const whatsappOutbound: ChannelOutboundAdapter = {
   },
   sendText: async ({ to, text, accountId, deps, gifPlayback }) => {
     const send =
-      deps?.sendWhatsApp ?? (await import("../../../web/outbound.js")).sendMessageWhatsApp;
+      deps?.sendWhatsApp ?? (await import("../../../web/outbound.ts")).sendMessageWhatsApp;
     const result = await send(to, text, {
       verbose: false,
       accountId: accountId ?? undefined,
@@ -69,7 +69,7 @@ export const whatsappOutbound: ChannelOutboundAdapter = {
   },
   sendMedia: async ({ to, text, mediaUrl, accountId, deps, gifPlayback }) => {
     const send =
-      deps?.sendWhatsApp ?? (await import("../../../web/outbound.js")).sendMessageWhatsApp;
+      deps?.sendWhatsApp ?? (await import("../../../web/outbound.ts")).sendMessageWhatsApp;
     const result = await send(to, text, {
       verbose: false,
       mediaUrl,

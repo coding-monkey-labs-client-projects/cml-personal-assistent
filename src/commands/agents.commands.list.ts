@@ -1,18 +1,18 @@
-import type { AgentBinding } from "../config/types.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { AgentSummary } from "./agents.config.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { normalizeAgentId } from "../routing/session-key.js";
-import { defaultRuntime } from "../runtime.js";
-import { shortenHomePath } from "../utils.js";
-import { describeBinding } from "./agents.bindings.js";
-import { requireValidConfig } from "./agents.command-shared.js";
-import { buildAgentSummaries } from "./agents.config.js";
+import type { AgentBinding } from "../config/types.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { AgentSummary } from "./agents.config.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { shortenHomePath } from "../utils.ts";
+import { describeBinding } from "./agents.bindings.ts";
+import { requireValidConfig } from "./agents.command-shared.ts";
+import { buildAgentSummaries } from "./agents.config.ts";
 import {
   buildProviderStatusIndex,
   listProvidersForAgent,
   summarizeBindings,
-} from "./agents.providers.js";
+} from "./agents.providers.ts";
 
 type AgentsListOptions = {
   json?: boolean;

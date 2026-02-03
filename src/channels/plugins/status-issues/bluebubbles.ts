@@ -1,5 +1,5 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.js";
-import { asString, isRecord } from "./shared.js";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.ts";
+import { asString, isRecord } from "./shared.ts";
 
 type BlueBubblesAccountStatus = {
   accountId?: unknown;

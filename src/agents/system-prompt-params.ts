@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import {
   formatUserTime,
   resolveUserTimeFormat,
   resolveUserTimezone,
   type ResolvedTimeFormat,
-} from "./date-time.js";
+} from "./date-time.ts";
 
 export type RuntimeInfoInput = {
   agentId?: string;
@@ -31,7 +31,7 @@ export type SystemPromptRuntimeParams = {
 };
 
 export function buildSystemPromptParams(params: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   agentId?: string;
   runtime: Omit<RuntimeInfoInput, "agentId">;
   workspaceDir?: string;
@@ -58,7 +58,7 @@ export function buildSystemPromptParams(params: {
 }
 
 function resolveRepoRoot(params: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   workspaceDir?: string;
   cwd?: string;
 }): string | undefined {

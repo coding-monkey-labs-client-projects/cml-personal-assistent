@@ -1,11 +1,11 @@
 import type { DatabaseSync } from "node:sqlite";
-import type { SessionFileEntry } from "./session-files.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
+import type { SessionFileEntry } from "./session-files.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
 import {
   buildSessionEntry,
   listSessionFilesForAgent,
   sessionPathForFile,
-} from "./session-files.js";
+} from "./session-files.ts";
 
 const log = createSubsystemLogger("memory");
 

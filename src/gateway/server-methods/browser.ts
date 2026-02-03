@@ -1,16 +1,16 @@
 import crypto from "node:crypto";
-import type { NodeSession } from "../node-registry.js";
-import type { GatewayRequestHandlers } from "./types.js";
+import type { NodeSession } from "../node-registry.ts";
+import type { GatewayRequestHandlers } from "./types.ts";
 import {
   createBrowserControlContext,
   startBrowserControlServiceFromConfig,
-} from "../../browser/control-service.js";
-import { createBrowserRouteDispatcher } from "../../browser/routes/dispatcher.js";
-import { loadConfig } from "../../config/config.js";
-import { saveMediaBuffer } from "../../media/store.js";
-import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.js";
-import { ErrorCodes, errorShape } from "../protocol/index.js";
-import { safeParseJson } from "./nodes.helpers.js";
+} from "../../browser/control-service.ts";
+import { createBrowserRouteDispatcher } from "../../browser/routes/dispatcher.ts";
+import { loadConfig } from "../../config/config.ts";
+import { saveMediaBuffer } from "../../media/store.ts";
+import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.ts";
+import { ErrorCodes, errorShape } from "../protocol/index.ts";
+import { safeParseJson } from "./nodes.helpers.ts";
 
 type BrowserRequestParams = {
   method?: string;

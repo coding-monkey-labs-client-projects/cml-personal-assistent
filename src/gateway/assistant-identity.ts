@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { resolveAgentIdentity } from "../agents/identity.js";
-import { loadAgentIdentity } from "../commands/agents.config.js";
-import { normalizeAgentId } from "../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { resolveAgentIdentity } from "../agents/identity.ts";
+import { loadAgentIdentity } from "../commands/agents.config.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
 
 const MAX_ASSISTANT_NAME = 50;
 const MAX_ASSISTANT_AVATAR = 200;
@@ -94,7 +94,7 @@ function normalizeEmojiValue(value: string | undefined): string | undefined {
 }
 
 export function resolveAssistantIdentity(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string | null;
   workspaceDir?: string | null;
 }): AssistantIdentity {

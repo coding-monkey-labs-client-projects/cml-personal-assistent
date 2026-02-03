@@ -1,14 +1,14 @@
 import type { RequestClient } from "@buape/carbon";
 import { Routes } from "discord-api-types/v10";
-import type { RetryConfig } from "../infra/retry.js";
-import type { PollInput } from "../polls.js";
-import type { DiscordSendResult } from "./send.types.js";
-import { resolveChunkMode } from "../auto-reply/chunk.js";
-import { loadConfig } from "../config/config.js";
-import { resolveMarkdownTableMode } from "../config/markdown-tables.js";
-import { recordChannelActivity } from "../infra/channel-activity.js";
-import { convertMarkdownTables } from "../markdown/tables.js";
-import { resolveDiscordAccount } from "./accounts.js";
+import type { RetryConfig } from "../infra/retry.ts";
+import type { PollInput } from "../polls.ts";
+import type { DiscordSendResult } from "./send.types.ts";
+import { resolveChunkMode } from "../auto-reply/chunk.ts";
+import { loadConfig } from "../config/config.ts";
+import { resolveMarkdownTableMode } from "../config/markdown-tables.ts";
+import { recordChannelActivity } from "../infra/channel-activity.ts";
+import { convertMarkdownTables } from "../markdown/tables.ts";
+import { resolveDiscordAccount } from "./accounts.ts";
 import {
   buildDiscordSendError,
   createDiscordClient,
@@ -18,7 +18,7 @@ import {
   resolveChannelId,
   sendDiscordMedia,
   sendDiscordText,
-} from "./send.shared.js";
+} from "./send.shared.ts";
 
 type DiscordSendOpts = {
   token?: string;

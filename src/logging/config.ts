@@ -1,9 +1,9 @@
 import json5 from "json5";
 import fs from "node:fs";
-import type { OpenClawConfig } from "../config/types.js";
-import { resolveConfigPath } from "../config/paths.js";
+import type { CmlHiveAssistConfig } from "../config/types.ts";
+import { resolveConfigPath } from "../config/paths.ts";
 
-type LoggingConfig = OpenClawConfig["logging"];
+type LoggingConfig = CmlHiveAssistConfig["logging"];
 
 export function readLoggingConfig(): LoggingConfig | undefined {
   const configPath = resolveConfigPath();

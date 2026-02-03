@@ -1,4 +1,4 @@
-package ai.openclaw.android.voice
+package ai.cml-hive-assist.android.voice
 
 import android.media.MediaDataSource
 import kotlin.math.min

@@ -4,11 +4,11 @@ import path from "node:path";
 import sharp from "sharp";
 import { describe, expect, it } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createOpenClawCodingTools } from "./pi-tools.js";
+import { createCmlHiveAssistCodingTools } from "./pi-tools.js";
 
-const defaultTools = createOpenClawCodingTools();
+const defaultTools = createCmlHiveAssistCodingTools();
 
-describe("createOpenClawCodingTools", () => {
+describe("createCmlHiveAssistCodingTools", () => {
   it("keeps read tool image metadata intact", async () => {
     const readTool = defaultTools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
@@ -46,7 +46,7 @@ describe("createOpenClawCodingTools", () => {
     }
   });
   it("returns text content without image blocks for text files", async () => {
-    const tools = createOpenClawCodingTools();
+    const tools = createCmlHiveAssistCodingTools();
     const readTool = tools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
 
@@ -97,7 +97,7 @@ describe("createOpenClawCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createOpenClawCodingTools({ sandbox });
+    const tools = createCmlHiveAssistCodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);
     expect(tools.some((tool) => tool.name === "read")).toBe(false);
     expect(tools.some((tool) => tool.name === "browser")).toBe(false);
@@ -128,13 +128,13 @@ describe("createOpenClawCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createOpenClawCodingTools({ sandbox });
+    const tools = createCmlHiveAssistCodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "read")).toBe(true);
     expect(tools.some((tool) => tool.name === "write")).toBe(false);
     expect(tools.some((tool) => tool.name === "edit")).toBe(false);
   });
   it("filters tools by agent tool policy even without sandbox", () => {
-    const tools = createOpenClawCodingTools({
+    const tools = createCmlHiveAssistCodingTools({
       config: { tools: { deny: ["browser"] } },
     });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);

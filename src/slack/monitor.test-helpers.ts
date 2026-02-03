@@ -72,7 +72,7 @@ export function resetSlackTestState(config: Record<string, unknown> = defaultSla
 }
 
 vi.mock("../config/config.js", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("../config/config.js")>();
+  const actual = await importOriginal<typeof import("../config/config.ts")>();
   return {
     ...actual,
     loadConfig: () => slackTestState.config,

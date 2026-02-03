@@ -1,11 +1,11 @@
-import type { RuntimeEnv } from "../runtime.js";
-import { lookupContextTokens } from "../agents/context.js";
-import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { resolveConfiguredModelRef } from "../agents/model-selection.js";
-import { loadConfig } from "../config/config.js";
-import { loadSessionStore, resolveStorePath, type SessionEntry } from "../config/sessions.js";
-import { info } from "../globals.js";
-import { isRich, theme } from "../terminal/theme.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { lookupContextTokens } from "../agents/context.ts";
+import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { resolveConfiguredModelRef } from "../agents/model-selection.ts";
+import { loadConfig } from "../config/config.ts";
+import { loadSessionStore, resolveStorePath, type SessionEntry } from "../config/sessions.ts";
+import { info } from "../globals.ts";
+import { isRich, theme } from "../terminal/theme.ts";
 
 type SessionRow = {
   key: string;

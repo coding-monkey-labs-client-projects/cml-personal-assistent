@@ -3,11 +3,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveBrewExecutable } from "../infra/brew.js";
-import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.js";
-import { runCommandWithTimeout } from "../process/exec.js";
-import { CONFIG_DIR, ensureDir, resolveUserPath } from "../utils.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveBrewExecutable } from "../infra/brew.ts";
+import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.ts";
+import { runCommandWithTimeout } from "../process/exec.ts";
+import { CONFIG_DIR, ensureDir, resolveUserPath } from "../utils.ts";
 import {
   hasBinary,
   loadWorkspaceSkillEntries,
@@ -15,15 +15,15 @@ import {
   type SkillEntry,
   type SkillInstallSpec,
   type SkillsInstallPreferences,
-} from "./skills.js";
-import { resolveSkillKey } from "./skills/frontmatter.js";
+} from "./skills.ts";
+import { resolveSkillKey } from "./skills/frontmatter.ts";
 
 export type SkillInstallRequest = {
   workspaceDir: string;
   skillName: string;
   installId: string;
   timeoutMs?: number;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
 };
 
 export type SkillInstallResult = {

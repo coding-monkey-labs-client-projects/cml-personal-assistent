@@ -1,44 +1,44 @@
 import type { Bot } from "grammy";
-import type { OpenClawConfig } from "../config/config.js";
-import type { DmPolicy, TelegramGroupConfig, TelegramTopicConfig } from "../config/types.js";
-import type { TelegramContext } from "./bot/types.js";
-import { resolveAckReaction } from "../agents/identity.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { DmPolicy, TelegramGroupConfig, TelegramTopicConfig } from "../config/types.ts";
+import type { TelegramContext } from "./bot/types.ts";
+import { resolveAckReaction } from "../agents/identity.ts";
 import {
   findModelInCatalog,
   loadModelCatalog,
   modelSupportsVision,
-} from "../agents/model-catalog.js";
-import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
-import { hasControlCommand } from "../auto-reply/command-detection.js";
-import { normalizeCommandBody } from "../auto-reply/commands-registry.js";
-import { formatInboundEnvelope, resolveEnvelopeFormatOptions } from "../auto-reply/envelope.js";
+} from "../agents/model-catalog.ts";
+import { resolveDefaultModelForAgent } from "../agents/model-selection.ts";
+import { hasControlCommand } from "../auto-reply/command-detection.ts";
+import { normalizeCommandBody } from "../auto-reply/commands-registry.ts";
+import { formatInboundEnvelope, resolveEnvelopeFormatOptions } from "../auto-reply/envelope.ts";
 import {
   buildPendingHistoryContextFromMap,
   recordPendingHistoryEntryIfEnabled,
   type HistoryEntry,
-} from "../auto-reply/reply/history.js";
-import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.js";
-import { buildMentionRegexes, matchesMentionWithExplicit } from "../auto-reply/reply/mentions.js";
-import { shouldAckReaction as shouldAckReactionGate } from "../channels/ack-reactions.js";
-import { resolveControlCommandGate } from "../channels/command-gating.js";
-import { formatLocationText, toLocationContext } from "../channels/location.js";
-import { logInboundDrop } from "../channels/logging.js";
-import { resolveMentionGatingWithBypass } from "../channels/mention-gating.js";
-import { recordInboundSession } from "../channels/session.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { readSessionUpdatedAt, resolveStorePath } from "../config/sessions.js";
-import { logVerbose, shouldLogVerbose } from "../globals.js";
-import { recordChannelActivity } from "../infra/channel-activity.js";
-import { upsertChannelPairingRequest } from "../pairing/pairing-store.js";
-import { resolveAgentRoute } from "../routing/resolve-route.js";
-import { resolveThreadSessionKeys } from "../routing/session-key.js";
-import { withTelegramApiErrorLogging } from "./api-logging.js";
+} from "../auto-reply/reply/history.ts";
+import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.ts";
+import { buildMentionRegexes, matchesMentionWithExplicit } from "../auto-reply/reply/mentions.ts";
+import { shouldAckReaction as shouldAckReactionGate } from "../channels/ack-reactions.ts";
+import { resolveControlCommandGate } from "../channels/command-gating.ts";
+import { formatLocationText, toLocationContext } from "../channels/location.ts";
+import { logInboundDrop } from "../channels/logging.ts";
+import { resolveMentionGatingWithBypass } from "../channels/mention-gating.ts";
+import { recordInboundSession } from "../channels/session.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { readSessionUpdatedAt, resolveStorePath } from "../config/sessions.ts";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
+import { recordChannelActivity } from "../infra/channel-activity.ts";
+import { upsertChannelPairingRequest } from "../pairing/pairing-store.ts";
+import { resolveAgentRoute } from "../routing/resolve-route.ts";
+import { resolveThreadSessionKeys } from "../routing/session-key.ts";
+import { withTelegramApiErrorLogging } from "./api-logging.ts";
 import {
   firstDefined,
   isSenderAllowed,
   normalizeAllowFromWithStore,
   resolveSenderAllowMatch,
-} from "./bot-access.js";
+} from "./bot-access.ts";
 import {
   buildGroupLabel,
   buildSenderLabel,
@@ -52,7 +52,7 @@ import {
   extractTelegramLocation,
   hasBotMention,
   resolveTelegramThreadSpec,
-} from "./bot/helpers.js";
+} from "./bot/helpers.ts";
 
 type TelegramMediaRef = {
   path: string;
@@ -95,7 +95,7 @@ type BuildTelegramMessageContextParams = {
   storeAllowFrom: string[];
   options?: TelegramMessageContextOptions;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   account: { accountId: string };
   historyLimit: number;
   groupHistories: Map<string, HistoryEntry[]>;
@@ -110,7 +110,7 @@ type BuildTelegramMessageContextParams = {
 };
 
 async function resolveStickerVisionSupport(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
 }): Promise<boolean> {
   try {
@@ -281,7 +281,7 @@ export const buildTelegramMessageContext = async ({
                   bot.api.sendMessage(
                     chatId,
                     [
-                      "OpenClaw: access not configured.",
+                      "CmlHiveAssist: access not configured.",
                       "",
                       `Your Telegram user id: ${telegramUserId}`,
                       "",

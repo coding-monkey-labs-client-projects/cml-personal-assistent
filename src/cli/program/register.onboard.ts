@@ -1,17 +1,17 @@
 import type { Command } from "commander";
-import type { GatewayDaemonRuntime } from "../../commands/daemon-runtime.js";
+import type { GatewayDaemonRuntime } from "../../commands/daemon-runtime.ts";
 import type {
   AuthChoice,
   GatewayAuthChoice,
   GatewayBind,
   NodeManagerChoice,
   TailscaleMode,
-} from "../../commands/onboard-types.js";
-import { onboardCommand } from "../../commands/onboard.js";
-import { defaultRuntime } from "../../runtime.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { runCommandWithRuntime } from "../cli-utils.js";
+} from "../../commands/onboard-types.ts";
+import { onboardCommand } from "../../commands/onboard.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { runCommandWithRuntime } from "../cli-utils.ts";
 
 function resolveInstallDaemonFlag(
   command: unknown,
@@ -44,7 +44,7 @@ export function registerOnboardCommand(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/onboard", "docs.openclaw.ai/cli/onboard")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/onboard", "docs.cml-hive-assist.ai/cli/onboard")}\n`,
     )
     .option("--workspace <dir>", "Agent workspace directory (default: ~/.openclaw/workspace)")
     .option("--reset", "Reset config + credentials + sessions + workspace before running wizard")

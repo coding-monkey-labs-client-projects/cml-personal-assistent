@@ -1,12 +1,12 @@
 import type { AgentTool } from "@mariozechner/pi-agent-core";
 import type { AgentSession } from "@mariozechner/pi-coding-agent";
-import type { MemoryCitationsMode } from "../../config/types.memory.js";
-import type { ResolvedTimeFormat } from "../date-time.js";
-import type { EmbeddedContextFile } from "../pi-embedded-helpers.js";
-import type { EmbeddedSandboxInfo } from "./types.js";
-import type { ReasoningLevel, ThinkLevel } from "./utils.js";
-import { buildAgentSystemPrompt, type PromptMode } from "../system-prompt.js";
-import { buildToolSummaryMap } from "../tool-summaries.js";
+import type { MemoryCitationsMode } from "../../config/types.memory.ts";
+import type { ResolvedTimeFormat } from "../date-time.ts";
+import type { EmbeddedContextFile } from "../pi-embedded-helpers.ts";
+import type { EmbeddedSandboxInfo } from "./types.ts";
+import type { ReasoningLevel, ThinkLevel } from "./utils.ts";
+import { buildAgentSystemPrompt, type PromptMode } from "../system-prompt.ts";
+import { buildToolSummaryMap } from "../tool-summaries.ts";
 
 export function buildEmbeddedSystemPrompt(params: {
   workspaceDir: string;

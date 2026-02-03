@@ -1,13 +1,13 @@
 import type { Command } from "commander";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
 import {
   registerCronAddCommand,
   registerCronListCommand,
   registerCronStatusCommand,
-} from "./register.cron-add.js";
-import { registerCronEditCommand } from "./register.cron-edit.js";
-import { registerCronSimpleCommands } from "./register.cron-simple.js";
+} from "./register.cron-add.ts";
+import { registerCronEditCommand } from "./register.cron-edit.ts";
+import { registerCronSimpleCommands } from "./register.cron-simple.ts";
 
 export function registerCronCli(program: Command) {
   const cron = program
@@ -16,7 +16,7 @@ export function registerCronCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/cron", "docs.openclaw.ai/cli/cron")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/cron", "docs.cml-hive-assist.ai/cli/cron")}\n`,
     );
 
   registerCronStatusCommand(cron);

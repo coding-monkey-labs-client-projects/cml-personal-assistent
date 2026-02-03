@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "./config.js";
-import type { WhatsAppConfig } from "./types.js";
+import type { CmlHiveAssistConfig } from "./config.ts";
+import type { WhatsAppConfig } from "./types.ts";
 
 export type MergeSectionOptions<T> = {
   unsetOnUndefined?: Array<keyof T>;
@@ -24,10 +24,10 @@ export function mergeConfigSection<T extends Record<string, unknown>>(
 }
 
 export function mergeWhatsAppConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   patch: Partial<WhatsAppConfig>,
   options?: MergeSectionOptions<WhatsAppConfig>,
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   return {
     ...cfg,
     channels: {

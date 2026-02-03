@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { RuntimeEnv } from "../../runtime.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
 
 export type IMessageAttachment = {
   original_path?: string | null;
@@ -31,7 +31,7 @@ export type MonitorIMessageOpts = {
   cliPath?: string;
   dbPath?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   allowFrom?: Array<string | number>;
   groupAllowFrom?: Array<string | number>;
   includeAttachments?: boolean;

@@ -7,7 +7,7 @@ import {
   getPageForTargetId,
   refLocator,
   restoreRoleRefsForTarget,
-} from "./pw-session.js";
+} from "./pw-session.ts";
 import {
   bumpDialogArmId,
   bumpDownloadArmId,
@@ -15,7 +15,7 @@ import {
   normalizeTimeoutMs,
   requireRef,
   toAIFriendlyError,
-} from "./pw-tools-core.shared.js";
+} from "./pw-tools-core.shared.ts";
 
 function buildTempDownloadPath(fileName: string): string {
   const id = crypto.randomUUID();

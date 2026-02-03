@@ -1,10 +1,10 @@
-import type { GetReplyOptions } from "../auto-reply/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveEffectiveMessagesConfig, resolveIdentityName } from "../agents/identity.js";
+import type { GetReplyOptions } from "../auto-reply/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveEffectiveMessagesConfig, resolveIdentityName } from "../agents/identity.ts";
 import {
   extractShortModelName,
   type ResponsePrefixContext,
-} from "../auto-reply/reply/response-prefix-template.js";
+} from "../auto-reply/reply/response-prefix-template.ts";
 
 type ModelSelectionContext = Parameters<NonNullable<GetReplyOptions["onModelSelected"]>>[0];
 
@@ -16,7 +16,7 @@ export type ReplyPrefixContextBundle = {
 };
 
 export function createReplyPrefixContext(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
 }): ReplyPrefixContextBundle {
   const { cfg, agentId } = params;

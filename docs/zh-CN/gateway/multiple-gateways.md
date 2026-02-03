@@ -2,7 +2,7 @@
 read_when:
   - 在同一台机器上运行多个 Gateway网关
   - 需要为每个 Gateway网关提供独立的配置/状态/端口
-summary: 在同一主机上运行多个 OpenClaw Gateway网关（隔离、端口和配置文件）
+summary: 在同一主机上运行多个 CmlHiveAssist Gateway网关（隔离、端口和配置文件）
 title: 多个 Gateway网关
 x-i18n:
   generated_at: "2026-02-01T20:35:02Z"
@@ -33,19 +33,19 @@ x-i18n:
 
 ```bash
 # 主实例
-openclaw --profile main setup
-openclaw --profile main gateway --port 18789
+cml-hive-assist --profile main setup
+cml-hive-assist --profile main gateway --port 18789
 
 # 救援实例
-openclaw --profile rescue setup
-openclaw --profile rescue gateway --port 19001
+cml-hive-assist --profile rescue setup
+cml-hive-assist --profile rescue gateway --port 19001
 ```
 
 按配置文件安装服务：
 
 ```bash
-openclaw --profile main gateway install
-openclaw --profile rescue gateway install
+cml-hive-assist --profile main gateway install
+cml-hive-assist --profile rescue gateway install
 ```
 
 ## 救援机器人指南
@@ -66,11 +66,11 @@ openclaw --profile rescue gateway install
 ```bash
 # 主机器人（已有或全新安装，不使用 --profile 参数）
 # 运行在端口 18789 + Chrome CDC/Canvas/... 端口
-openclaw onboard
-openclaw gateway install
+cml-hive-assist onboard
+cml-hive-assist gateway install
 
 # 救援机器人（独立配置文件 + 端口）
-openclaw --profile rescue onboard
+cml-hive-assist --profile rescue onboard
 # 注意：
 # - 工作区名称默认会添加 -rescue 后缀
 # - 端口至少应为 18789 + 20 个端口，
@@ -78,7 +78,7 @@ openclaw --profile rescue onboard
 # - 其余新手引导流程与正常流程相同
 
 # 安装服务（如果在新手引导过程中未自动安装）
-openclaw --profile rescue gateway install
+cml-hive-assist --profile rescue gateway install
 ```
 
 ## 端口映射（派生）
@@ -101,19 +101,19 @@ openclaw --profile rescue gateway install
 ## 手动环境变量示例
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.openclaw/main.json \
-OPENCLAW_STATE_DIR=~/.openclaw-main \
-openclaw gateway --port 18789
+OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/main.json \
+OPENCLAW_STATE_DIR=~/.cml-hive-assist-main \
+cml-hive-assist gateway --port 18789
 
-OPENCLAW_CONFIG_PATH=~/.openclaw/rescue.json \
-OPENCLAW_STATE_DIR=~/.openclaw-rescue \
-openclaw gateway --port 19001
+OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/rescue.json \
+OPENCLAW_STATE_DIR=~/.cml-hive-assist-rescue \
+cml-hive-assist gateway --port 19001
 ```
 
 ## 快速检查
 
 ```bash
-openclaw --profile main status
-openclaw --profile rescue status
-openclaw --profile rescue browser status
+cml-hive-assist --profile main status
+cml-hive-assist --profile rescue status
+cml-hive-assist --profile rescue browser status
 ```

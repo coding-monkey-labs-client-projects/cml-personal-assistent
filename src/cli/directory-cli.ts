@@ -1,13 +1,13 @@
 import type { Command } from "commander";
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { getChannelPlugin } from "../channels/plugins/index.js";
-import { loadConfig } from "../config/config.js";
-import { danger } from "../globals.js";
-import { resolveMessageChannelSelection } from "../infra/outbound/channel-selection.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { renderTable } from "../terminal/table.js";
-import { theme } from "../terminal/theme.js";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { getChannelPlugin } from "../channels/plugins/index.ts";
+import { loadConfig } from "../config/config.ts";
+import { danger } from "../globals.ts";
+import { resolveMessageChannelSelection } from "../infra/outbound/channel-selection.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { renderTable } from "../terminal/table.ts";
+import { theme } from "../terminal/theme.ts";
 
 function parseLimit(value: unknown): number | null {
   if (typeof value === "number" && Number.isFinite(value)) {
@@ -46,7 +46,7 @@ export function registerDirectoryCli(program: Command) {
       () =>
         `\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/directory",
-          "docs.openclaw.ai/cli/directory",
+          "docs.cml-hive-assist.ai/cli/directory",
         )}\n`,
     )
     .action(() => {

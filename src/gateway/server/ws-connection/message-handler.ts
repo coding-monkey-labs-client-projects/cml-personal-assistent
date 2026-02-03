@@ -1,16 +1,16 @@
 import type { IncomingMessage } from "node:http";
 import type { WebSocket } from "ws";
 import os from "node:os";
-import type { createSubsystemLogger } from "../../../logging/subsystem.js";
-import type { ResolvedGatewayAuth } from "../../auth.js";
-import type { GatewayRequestContext, GatewayRequestHandlers } from "../../server-methods/types.js";
-import type { GatewayWsClient } from "../ws-types.js";
-import { loadConfig } from "../../../config/config.js";
+import type { createSubsystemLogger } from "../../../logging/subsystem.ts";
+import type { ResolvedGatewayAuth } from "../../auth.ts";
+import type { GatewayRequestContext, GatewayRequestHandlers } from "../../server-methods/types.ts";
+import type { GatewayWsClient } from "../ws-types.ts";
+import { loadConfig } from "../../../config/config.ts";
 import {
   deriveDeviceIdFromPublicKey,
   normalizeDevicePublicKeyBase64Url,
   verifyDeviceSignature,
-} from "../../../infra/device-identity.js";
+} from "../../../infra/device-identity.ts";
 import {
   approveDevicePairing,
   ensureDeviceToken,
@@ -18,18 +18,18 @@ import {
   requestDevicePairing,
   updatePairedDeviceMetadata,
   verifyDeviceToken,
-} from "../../../infra/device-pairing.js";
-import { updatePairedNodeMetadata } from "../../../infra/node-pairing.js";
-import { recordRemoteNodeInfo, refreshRemoteNodeBins } from "../../../infra/skills-remote.js";
-import { upsertPresence } from "../../../infra/system-presence.js";
-import { loadVoiceWakeConfig } from "../../../infra/voicewake.js";
-import { rawDataToString } from "../../../infra/ws.js";
-import { isGatewayCliClient, isWebchatClient } from "../../../utils/message-channel.js";
-import { authorizeGatewayConnect, isLocalDirectRequest } from "../../auth.js";
-import { buildDeviceAuthPayload } from "../../device-auth.js";
-import { isLoopbackAddress, isTrustedProxyAddress, resolveGatewayClientIp } from "../../net.js";
-import { resolveNodeCommandAllowlist } from "../../node-command-policy.js";
-import { GATEWAY_CLIENT_IDS } from "../../protocol/client-info.js";
+} from "../../../infra/device-pairing.ts";
+import { updatePairedNodeMetadata } from "../../../infra/node-pairing.ts";
+import { recordRemoteNodeInfo, refreshRemoteNodeBins } from "../../../infra/skills-remote.ts";
+import { upsertPresence } from "../../../infra/system-presence.ts";
+import { loadVoiceWakeConfig } from "../../../infra/voicewake.ts";
+import { rawDataToString } from "../../../infra/ws.ts";
+import { isGatewayCliClient, isWebchatClient } from "../../../utils/message-channel.ts";
+import { authorizeGatewayConnect, isLocalDirectRequest } from "../../auth.ts";
+import { buildDeviceAuthPayload } from "../../device-auth.ts";
+import { isLoopbackAddress, isTrustedProxyAddress, resolveGatewayClientIp } from "../../net.ts";
+import { resolveNodeCommandAllowlist } from "../../node-command-policy.ts";
+import { GATEWAY_CLIENT_IDS } from "../../protocol/client-info.ts";
 import {
   type ConnectParams,
   ErrorCodes,
@@ -39,19 +39,19 @@ import {
   PROTOCOL_VERSION,
   validateConnectParams,
   validateRequestFrame,
-} from "../../protocol/index.js";
-import { MAX_BUFFERED_BYTES, MAX_PAYLOAD_BYTES, TICK_INTERVAL_MS } from "../../server-constants.js";
-import { handleGatewayRequest } from "../../server-methods.js";
-import { formatError } from "../../server-utils.js";
-import { formatForLog, logWs } from "../../ws-log.js";
-import { truncateCloseReason } from "../close-reason.js";
+} from "../../protocol/index.ts";
+import { MAX_BUFFERED_BYTES, MAX_PAYLOAD_BYTES, TICK_INTERVAL_MS } from "../../server-constants.ts";
+import { handleGatewayRequest } from "../../server-methods.ts";
+import { formatError } from "../../server-utils.ts";
+import { formatForLog, logWs } from "../../ws-log.ts";
+import { truncateCloseReason } from "../close-reason.ts";
 import {
   buildGatewaySnapshot,
   getHealthCache,
   getHealthVersion,
   incrementPresenceVersion,
   refreshGatewayHealthSnapshot,
-} from "../health-state.js";
+} from "../health-state.ts";
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
 
@@ -821,7 +821,7 @@ export function attachGatewayWsMessageHandler(params: {
           type: "hello-ok",
           protocol: PROTOCOL_VERSION,
           server: {
-            version: process.env.OPENCLAW_VERSION ?? process.env.npm_package_version ?? "dev",
+            version: process.env.CML_HIVE_ASSIST_VERSION ?? process.env.npm_package_version ?? "dev",
             commit: process.env.GIT_COMMIT,
             host: os.hostname(),
             connId,

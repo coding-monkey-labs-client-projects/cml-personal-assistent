@@ -25,7 +25,7 @@ describe("channel plugin catalog", () => {
         entries: [
           {
             name: "@openclaw/demo-channel",
-            openclaw: {
+            cml-hive-assist: {
               channel: {
                 id: "demo-channel",
                 label: "Demo Channel",

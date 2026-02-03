@@ -1,17 +1,17 @@
-import type { GatewayServiceRuntime } from "../daemon/service-runtime.js";
-import { formatCliCommand } from "../cli/command-format.js";
+import type { GatewayServiceRuntime } from "../daemon/service-runtime.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
 import {
   resolveGatewayLaunchAgentLabel,
   resolveGatewaySystemdServiceName,
   resolveGatewayWindowsTaskName,
-} from "../daemon/constants.js";
-import { resolveGatewayLogPaths } from "../daemon/launchd.js";
+} from "../daemon/constants.ts";
+import { resolveGatewayLogPaths } from "../daemon/launchd.ts";
 import {
   isSystemdUnavailableDetail,
   renderSystemdUnavailableHints,
-} from "../daemon/systemd-hints.js";
-import { isWSLEnv } from "../infra/wsl.js";
-import { getResolvedLoggerSettings } from "../logging.js";
+} from "../daemon/systemd-hints.ts";
+import { isWSLEnv } from "../infra/wsl.ts";
+import { getResolvedLoggerSettings } from "../logging.ts";
 
 type RuntimeHintOptions = {
   platform?: NodeJS.Platform;
@@ -78,7 +78,7 @@ export function buildGatewayRuntimeHints(
     return hints;
   }
   if (runtime.cachedLabel && platform === "darwin") {
-    const label = resolveGatewayLaunchAgentLabel(env.OPENCLAW_PROFILE);
+    const label = resolveGatewayLaunchAgentLabel(env.CML_HIVE_ASSIST_PROFILE);
     hints.push(
       `LaunchAgent label cached but plist missing. Clear with: launchctl bootout gui/$UID/${label}`,
     );
@@ -101,10 +101,10 @@ export function buildGatewayRuntimeHints(
       hints.push(`Launchd stdout (if installed): ${logs.stdoutPath}`);
       hints.push(`Launchd stderr (if installed): ${logs.stderrPath}`);
     } else if (platform === "linux") {
-      const unit = resolveGatewaySystemdServiceName(env.OPENCLAW_PROFILE);
+      const unit = resolveGatewaySystemdServiceName(env.CML_HIVE_ASSIST_PROFILE);
       hints.push(`Logs: journalctl --user -u ${unit}.service -n 200 --no-pager`);
     } else if (platform === "win32") {
-      const task = resolveGatewayWindowsTaskName(env.OPENCLAW_PROFILE);
+      const task = resolveGatewayWindowsTaskName(env.CML_HIVE_ASSIST_PROFILE);
       hints.push(`Logs: schtasks /Query /TN "${task}" /V /FO LIST`);
     }
   }

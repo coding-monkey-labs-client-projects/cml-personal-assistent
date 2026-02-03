@@ -1,6 +1,6 @@
-import type { ChannelChoice } from "../onboard-types.js";
-import type { ChannelOnboardingAdapter } from "./types.js";
-import { listChannelPlugins } from "../../channels/plugins/index.js";
+import type { ChannelChoice } from "../onboard-types.ts";
+import type { ChannelOnboardingAdapter } from "./types.ts";
+import { listChannelPlugins } from "../../channels/plugins/index.ts";
 
 const CHANNEL_ONBOARDING_ADAPTERS = () =>
   new Map<ChannelChoice, ChannelOnboardingAdapter>(

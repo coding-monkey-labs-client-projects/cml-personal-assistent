@@ -1,33 +1,33 @@
-import type { AgentBinding, AgentsConfig } from "./types.agents.js";
-import type { ApprovalsConfig } from "./types.approvals.js";
-import type { AuthConfig } from "./types.auth.js";
-import type { DiagnosticsConfig, LoggingConfig, SessionConfig, WebConfig } from "./types.base.js";
-import type { BrowserConfig } from "./types.browser.js";
-import type { ChannelsConfig } from "./types.channels.js";
-import type { CronConfig } from "./types.cron.js";
+import type { AgentBinding, AgentsConfig } from "./types.agents.ts";
+import type { ApprovalsConfig } from "./types.approvals.ts";
+import type { AuthConfig } from "./types.auth.ts";
+import type { DiagnosticsConfig, LoggingConfig, SessionConfig, WebConfig } from "./types.base.ts";
+import type { BrowserConfig } from "./types.browser.ts";
+import type { ChannelsConfig } from "./types.channels.ts";
+import type { CronConfig } from "./types.cron.ts";
 import type {
   CanvasHostConfig,
   DiscoveryConfig,
   GatewayConfig,
   TalkConfig,
-} from "./types.gateway.js";
-import type { HooksConfig } from "./types.hooks.js";
-import type { MemoryConfig } from "./types.memory.js";
+} from "./types.gateway.ts";
+import type { HooksConfig } from "./types.hooks.ts";
+import type { MemoryConfig } from "./types.memory.ts";
 import type {
   AudioConfig,
   BroadcastConfig,
   CommandsConfig,
   MessagesConfig,
-} from "./types.messages.js";
-import type { ModelsConfig } from "./types.models.js";
-import type { NodeHostConfig } from "./types.node-host.js";
-import type { PluginsConfig } from "./types.plugins.js";
-import type { SkillsConfig } from "./types.skills.js";
-import type { ToolsConfig } from "./types.tools.js";
+} from "./types.messages.ts";
+import type { ModelsConfig } from "./types.models.ts";
+import type { NodeHostConfig } from "./types.node-host.ts";
+import type { PluginsConfig } from "./types.plugins.ts";
+import type { SkillsConfig } from "./types.skills.ts";
+import type { ToolsConfig } from "./types.tools.ts";
 
-export type OpenClawConfig = {
+export type CmlHiveAssistConfig = {
   meta?: {
-    /** Last OpenClaw version that wrote this config. */
+    /** Last CmlHiveAssist version that wrote this config. */
     lastTouchedVersion?: string;
     /** ISO timestamp when this config was last written. */
     lastTouchedAt?: string;
@@ -66,7 +66,7 @@ export type OpenClawConfig = {
   };
   browser?: BrowserConfig;
   ui?: {
-    /** Accent color for OpenClaw UI chrome (hex). */
+    /** Accent color for CmlHiveAssist UI chrome (hex). */
     seamColor?: string;
     assistant?: {
       /** Assistant display name for UI surfaces. */
@@ -115,7 +115,7 @@ export type ConfigFileSnapshot = {
   raw: string | null;
   parsed: unknown;
   valid: boolean;
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   hash?: string;
   issues: ConfigValidationIssue[];
   warnings: ConfigValidationIssue[];

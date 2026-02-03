@@ -9,7 +9,7 @@ title: "Logging"
 
 # Logging
 
-OpenClaw logs in two places:
+CmlHiveAssist logs in two places:
 
 - **File logs** (JSON lines) written by the Gateway.
 - **Console output** shown in terminals and the Control UI.
@@ -21,16 +21,16 @@ levels and formats.
 
 By default, the Gateway writes a rolling log file under:
 
-`/tmp/openclaw/openclaw-YYYY-MM-DD.log`
+`/tmp/cml-hive-assist/cml-hive-assist-YYYY-MM-DD.log`
 
 The date uses the gateway host's local timezone.
 
-You can override this in `~/.openclaw/openclaw.json`:
+You can override this in `~/.cml-hive-assist/cml-hive-assist.json`:
 
 ```json
 {
   "logging": {
-    "file": "/path/to/openclaw.log"
+    "file": "/path/to/cml-hive-assist.log"
   }
 }
 ```
@@ -42,7 +42,7 @@ You can override this in `~/.openclaw/openclaw.json`:
 Use the CLI to tail the gateway log file via RPC:
 
 ```bash
-openclaw logs --follow
+cml-hive-assist logs --follow
 ```
 
 Output modes:
@@ -63,7 +63,7 @@ In JSON mode, the CLI emits `type`-tagged objects:
 If the Gateway is unreachable, the CLI prints a short hint to run:
 
 ```bash
-openclaw doctor
+cml-hive-assist doctor
 ```
 
 ### Control UI (web)
@@ -76,7 +76,7 @@ See [/web/control-ui](/web/control-ui) for how to open it.
 To filter channel activity (WhatsApp/Telegram/etc), use:
 
 ```bash
-openclaw channels logs --channel whatsapp
+cml-hive-assist channels logs --channel whatsapp
 ```
 
 ## Log formats
@@ -98,13 +98,13 @@ Console formatting is controlled by `logging.consoleStyle`.
 
 ## Configuring logging
 
-All logging configuration lives under `logging` in `~/.openclaw/openclaw.json`.
+All logging configuration lives under `logging` in `~/.cml-hive-assist/cml-hive-assist.json`.
 
 ```json
 {
   "logging": {
     "level": "info",
-    "file": "/tmp/openclaw/openclaw-YYYY-MM-DD.log",
+    "file": "/tmp/cml-hive-assist/cml-hive-assist-YYYY-MM-DD.log",
     "consoleLevel": "info",
     "consoleStyle": "pretty",
     "redactSensitive": "tools",
@@ -150,7 +150,7 @@ diagnostics + the exporter plugin are enabled.
 
 - **OpenTelemetry (OTel)**: the data model + SDKs for traces, metrics, and logs.
 - **OTLP**: the wire protocol used to export OTel data to a collector/backend.
-- OpenClaw exports via **OTLP/HTTP (protobuf)** today.
+- CmlHiveAssist exports via **OTLP/HTTP (protobuf)** today.
 
 ### Signals exported
 
@@ -240,7 +240,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
       "enabled": true,
       "endpoint": "http://otel-collector:4318",
       "protocol": "http/protobuf",
-      "serviceName": "openclaw-gateway",
+      "serviceName": "cml-hive-assist-gateway",
       "traces": true,
       "metrics": true,
       "logs": true,
@@ -253,7 +253,7 @@ works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
 
 Notes:
 
-- You can also enable the plugin with `openclaw plugins enable diagnostics-otel`.
+- You can also enable the plugin with `cml-hive-assist plugins enable diagnostics-otel`.
 - `protocol` currently supports `http/protobuf` only. `grpc` is ignored.
 - Metrics include token usage, cost, context size, run duration, and message-flow
   counters/histograms (webhooks, queueing, session state, queue depth/wait).
@@ -267,60 +267,60 @@ Notes:
 
 Model usage:
 
-- `openclaw.tokens` (counter, attrs: `openclaw.token`, `openclaw.channel`,
-  `openclaw.provider`, `openclaw.model`)
-- `openclaw.cost.usd` (counter, attrs: `openclaw.channel`, `openclaw.provider`,
-  `openclaw.model`)
-- `openclaw.run.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.provider`, `openclaw.model`)
-- `openclaw.context.tokens` (histogram, attrs: `openclaw.context`,
-  `openclaw.channel`, `openclaw.provider`, `openclaw.model`)
+- `cml-hive-assist.tokens` (counter, attrs: `cml-hive-assist.token`, `cml-hive-assist.channel`,
+  `cml-hive-assist.provider`, `cml-hive-assist.model`)
+- `cml-hive-assist.cost.usd` (counter, attrs: `cml-hive-assist.channel`, `cml-hive-assist.provider`,
+  `cml-hive-assist.model`)
+- `cml-hive-assist.run.duration_ms` (histogram, attrs: `cml-hive-assist.channel`,
+  `cml-hive-assist.provider`, `cml-hive-assist.model`)
+- `cml-hive-assist.context.tokens` (histogram, attrs: `cml-hive-assist.context`,
+  `cml-hive-assist.channel`, `cml-hive-assist.provider`, `cml-hive-assist.model`)
 
 Message flow:
 
-- `openclaw.webhook.received` (counter, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.webhook.error` (counter, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.webhook.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.webhook`)
-- `openclaw.message.queued` (counter, attrs: `openclaw.channel`,
-  `openclaw.source`)
-- `openclaw.message.processed` (counter, attrs: `openclaw.channel`,
-  `openclaw.outcome`)
-- `openclaw.message.duration_ms` (histogram, attrs: `openclaw.channel`,
-  `openclaw.outcome`)
+- `cml-hive-assist.webhook.received` (counter, attrs: `cml-hive-assist.channel`,
+  `cml-hive-assist.webhook`)
+- `cml-hive-assist.webhook.error` (counter, attrs: `cml-hive-assist.channel`,
+  `cml-hive-assist.webhook`)
+- `cml-hive-assist.webhook.duration_ms` (histogram, attrs: `cml-hive-assist.channel`,
+  `cml-hive-assist.webhook`)
+- `cml-hive-assist.message.queued` (counter, attrs: `cml-hive-assist.channel`,
+  `cml-hive-assist.source`)
+- `cml-hive-assist.message.processed` (counter, attrs: `cml-hive-assist.channel`,
+  `cml-hive-assist.outcome`)
+- `cml-hive-assist.message.duration_ms` (histogram, attrs: `cml-hive-assist.channel`,
+  `cml-hive-assist.outcome`)
 
 Queues + sessions:
 
-- `openclaw.queue.lane.enqueue` (counter, attrs: `openclaw.lane`)
-- `openclaw.queue.lane.dequeue` (counter, attrs: `openclaw.lane`)
-- `openclaw.queue.depth` (histogram, attrs: `openclaw.lane` or
-  `openclaw.channel=heartbeat`)
-- `openclaw.queue.wait_ms` (histogram, attrs: `openclaw.lane`)
-- `openclaw.session.state` (counter, attrs: `openclaw.state`, `openclaw.reason`)
-- `openclaw.session.stuck` (counter, attrs: `openclaw.state`)
-- `openclaw.session.stuck_age_ms` (histogram, attrs: `openclaw.state`)
-- `openclaw.run.attempt` (counter, attrs: `openclaw.attempt`)
+- `cml-hive-assist.queue.lane.enqueue` (counter, attrs: `cml-hive-assist.lane`)
+- `cml-hive-assist.queue.lane.dequeue` (counter, attrs: `cml-hive-assist.lane`)
+- `cml-hive-assist.queue.depth` (histogram, attrs: `cml-hive-assist.lane` or
+  `cml-hive-assist.channel=heartbeat`)
+- `cml-hive-assist.queue.wait_ms` (histogram, attrs: `cml-hive-assist.lane`)
+- `cml-hive-assist.session.state` (counter, attrs: `cml-hive-assist.state`, `cml-hive-assist.reason`)
+- `cml-hive-assist.session.stuck` (counter, attrs: `cml-hive-assist.state`)
+- `cml-hive-assist.session.stuck_age_ms` (histogram, attrs: `cml-hive-assist.state`)
+- `cml-hive-assist.run.attempt` (counter, attrs: `cml-hive-assist.attempt`)
 
 ### Exported spans (names + key attributes)
 
-- `openclaw.model.usage`
-  - `openclaw.channel`, `openclaw.provider`, `openclaw.model`
-  - `openclaw.sessionKey`, `openclaw.sessionId`
-  - `openclaw.tokens.*` (input/output/cache_read/cache_write/total)
-- `openclaw.webhook.processed`
-  - `openclaw.channel`, `openclaw.webhook`, `openclaw.chatId`
-- `openclaw.webhook.error`
-  - `openclaw.channel`, `openclaw.webhook`, `openclaw.chatId`,
-    `openclaw.error`
-- `openclaw.message.processed`
-  - `openclaw.channel`, `openclaw.outcome`, `openclaw.chatId`,
-    `openclaw.messageId`, `openclaw.sessionKey`, `openclaw.sessionId`,
-    `openclaw.reason`
-- `openclaw.session.stuck`
-  - `openclaw.state`, `openclaw.ageMs`, `openclaw.queueDepth`,
-    `openclaw.sessionKey`, `openclaw.sessionId`
+- `cml-hive-assist.model.usage`
+  - `cml-hive-assist.channel`, `cml-hive-assist.provider`, `cml-hive-assist.model`
+  - `cml-hive-assist.sessionKey`, `cml-hive-assist.sessionId`
+  - `cml-hive-assist.tokens.*` (input/output/cache_read/cache_write/total)
+- `cml-hive-assist.webhook.processed`
+  - `cml-hive-assist.channel`, `cml-hive-assist.webhook`, `cml-hive-assist.chatId`
+- `cml-hive-assist.webhook.error`
+  - `cml-hive-assist.channel`, `cml-hive-assist.webhook`, `cml-hive-assist.chatId`,
+    `cml-hive-assist.error`
+- `cml-hive-assist.message.processed`
+  - `cml-hive-assist.channel`, `cml-hive-assist.outcome`, `cml-hive-assist.chatId`,
+    `cml-hive-assist.messageId`, `cml-hive-assist.sessionKey`, `cml-hive-assist.sessionId`,
+    `cml-hive-assist.reason`
+- `cml-hive-assist.session.stuck`
+  - `cml-hive-assist.state`, `cml-hive-assist.ageMs`, `cml-hive-assist.queueDepth`,
+    `cml-hive-assist.sessionKey`, `cml-hive-assist.sessionId`
 
 ### Sampling + flushing
 
@@ -344,7 +344,7 @@ Queues + sessions:
 
 ## Troubleshooting tips
 
-- **Gateway not reachable?** Run `openclaw doctor` first.
+- **Gateway not reachable?** Run `cml-hive-assist doctor` first.
 - **Logs empty?** Check that the Gateway is running and writing to the file path
   in `logging.file`.
 - **Need more detail?** Set `logging.level` to `debug` or `trace` and retry.

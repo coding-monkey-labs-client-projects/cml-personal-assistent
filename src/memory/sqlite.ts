@@ -1,5 +1,5 @@
 import { createRequire } from "node:module";
-import { installProcessWarningFilter } from "../infra/warnings.js";
+import { installProcessWarningFilter } from "../infra/warnings.ts";
 
 const require = createRequire(import.meta.url);
 

@@ -1,16 +1,16 @@
 import type { Command } from "commander";
-import type { NodesRpcOpts } from "./types.js";
-import { randomIdempotencyKey } from "../../gateway/call.js";
-import { defaultRuntime } from "../../runtime.js";
-import { shortenHomePath } from "../../utils.js";
+import type { NodesRpcOpts } from "./types.ts";
+import { randomIdempotencyKey } from "../../gateway/call.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { shortenHomePath } from "../../utils.ts";
 import {
   parseScreenRecordPayload,
   screenRecordTempPath,
   writeScreenRecordToFile,
-} from "../nodes-screen.js";
-import { parseDurationMs } from "../parse-duration.js";
-import { runNodesCommand } from "./cli-utils.js";
-import { callGatewayCli, nodesCallOpts, resolveNodeId } from "./rpc.js";
+} from "../nodes-screen.ts";
+import { parseDurationMs } from "../parse-duration.ts";
+import { runNodesCommand } from "./cli-utils.ts";
+import { callGatewayCli, nodesCallOpts, resolveNodeId } from "./rpc.ts";
 
 export function registerNodesScreenCommands(nodes: Command) {
   const screen = nodes

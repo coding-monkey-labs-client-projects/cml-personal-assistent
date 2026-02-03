@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveTelegramAccount } from "./accounts.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveTelegramAccount } from "./accounts.ts";
 
 export type TelegramReactionLevel = "off" | "ack" | "minimal" | "extensive";
 
@@ -17,7 +17,7 @@ export type ResolvedReactionLevel = {
  * Resolve the effective reaction level and its implications.
  */
 export function resolveTelegramReactionLevel(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string;
 }): ResolvedReactionLevel {
   const account = resolveTelegramAccount({

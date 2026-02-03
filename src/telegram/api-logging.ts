@@ -1,7 +1,7 @@
-import type { RuntimeEnv } from "../runtime.js";
-import { danger } from "../globals.js";
-import { formatErrorMessage } from "../infra/errors.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { danger } from "../globals.ts";
+import { formatErrorMessage } from "../infra/errors.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
 
 export type TelegramApiLogger = (message: string) => void;
 

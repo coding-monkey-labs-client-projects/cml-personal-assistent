@@ -1,36 +1,36 @@
-import type { GatewayService } from "../daemon/service.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { buildWorkspaceSkillStatus } from "../agents/skills-status.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { withProgress } from "../cli/progress.js";
-import { loadConfig, readConfigFileSnapshot, resolveGatewayPort } from "../config/config.js";
-import { readLastGatewayErrorLine } from "../daemon/diagnostics.js";
-import { resolveNodeService } from "../daemon/node-service.js";
-import { resolveGatewayService } from "../daemon/service.js";
-import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
-import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.js";
-import { probeGateway } from "../gateway/probe.js";
-import { collectChannelStatusIssues } from "../infra/channels-status-issues.js";
-import { resolveOpenClawPackageRoot } from "../infra/openclaw-root.js";
-import { resolveOsSummary } from "../infra/os-summary.js";
-import { inspectPortUsage } from "../infra/ports.js";
-import { readRestartSentinel } from "../infra/restart-sentinel.js";
-import { getRemoteSkillEligibility } from "../infra/skills-remote.js";
-import { readTailscaleStatusJson } from "../infra/tailscale.js";
+import type { GatewayService } from "../daemon/service.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { buildWorkspaceSkillStatus } from "../agents/skills-status.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { withProgress } from "../cli/progress.ts";
+import { loadConfig, readConfigFileSnapshot, resolveGatewayPort } from "../config/config.ts";
+import { readLastGatewayErrorLine } from "../daemon/diagnostics.ts";
+import { resolveNodeService } from "../daemon/node-service.ts";
+import { resolveGatewayService } from "../daemon/service.ts";
+import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.ts";
+import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.ts";
+import { probeGateway } from "../gateway/probe.ts";
+import { collectChannelStatusIssues } from "../infra/channels-status-issues.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
+import { resolveOsSummary } from "../infra/os-summary.ts";
+import { inspectPortUsage } from "../infra/ports.ts";
+import { readRestartSentinel } from "../infra/restart-sentinel.ts";
+import { getRemoteSkillEligibility } from "../infra/skills-remote.ts";
+import { readTailscaleStatusJson } from "../infra/tailscale.ts";
 import {
   formatUpdateChannelLabel,
   normalizeUpdateChannel,
   resolveEffectiveUpdateChannel,
-} from "../infra/update-channels.js";
-import { checkUpdateStatus, compareSemverStrings } from "../infra/update-check.js";
-import { runExec } from "../process/exec.js";
-import { VERSION } from "../version.js";
-import { resolveControlUiLinks } from "./onboard-helpers.js";
-import { getAgentLocalStatuses } from "./status-all/agents.js";
-import { buildChannelsTable } from "./status-all/channels.js";
-import { formatDuration, formatGatewayAuthUsed } from "./status-all/format.js";
-import { pickGatewaySelfPresence } from "./status-all/gateway.js";
-import { buildStatusAllReportLines } from "./status-all/report-lines.js";
+} from "../infra/update-channels.ts";
+import { checkUpdateStatus, compareSemverStrings } from "../infra/update-check.ts";
+import { runExec } from "../process/exec.ts";
+import { VERSION } from "../version.ts";
+import { resolveControlUiLinks } from "./onboard-helpers.ts";
+import { getAgentLocalStatuses } from "./status-all/agents.ts";
+import { buildChannelsTable } from "./status-all/channels.ts";
+import { formatDuration, formatGatewayAuthUsed } from "./status-all/format.ts";
+import { pickGatewaySelfPresence } from "./status-all/gateway.ts";
+import { buildStatusAllReportLines } from "./status-all/report-lines.ts";
 
 export async function statusAllCommand(
   runtime: RuntimeEnv,
@@ -81,7 +81,7 @@ export async function statusAllCommand(
     progress.tick();
 
     progress.setLabel("Checking for updates…");
-    const root = await resolveOpenClawPackageRoot({
+    const root = await resolveCmlHiveAssistPackageRoot({
       moduleUrl: import.meta.url,
       argv1: process.argv[1],
       cwd: process.cwd(),
@@ -138,10 +138,10 @@ export async function statusAllCommand(
           ? typeof remote?.token === "string" && remote.token.trim()
             ? remote.token.trim()
             : undefined
-          : process.env.OPENCLAW_GATEWAY_TOKEN?.trim() ||
+          : process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN?.trim() ||
             (typeof authToken === "string" && authToken.trim() ? authToken.trim() : undefined);
       const password =
-        process.env.OPENCLAW_GATEWAY_PASSWORD?.trim() ||
+        process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD?.trim() ||
         (mode === "remote"
           ? typeof remote?.password === "string" && remote.password.trim()
             ? remote.password.trim()

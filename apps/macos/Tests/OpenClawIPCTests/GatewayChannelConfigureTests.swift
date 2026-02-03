@@ -1,8 +1,8 @@
-import OpenClawKit
+import CmlHiveAssistKit
 import Foundation
 import os
 import Testing
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
 @Suite struct GatewayConnectionTests {
     private final class FakeWebSocketTask: WebSocketTasking, @unchecked Sendable {

@@ -2,9 +2,9 @@ import type {
   ProviderUsageSnapshot,
   UsageProviderId,
   UsageWindow,
-} from "./provider-usage.types.js";
-import { fetchJson } from "./provider-usage.fetch.shared.js";
-import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.js";
+} from "./provider-usage.types.ts";
+import { fetchJson } from "./provider-usage.fetch.shared.ts";
+import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.ts";
 
 type GeminiUsageResponse = {
   buckets?: Array<{ modelId?: string; remainingFraction?: number }>;

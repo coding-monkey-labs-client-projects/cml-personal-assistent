@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { WizardPrompter } from "../wizard/prompts.js";
-import { installSkill } from "../agents/skills-install.js";
-import { buildWorkspaceSkillStatus } from "../agents/skills-status.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { detectBinary, resolveNodeManagerOptions } from "./onboard-helpers.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { WizardPrompter } from "../wizard/prompts.ts";
+import { installSkill } from "../agents/skills-install.ts";
+import { buildWorkspaceSkillStatus } from "../agents/skills-status.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { detectBinary, resolveNodeManagerOptions } from "./onboard-helpers.ts";
 
 function summarizeInstallFailure(message: string): string | undefined {
   const cleaned = message.replace(/^Install failed(?:\s*\([^)]*\))?\s*:?\s*/i, "").trim();
@@ -30,10 +30,10 @@ function formatSkillHint(skill: {
 }
 
 function upsertSkillEntry(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   skillKey: string,
   patch: { apiKey?: string },
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const entries = { ...cfg.skills?.entries };
   const existing = (entries[skillKey] as { apiKey?: string } | undefined) ?? {};
   entries[skillKey] = { ...existing, ...patch };
@@ -47,11 +47,11 @@ function upsertSkillEntry(
 }
 
 export async function setupSkills(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   workspaceDir: string,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   const report = buildWorkspaceSkillStatus(workspaceDir, { config: cfg });
   const eligible = report.skills.filter((s) => s.eligible);
   const missing = report.skills.filter((s) => !s.eligible && !s.disabled && !s.blockedByAllowlist);
@@ -107,7 +107,7 @@ export async function setupSkills(
     options: resolveNodeManagerOptions(),
   })) as "npm" | "pnpm" | "bun";
 
-  let next: OpenClawConfig = {
+  let next: CmlHiveAssistConfig = {
     ...cfg,
     skills: {
       ...cfg.skills,
@@ -169,7 +169,7 @@ export async function setupSkills(
         runtime.log(
           `Tip: run \`${formatCliCommand("openclaw doctor")}\` to review skills + requirements.`,
         );
-        runtime.log("Docs: https://docs.openclaw.ai/skills");
+        runtime.log("Docs: https://docs.cml-hive-assist.ai/skills");
       }
     }
   }

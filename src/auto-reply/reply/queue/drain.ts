@@ -1,13 +1,13 @@
-import type { FollowupRun } from "./types.js";
-import { defaultRuntime } from "../../../runtime.js";
+import type { FollowupRun } from "./types.ts";
+import { defaultRuntime } from "../../../runtime.ts";
 import {
   buildCollectPrompt,
   buildQueueSummaryPrompt,
   hasCrossChannelItems,
   waitForQueueDebounce,
-} from "../../../utils/queue-helpers.js";
-import { isRoutableChannel } from "../route-reply.js";
-import { FOLLOWUP_QUEUES } from "./state.js";
+} from "../../../utils/queue-helpers.ts";
+import { isRoutableChannel } from "../route-reply.ts";
+import { FOLLOWUP_QUEUES } from "./state.ts";
 
 export function scheduleFollowupDrain(
   key: string,

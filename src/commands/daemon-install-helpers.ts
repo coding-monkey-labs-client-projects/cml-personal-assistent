@@ -1,15 +1,15 @@
-import type { OpenClawConfig } from "../config/types.js";
-import type { GatewayDaemonRuntime } from "./daemon-runtime.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { collectConfigEnvVars } from "../config/env-vars.js";
-import { resolveGatewayLaunchAgentLabel } from "../daemon/constants.js";
-import { resolveGatewayProgramArguments } from "../daemon/program-args.js";
+import type { CmlHiveAssistConfig } from "../config/types.ts";
+import type { GatewayDaemonRuntime } from "./daemon-runtime.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { collectConfigEnvVars } from "../config/env-vars.ts";
+import { resolveGatewayLaunchAgentLabel } from "../daemon/constants.ts";
+import { resolveGatewayProgramArguments } from "../daemon/program-args.ts";
 import {
   renderSystemNodeWarning,
   resolvePreferredNodePath,
   resolveSystemNodeInfo,
-} from "../daemon/runtime-paths.js";
-import { buildServiceEnvironment } from "../daemon/service-env.js";
+} from "../daemon/runtime-paths.ts";
+import { buildServiceEnvironment } from "../daemon/service-env.ts";
 
 type WarnFn = (message: string, title?: string) => void;
 
@@ -34,7 +34,7 @@ export async function buildGatewayInstallPlan(params: {
   nodePath?: string;
   warn?: WarnFn;
   /** Full config to extract env vars from (env vars + inline env keys). */
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
 }): Promise<GatewayInstallPlan> {
   const devMode = params.devMode ?? resolveGatewayDevMode();
   const nodePath =
@@ -62,7 +62,7 @@ export async function buildGatewayInstallPlan(params: {
     token: params.token,
     launchdLabel:
       process.platform === "darwin"
-        ? resolveGatewayLaunchAgentLabel(params.env.OPENCLAW_PROFILE)
+        ? resolveGatewayLaunchAgentLabel(params.env.CML_HIVE_ASSIST_PROFILE)
         : undefined,
   });
 

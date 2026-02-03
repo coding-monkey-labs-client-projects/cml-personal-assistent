@@ -1,8 +1,8 @@
-import type { CronJob } from "../types.js";
-import type { CronServiceState } from "./state.js";
-import { migrateLegacyCronPayload } from "../payload-migration.js";
-import { loadCronStore, saveCronStore } from "../store.js";
-import { inferLegacyName, normalizeOptionalText } from "./normalize.js";
+import type { CronJob } from "../types.ts";
+import type { CronServiceState } from "./state.ts";
+import { migrateLegacyCronPayload } from "../payload-migration.ts";
+import { loadCronStore, saveCronStore } from "../store.ts";
+import { inferLegacyName, normalizeOptionalText } from "./normalize.ts";
 
 const storeCache = new Map<string, { version: 1; jobs: CronJob[] }>();
 

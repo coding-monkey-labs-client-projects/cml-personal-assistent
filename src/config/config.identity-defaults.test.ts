@@ -20,7 +20,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             agents: {
@@ -57,7 +57,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             agents: {
@@ -94,7 +94,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             messages: {},
@@ -119,7 +119,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             agents: {
@@ -159,7 +159,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             messages: {
@@ -205,7 +205,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             models: {
@@ -254,7 +254,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             agents: {
@@ -290,7 +290,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             messages: {},
@@ -319,7 +319,7 @@ describe("config identity defaults", () => {
       const configDir = path.join(home, ".openclaw");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
-        path.join(configDir, "openclaw.json"),
+        path.join(configDir, "cml-hive-assist.json"),
         JSON.stringify(
           {
             agents: {
@@ -327,7 +327,7 @@ describe("config identity defaults", () => {
                 {
                   id: "main",
                   identity: {
-                    name: "OpenClaw",
+                    name: "CmlHiveAssist",
                     theme: "space lobster",
                     emoji: "🦞",
                   },

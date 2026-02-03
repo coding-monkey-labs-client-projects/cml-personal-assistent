@@ -1,11 +1,11 @@
-import type { startGatewayServer } from "../../gateway/server.js";
-import type { defaultRuntime } from "../../runtime.js";
-import { acquireGatewayLock } from "../../infra/gateway-lock.js";
+import type { startGatewayServer } from "../../gateway/server.ts";
+import type { defaultRuntime } from "../../runtime.ts";
+import { acquireGatewayLock } from "../../infra/gateway-lock.ts";
 import {
   consumeGatewaySigusr1RestartAuthorization,
   isGatewaySigusr1RestartExternallyAllowed,
-} from "../../infra/restart.js";
-import { createSubsystemLogger } from "../../logging/subsystem.js";
+} from "../../infra/restart.ts";
+import { createSubsystemLogger } from "../../logging/subsystem.ts";
 
 const gatewayLog = createSubsystemLogger("gateway");
 

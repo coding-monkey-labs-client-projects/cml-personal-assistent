@@ -1,41 +1,41 @@
 #!/usr/bin/env node
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { getReplyFromConfig } from "./auto-reply/reply.js";
-import { applyTemplate } from "./auto-reply/templating.js";
-import { monitorWebChannel } from "./channel-web.js";
-import { createDefaultDeps } from "./cli/deps.js";
-import { promptYesNo } from "./cli/prompt.js";
-import { waitForever } from "./cli/wait.js";
-import { loadConfig } from "./config/config.js";
+import { getReplyFromConfig } from "./auto-reply/reply.ts";
+import { applyTemplate } from "./auto-reply/templating.ts";
+import { monitorWebChannel } from "./channel-web.ts";
+import { createDefaultDeps } from "./cli/deps.ts";
+import { promptYesNo } from "./cli/prompt.ts";
+import { waitForever } from "./cli/wait.ts";
+import { loadConfig } from "./config/config.ts";
 import {
   deriveSessionKey,
   loadSessionStore,
   resolveSessionKey,
   resolveStorePath,
   saveSessionStore,
-} from "./config/sessions.js";
-import { ensureBinary } from "./infra/binaries.js";
-import { loadDotEnv } from "./infra/dotenv.js";
-import { normalizeEnv } from "./infra/env.js";
-import { formatUncaughtError } from "./infra/errors.js";
-import { isMainModule } from "./infra/is-main.js";
-import { ensureOpenClawCliOnPath } from "./infra/path-env.js";
+} from "./config/sessions.ts";
+import { ensureBinary } from "./infra/binaries.ts";
+import { loadDotEnv } from "./infra/dotenv.ts";
+import { normalizeEnv } from "./infra/env.ts";
+import { formatUncaughtError } from "./infra/errors.ts";
+import { isMainModule } from "./infra/is-main.ts";
+import { ensureCmlHiveAssistCliOnPath } from "./infra/path-env.ts";
 import {
   describePortOwner,
   ensurePortAvailable,
   handlePortError,
   PortInUseError,
-} from "./infra/ports.js";
-import { assertSupportedRuntime } from "./infra/runtime-guard.js";
-import { installUnhandledRejectionHandler } from "./infra/unhandled-rejections.js";
-import { enableConsoleCapture } from "./logging.js";
-import { runCommandWithTimeout, runExec } from "./process/exec.js";
-import { assertWebChannel, normalizeE164, toWhatsappJid } from "./utils.js";
+} from "./infra/ports.ts";
+import { assertSupportedRuntime } from "./infra/runtime-guard.ts";
+import { installUnhandledRejectionHandler } from "./infra/unhandled-rejections.ts";
+import { enableConsoleCapture } from "./logging.ts";
+import { runCommandWithTimeout, runExec } from "./process/exec.ts";
+import { assertWebChannel, normalizeE164, toWhatsappJid } from "./utils.ts";
 
 loadDotEnv({ quiet: true });
 normalizeEnv();
-ensureOpenClawCliOnPath();
+ensureCmlHiveAssistCliOnPath();
 
 // Capture all console output into structured logs while keeping stdout/stderr behavior.
 enableConsoleCapture();
@@ -43,7 +43,7 @@ enableConsoleCapture();
 // Enforce the minimum supported runtime before doing any work.
 assertSupportedRuntime();
 
-import { buildProgram } from "./cli/program.js";
+import { buildProgram } from "./cli/program.ts";
 
 const program = buildProgram();
 

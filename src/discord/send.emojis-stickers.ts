@@ -1,8 +1,8 @@
 import { Routes } from "discord-api-types/v10";
-import type { DiscordEmojiUpload, DiscordReactOpts, DiscordStickerUpload } from "./send.types.js";
-import { loadWebMediaRaw } from "../web/media.js";
-import { normalizeEmojiName, resolveDiscordRest } from "./send.shared.js";
-import { DISCORD_MAX_EMOJI_BYTES, DISCORD_MAX_STICKER_BYTES } from "./send.types.js";
+import type { DiscordEmojiUpload, DiscordReactOpts, DiscordStickerUpload } from "./send.types.ts";
+import { loadWebMediaRaw } from "../web/media.ts";
+import { normalizeEmojiName, resolveDiscordRest } from "./send.shared.ts";
+import { DISCORD_MAX_EMOJI_BYTES, DISCORD_MAX_STICKER_BYTES } from "./send.types.ts";
 
 export async function listGuildEmojisDiscord(guildId: string, opts: DiscordReactOpts = {}) {
   const rest = resolveDiscordRest(opts);

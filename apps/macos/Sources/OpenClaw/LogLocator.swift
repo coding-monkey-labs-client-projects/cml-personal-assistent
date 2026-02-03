@@ -2,21 +2,21 @@ import Foundation
 
 enum LogLocator {
     private static var logDir: URL {
-        if let override = ProcessInfo.processInfo.environment["OPENCLAW_LOG_DIR"],
+        if let override = ProcessInfo.processInfo.environment["CML_HIVE_ASSIST_LOG_DIR"],
            !override.isEmpty
         {
             return URL(fileURLWithPath: override)
         }
-        let preferred = URL(fileURLWithPath: "/tmp/openclaw")
+        let preferred = URL(fileURLWithPath: "/tmp/cml-hive-assist")
         return preferred
     }
 
     private static var stdoutLog: URL {
-        logDir.appendingPathComponent("openclaw-stdout.log")
+        logDir.appendingPathComponent("cml-hive-assist-stdout.log")
     }
 
     private static var gatewayLog: URL {
-        logDir.appendingPathComponent("openclaw-gateway.log")
+        logDir.appendingPathComponent("cml-hive-assist-gateway.log")
     }
 
     private static func ensureLogDirExists() {
@@ -27,7 +27,7 @@ enum LogLocator {
         (try? url.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast
     }
 
-    /// Returns the newest log file under /tmp/openclaw/ (rolling or stdout), or nil if none exist.
+    /// Returns the newest log file under /tmp/cml-hive-assist/ (rolling or stdout), or nil if none exist.
     static func bestLogFile() -> URL? {
         self.ensureLogDirExists()
         let fm = FileManager()
@@ -36,7 +36,7 @@ enum LogLocator {
             includingPropertiesForKeys: [.contentModificationDateKey],
             options: [.skipsHiddenFiles])) ?? []
 
-        let prefixes = ["openclaw"]
+        let prefixes = ["cml-hive-assist"]
         return files
             .filter { file in
                 prefixes.contains { file.lastPathComponent.hasPrefix($0) } && file.pathExtension == "log"

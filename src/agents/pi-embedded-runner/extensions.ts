@@ -2,15 +2,15 @@ import type { Api, Model } from "@mariozechner/pi-ai";
 import type { SessionManager } from "@mariozechner/pi-coding-agent";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { OpenClawConfig } from "../../config/config.js";
-import { resolveContextWindowInfo } from "../context-window-guard.js";
-import { DEFAULT_CONTEXT_TOKENS } from "../defaults.js";
-import { setCompactionSafeguardRuntime } from "../pi-extensions/compaction-safeguard-runtime.js";
-import { setContextPruningRuntime } from "../pi-extensions/context-pruning/runtime.js";
-import { computeEffectiveSettings } from "../pi-extensions/context-pruning/settings.js";
-import { makeToolPrunablePredicate } from "../pi-extensions/context-pruning/tools.js";
-import { ensurePiCompactionReserveTokens } from "../pi-settings.js";
-import { isCacheTtlEligibleProvider, readLastCacheTtlTimestamp } from "./cache-ttl.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { resolveContextWindowInfo } from "../context-window-guard.ts";
+import { DEFAULT_CONTEXT_TOKENS } from "../defaults.ts";
+import { setCompactionSafeguardRuntime } from "../pi-extensions/compaction-safeguard-runtime.ts";
+import { setContextPruningRuntime } from "../pi-extensions/context-pruning/runtime.ts";
+import { computeEffectiveSettings } from "../pi-extensions/context-pruning/settings.ts";
+import { makeToolPrunablePredicate } from "../pi-extensions/context-pruning/tools.ts";
+import { ensurePiCompactionReserveTokens } from "../pi-settings.ts";
+import { isCacheTtlEligibleProvider, readLastCacheTtlTimestamp } from "./cache-ttl.ts";
 
 function resolvePiExtensionPath(id: string): string {
   const self = fileURLToPath(import.meta.url);
@@ -21,7 +21,7 @@ function resolvePiExtensionPath(id: string): string {
 }
 
 function resolveContextWindowTokens(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: CmlHiveAssistConfig | undefined;
   provider: string;
   modelId: string;
   model: Model<Api> | undefined;
@@ -36,7 +36,7 @@ function resolveContextWindowTokens(params: {
 }
 
 function buildContextPruningExtension(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: CmlHiveAssistConfig | undefined;
   sessionManager: SessionManager;
   provider: string;
   modelId: string;
@@ -67,12 +67,12 @@ function buildContextPruningExtension(params: {
   };
 }
 
-function resolveCompactionMode(cfg?: OpenClawConfig): "default" | "safeguard" {
+function resolveCompactionMode(cfg?: CmlHiveAssistConfig): "default" | "safeguard" {
   return cfg?.agents?.defaults?.compaction?.mode === "safeguard" ? "safeguard" : "default";
 }
 
 export function buildEmbeddedExtensionPaths(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: CmlHiveAssistConfig | undefined;
   sessionManager: SessionManager;
   provider: string;
   modelId: string;

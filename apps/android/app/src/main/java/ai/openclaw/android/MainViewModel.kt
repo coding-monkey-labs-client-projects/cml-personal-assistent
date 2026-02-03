@@ -1,13 +1,13 @@
-package ai.openclaw.android
+package ai.cml-hive-assist.android
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import ai.openclaw.android.gateway.GatewayEndpoint
-import ai.openclaw.android.chat.OutgoingAttachment
-import ai.openclaw.android.node.CameraCaptureManager
-import ai.openclaw.android.node.CanvasController
-import ai.openclaw.android.node.ScreenRecordManager
-import ai.openclaw.android.node.SmsManager
+import ai.cml-hive-assist.android.gateway.GatewayEndpoint
+import ai.cml-hive-assist.android.chat.OutgoingAttachment
+import ai.cml-hive-assist.android.node.CameraCaptureManager
+import ai.cml-hive-assist.android.node.CanvasController
+import ai.cml-hive-assist.android.node.ScreenRecordManager
+import ai.cml-hive-assist.android.node.SmsManager
 import kotlinx.coroutines.flow.StateFlow
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {

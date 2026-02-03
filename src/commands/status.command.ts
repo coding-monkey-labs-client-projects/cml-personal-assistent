@@ -1,43 +1,43 @@
-import type { RuntimeEnv } from "../runtime.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { withProgress } from "../cli/progress.js";
-import { resolveGatewayPort } from "../config/config.js";
-import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
-import { info } from "../globals.js";
-import { formatUsageReportLines, loadProviderUsageSummary } from "../infra/provider-usage.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { withProgress } from "../cli/progress.ts";
+import { resolveGatewayPort } from "../config/config.ts";
+import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.ts";
+import { info } from "../globals.ts";
+import { formatUsageReportLines, loadProviderUsageSummary } from "../infra/provider-usage.ts";
 import {
   formatUpdateChannelLabel,
   normalizeUpdateChannel,
   resolveEffectiveUpdateChannel,
-} from "../infra/update-channels.js";
+} from "../infra/update-channels.ts";
 import {
   resolveMemoryCacheSummary,
   resolveMemoryFtsState,
   resolveMemoryVectorState,
   type Tone,
-} from "../memory/status-format.js";
-import { runSecurityAudit } from "../security/audit.js";
-import { renderTable } from "../terminal/table.js";
-import { theme } from "../terminal/theme.js";
-import { formatHealthChannelLines, type HealthSummary } from "./health.js";
-import { resolveControlUiLinks } from "./onboard-helpers.js";
-import { statusAllCommand } from "./status-all.js";
-import { formatGatewayAuthUsed } from "./status-all/format.js";
-import { getDaemonStatusSummary, getNodeDaemonStatusSummary } from "./status.daemon.js";
+} from "../memory/status-format.ts";
+import { runSecurityAudit } from "../security/audit.ts";
+import { renderTable } from "../terminal/table.ts";
+import { theme } from "../terminal/theme.ts";
+import { formatHealthChannelLines, type HealthSummary } from "./health.ts";
+import { resolveControlUiLinks } from "./onboard-helpers.ts";
+import { statusAllCommand } from "./status-all.ts";
+import { formatGatewayAuthUsed } from "./status-all/format.ts";
+import { getDaemonStatusSummary, getNodeDaemonStatusSummary } from "./status.daemon.ts";
 import {
   formatAge,
   formatDuration,
   formatKTokens,
   formatTokensCompact,
   shortenText,
-} from "./status.format.js";
-import { resolveGatewayProbeAuth } from "./status.gateway-probe.js";
-import { scanStatus } from "./status.scan.js";
+} from "./status.format.ts";
+import { resolveGatewayProbeAuth } from "./status.gateway-probe.ts";
+import { scanStatus } from "./status.scan.ts";
 import {
   formatUpdateAvailableHint,
   formatUpdateOneLiner,
   resolveUpdateAvailability,
-} from "./status.update.js";
+} from "./status.update.ts";
 
 export async function statusCommand(
   opts: {
@@ -377,7 +377,7 @@ export async function statusCommand(
     },
   ];
 
-  runtime.log(theme.heading("OpenClaw status"));
+  runtime.log(theme.heading("CmlHiveAssist status"));
   runtime.log("");
   runtime.log(theme.heading("Overview"));
   runtime.log(
@@ -599,8 +599,8 @@ export async function statusCommand(
   }
 
   runtime.log("");
-  runtime.log("FAQ: https://docs.openclaw.ai/faq");
-  runtime.log("Troubleshooting: https://docs.openclaw.ai/troubleshooting");
+  runtime.log("FAQ: https://docs.cml-hive-assist.ai/faq");
+  runtime.log("Troubleshooting: https://docs.cml-hive-assist.ai/troubleshooting");
   runtime.log("");
   const updateHint = formatUpdateAvailableHint(update);
   if (updateHint) {

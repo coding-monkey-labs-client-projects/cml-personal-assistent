@@ -1,5 +1,5 @@
-import { VERSION } from "../../version.js";
-import { resolveCliChannelOptions } from "../channel-options.js";
+import { VERSION } from "../../version.ts";
+import { resolveCliChannelOptions } from "../channel-options.ts";
 
 export type ProgramContext = {
   programVersion: string;

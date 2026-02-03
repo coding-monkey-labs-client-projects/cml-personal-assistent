@@ -1,57 +1,57 @@
 import path from "node:path";
-import type { RuntimeEnv } from "../../runtime.js";
-import { resolveOpenClawAgentDir } from "../../agents/agent-paths.js";
+import type { RuntimeEnv } from "../../runtime.ts";
+import { resolveCmlHiveAssistAgentDir } from "../../agents/agent-paths.ts";
 import {
   resolveAgentDir,
   resolveAgentModelFallbacksOverride,
   resolveAgentModelPrimary,
-} from "../../agents/agent-scope.js";
+} from "../../agents/agent-scope.ts";
 import {
   buildAuthHealthSummary,
   DEFAULT_OAUTH_WARN_MS,
   formatRemainingShort,
-} from "../../agents/auth-health.js";
+} from "../../agents/auth-health.ts";
 import {
   ensureAuthProfileStore,
   resolveAuthStorePathForDisplay,
   resolveProfileUnusableUntilForDisplay,
-} from "../../agents/auth-profiles.js";
-import { resolveEnvApiKey } from "../../agents/model-auth.js";
+} from "../../agents/auth-profiles.ts";
+import { resolveEnvApiKey } from "../../agents/model-auth.ts";
 import {
   buildModelAliasIndex,
   parseModelRef,
   resolveConfiguredModelRef,
   resolveDefaultModelForAgent,
   resolveModelRefFromString,
-} from "../../agents/model-selection.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { withProgressTotals } from "../../cli/progress.js";
-import { CONFIG_PATH, loadConfig } from "../../config/config.js";
+} from "../../agents/model-selection.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { withProgressTotals } from "../../cli/progress.ts";
+import { CONFIG_PATH, loadConfig } from "../../config/config.ts";
 import {
   formatUsageWindowSummary,
   loadProviderUsageSummary,
   resolveUsageProviderId,
   type UsageProviderId,
-} from "../../infra/provider-usage.js";
-import { getShellEnvAppliedKeys, shouldEnableShellEnvFallback } from "../../infra/shell-env.js";
-import { renderTable } from "../../terminal/table.js";
-import { colorize, theme } from "../../terminal/theme.js";
-import { shortenHomePath } from "../../utils.js";
-import { resolveProviderAuthOverview } from "./list.auth-overview.js";
-import { isRich } from "./list.format.js";
+} from "../../infra/provider-usage.ts";
+import { getShellEnvAppliedKeys, shouldEnableShellEnvFallback } from "../../infra/shell-env.ts";
+import { renderTable } from "../../terminal/table.ts";
+import { colorize, theme } from "../../terminal/theme.ts";
+import { shortenHomePath } from "../../utils.ts";
+import { resolveProviderAuthOverview } from "./list.auth-overview.ts";
+import { isRich } from "./list.format.ts";
 import {
   describeProbeSummary,
   formatProbeLatency,
   runAuthProbes,
   sortProbeResults,
   type AuthProbeSummary,
-} from "./list.probe.js";
+} from "./list.probe.ts";
 import {
   DEFAULT_MODEL,
   DEFAULT_PROVIDER,
   ensureFlagCompatibility,
   resolveKnownAgentId,
-} from "./shared.js";
+} from "./shared.ts";
 
 export async function modelsStatusCommand(
   opts: {
@@ -74,7 +74,7 @@ export async function modelsStatusCommand(
   }
   const cfg = loadConfig();
   const agentId = resolveKnownAgentId({ cfg, rawAgentId: opts.agent });
-  const agentDir = agentId ? resolveAgentDir(cfg, agentId) : resolveOpenClawAgentDir();
+  const agentDir = agentId ? resolveAgentDir(cfg, agentId) : resolveCmlHiveAssistAgentDir();
   const agentModelPrimary = agentId ? resolveAgentModelPrimary(cfg, agentId) : undefined;
   const agentFallbacksOverride = agentId
     ? resolveAgentModelFallbacksOverride(cfg, agentId)

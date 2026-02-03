@@ -1,20 +1,20 @@
-import type { HeartbeatStatus, SessionStatus, StatusSummary } from "./status.types.js";
-import { lookupContextTokens } from "../agents/context.js";
-import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { resolveConfiguredModelRef } from "../agents/model-selection.js";
-import { loadConfig } from "../config/config.js";
+import type { HeartbeatStatus, SessionStatus, StatusSummary } from "./status.types.ts";
+import { lookupContextTokens } from "../agents/context.ts";
+import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { resolveConfiguredModelRef } from "../agents/model-selection.ts";
+import { loadConfig } from "../config/config.ts";
 import {
   loadSessionStore,
   resolveMainSessionKey,
   resolveStorePath,
   type SessionEntry,
-} from "../config/sessions.js";
-import { listAgentsForGateway } from "../gateway/session-utils.js";
-import { buildChannelSummary } from "../infra/channel-summary.js";
-import { resolveHeartbeatSummaryForAgent } from "../infra/heartbeat-runner.js";
-import { peekSystemEvents } from "../infra/system-events.js";
-import { parseAgentSessionKey } from "../routing/session-key.js";
-import { resolveLinkChannelContext } from "./status.link-channel.js";
+} from "../config/sessions.ts";
+import { listAgentsForGateway } from "../gateway/session-utils.ts";
+import { buildChannelSummary } from "../infra/channel-summary.ts";
+import { resolveHeartbeatSummaryForAgent } from "../infra/heartbeat-runner.ts";
+import { peekSystemEvents } from "../infra/system-events.ts";
+import { parseAgentSessionKey } from "../routing/session-key.ts";
+import { resolveLinkChannelContext } from "./status.link-channel.ts";
 
 const classifyKey = (key: string, entry?: SessionEntry): SessionStatus["kind"] => {
   if (key === "global") {

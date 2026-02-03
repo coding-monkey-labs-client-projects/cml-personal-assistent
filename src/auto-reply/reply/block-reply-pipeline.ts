@@ -1,7 +1,7 @@
-import type { ReplyPayload } from "../types.js";
-import type { BlockStreamingCoalescing } from "./block-streaming.js";
-import { logVerbose } from "../../globals.js";
-import { createBlockReplyCoalescer } from "./block-reply-coalescer.js";
+import type { ReplyPayload } from "../types.ts";
+import type { BlockStreamingCoalescing } from "./block-streaming.ts";
+import { logVerbose } from "../../globals.ts";
+import { createBlockReplyCoalescer } from "./block-reply-coalescer.ts";
 
 export type BlockReplyPipeline = {
   enqueue: (payload: ReplyPayload) => void;

@@ -1,4 +1,4 @@
-export { resetWebInboundDedupe } from "./inbound/dedupe.js";
-export { extractLocationData, extractMediaPlaceholder, extractText } from "./inbound/extract.js";
-export { monitorWebInbox } from "./inbound/monitor.js";
-export type { WebInboundMessage, WebListenerCloseReason } from "./inbound/types.js";
+export { resetWebInboundDedupe } from "./inbound/dedupe.ts";
+export { extractLocationData, extractMediaPlaceholder, extractText } from "./inbound/extract.ts";
+export { monitorWebInbox } from "./inbound/monitor.ts";
+export type { WebInboundMessage, WebListenerCloseReason } from "./inbound/types.ts";
