@@ -16,7 +16,7 @@ describe("restart sentinel", () => {
 
   beforeEach(async () => {
     prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sentinel-"));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-sentinel-"));
     process.env.CML_HIVE_ASSIST_STATE_DIR = tempDir;
   });
 

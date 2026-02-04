@@ -19,7 +19,7 @@ x-i18n:
 
 迁移在概念上很简单：
 
-- 复制**状态目录**（`$OPENCLAW_STATE_DIR`，默认：`~/.cml-hive-assist/`）— 包含配置、认证、会话和渠道状态。
+- 复制**状态目录**（`$CML_HIVE_ASSIST_STATE_DIR`，默认：`~/.cml-hive-assist/`）— 包含配置、认证、会话和渠道状态。
 - 复制你的**工作区**（默认 `~/.cml-hive-assist/workspace/`）— 包含你的智能体文件（记忆、提示词等）。
 
 但在**配置文件**、**权限**和**不完整复制**方面有一些常见的坑。
@@ -35,7 +35,7 @@ x-i18n:
 但如果你使用了以下选项，路径可能不同：
 
 - `--profile <name>`（通常变为 `~/.cml-hive-assist-<profile>/`）
-- `OPENCLAW_STATE_DIR=/some/path`
+- `CML_HIVE_ASSIST_STATE_DIR=/some/path`
 
 如果不确定，在**旧**机器上运行：
 
@@ -43,7 +43,7 @@ x-i18n:
 cml-hive-assist status
 ```
 
-在输出中查找 `OPENCLAW_STATE_DIR` / profile 的相关信息。如果你运行了多个 Gateway网关，请对每个配置文件重复操作。
+在输出中查找 `CML_HIVE_ASSIST_STATE_DIR` / profile 的相关信息。如果你运行了多个 Gateway网关，请对每个配置文件重复操作。
 
 ### 2) 确认你的工作区
 
@@ -70,7 +70,7 @@ cml-hive-assist status
 - 凭据
 - 渠道登录状态
 
-这些存储在 `$OPENCLAW_STATE_DIR` 下。
+这些存储在 `$CML_HIVE_ASSIST_STATE_DIR` 下。
 
 ## 迁移步骤（推荐）
 
@@ -106,7 +106,7 @@ tar -czf cml-hive-assist-workspace.tgz .cml-hive-assist/workspace
 
 **同时**复制：
 
-- `$OPENCLAW_STATE_DIR`（默认 `~/.cml-hive-assist/`）
+- `$CML_HIVE_ASSIST_STATE_DIR`（默认 `~/.cml-hive-assist/`）
 - 你的工作区（默认 `~/.cml-hive-assist/workspace/`）
 
 常用方法：
@@ -141,7 +141,7 @@ cml-hive-assist status
 
 ### 坑：配置文件 / 状态目录不匹配
 
-如果旧 Gateway网关使用了配置文件（或 `OPENCLAW_STATE_DIR`），而新 Gateway网关使用了不同的路径，你会看到以下症状：
+如果旧 Gateway网关使用了配置文件（或 `CML_HIVE_ASSIST_STATE_DIR`），而新 Gateway网关使用了不同的路径，你会看到以下症状：
 
 - 配置更改不生效
 - 渠道缺失 / 已登出
@@ -157,10 +157,10 @@ cml-hive-assist doctor
 
 `cml-hive-assist.json` 是不够的。许多提供商将状态存储在：
 
-- `$OPENCLAW_STATE_DIR/credentials/`
-- `$OPENCLAW_STATE_DIR/agents/<agentId>/...`
+- `$CML_HIVE_ASSIST_STATE_DIR/credentials/`
+- `$CML_HIVE_ASSIST_STATE_DIR/agents/<agentId>/...`
 
-始终迁移整个 `$OPENCLAW_STATE_DIR` 文件夹。
+始终迁移整个 `$CML_HIVE_ASSIST_STATE_DIR` 文件夹。
 
 ### 坑：权限 / 所有权
 
@@ -177,7 +177,7 @@ cml-hive-assist doctor
 
 ### 坑：备份中的密钥
 
-`$OPENCLAW_STATE_DIR` 包含密钥（API 密钥、OAuth 令牌、WhatsApp 凭据）。请将备份视为生产密钥：
+`$CML_HIVE_ASSIST_STATE_DIR` 包含密钥（API 密钥、OAuth 令牌、WhatsApp 凭据）。请将备份视为生产密钥：
 
 - 加密存储
 - 避免通过不安全的渠道传输

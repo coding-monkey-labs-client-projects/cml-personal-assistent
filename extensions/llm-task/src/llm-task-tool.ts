@@ -175,7 +175,7 @@ export function createLlmTaskTool(api: CmlHiveAssistPluginApi) {
 
       let tmpDir: string | null = null;
       try {
-        tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-llm-task-"));
+        tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-llm-task-"));
         const sessionId = `llm-task-${Date.now()}`;
         const sessionFile = path.join(tmpDir, "session.json");
 

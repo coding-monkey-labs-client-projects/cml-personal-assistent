@@ -1,5 +1,8 @@
 import type { SeverityNumber } from "@opentelemetry/api-logs";
-import type { DiagnosticEventPayload, CmlHiveAssistPluginService } from "openclaw/plugin-sdk";
+import type {
+  DiagnosticEventPayload,
+  CmlHiveAssistPluginService,
+} from "cml-hive-assist/plugin-sdk";
 import { metrics, trace, SpanStatusCode } from "@opentelemetry/api";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
@@ -10,7 +13,7 @@ import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { NodeSDK } from "@opentelemetry/sdk-node";
 import { ParentBasedSampler, TraceIdRatioBasedSampler } from "@opentelemetry/sdk-trace-base";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
-import { onDiagnosticEvent, registerLogTransport } from "openclaw/plugin-sdk";
+import { onDiagnosticEvent, registerLogTransport } from "cml-hive-assist/plugin-sdk";
 
 const DEFAULT_SERVICE_NAME = "cml-hive-assist";
 
@@ -156,10 +159,13 @@ export function createDiagnosticsOtelService(): CmlHiveAssistPluginService {
         unit: "1",
         description: "Webhook processing errors",
       });
-      const webhookDurationHistogram = meter.createHistogram("cml-hive-assist.webhook.duration_ms", {
-        unit: "ms",
-        description: "Webhook processing duration",
-      });
+      const webhookDurationHistogram = meter.createHistogram(
+        "cml-hive-assist.webhook.duration_ms",
+        {
+          unit: "ms",
+          description: "Webhook processing duration",
+        },
+      );
       const messageQueuedCounter = meter.createCounter("cml-hive-assist.message.queued", {
         unit: "1",
         description: "Messages queued for processing",
@@ -168,10 +174,13 @@ export function createDiagnosticsOtelService(): CmlHiveAssistPluginService {
         unit: "1",
         description: "Messages processed by outcome",
       });
-      const messageDurationHistogram = meter.createHistogram("cml-hive-assist.message.duration_ms", {
-        unit: "ms",
-        description: "Message processing duration",
-      });
+      const messageDurationHistogram = meter.createHistogram(
+        "cml-hive-assist.message.duration_ms",
+        {
+          unit: "ms",
+          description: "Message processing duration",
+        },
+      );
       const queueDepthHistogram = meter.createHistogram("cml-hive-assist.queue.depth", {
         unit: "1",
         description: "Queue depth on enqueue/dequeue",
@@ -196,10 +205,13 @@ export function createDiagnosticsOtelService(): CmlHiveAssistPluginService {
         unit: "1",
         description: "Sessions stuck in processing",
       });
-      const sessionStuckAgeHistogram = meter.createHistogram("cml-hive-assist.session.stuck_age_ms", {
-        unit: "ms",
-        description: "Age of stuck sessions",
-      });
+      const sessionStuckAgeHistogram = meter.createHistogram(
+        "cml-hive-assist.session.stuck_age_ms",
+        {
+          unit: "ms",
+          description: "Age of stuck sessions",
+        },
+      );
       const runAttemptCounter = meter.createCounter("cml-hive-assist.run.attempt", {
         unit: "1",
         description: "Run attempts",
@@ -429,7 +441,11 @@ export function createDiagnosticsOtelService(): CmlHiveAssistPluginService {
         if (evt.chatId !== undefined) {
           spanAttrs["cml-hive-assist.chatId"] = String(evt.chatId);
         }
-        const span = spanWithDuration("cml-hive-assist.webhook.processed", spanAttrs, evt.durationMs);
+        const span = spanWithDuration(
+          "cml-hive-assist.webhook.processed",
+          spanAttrs,
+          evt.durationMs,
+        );
         span.end();
       };
 
@@ -501,7 +517,11 @@ export function createDiagnosticsOtelService(): CmlHiveAssistPluginService {
         if (evt.reason) {
           spanAttrs["cml-hive-assist.reason"] = evt.reason;
         }
-        const span = spanWithDuration("cml-hive-assist.message.processed", spanAttrs, evt.durationMs);
+        const span = spanWithDuration(
+          "cml-hive-assist.message.processed",
+          spanAttrs,
+          evt.durationMs,
+        );
         if (evt.outcome === "error") {
           span.setStatus({ code: SpanStatusCode.ERROR, message: evt.error });
         }

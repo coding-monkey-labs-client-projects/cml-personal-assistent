@@ -8,7 +8,7 @@ vi.mock("./chrome.js", () => ({
   launchCmlHiveAssistChrome: vi.fn(async () => {
     throw new Error("unexpected launch");
   }),
-  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/openclaw"),
+  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/cml-hive-assist"),
   stopCmlHiveAssistChrome: vi.fn(async () => {}),
 }));
 

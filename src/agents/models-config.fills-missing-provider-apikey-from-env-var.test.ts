@@ -5,7 +5,7 @@ import type { CmlHiveAssistConfig } from "../config/config.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "openclaw-models-" });
+  return withTempHomeBase(fn, { prefix: "cml-hive-assist-models-" });
 }
 
 const MODELS_CONFIG: CmlHiveAssistConfig = {

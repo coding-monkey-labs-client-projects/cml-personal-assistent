@@ -115,13 +115,13 @@ vi.mock("./chrome.js", () => ({
     return {
       pid: 123,
       exe: { kind: "chrome", path: "/fake/chrome" },
-      userDataDir: "/tmp/openclaw",
+      userDataDir: "/tmp/cml-hive-assist",
       cdpPort: profile.cdpPort,
       startedAt: Date.now(),
       proc,
     };
   }),
-  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/openclaw"),
+  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/cml-hive-assist"),
   stopCmlHiveAssistChrome: vi.fn(async () => {
     reachable = false;
   }),

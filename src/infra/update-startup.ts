@@ -4,7 +4,7 @@ import type { loadConfig } from "../config/config.ts";
 import { formatCliCommand } from "../cli/command-format.ts";
 import { resolveStateDir } from "../config/paths.ts";
 import { VERSION } from "../version.ts";
-import { resolveCmlHiveAssistPackageRoot } from "./openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "./cml-hive-assist-root.ts";
 import { normalizeUpdateChannel, DEFAULT_PACKAGE_CHANNEL } from "./update-channels.ts";
 import { compareSemverStrings, resolveNpmChannelTag, checkUpdateStatus } from "./update-check.ts";
 
@@ -104,7 +104,7 @@ export async function runGatewayUpdateCheck(params: {
       state.lastNotifiedVersion !== resolved.version || state.lastNotifiedTag !== tag;
     if (shouldNotify) {
       params.log.info(
-        `update available (${tag}): v${resolved.version} (current v${VERSION}). Run: ${formatCliCommand("openclaw update")}`,
+        `update available (${tag}): v${resolved.version} (current v${VERSION}). Run: ${formatCliCommand("cml-hive-assist update")}`,
       );
       nextState.lastNotifiedVersion = resolved.version;
       nextState.lastNotifiedTag = tag;

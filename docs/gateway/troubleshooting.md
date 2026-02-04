@@ -17,8 +17,8 @@ Provider-specific shortcuts: [/channels/troubleshooting](/channels/troubleshooti
 
 Quick triage commands (in order):
 
-| Command                            | What it tells you                                                                                      | When to use it                                    |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| Command                                   | What it tells you                                                                                      | When to use it                                    |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
 | `cml-hive-assist status`                  | Local summary: OS + update, gateway reachability/mode, service, agents/sessions, provider config state | First check, quick overview                       |
 | `cml-hive-assist status --all`            | Full local diagnosis (read-only, pasteable, safe-ish) incl. log tail                                   | When you need to share a debug report             |
 | `cml-hive-assist status --deep`           | Runs gateway health checks (incl. provider probes; requires reachable gateway)                         | When “configured” doesn’t mean “working”          |
@@ -27,7 +27,7 @@ Quick triage commands (in order):
 | `cml-hive-assist gateway status`          | Supervisor state (launchd/systemd/schtasks), runtime PID/exit, last gateway error                      | When the service “looks loaded” but nothing runs  |
 | `cml-hive-assist logs --follow`           | Live logs (best signal for runtime issues)                                                             | When you need the actual failure reason           |
 
-**Sharing output:** prefer `cml-hive-assist status --all` (it redacts tokens). If you paste `cml-hive-assist status`, consider setting `OPENCLAW_SHOW_SECRETS=0` first (token previews).
+**Sharing output:** prefer `cml-hive-assist status --all` (it redacts tokens). If you paste `cml-hive-assist status`, consider setting `CML_HIVE_ASSIST_SHOW_SECRETS=0` first (token previews).
 
 See also: [Health checks](/gateway/health) and [Logging](/logging).
 
@@ -113,7 +113,7 @@ Doctor/service will show runtime state (PID/last exit) and log hints.
 
 - Preferred: `cml-hive-assist logs --follow`
 - File logs (always): `/tmp/cml-hive-assist/cml-hive-assist-YYYY-MM-DD.log` (or your configured `logging.file`)
-- macOS LaunchAgent (if installed): `$OPENCLAW_STATE_DIR/logs/gateway.log` and `gateway.err.log`
+- macOS LaunchAgent (if installed): `$CML_HIVE_ASSIST_STATE_DIR/logs/gateway.log` and `gateway.err.log`
 - Linux systemd (if installed): `journalctl --user -u cml-hive-assist-gateway[-<profile>].service -n 200 --no-pager`
 - Windows: `schtasks /Query /TN "CmlHiveAssist Gateway (<profile>)" /V /FO LIST`
 
@@ -209,7 +209,7 @@ the Gateway likely refused to bind.
 - If you set `gateway.mode=remote`, the **CLI defaults** to a remote URL. The service can still be running locally, but your CLI may be probing the wrong place. Use `cml-hive-assist gateway status` to see the service’s resolved port + probe target (or pass `--url`).
 - `cml-hive-assist gateway status` and `cml-hive-assist doctor` surface the **last gateway error** from logs when the service looks running but the port is closed.
 - Non-loopback binds (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) require auth:
-  `gateway.auth.token` (or `OPENCLAW_GATEWAY_TOKEN`).
+  `gateway.auth.token` (or `CML_HIVE_ASSIST_GATEWAY_TOKEN`).
 - `gateway.remote.token` is for remote CLI calls only; it does **not** enable local auth.
 - `gateway.token` is ignored; use `gateway.auth.token`.
 
@@ -217,7 +217,7 @@ the Gateway likely refused to bind.
 
 - `Config (cli): ...` and `Config (service): ...` should normally match.
 - If they don’t, you’re almost certainly editing one config while the service is running another.
-- Fix: rerun `cml-hive-assist gateway install --force` from the same `--profile` / `OPENCLAW_STATE_DIR` you want the service to use.
+- Fix: rerun `cml-hive-assist gateway install --force` from the same `--profile` / `CML_HIVE_ASSIST_STATE_DIR` you want the service to use.
 
 **If `cml-hive-assist gateway status` reports service config issues**
 
@@ -227,7 +227,7 @@ the Gateway likely refused to bind.
 **If `Last gateway error:` mentions “refusing to bind … without auth”**
 
 - You set `gateway.bind` to a non-loopback mode (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) but didn’t configure auth.
-- Fix: set `gateway.auth.mode` + `gateway.auth.token` (or export `OPENCLAW_GATEWAY_TOKEN`) and restart the service.
+- Fix: set `gateway.auth.mode` + `gateway.auth.token` (or export `CML_HIVE_ASSIST_GATEWAY_TOKEN`) and restart the service.
 
 **If `cml-hive-assist gateway status` says `bind=tailnet` but no tailnet interface was found**
 
@@ -318,7 +318,7 @@ Look for `AllowFrom: ...` in the output.
 # The message must match mentionPatterns or explicit mentions; defaults live in channel groups/guilds.
 # Multi-agent: `agents.list[].groupChat.mentionPatterns` overrides global patterns.
 grep -n "agents\\|groupChat\\|mentionPatterns\\|channels\\.whatsapp\\.groups\\|channels\\.telegram\\.groups\\|channels\\.imessage\\.groups\\|channels\\.discord\\.guilds" \
-  "${OPENCLAW_CONFIG_PATH:-$HOME/.cml-hive-assist/cml-hive-assist.json}"
+  "${CML_HIVE_ASSIST_CONFIG_PATH:-$HOME/.cml-hive-assist/cml-hive-assist.json}"
 ```
 
 **Check 3:** Check the logs
@@ -418,7 +418,7 @@ If you’re logged out / unlinked:
 
 ```bash
 cml-hive-assist channels logout
-trash "${OPENCLAW_STATE_DIR:-$HOME/.cml-hive-assist}/credentials" # if logout can't cleanly remove everything
+trash "${CML_HIVE_ASSIST_STATE_DIR:-$HOME/.cml-hive-assist}/credentials" # if logout can't cleanly remove everything
 cml-hive-assist channels login --verbose       # re-scan QR
 ```
 
@@ -670,7 +670,7 @@ Get verbose logging:
 
 ```bash
 # Turn on trace logging in config:
-#   ${OPENCLAW_CONFIG_PATH:-$HOME/.cml-hive-assist/cml-hive-assist.json} -> { logging: { level: "trace" } }
+#   ${CML_HIVE_ASSIST_CONFIG_PATH:-$HOME/.cml-hive-assist/cml-hive-assist.json} -> { logging: { level: "trace" } }
 #
 # Then run verbose commands to mirror debug output to stdout:
 cml-hive-assist gateway --verbose
@@ -679,13 +679,13 @@ cml-hive-assist channels login --verbose
 
 ## Log Locations
 
-| Log                               | Location                                                                                                                                                                                                                                                                                                                    |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Gateway file logs (structured)    | `/tmp/cml-hive-assist/cml-hive-assist-YYYY-MM-DD.log` (or `logging.file`)                                                                                                                                                                                                                                                                 |
-| Gateway service logs (supervisor) | macOS: `$OPENCLAW_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.cml-hive-assist/logs/...`; profiles use `~/.cml-hive-assist-<profile>/logs/...`)<br />Linux: `journalctl --user -u cml-hive-assist-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "CmlHiveAssist Gateway (<profile>)" /V /FO LIST` |
-| Session files                     | `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/`                                                                                                                                                                                                                                                                            |
-| Media cache                       | `$OPENCLAW_STATE_DIR/media/`                                                                                                                                                                                                                                                                                                |
-| Credentials                       | `$OPENCLAW_STATE_DIR/credentials/`                                                                                                                                                                                                                                                                                          |
+| Log                               | Location                                                                                                                                                                                                                                                                                                                                                     |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Gateway file logs (structured)    | `/tmp/cml-hive-assist/cml-hive-assist-YYYY-MM-DD.log` (or `logging.file`)                                                                                                                                                                                                                                                                                    |
+| Gateway service logs (supervisor) | macOS: `$CML_HIVE_ASSIST_STATE_DIR/logs/gateway.log` + `gateway.err.log` (default: `~/.cml-hive-assist/logs/...`; profiles use `~/.cml-hive-assist-<profile>/logs/...`)<br />Linux: `journalctl --user -u cml-hive-assist-gateway[-<profile>].service -n 200 --no-pager`<br />Windows: `schtasks /Query /TN "CmlHiveAssist Gateway (<profile>)" /V /FO LIST` |
+| Session files                     | `$CML_HIVE_ASSIST_STATE_DIR/agents/<agentId>/sessions/`                                                                                                                                                                                                                                                                                                      |
+| Media cache                       | `$CML_HIVE_ASSIST_STATE_DIR/media/`                                                                                                                                                                                                                                                                                                                          |
+| Credentials                       | `$CML_HIVE_ASSIST_STATE_DIR/credentials/`                                                                                                                                                                                                                                                                                                                    |
 
 ## Health Check
 
@@ -718,7 +718,7 @@ cml-hive-assist gateway stop
 # If you installed a service and want a clean install:
 # cml-hive-assist gateway uninstall
 
-trash "${OPENCLAW_STATE_DIR:-$HOME/.cml-hive-assist}"
+trash "${CML_HIVE_ASSIST_STATE_DIR:-$HOME/.cml-hive-assist}"
 cml-hive-assist channels login         # re-pair WhatsApp
 cml-hive-assist gateway restart           # or: cml-hive-assist gateway
 ```

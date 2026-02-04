@@ -136,7 +136,7 @@ function ensureDefaultChromeExtensionProfile(
     return result;
   }
   // Avoid adding the built-in profile if the derived relay port is already used by another profile
-  // (legacy single-profile configs may use controlPort+1 for openclaw/openclaw CDP).
+  // (legacy single-profile configs may use controlPort+1 for cml-hive-assist/cml-hive-assist CDP).
   if (getUsedPorts(result).has(relayPort)) {
     return result;
   }

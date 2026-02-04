@@ -27,7 +27,7 @@ cml-hive-assist gateway --force
 pnpm gateway:watch
 ```
 
-- Config hot reload watches `~/.cml-hive-assist/cml-hive-assist.json` (or `OPENCLAW_CONFIG_PATH`).
+- Config hot reload watches `~/.cml-hive-assist/cml-hive-assist.json` (or `CML_HIVE_ASSIST_CONFIG_PATH`).
   - Default mode: `gateway.reload.mode="hybrid"` (hot-apply safe changes, restart on critical).
   - Hot reload uses in-process restart via **SIGUSR1** when needed.
   - Disable with `gateway.reload.mode="off"`.
@@ -36,15 +36,15 @@ pnpm gateway:watch
   - OpenAI Chat Completions (HTTP): [`/v1/chat/completions`](/gateway/openai-http-api).
   - OpenResponses (HTTP): [`/v1/responses`](/gateway/openresponses-http-api).
   - Tools Invoke (HTTP): [`/tools/invoke`](/gateway/tools-invoke-http-api).
-- Starts a Canvas file server by default on `canvasHost.port` (default `18793`), serving `http://<gateway-host>:18793/__cml-hive-assist__/canvas/` from `~/.cml-hive-assist/workspace/canvas`. Disable with `canvasHost.enabled=false` or `OPENCLAW_SKIP_CANVAS_HOST=1`.
+- Starts a Canvas file server by default on `canvasHost.port` (default `18793`), serving `http://<gateway-host>:18793/__cml-hive-assist__/canvas/` from `~/.cml-hive-assist/workspace/canvas`. Disable with `canvasHost.enabled=false` or `CML_HIVE_ASSIST_SKIP_CANVAS_HOST=1`.
 - Logs to stdout; use launchd/systemd to keep it alive and rotate logs.
 - Pass `--verbose` to mirror debug logging (handshakes, req/res, events) from the log file into stdio when troubleshooting.
 - `--force` uses `lsof` to find listeners on the chosen port, sends SIGTERM, logs what it killed, then starts the gateway (fails fast if `lsof` is missing).
 - If you run under a supervisor (launchd/systemd/mac app child-process mode), a stop/restart typically sends **SIGTERM**; older builds may surface this as `pnpm` `ELIFECYCLE` exit code **143** (SIGTERM), which is a normal shutdown, not a crash.
 - **SIGUSR1** triggers an in-process restart when authorized (gateway tool/config apply/update, or enable `commands.restart` for manual restarts).
-- Gateway auth is required by default: set `gateway.auth.token` (or `OPENCLAW_GATEWAY_TOKEN`) or `gateway.auth.password`. Clients must send `connect.params.auth.token/password` unless using Tailscale Serve identity.
+- Gateway auth is required by default: set `gateway.auth.token` (or `CML_HIVE_ASSIST_GATEWAY_TOKEN`) or `gateway.auth.password`. Clients must send `connect.params.auth.token/password` unless using Tailscale Serve identity.
 - The wizard now generates a token by default, even on loopback.
-- Port precedence: `--port` > `OPENCLAW_GATEWAY_PORT` > `gateway.port` > default `18789`.
+- Port precedence: `--port` > `CML_HIVE_ASSIST_GATEWAY_PORT` > `gateway.port` > default `18789`.
 
 ## Remote access
 
@@ -69,9 +69,9 @@ Service names are profile-aware:
 
 Install metadata is embedded in the service config:
 
-- `OPENCLAW_SERVICE_MARKER=cml-hive-assist`
-- `OPENCLAW_SERVICE_KIND=gateway`
-- `OPENCLAW_SERVICE_VERSION=<version>`
+- `CML_HIVE_ASSIST_SERVICE_MARKER=cml-hive-assist`
+- `CML_HIVE_ASSIST_SERVICE_KIND=gateway`
+- `CML_HIVE_ASSIST_SERVICE_VERSION=<version>`
 
 Rescue-Bot Pattern: keep a second Gateway isolated with its own profile, state dir, workspace, and base port spacing. Full guide: [Rescue-bot guide](/gateway/multiple-gateways#rescue-bot-guide).
 
@@ -89,25 +89,25 @@ cml-hive-assist --dev health
 
 Defaults (can be overridden via env/flags/config):
 
-- `OPENCLAW_STATE_DIR=~/.cml-hive-assist-dev`
-- `OPENCLAW_CONFIG_PATH=~/.cml-hive-assist-dev/cml-hive-assist.json`
-- `OPENCLAW_GATEWAY_PORT=19001` (Gateway WS + HTTP)
+- `CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-dev`
+- `CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist-dev/cml-hive-assist.json`
+- `CML_HIVE_ASSIST_GATEWAY_PORT=19001` (Gateway WS + HTTP)
 - browser control service port = `19003` (derived: `gateway.port+2`, loopback only)
 - `canvasHost.port=19005` (derived: `gateway.port+4`)
 - `agents.defaults.workspace` default becomes `~/.cml-hive-assist/workspace-dev` when you run `setup`/`onboard` under `--dev`.
 
 Derived ports (rules of thumb):
 
-- Base port = `gateway.port` (or `OPENCLAW_GATEWAY_PORT` / `--port`)
+- Base port = `gateway.port` (or `CML_HIVE_ASSIST_GATEWAY_PORT` / `--port`)
 - browser control service port = base + 2 (loopback only)
-- `canvasHost.port = base + 4` (or `OPENCLAW_CANVAS_HOST_PORT` / config override)
+- `canvasHost.port = base + 4` (or `CML_HIVE_ASSIST_CANVAS_HOST_PORT` / config override)
 - Browser profile CDP ports auto-allocate from `browser.controlPort + 9 .. + 108` (persisted per profile).
 
 Checklist per instance:
 
 - unique `gateway.port`
-- unique `OPENCLAW_CONFIG_PATH`
-- unique `OPENCLAW_STATE_DIR`
+- unique `CML_HIVE_ASSIST_CONFIG_PATH`
+- unique `CML_HIVE_ASSIST_STATE_DIR`
 - unique `agents.defaults.workspace`
 - separate WhatsApp numbers (if using WA)
 
@@ -121,8 +121,8 @@ cml-hive-assist --profile rescue gateway install
 Example:
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/a.json OPENCLAW_STATE_DIR=~/.cml-hive-assist-a cml-hive-assist gateway --port 19001
-OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/b.json OPENCLAW_STATE_DIR=~/.cml-hive-assist-b cml-hive-assist gateway --port 19002
+CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist/a.json CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-a cml-hive-assist gateway --port 19001
+CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist/b.json CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-b cml-hive-assist gateway --port 19002
 ```
 
 ## Protocol (operator view)
@@ -266,7 +266,7 @@ Wants=network-online.target
 ExecStart=/usr/local/bin/cml-hive-assist gateway --port 18789
 Restart=always
 RestartSec=5
-Environment=OPENCLAW_GATEWAY_TOKEN=
+Environment=CML_HIVE_ASSIST_GATEWAY_TOKEN=
 WorkingDirectory=/home/youruser
 
 [Install]

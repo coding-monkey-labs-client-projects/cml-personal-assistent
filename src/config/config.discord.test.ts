@@ -16,7 +16,7 @@ describe("config discord", () => {
 
   it("loads discord guild map + dm group settings", async () => {
     await withTempHome(async (home) => {
-      const configDir = path.join(home, ".openclaw");
+      const configDir = path.join(home, ".cml-hive-assist");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
         path.join(configDir, "cml-hive-assist.json"),
@@ -29,7 +29,7 @@ describe("config discord", () => {
                   enabled: true,
                   allowFrom: ["steipete"],
                   groupEnabled: true,
-                  groupChannels: ["openclaw-dm"],
+                  groupChannels: ["cml-hive-assist-dm"],
                 },
                 actions: {
                   emojiUploads: true,
@@ -38,7 +38,7 @@ describe("config discord", () => {
                 },
                 guilds: {
                   "123": {
-                    slug: "friends-of-openclaw",
+                    slug: "friends-of-cml-hive-assist",
                     requireMention: false,
                     users: ["steipete"],
                     channels: {
@@ -61,11 +61,11 @@ describe("config discord", () => {
 
       expect(cfg.channels?.discord?.enabled).toBe(true);
       expect(cfg.channels?.discord?.dm?.groupEnabled).toBe(true);
-      expect(cfg.channels?.discord?.dm?.groupChannels).toEqual(["openclaw-dm"]);
+      expect(cfg.channels?.discord?.dm?.groupChannels).toEqual(["cml-hive-assist-dm"]);
       expect(cfg.channels?.discord?.actions?.emojiUploads).toBe(true);
       expect(cfg.channels?.discord?.actions?.stickerUploads).toBe(false);
       expect(cfg.channels?.discord?.actions?.channels).toBe(true);
-      expect(cfg.channels?.discord?.guilds?.["123"]?.slug).toBe("friends-of-openclaw");
+      expect(cfg.channels?.discord?.guilds?.["123"]?.slug).toBe("friends-of-cml-hive-assist");
       expect(cfg.channels?.discord?.guilds?.["123"]?.channels?.general?.allow).toBe(true);
     });
   });

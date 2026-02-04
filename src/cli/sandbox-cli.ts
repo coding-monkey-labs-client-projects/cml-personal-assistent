@@ -14,30 +14,33 @@ type CommandOptions = Record<string, unknown>;
 
 const SANDBOX_EXAMPLES = {
   main: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate agent containers."],
-    ["openclaw sandbox explain", "Explain effective sandbox config."],
+    ["cml-hive-assist sandbox list", "List all sandbox containers."],
+    ["cml-hive-assist sandbox list --browser", "List only browser containers."],
+    ["cml-hive-assist sandbox recreate --all", "Recreate all containers."],
+    ["cml-hive-assist sandbox recreate --session main", "Recreate a specific session."],
+    ["cml-hive-assist sandbox recreate --agent mybot", "Recreate agent containers."],
+    ["cml-hive-assist sandbox explain", "Explain effective sandbox config."],
   ],
   list: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox list --json", "JSON output."],
+    ["cml-hive-assist sandbox list", "List all sandbox containers."],
+    ["cml-hive-assist sandbox list --browser", "List only browser containers."],
+    ["cml-hive-assist sandbox list --json", "JSON output."],
   ],
   recreate: [
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
-    ["openclaw sandbox recreate --browser --all", "Recreate only browser containers."],
-    ["openclaw sandbox recreate --all --force", "Skip confirmation."],
+    ["cml-hive-assist sandbox recreate --all", "Recreate all containers."],
+    ["cml-hive-assist sandbox recreate --session main", "Recreate a specific session."],
+    [
+      "cml-hive-assist sandbox recreate --agent mybot",
+      "Recreate a specific agent (includes sub-agents).",
+    ],
+    ["cml-hive-assist sandbox recreate --browser --all", "Recreate only browser containers."],
+    ["cml-hive-assist sandbox recreate --all --force", "Skip confirmation."],
   ],
   explain: [
-    ["openclaw sandbox explain", "Show effective sandbox config."],
-    ["openclaw sandbox explain --session agent:main:main", "Explain a specific session."],
-    ["openclaw sandbox explain --agent work", "Explain an agent sandbox."],
-    ["openclaw sandbox explain --json", "JSON output."],
+    ["cml-hive-assist sandbox explain", "Show effective sandbox config."],
+    ["cml-hive-assist sandbox explain --session agent:main:main", "Explain a specific session."],
+    ["cml-hive-assist sandbox explain --agent work", "Explain an agent sandbox."],
+    ["cml-hive-assist sandbox explain --json", "JSON output."],
   ],
 } as const;
 

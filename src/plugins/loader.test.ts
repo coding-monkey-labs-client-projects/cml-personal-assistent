@@ -12,7 +12,7 @@ const prevBundledDir = process.env.CML_HIVE_ASSIST_BUNDLED_PLUGINS_DIR;
 const EMPTY_PLUGIN_SCHEMA = { type: "object", additionalProperties: false, properties: {} };
 
 function makeTempDir() {
-  const dir = path.join(os.tmpdir(), `openclaw-plugin-${randomUUID()}`);
+  const dir = path.join(os.tmpdir(), `cml-hive-assist-plugin-${randomUUID()}`);
   fs.mkdirSync(dir, { recursive: true });
   tempDirs.push(dir);
   return dir;
@@ -176,7 +176,7 @@ describe("loadCmlHiveAssistPlugins", () => {
     fs.writeFileSync(
       path.join(pluginDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/memory-core",
+        name: "@cml-hive-assist/memory-core",
         version: "1.2.3",
         description: "Memory plugin package",
         cml-hive-assist: { extensions: ["./index.ts"] },

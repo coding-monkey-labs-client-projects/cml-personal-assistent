@@ -10,9 +10,9 @@ Format: JSON5 (JSON with comments and trailing commas)
 
 ```json5
 {
-  "agent": {
-    "model": "anthropic/claude-opus-4-5"
-  }
+  agent: {
+    model: "anthropic/claude-opus-4-5",
+  },
 }
 ```
 
@@ -21,53 +21,67 @@ Format: JSON5 (JSON with comments and trailing commas)
 ```json5
 {
   // Agent settings
-  "agent": {
-    "model": "anthropic/claude-opus-4-5",
-    "thinking": "high",  // off|minimal|low|medium|high|xhigh
-    "verbose": false
+  agent: {
+    model: "anthropic/claude-opus-4-5",
+    thinking: "high", // off|minimal|low|medium|high|xhigh
+    verbose: false,
   },
 
   // Gateway settings
-  "gateway": {
-    "port": 18789,
-    "bind": "loopback",
-    "auth": {
-      "mode": "none"
-    }
+  gateway: {
+    port: 18789,
+    bind: "loopback",
+    auth: {
+      mode: "none",
+    },
   },
 
   // Channel configurations
-  "channels": {
-    "whatsapp": { /* ... */ },
-    "telegram": { /* ... */ },
-    "discord": { /* ... */ },
-    "slack": { /* ... */ },
-    "signal": { /* ... */ },
-    "imessage": { /* ... */ },
-    "googlechat": { /* ... */ }
+  channels: {
+    whatsapp: {
+      /* ... */
+    },
+    telegram: {
+      /* ... */
+    },
+    discord: {
+      /* ... */
+    },
+    slack: {
+      /* ... */
+    },
+    signal: {
+      /* ... */
+    },
+    imessage: {
+      /* ... */
+    },
+    googlechat: {
+      /* ... */
+    },
   },
 
   // Agent workspace
-  "agents": {
-    "defaults": {
-      "workspace": "~/.cml-hive-assist/workspace",
-      "sandbox": {
-        "mode": "non-main"
-      }
-    }
+  agents: {
+    defaults: {
+      workspace: "~/.cml-hive-assist/workspace",
+      sandbox: {
+        mode: "non-main",
+      },
+    },
   },
 
   // Browser settings
-  "browser": {
-    "enabled": true,
-    "color": "#FF4500"
+  browser: {
+    enabled: true,
+    color: "#FF4500",
   },
 
   // Skills configuration
-  "skills": {
-    "enabled": ["github", "notion"],
-    "disabled": []
-  }
+  skills: {
+    enabled: ["github", "notion"],
+    disabled: [],
+  },
 }
 ```
 
@@ -77,12 +91,12 @@ Format: JSON5 (JSON with comments and trailing commas)
 
 ```json5
 {
-  "agent": {
-    "model": "anthropic/claude-opus-4-5",
-    "thinking": "high",
-    "verbose": false,
-    "maxTokens": 4096
-  }
+  agent: {
+    model: "anthropic/claude-opus-4-5",
+    thinking: "high",
+    verbose: false,
+    maxTokens: 4096,
+  },
 }
 ```
 
@@ -90,17 +104,17 @@ Format: JSON5 (JSON with comments and trailing commas)
 
 ```json5
 {
-  "gateway": {
-    "port": 18789,
-    "bind": "loopback",
-    "auth": {
-      "mode": "password",
-      "password": "secret"
+  gateway: {
+    port: 18789,
+    bind: "loopback",
+    auth: {
+      mode: "password",
+      password: "secret",
     },
-    "tailscale": {
-      "mode": "serve"
-    }
-  }
+    tailscale: {
+      mode: "serve",
+    },
+  },
 }
 ```
 
@@ -112,15 +126,15 @@ Each channel has its own configuration section. See [channels-guide.md](channels
 
 ```json5
 {
-  "agents": {
-    "defaults": {
-      "sandbox": {
-        "mode": "non-main",  // Sandbox non-main sessions
-        "allowTools": ["bash", "read", "write", "edit"],
-        "denyTools": ["browser", "canvas"]
-      }
-    }
-  }
+  agents: {
+    defaults: {
+      sandbox: {
+        mode: "non-main", // Sandbox non-main sessions
+        allowTools: ["bash", "read", "write", "edit"],
+        denyTools: ["browser", "canvas"],
+      },
+    },
+  },
 }
 ```
 
@@ -128,14 +142,14 @@ Each channel has its own configuration section. See [channels-guide.md](channels
 
 ```json5
 {
-  "skills": {
+  skills: {
     // Enable specific skills
-    "enabled": ["github", "notion", "slack"],
+    enabled: ["github", "notion", "slack"],
     // Disable specific skills
-    "disabled": ["voice-call"],
+    disabled: ["voice-call"],
     // Custom skill paths
-    "paths": ["~/my-skills"]
-  }
+    paths: ["~/my-skills"],
+  },
 }
 ```
 
@@ -143,15 +157,15 @@ Each channel has its own configuration section. See [channels-guide.md](channels
 
 Environment variables override config file settings:
 
-| Variable | Purpose |
-|----------|---------|
-| `OPENCLAW_PROFILE` | Config profile name |
-| `TELEGRAM_BOT_TOKEN` | Telegram bot token |
-| `SLACK_BOT_TOKEN` | Slack bot token |
-| `SLACK_APP_TOKEN` | Slack app token |
-| `DISCORD_BOT_TOKEN` | Discord bot token |
-| `ANTHROPIC_API_KEY` | Anthropic API key |
-| `OPENAI_API_KEY` | OpenAI API key |
+| Variable                  | Purpose             |
+| ------------------------- | ------------------- |
+| `CML_HIVE_ASSIST_PROFILE` | Config profile name |
+| `TELEGRAM_BOT_TOKEN`      | Telegram bot token  |
+| `SLACK_BOT_TOKEN`         | Slack bot token     |
+| `SLACK_APP_TOKEN`         | Slack app token     |
+| `DISCORD_BOT_TOKEN`       | Discord bot token   |
+| `ANTHROPIC_API_KEY`       | Anthropic API key   |
+| `OPENAI_API_KEY`          | OpenAI API key      |
 
 ## Workspace Structure
 

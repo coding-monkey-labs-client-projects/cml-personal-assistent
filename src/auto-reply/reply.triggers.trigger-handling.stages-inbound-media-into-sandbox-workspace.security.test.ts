@@ -14,7 +14,9 @@ import { ensureSandboxWorkspaceForSession } from "../agents/sandbox.js";
 import { stageSandboxMedia } from "./reply/stage-sandbox-media.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(async (home) => await fn(home), { prefix: "openclaw-triggers-bypass-" });
+  return withTempHomeBase(async (home) => await fn(home), {
+    prefix: "cml-hive-assist-triggers-bypass-",
+  });
 }
 
 afterEach(() => {
@@ -24,7 +26,7 @@ afterEach(() => {
 describe("stageSandboxMedia security", () => {
   it("rejects staging host files from outside the media directory", async () => {
     await withTempHome(async (home) => {
-      // Sensitive host file outside .openclaw
+      // Sensitive host file outside .cml-hive-assist
       const sensitiveFile = join(home, "secrets.txt");
       await fs.writeFile(sensitiveFile, "SENSITIVE DATA");
 

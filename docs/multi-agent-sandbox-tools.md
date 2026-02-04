@@ -363,7 +363,7 @@ After configuring multi-agent sandbox and tools:
 
 4. **Monitor logs:**
    ```exec
-   tail -f "${OPENCLAW_STATE_DIR:-$HOME/.cml-hive-assist}/logs/gateway.log" | grep -E "routing|sandbox|tools"
+   tail -f "${CML_HIVE_ASSIST_STATE_DIR:-$HOME/.cml-hive-assist}/logs/gateway.log" | grep -E "routing|sandbox|tools"
    ```
 
 ---

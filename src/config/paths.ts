@@ -17,7 +17,7 @@ export function resolveIsNixMode(env: NodeJS.ProcessEnv = process.env): boolean 
 export const isNixMode = resolveIsNixMode();
 
 const LEGACY_STATE_DIRNAMES = [".clawdbot", ".moltbot", ".moldbot"] as const;
-const NEW_STATE_DIRNAME = ".openclaw";
+const NEW_STATE_DIRNAME = ".cml-hive-assist";
 const CONFIG_FILENAME = "cml-hive-assist.json";
 const LEGACY_CONFIG_FILENAMES = ["clawdbot.json", "moltbot.json", "moldbot.json"] as const;
 
@@ -44,7 +44,7 @@ export function resolveNewStateDir(homedir: () => string = os.homedir): string {
 /**
  * State directory for mutable data (sessions, logs, caches).
  * Can be overridden via CML_HIVE_ASSIST_STATE_DIR.
- * Default: ~/.openclaw
+ * Default: ~/.cml-hive-assist
  */
 export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
@@ -90,7 +90,7 @@ export const STATE_DIR = resolveStateDir();
 /**
  * Config file path (JSON5).
  * Can be overridden via CML_HIVE_ASSIST_CONFIG_PATH.
- * Default: ~/.openclaw/cml-hive-assist.json (or $CML_HIVE_ASSIST_STATE_DIR/cml-hive-assist.json)
+ * Default: ~/.cml-hive-assist/cml-hive-assist.json (or $CML_HIVE_ASSIST_STATE_DIR/cml-hive-assist.json)
  */
 export function resolveCanonicalConfigPath(
   env: NodeJS.ProcessEnv = process.env,
@@ -178,9 +178,10 @@ export function resolveDefaultConfigCandidates(
   }
 
   const candidates: string[] = [];
-  const openclawStateDir = env.CML_HIVE_ASSIST_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
-  if (openclawStateDir) {
-    const resolved = resolveUserPath(openclawStateDir);
+  const cmlHiveAssistStateDir =
+    env.CML_HIVE_ASSIST_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
+  if (cmlHiveAssistStateDir) {
+    const resolved = resolveUserPath(cmlHiveAssistStateDir);
     candidates.push(path.join(resolved, CONFIG_FILENAME));
     candidates.push(...LEGACY_CONFIG_FILENAMES.map((name) => path.join(resolved, name)));
   }
@@ -197,12 +198,12 @@ export const DEFAULT_GATEWAY_PORT = 18789;
 
 /**
  * Gateway lock directory (ephemeral).
- * Default: os.tmpdir()/openclaw-<uid> (uid suffix when available).
+ * Default: os.tmpdir()/cml-hive-assist-<uid> (uid suffix when available).
  */
 export function resolveGatewayLockDir(tmpdir: () => string = os.tmpdir): string {
   const base = tmpdir();
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
-  const suffix = uid != null ? `openclaw-${uid}` : "cml-hive-assist";
+  const suffix = uid != null ? `cml-hive-assist-${uid}` : "cml-hive-assist";
   return path.join(base, suffix);
 }
 

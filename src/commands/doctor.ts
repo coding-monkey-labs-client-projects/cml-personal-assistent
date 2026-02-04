@@ -16,7 +16,7 @@ import { logConfigUpdated } from "../config/logging.ts";
 import { resolveGatewayService } from "../daemon/service.ts";
 import { resolveGatewayAuth } from "../gateway/auth.ts";
 import { buildGatewayConnectionDetails } from "../gateway/call.ts";
-import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/cml-hive-assist-root.ts";
 import { defaultRuntime } from "../runtime.ts";
 import { note } from "../terminal/note.ts";
 import { stylePromptTitle } from "../terminal/prompt-style.ts";
@@ -100,11 +100,11 @@ export async function doctorCommand(
   if (!cfg.gateway?.mode) {
     const lines = [
       "gateway.mode is unset; gateway start will be blocked.",
-      `Fix: run ${formatCliCommand("openclaw configure")} and set Gateway mode (local/remote).`,
-      `Or set directly: ${formatCliCommand("openclaw config set gateway.mode local")}`,
+      `Fix: run ${formatCliCommand("cml-hive-assist configure")} and set Gateway mode (local/remote).`,
+      `Or set directly: ${formatCliCommand("cml-hive-assist config set gateway.mode local")}`,
     ];
     if (!fs.existsSync(configPath)) {
-      lines.push(`Missing config: run ${formatCliCommand("openclaw setup")} first.`);
+      lines.push(`Missing config: run ${formatCliCommand("cml-hive-assist setup")} first.`);
     }
     note(lines.join("\n"), "Gateway");
   }
@@ -283,7 +283,7 @@ export async function doctorCommand(
       runtime.log(`Backup: ${shortenHomePath(backupPath)}`);
     }
   } else {
-    runtime.log(`Run "${formatCliCommand("openclaw doctor --fix")}" to apply changes.`);
+    runtime.log(`Run "${formatCliCommand("cml-hive-assist doctor --fix")}" to apply changes.`);
   }
 
   if (options.workspaceSuggestions !== false) {

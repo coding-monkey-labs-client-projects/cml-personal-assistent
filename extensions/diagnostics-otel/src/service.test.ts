@@ -95,15 +95,17 @@ vi.mock("@opentelemetry/semantic-conventions", () => ({
   },
 }));
 
-vi.mock("openclaw/plugin-sdk", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk")>("openclaw/plugin-sdk");
+vi.mock("cml-hive-assist/plugin-sdk", async () => {
+  const actual = await vi.importActual<typeof import("cml-hive-assist/plugin-sdk")>(
+    "cml-hive-assist/plugin-sdk",
+  );
   return {
     ...actual,
     registerLogTransport: registerLogTransportMock,
   };
 });
 
-import { emitDiagnosticEvent } from "openclaw/plugin-sdk";
+import { emitDiagnosticEvent } from "cml-hive-assist/plugin-sdk";
 import { createDiagnosticsOtelService } from "./service.js";
 
 describe("diagnostics-otel service", () => {
@@ -196,11 +198,15 @@ describe("diagnostics-otel service", () => {
       telemetryState.histograms.get("cml-hive-assist.webhook.duration_ms")?.record,
     ).toHaveBeenCalled();
     expect(telemetryState.counters.get("cml-hive-assist.message.queued")?.add).toHaveBeenCalled();
-    expect(telemetryState.counters.get("cml-hive-assist.message.processed")?.add).toHaveBeenCalled();
+    expect(
+      telemetryState.counters.get("cml-hive-assist.message.processed")?.add,
+    ).toHaveBeenCalled();
     expect(
       telemetryState.histograms.get("cml-hive-assist.message.duration_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.histograms.get("cml-hive-assist.queue.wait_ms")?.record).toHaveBeenCalled();
+    expect(
+      telemetryState.histograms.get("cml-hive-assist.queue.wait_ms")?.record,
+    ).toHaveBeenCalled();
     expect(telemetryState.counters.get("cml-hive-assist.session.stuck")?.add).toHaveBeenCalled();
     expect(
       telemetryState.histograms.get("cml-hive-assist.session.stuck_age_ms")?.record,

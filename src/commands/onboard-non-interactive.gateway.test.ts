@@ -130,7 +130,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
     delete process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
     delete process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
 
-    tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-onboard-"));
+    tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-onboard-"));
     process.env.HOME = tempHome;
   });
 

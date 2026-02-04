@@ -213,7 +213,7 @@ export function loadCmlHiveAssistPlugins(options: PluginLoadOptions = {}): Plugi
     extensions: [".ts", ".tsx", ".mts", ".cts", ".mtsx", ".ctsx", ".js", ".mjs", ".cjs", ".json"],
     ...(pluginSdkAlias
       ? {
-          alias: { "openclaw/plugin-sdk": pluginSdkAlias },
+          alias: { "cml-hive-assist/plugin-sdk": pluginSdkAlias },
         }
       : {}),
   });

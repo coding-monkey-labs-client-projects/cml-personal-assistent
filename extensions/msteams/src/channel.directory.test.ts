@@ -1,4 +1,4 @@
-import type { CmlHiveAssistConfig } from "openclaw/plugin-sdk";
+import type { CmlHiveAssistConfig } from "cml-hive-assist/plugin-sdk";
 import { describe, expect, it } from "vitest";
 import { msteamsPlugin } from "./channel.js";
 

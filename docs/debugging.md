@@ -60,7 +60,7 @@ Recommended flow (dev profile + dev bootstrap):
 
 ```bash
 pnpm gateway:dev
-OPENCLAW_PROFILE=dev cml-hive-assist tui
+CML_HIVE_ASSIST_PROFILE=dev cml-hive-assist tui
 ```
 
 If you don’t have a global install yet, run the CLI via `pnpm cml-hive-assist ...`.
@@ -68,10 +68,10 @@ If you don’t have a global install yet, run the CLI via `pnpm cml-hive-assist 
 What this does:
 
 1. **Profile isolation** (global `--dev`)
-   - `OPENCLAW_PROFILE=dev`
-   - `OPENCLAW_STATE_DIR=~/.cml-hive-assist-dev`
-   - `OPENCLAW_CONFIG_PATH=~/.cml-hive-assist-dev/cml-hive-assist.json`
-   - `OPENCLAW_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
+   - `CML_HIVE_ASSIST_PROFILE=dev`
+   - `CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-dev`
+   - `CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist-dev/cml-hive-assist.json`
+   - `CML_HIVE_ASSIST_GATEWAY_PORT=19001` (browser/canvas shift accordingly)
 
 2. **Dev bootstrap** (`gateway --dev`)
    - Writes a minimal config if missing (`gateway.mode=local`, bind loopback).
@@ -80,7 +80,7 @@ What this does:
    - Seeds the workspace files if missing:
      `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`.
    - Default identity: **C3‑PO** (protocol droid).
-   - Skips channel providers in dev mode (`OPENCLAW_SKIP_CHANNELS=1`).
+   - Skips channel providers in dev mode (`CML_HIVE_ASSIST_SKIP_CHANNELS=1`).
 
 Reset flow (fresh start):
 
@@ -92,7 +92,7 @@ Note: `--dev` is a **global** profile flag and gets eaten by some runners.
 If you need to spell it out, use the env var form:
 
 ```bash
-OPENCLAW_PROFILE=dev cml-hive-assist gateway --dev --reset
+CML_HIVE_ASSIST_PROFILE=dev cml-hive-assist gateway --dev --reset
 ```
 
 `--reset` wipes config, credentials, sessions, and the dev workspace (using
@@ -125,8 +125,8 @@ pnpm gateway:watch --force --raw-stream --raw-stream-path ~/.cml-hive-assist/log
 Equivalent env vars:
 
 ```bash
-OPENCLAW_RAW_STREAM=1
-OPENCLAW_RAW_STREAM_PATH=~/.cml-hive-assist/logs/raw-stream.jsonl
+CML_HIVE_ASSIST_RAW_STREAM=1
+CML_HIVE_ASSIST_RAW_STREAM_PATH=~/.cml-hive-assist/logs/raw-stream.jsonl
 ```
 
 Default file:

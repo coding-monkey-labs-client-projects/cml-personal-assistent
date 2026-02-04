@@ -29,10 +29,10 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     },
     {
       env: {
-        CML_HIVE_ASSIST_AGENT_DIR: (home) => path.join(home, ".openclaw", "agent"),
-        PI_CODING_AGENT_DIR: (home) => path.join(home, ".openclaw", "agent"),
+        CML_HIVE_ASSIST_AGENT_DIR: (home) => path.join(home, ".cml-hive-assist", "agent"),
+        PI_CODING_AGENT_DIR: (home) => path.join(home, ".cml-hive-assist", "agent"),
       },
-      prefix: "openclaw-reply-",
+      prefix: "cml-hive-assist-reply-",
     },
   );
 }
@@ -116,7 +116,7 @@ describe("directive behavior", () => {
     await withTempHome(async (home) => {
       vi.mocked(runEmbeddedPiAgent).mockReset();
       const storePath = path.join(home, "sessions.json");
-      const authDir = path.join(home, ".openclaw", "agents", "main", "agent");
+      const authDir = path.join(home, ".cml-hive-assist", "agents", "main", "agent");
       await fs.mkdir(authDir, { recursive: true, mode: 0o700 });
       await fs.writeFile(
         path.join(authDir, "auth-profiles.json"),

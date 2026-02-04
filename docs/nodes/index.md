@@ -74,14 +74,14 @@ Example (node host -> gateway host):
 ssh -N -L 18790:127.0.0.1:18789 user@gateway-host
 
 # Terminal B: export the gateway token and connect through the tunnel
-export OPENCLAW_GATEWAY_TOKEN="<gateway-token>"
+export CML_HIVE_ASSIST_GATEWAY_TOKEN="<gateway-token>"
 cml-hive-assist node run --host 127.0.0.1 --port 18790 --display-name "Build Node"
 ```
 
 Notes:
 
 - The token is `gateway.auth.token` from the gateway config (`~/.cml-hive-assist/cml-hive-assist.json` on the gateway host).
-- `cml-hive-assist node run` reads `OPENCLAW_GATEWAY_TOKEN` for auth.
+- `cml-hive-assist node run` reads `CML_HIVE_ASSIST_GATEWAY_TOKEN` for auth.
 
 ### Start a node host (service)
 
@@ -331,8 +331,8 @@ Notes:
 - Exec approvals are enforced locally via `~/.cml-hive-assist/exec-approvals.json`
   (see [Exec approvals](/tools/exec-approvals)).
 - On macOS, the headless node host prefers the companion app exec host when reachable and falls
-  back to local execution if the app is unavailable. Set `OPENCLAW_NODE_EXEC_HOST=app` to require
-  the app, or `OPENCLAW_NODE_EXEC_FALLBACK=0` to disable fallback.
+  back to local execution if the app is unavailable. Set `CML_HIVE_ASSIST_NODE_EXEC_HOST=app` to require
+  the app, or `CML_HIVE_ASSIST_NODE_EXEC_FALLBACK=0` to disable fallback.
 - Add `--tls` / `--tls-fingerprint` when the Gateway WS uses TLS.
 
 ## Mac node mode

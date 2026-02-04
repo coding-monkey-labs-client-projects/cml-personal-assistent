@@ -78,7 +78,10 @@ export function installTestEnv(): { cleanup: () => void; tempHome: string } {
     { key: "CML_HIVE_ASSIST_BRIDGE_ENABLED", value: process.env.CML_HIVE_ASSIST_BRIDGE_ENABLED },
     { key: "CML_HIVE_ASSIST_BRIDGE_HOST", value: process.env.CML_HIVE_ASSIST_BRIDGE_HOST },
     { key: "CML_HIVE_ASSIST_BRIDGE_PORT", value: process.env.CML_HIVE_ASSIST_BRIDGE_PORT },
-    { key: "CML_HIVE_ASSIST_CANVAS_HOST_PORT", value: process.env.CML_HIVE_ASSIST_CANVAS_HOST_PORT },
+    {
+      key: "CML_HIVE_ASSIST_CANVAS_HOST_PORT",
+      value: process.env.CML_HIVE_ASSIST_CANVAS_HOST_PORT,
+    },
     { key: "CML_HIVE_ASSIST_TEST_HOME", value: process.env.CML_HIVE_ASSIST_TEST_HOME },
     { key: "TELEGRAM_BOT_TOKEN", value: process.env.TELEGRAM_BOT_TOKEN },
     { key: "DISCORD_BOT_TOKEN", value: process.env.DISCORD_BOT_TOKEN },
@@ -91,7 +94,7 @@ export function installTestEnv(): { cleanup: () => void; tempHome: string } {
     { key: "NODE_OPTIONS", value: process.env.NODE_OPTIONS },
   ];
 
-  const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-test-home-"));
+  const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-test-home-"));
 
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
@@ -122,7 +125,7 @@ export function installTestEnv(): { cleanup: () => void; tempHome: string } {
 
   // Windows: prefer the default state dir so auth/profile tests match real paths.
   if (process.platform === "win32") {
-    process.env.CML_HIVE_ASSIST_STATE_DIR = path.join(tempHome, ".openclaw");
+    process.env.CML_HIVE_ASSIST_STATE_DIR = path.join(tempHome, ".cml-hive-assist");
   }
 
   process.env.XDG_CONFIG_HOME = path.join(tempHome, ".config");

@@ -16,10 +16,10 @@ describe("browser config", () => {
     expect(profile?.cdpPort).toBe(18792);
     expect(profile?.cdpUrl).toBe("http://127.0.0.1:18792");
 
-    const openclaw = resolveProfile(resolved, "cml-hive-assist");
-    expect(openclaw?.driver).toBe("cml-hive-assist");
-    expect(openclaw?.cdpPort).toBe(18800);
-    expect(openclaw?.cdpUrl).toBe("http://127.0.0.1:18800");
+    const cmlHiveAssist = resolveProfile(resolved, "cml-hive-assist");
+    expect(cmlHiveAssist?.driver).toBe("cml-hive-assist");
+    expect(cmlHiveAssist?.cdpPort).toBe(18800);
+    expect(cmlHiveAssist?.cdpUrl).toBe("http://127.0.0.1:18800");
     expect(resolved.remoteCdpTimeoutMs).toBe(1500);
     expect(resolved.remoteCdpHandshakeTimeoutMs).toBe(3000);
   });
@@ -35,9 +35,9 @@ describe("browser config", () => {
       expect(chrome?.cdpPort).toBe(19004);
       expect(chrome?.cdpUrl).toBe("http://127.0.0.1:19004");
 
-      const openclaw = resolveProfile(resolved, "cml-hive-assist");
-      expect(openclaw?.cdpPort).toBe(19012);
-      expect(openclaw?.cdpUrl).toBe("http://127.0.0.1:19012");
+      const cmlHiveAssist = resolveProfile(resolved, "cml-hive-assist");
+      expect(cmlHiveAssist?.cdpPort).toBe(19012);
+      expect(cmlHiveAssist?.cdpUrl).toBe("http://127.0.0.1:19012");
     } finally {
       if (prev === undefined) {
         delete process.env.CML_HIVE_ASSIST_GATEWAY_PORT;
@@ -58,9 +58,9 @@ describe("browser config", () => {
       expect(chrome?.cdpPort).toBe(19014);
       expect(chrome?.cdpUrl).toBe("http://127.0.0.1:19014");
 
-      const openclaw = resolveProfile(resolved, "cml-hive-assist");
-      expect(openclaw?.cdpPort).toBe(19022);
-      expect(openclaw?.cdpUrl).toBe("http://127.0.0.1:19022");
+      const cmlHiveAssist = resolveProfile(resolved, "cml-hive-assist");
+      expect(cmlHiveAssist?.cdpPort).toBe(19022);
+      expect(cmlHiveAssist?.cdpUrl).toBe("http://127.0.0.1:19022");
     } finally {
       if (prev === undefined) {
         delete process.env.CML_HIVE_ASSIST_GATEWAY_PORT;

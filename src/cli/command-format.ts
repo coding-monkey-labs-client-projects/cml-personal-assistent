@@ -1,7 +1,7 @@
 import { replaceCliName, resolveCliName } from "./cli-name.ts";
 import { normalizeProfileName } from "./profile-utils.ts";
 
-const CLI_PREFIX_RE = /^(?:pnpm|npm|bunx|npx)\s+openclaw\b|^openclaw\b/;
+const CLI_PREFIX_RE = /^(?:pnpm|npm|bunx|npx)\s+cml-hive-assist\b|^cml-hive-assist\b/;
 const PROFILE_FLAG_RE = /(?:^|\s)--profile(?:\s|=|$)/;
 const DEV_FLAG_RE = /(?:^|\s)--dev(?:\s|$)/;
 

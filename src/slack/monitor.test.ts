@@ -161,13 +161,13 @@ describe("buildSlackSlashCommandMatcher", () => {
     const matcher = buildSlackSlashCommandMatcher("cml-hive-assist");
 
     expect(matcher.test("cml-hive-assist")).toBe(true);
-    expect(matcher.test("/openclaw")).toBe(true);
+    expect(matcher.test("/cml-hive-assist")).toBe(true);
   });
 
   it("does not match similar names", () => {
     const matcher = buildSlackSlashCommandMatcher("cml-hive-assist");
 
-    expect(matcher.test("/openclaw-bot")).toBe(false);
-    expect(matcher.test("openclaw-bot")).toBe(false);
+    expect(matcher.test("/cml-hive-assist-bot")).toBe(false);
+    expect(matcher.test("cml-hive-assist-bot")).toBe(false);
   });
 });

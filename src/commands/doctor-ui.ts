@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { RuntimeEnv } from "../runtime.ts";
 import type { DoctorPrompter } from "./doctor-prompter.ts";
-import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/cml-hive-assist-root.ts";
 import { runCommandWithTimeout } from "../process/exec.ts";
 import { note } from "../terminal/note.ts";
 

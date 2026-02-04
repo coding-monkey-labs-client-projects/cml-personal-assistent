@@ -9,7 +9,7 @@ import { afterEach, describe, expect, it } from "vitest";
 const tempDirs: string[] = [];
 
 function makeTempDir() {
-  const dir = path.join(os.tmpdir(), `openclaw-hook-install-${randomUUID()}`);
+  const dir = path.join(os.tmpdir(), `cml-hive-assist-hook-install-${randomUUID()}`);
   fs.mkdirSync(dir, { recursive: true });
   tempDirs.push(dir);
   return dir;
@@ -35,7 +35,7 @@ describe("installHooksFromArchive", () => {
     zip.file(
       "package/package.json",
       JSON.stringify({
-        name: "@openclaw/zip-hooks",
+        name: "@cml-hive-assist/zip-hooks",
         version: "0.0.1",
         cml-hive-assist: { hooks: ["./hooks/zip-hook"] },
       }),
@@ -80,7 +80,7 @@ describe("installHooksFromArchive", () => {
     fs.writeFileSync(
       path.join(pkgDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/tar-hooks",
+        name: "@cml-hive-assist/tar-hooks",
         version: "0.0.1",
         cml-hive-assist: { hooks: ["./hooks/tar-hook"] },
       }),

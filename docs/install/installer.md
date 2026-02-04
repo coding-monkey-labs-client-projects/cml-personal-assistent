@@ -56,7 +56,7 @@ If you run the installer while **already inside a CmlHiveAssist source checkout*
 - update and use this checkout (`git`)
 - or migrate to the global npm install (`npm`)
 
-In non-interactive contexts (no TTY / `--no-prompt`), you must pass `--install-method git|npm` (or set `OPENCLAW_INSTALL_METHOD`), otherwise the script exits with code `2`.
+In non-interactive contexts (no TTY / `--no-prompt`), you must pass `--install-method git|npm` (or set `CML_HIVE_ASSIST_INSTALL_METHOD`), otherwise the script exits with code `2`.
 
 ### Why Git is needed
 
@@ -108,8 +108,8 @@ iwr -useb https://cml-hive-assist.ai/install.ps1 | iex -InstallMethod git -GitDi
 
 Environment variables:
 
-- `OPENCLAW_INSTALL_METHOD=git|npm`
-- `OPENCLAW_GIT_DIR=...`
+- `CML_HIVE_ASSIST_INSTALL_METHOD=git|npm`
+- `CML_HIVE_ASSIST_GIT_DIR=...`
 
 Git requirement:
 

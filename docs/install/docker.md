@@ -48,9 +48,9 @@ This script:
 
 Optional env vars:
 
-- `OPENCLAW_DOCKER_APT_PACKAGES` — install extra apt packages during build
-- `OPENCLAW_EXTRA_MOUNTS` — add extra host bind mounts
-- `OPENCLAW_HOME_VOLUME` — persist `/home/node` in a named volume
+- `CML_HIVE_ASSIST_DOCKER_APT_PACKAGES` — install extra apt packages during build
+- `CML_HIVE_ASSIST_EXTRA_MOUNTS` — add extra host bind mounts
+- `CML_HIVE_ASSIST_HOME_VOLUME` — persist `/home/node` in a named volume
 
 After it finishes:
 
@@ -74,7 +74,7 @@ docker compose up -d cml-hive-assist-gateway
 ```
 
 Note: run `docker compose ...` from the repo root. If you enabled
-`OPENCLAW_EXTRA_MOUNTS` or `OPENCLAW_HOME_VOLUME`, the setup script writes
+`CML_HIVE_ASSIST_EXTRA_MOUNTS` or `CML_HIVE_ASSIST_HOME_VOLUME`, the setup script writes
 `docker-compose.extra.yml`; include it when running Compose elsewhere:
 
 ```bash
@@ -97,71 +97,71 @@ More detail: [Dashboard](/web/dashboard), [Devices](/cli/devices).
 ### Extra mounts (optional)
 
 If you want to mount additional host directories into the containers, set
-`OPENCLAW_EXTRA_MOUNTS` before running `docker-setup.sh`. This accepts a
+`CML_HIVE_ASSIST_EXTRA_MOUNTS` before running `docker-setup.sh`. This accepts a
 comma-separated list of Docker bind mounts and applies them to both
 `cml-hive-assist-gateway` and `cml-hive-assist-cli` by generating `docker-compose.extra.yml`.
 
 Example:
 
 ```bash
-export OPENCLAW_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
+export CML_HIVE_ASSIST_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
 ./docker-setup.sh
 ```
 
 Notes:
 
 - Paths must be shared with Docker Desktop on macOS/Windows.
-- If you edit `OPENCLAW_EXTRA_MOUNTS`, rerun `docker-setup.sh` to regenerate the
+- If you edit `CML_HIVE_ASSIST_EXTRA_MOUNTS`, rerun `docker-setup.sh` to regenerate the
   extra compose file.
 - `docker-compose.extra.yml` is generated. Don’t hand-edit it.
 
 ### Persist the entire container home (optional)
 
 If you want `/home/node` to persist across container recreation, set a named
-volume via `OPENCLAW_HOME_VOLUME`. This creates a Docker volume and mounts it at
+volume via `CML_HIVE_ASSIST_HOME_VOLUME`. This creates a Docker volume and mounts it at
 `/home/node`, while keeping the standard config/workspace bind mounts. Use a
 named volume here (not a bind path); for bind mounts, use
-`OPENCLAW_EXTRA_MOUNTS`.
+`CML_HIVE_ASSIST_EXTRA_MOUNTS`.
 
 Example:
 
 ```bash
-export OPENCLAW_HOME_VOLUME="cml-hive-assist_home"
+export CML_HIVE_ASSIST_HOME_VOLUME="cml-hive-assist_home"
 ./docker-setup.sh
 ```
 
 You can combine this with extra mounts:
 
 ```bash
-export OPENCLAW_HOME_VOLUME="cml-hive-assist_home"
-export OPENCLAW_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
+export CML_HIVE_ASSIST_HOME_VOLUME="cml-hive-assist_home"
+export CML_HIVE_ASSIST_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
 ./docker-setup.sh
 ```
 
 Notes:
 
-- If you change `OPENCLAW_HOME_VOLUME`, rerun `docker-setup.sh` to regenerate the
+- If you change `CML_HIVE_ASSIST_HOME_VOLUME`, rerun `docker-setup.sh` to regenerate the
   extra compose file.
 - The named volume persists until removed with `docker volume rm <name>`.
 
 ### Install extra apt packages (optional)
 
 If you need system packages inside the image (for example, build tools or media
-libraries), set `OPENCLAW_DOCKER_APT_PACKAGES` before running `docker-setup.sh`.
+libraries), set `CML_HIVE_ASSIST_DOCKER_APT_PACKAGES` before running `docker-setup.sh`.
 This installs the packages during the image build, so they persist even if the
 container is deleted.
 
 Example:
 
 ```bash
-export OPENCLAW_DOCKER_APT_PACKAGES="ffmpeg build-essential"
+export CML_HIVE_ASSIST_DOCKER_APT_PACKAGES="ffmpeg build-essential"
 ./docker-setup.sh
 ```
 
 Notes:
 
 - This accepts a space-separated list of apt package names.
-- If you change `OPENCLAW_DOCKER_APT_PACKAGES`, rerun `docker-setup.sh` to rebuild
+- If you change `CML_HIVE_ASSIST_DOCKER_APT_PACKAGES`, rerun `docker-setup.sh` to rebuild
   the image.
 
 ### Power-user / full-featured container (opt-in)
@@ -178,14 +178,14 @@ If you want a more full-featured container, use these opt-in knobs:
 1. **Persist `/home/node`** so browser downloads and tool caches survive:
 
 ```bash
-export OPENCLAW_HOME_VOLUME="cml-hive-assist_home"
+export CML_HIVE_ASSIST_HOME_VOLUME="cml-hive-assist_home"
 ./docker-setup.sh
 ```
 
 2. **Bake system deps into the image** (repeatable + persistent):
 
 ```bash
-export OPENCLAW_DOCKER_APT_PACKAGES="git curl jq"
+export CML_HIVE_ASSIST_DOCKER_APT_PACKAGES="git curl jq"
 ./docker-setup.sh
 ```
 
@@ -197,14 +197,14 @@ docker compose run --rm cml-hive-assist-cli \
 ```
 
 If you need Playwright to install system deps, rebuild the image with
-`OPENCLAW_DOCKER_APT_PACKAGES` instead of using `--with-deps` at runtime.
+`CML_HIVE_ASSIST_DOCKER_APT_PACKAGES` instead of using `--with-deps` at runtime.
 
 4. **Persist Playwright browser downloads**:
 
 - Set `PLAYWRIGHT_BROWSERS_PATH=/home/node/.cache/ms-playwright` in
   `docker-compose.yml`.
-- Ensure `/home/node` persists via `OPENCLAW_HOME_VOLUME`, or mount
-  `/home/node/.cache/ms-playwright` via `OPENCLAW_EXTRA_MOUNTS`.
+- Ensure `/home/node` persists via `CML_HIVE_ASSIST_HOME_VOLUME`, or mount
+  `/home/node/.cache/ms-playwright` via `CML_HIVE_ASSIST_EXTRA_MOUNTS`.
 
 ### Permissions + EACCES
 
@@ -286,7 +286,7 @@ URL you land on and paste it back into the wizard to finish auth.
 ### Health check
 
 ```bash
-docker compose exec cml-hive-assist-gateway node dist/index.js health --token "$OPENCLAW_GATEWAY_TOKEN"
+docker compose exec cml-hive-assist-gateway node dist/index.js health --token "$CML_HIVE_ASSIST_GATEWAY_TOKEN"
 ```
 
 ### E2E smoke test (Docker)

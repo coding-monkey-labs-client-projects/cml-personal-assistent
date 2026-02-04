@@ -78,7 +78,7 @@ beforeEach(() => {
   originalStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
   originalUpdateInProgress = process.env.CML_HIVE_ASSIST_UPDATE_IN_PROGRESS;
   process.env.CML_HIVE_ASSIST_UPDATE_IN_PROGRESS = "1";
-  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-"));
+  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-doctor-state-"));
   process.env.CML_HIVE_ASSIST_STATE_DIR = tempStateDir;
   fs.mkdirSync(path.join(tempStateDir, "agents", "main", "sessions"), {
     recursive: true,
@@ -215,7 +215,7 @@ vi.mock("../process/exec.js", () => ({
   runCommandWithTimeout,
 }));
 
-vi.mock("../infra/openclaw-root.js", () => ({
+vi.mock("../infra/cml-hive-assist-root.js", () => ({
   resolveCmlHiveAssistPackageRoot,
 }));
 

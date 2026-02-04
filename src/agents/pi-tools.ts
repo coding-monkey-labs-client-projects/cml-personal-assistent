@@ -21,7 +21,7 @@ import {
   type ProcessToolDefaults,
 } from "./bash-tools.ts";
 import { listChannelAgentTools } from "./channel-tools.ts";
-import { createCmlHiveAssistTools } from "./openclaw-tools.ts";
+import { createCmlHiveAssistTools } from "./cml-hive-assist-tools.ts";
 import { wrapToolWithAbortSignal } from "./pi-tools.abort.ts";
 import { wrapToolWithBeforeToolCallHook } from "./pi-tools.before-tool-call.ts";
 import {

@@ -253,7 +253,7 @@ describe("provider usage loading", () => {
     await withTempHome(
       async (tempHome) => {
         const agentDir = path.join(
-          process.env.CML_HIVE_ASSIST_STATE_DIR ?? path.join(tempHome, ".openclaw"),
+          process.env.CML_HIVE_ASSIST_STATE_DIR ?? path.join(tempHome, ".cml-hive-assist"),
           "agents",
           "main",
           "agent",
@@ -328,9 +328,9 @@ describe("provider usage loading", () => {
       },
       {
         env: {
-          CML_HIVE_ASSIST_STATE_DIR: (home) => path.join(home, ".openclaw"),
+          CML_HIVE_ASSIST_STATE_DIR: (home) => path.join(home, ".cml-hive-assist"),
         },
-        prefix: "openclaw-provider-usage-",
+        prefix: "cml-hive-assist-provider-usage-",
       },
     );
   });

@@ -79,7 +79,7 @@ With the tunnel up:
 - `cml-hive-assist health` and `cml-hive-assist status --deep` now reach the remote gateway via `ws://127.0.0.1:18789`.
 - `cml-hive-assist gateway {status,health,send,agent,call}` can also target the forwarded URL via `--url` when needed.
 
-Note: replace `18789` with your configured `gateway.port` (or `--port`/`OPENCLAW_GATEWAY_PORT`).
+Note: replace `18789` with your configured `gateway.port` (or `--port`/`CML_HIVE_ASSIST_GATEWAY_PORT`).
 
 ## CLI remote defaults
 

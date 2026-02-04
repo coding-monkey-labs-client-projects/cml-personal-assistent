@@ -35,10 +35,10 @@ describe("Nix integration (U3, U5, U9)", () => {
   });
 
   describe("U5: CONFIG_PATH and STATE_DIR env var overrides", () => {
-    it("STATE_DIR defaults to ~/.openclaw when env not set", async () => {
+    it("STATE_DIR defaults to ~/.cml-hive-assist when env not set", async () => {
       await withEnvOverride({ CML_HIVE_ASSIST_STATE_DIR: undefined }, async () => {
         const { STATE_DIR } = await import("./config.js");
-        expect(STATE_DIR).toMatch(/\.openclaw$/);
+        expect(STATE_DIR).toMatch(/\.cml-hive-assist$/);
       });
     });
 
@@ -49,29 +49,35 @@ describe("Nix integration (U3, U5, U9)", () => {
       });
     });
 
-    it("CONFIG_PATH defaults to ~/.openclaw/cml-hive-assist.json when env not set", async () => {
+    it("CONFIG_PATH defaults to ~/.cml-hive-assist/cml-hive-assist.json when env not set", async () => {
       await withEnvOverride(
         { CML_HIVE_ASSIST_CONFIG_PATH: undefined, CML_HIVE_ASSIST_STATE_DIR: undefined },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toMatch(/\.openclaw[\\/]openclaw\.json$/);
+          expect(CONFIG_PATH).toMatch(/\.cml-hive-assist[\\/]cml-hive-assist\.json$/);
         },
       );
     });
 
     it("CONFIG_PATH respects CML_HIVE_ASSIST_CONFIG_PATH override", async () => {
-      await withEnvOverride({ CML_HIVE_ASSIST_CONFIG_PATH: "/nix/store/abc/cml-hive-assist.json" }, async () => {
-        const { CONFIG_PATH } = await import("./config.js");
-        expect(CONFIG_PATH).toBe(path.resolve("/nix/store/abc/cml-hive-assist.json"));
-      });
+      await withEnvOverride(
+        { CML_HIVE_ASSIST_CONFIG_PATH: "/nix/store/abc/cml-hive-assist.json" },
+        async () => {
+          const { CONFIG_PATH } = await import("./config.js");
+          expect(CONFIG_PATH).toBe(path.resolve("/nix/store/abc/cml-hive-assist.json"));
+        },
+      );
     });
 
     it("CONFIG_PATH expands ~ in CML_HIVE_ASSIST_CONFIG_PATH override", async () => {
       await withTempHome(async (home) => {
-        await withEnvOverride({ CML_HIVE_ASSIST_CONFIG_PATH: "~/.openclaw/custom.json" }, async () => {
-          const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toBe(path.join(home, ".openclaw", "custom.json"));
-        });
+        await withEnvOverride(
+          { CML_HIVE_ASSIST_CONFIG_PATH: "~/.cml-hive-assist/custom.json" },
+          async () => {
+            const { CONFIG_PATH } = await import("./config.js");
+            expect(CONFIG_PATH).toBe(path.join(home, ".cml-hive-assist", "custom.json"));
+          },
+        );
       });
     });
 
@@ -83,7 +89,9 @@ describe("Nix integration (U3, U5, U9)", () => {
         },
         async () => {
           const { CONFIG_PATH } = await import("./config.js");
-          expect(CONFIG_PATH).toBe(path.join(path.resolve("/custom/state"), "cml-hive-assist.json"));
+          expect(CONFIG_PATH).toBe(
+            path.join(path.resolve("/custom/state"), "cml-hive-assist.json"),
+          );
         },
       );
     });
@@ -92,7 +100,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U5b: tilde expansion for config paths", () => {
     it("expands ~ in common path-ish config fields", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".openclaw");
+        const configDir = path.join(home, ".cml-hive-assist");
         await fs.mkdir(configDir, { recursive: true });
         const pluginDir = path.join(home, "plugins", "demo-plugin");
         await fs.mkdir(pluginDir, { recursive: true });
@@ -128,7 +136,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                   {
                     id: "main",
                     workspace: "~/ws-agent",
-                    agentDir: "~/.openclaw/agents/main",
+                    agentDir: "~/.cml-hive-assist/agents/main",
                     sandbox: { workspaceRoot: "~/sandbox-root" },
                   },
                 ],
@@ -137,7 +145,7 @@ describe("Nix integration (U3, U5, U9)", () => {
                 whatsapp: {
                   accounts: {
                     personal: {
-                      authDir: "~/.openclaw/credentials/wa-personal",
+                      authDir: "~/.cml-hive-assist/credentials/wa-personal",
                     },
                   },
                 },
@@ -157,11 +165,11 @@ describe("Nix integration (U3, U5, U9)", () => {
         expect(cfg.agents?.defaults?.workspace).toBe(path.join(home, "ws-default"));
         expect(cfg.agents?.list?.[0]?.workspace).toBe(path.join(home, "ws-agent"));
         expect(cfg.agents?.list?.[0]?.agentDir).toBe(
-          path.join(home, ".openclaw", "agents", "main"),
+          path.join(home, ".cml-hive-assist", "agents", "main"),
         );
         expect(cfg.agents?.list?.[0]?.sandbox?.workspaceRoot).toBe(path.join(home, "sandbox-root"));
         expect(cfg.channels?.whatsapp?.accounts?.personal?.authDir).toBe(
-          path.join(home, ".openclaw", "credentials", "wa-personal"),
+          path.join(home, ".cml-hive-assist", "credentials", "wa-personal"),
         );
       });
     });
@@ -193,7 +201,7 @@ describe("Nix integration (U3, U5, U9)", () => {
   describe("U9: telegram.tokenFile schema validation", () => {
     it("accepts config with only botToken", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".openclaw");
+        const configDir = path.join(home, ".cml-hive-assist");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
           path.join(configDir, "cml-hive-assist.json"),
@@ -213,7 +221,7 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with only tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".openclaw");
+        const configDir = path.join(home, ".cml-hive-assist");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
           path.join(configDir, "cml-hive-assist.json"),
@@ -233,7 +241,7 @@ describe("Nix integration (U3, U5, U9)", () => {
 
     it("accepts config with both botToken and tokenFile", async () => {
       await withTempHome(async (home) => {
-        const configDir = path.join(home, ".openclaw");
+        const configDir = path.join(home, ".cml-hive-assist");
         await fs.mkdir(configDir, { recursive: true });
         await fs.writeFile(
           path.join(configDir, "cml-hive-assist.json"),

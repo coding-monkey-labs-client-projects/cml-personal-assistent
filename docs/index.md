@@ -150,8 +150,8 @@ If you don’t have a global install yet, run the onboarding step via `pnpm cml-
 Multi-instance quickstart (optional):
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/a.json \
-OPENCLAW_STATE_DIR=~/.cml-hive-assist-a \
+CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist/a.json \
+CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-a \
 cml-hive-assist gateway --port 19001
 ```
 

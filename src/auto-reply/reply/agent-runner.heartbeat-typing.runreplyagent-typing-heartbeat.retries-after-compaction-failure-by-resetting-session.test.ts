@@ -127,7 +127,9 @@ describe("runReplyAgent typing (heartbeat)", () => {
 
   it("retries after compaction failure by resetting the session", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "openclaw-session-compaction-reset-"));
+    const stateDir = await fs.mkdtemp(
+      path.join(tmpdir(), "cml-hive-assist-session-compaction-reset-"),
+    );
     process.env.CML_HIVE_ASSIST_STATE_DIR = stateDir;
     try {
       const sessionId = "session";
@@ -176,7 +178,9 @@ describe("runReplyAgent typing (heartbeat)", () => {
 
   it("retries after context overflow payload by resetting the session", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "openclaw-session-overflow-reset-"));
+    const stateDir = await fs.mkdtemp(
+      path.join(tmpdir(), "cml-hive-assist-session-overflow-reset-"),
+    );
     process.env.CML_HIVE_ASSIST_STATE_DIR = stateDir;
     try {
       const sessionId = "session";
@@ -230,7 +234,9 @@ describe("runReplyAgent typing (heartbeat)", () => {
 
   it("resets the session after role ordering payloads", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "openclaw-session-role-ordering-"));
+    const stateDir = await fs.mkdtemp(
+      path.join(tmpdir(), "cml-hive-assist-session-role-ordering-"),
+    );
     process.env.CML_HIVE_ASSIST_STATE_DIR = stateDir;
     try {
       const sessionId = "session";

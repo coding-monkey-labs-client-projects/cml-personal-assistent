@@ -19,7 +19,7 @@ async function withLaunchctlStub(
   const originalLogPath = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;
   const originalListOutput = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LIST_OUTPUT;
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-launchctl-test-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-launchctl-test-"));
   try {
     const binDir = path.join(tmpDir, "bin");
     const homeDir = path.join(tmpDir, "home");
@@ -105,10 +105,13 @@ describe("launchd runtime parsing", () => {
 
 describe("launchctl list detection", () => {
   it("detects the resolved label in launchctl list", async () => {
-    await withLaunchctlStub({ listOutput: "123 0 ai.cml-hive-assist.gateway\n" }, async ({ env }) => {
-      const listed = await isLaunchAgentListed({ env });
-      expect(listed).toBe(true);
-    });
+    await withLaunchctlStub(
+      { listOutput: "123 0 ai.cml-hive-assist.gateway\n" },
+      async ({ env }) => {
+        const listed = await isLaunchAgentListed({ env });
+        expect(listed).toBe(true);
+      },
+    );
   });
 
   it("returns false when the label is missing", async () => {
@@ -145,7 +148,7 @@ describe("launchd install", () => {
     const originalPath = process.env.PATH;
     const originalLogPath = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;
 
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-launchctl-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-launchctl-test-"));
     try {
       const binDir = path.join(tmpDir, "bin");
       const homeDir = path.join(tmpDir, "home");

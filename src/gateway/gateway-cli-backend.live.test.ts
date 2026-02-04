@@ -11,7 +11,8 @@ import { GatewayClient } from "./client.js";
 import { renderCatNoncePngBase64 } from "./live-image-probe.js";
 import { startGatewayServer } from "./server.js";
 
-const LIVE = isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.CML_HIVE_ASSIST_LIVE_TEST);
+const LIVE =
+  isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.CML_HIVE_ASSIST_LIVE_TEST);
 const CLI_LIVE = isTruthyEnvValue(process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND);
 const CLI_IMAGE = isTruthyEnvValue(process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND_IMAGE_PROBE);
 const CLI_RESUME = isTruthyEnvValue(process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND_RESUME_PROBE);
@@ -241,7 +242,8 @@ describeLive("gateway live (cli backend)", () => {
           ? { command: "codex", args: DEFAULT_CODEX_ARGS }
           : null;
 
-    const cliCommand = process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND_COMMAND ?? providerDefaults?.command;
+    const cliCommand =
+      process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND_COMMAND ?? providerDefaults?.command;
     if (!cliCommand) {
       throw new Error(
         `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_COMMAND is required for provider "${providerId}".`,
@@ -253,7 +255,9 @@ describeLive("gateway live (cli backend)", () => {
         process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND_ARGS,
       ) ?? providerDefaults?.args;
     if (!baseCliArgs || baseCliArgs.length === 0) {
-      throw new Error(`CML_HIVE_ASSIST_LIVE_CLI_BACKEND_ARGS is required for provider "${providerId}".`);
+      throw new Error(
+        `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_ARGS is required for provider "${providerId}".`,
+      );
     }
     const cliClearEnv =
       parseJsonStringArray(
@@ -269,8 +273,9 @@ describeLive("gateway live (cli backend)", () => {
       );
     }
 
-    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-live-cli-"));
-    const disableMcpConfig = process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND_DISABLE_MCP_CONFIG !== "0";
+    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-live-cli-"));
+    const disableMcpConfig =
+      process.env.CML_HIVE_ASSIST_LIVE_CLI_BACKEND_DISABLE_MCP_CONFIG !== "0";
     let cliArgs = baseCliArgs;
     if (providerId === "claude-cli" && disableMcpConfig) {
       const mcpConfigPath = path.join(tempDir, "claude-mcp.json");

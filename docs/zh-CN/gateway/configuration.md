@@ -277,7 +277,7 @@ CmlHiveAssist 从父进程（shell、launchd/systemd、CI 等）读取环境变�
 此外，它还会加载：
 
 - 当前工作目录中的 `.env`（如果存在）
-- `~/.cml-hive-assist/.env`（即 `$OPENCLAW_STATE_DIR/.env`）作为全局回退 `.env`
+- `~/.cml-hive-assist/.env`（即 `$CML_HIVE_ASSIST_STATE_DIR/.env`）作为全局回退 `.env`
 
 两个 `.env` 文件都不会覆盖已有的环境变量。
 
@@ -314,8 +314,8 @@ CmlHiveAssist 从父进程（shell、launchd/systemd、CI 等）读取环境变�
 
 等效环境变量：
 
-- `OPENCLAW_LOAD_SHELL_ENV=1`
-- `OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000`
+- `CML_HIVE_ASSIST_LOAD_SHELL_ENV=1`
+- `CML_HIVE_ASSIST_SHELL_ENV_TIMEOUT_MS=15000`
 
 ### 配置中的环境变量替换
 
@@ -332,7 +332,7 @@ CmlHiveAssist 从父进程（shell、launchd/systemd、CI 等）读取环境变�
   },
   gateway: {
     auth: {
-      token: "${OPENCLAW_GATEWAY_TOKEN}",
+      token: "${CML_HIVE_ASSIST_GATEWAY_TOKEN}",
     },
   },
 }
@@ -369,7 +369,7 @@ CmlHiveAssist 在以下位置存储**每个智能体的**认证配置文件（OA
 
 旧版 OAuth 导入：
 
-- `~/.cml-hive-assist/credentials/oauth.json`（或 `$OPENCLAW_STATE_DIR/credentials/oauth.json`）
+- `~/.cml-hive-assist/credentials/oauth.json`（或 `$CML_HIVE_ASSIST_STATE_DIR/credentials/oauth.json`）
 
 内置 Pi 智能体在以下位置维护运行时缓存：
 
@@ -381,8 +381,8 @@ CmlHiveAssist 在以下位置存储**每个智能体的**认证配置文件（OA
 
 覆盖：
 
-- OAuth 目录（仅旧版导入）：`OPENCLAW_OAUTH_DIR`
-- 智能体目录（默认智能体根目录覆盖）：`OPENCLAW_AGENT_DIR`（推荐）、`PI_CODING_AGENT_DIR`（旧版）
+- OAuth 目录（仅旧版导入）：`CML_HIVE_ASSIST_OAUTH_DIR`
+- 智能体目录（默认智能体根目录覆盖）：`CML_HIVE_ASSIST_AGENT_DIR`（推荐）、`PI_CODING_AGENT_DIR`（旧版）
 
 首次使用时，CmlHiveAssist 会将 `oauth.json` 条目导入到 `auth-profiles.json` 中。
 
@@ -2668,7 +2668,7 @@ Z.AI 模型通过内置的 `zai` 提供商提供。在环境中设置 `ZAI_API_K
 - 支持的 API：`openai-completions`、`openai-responses`、`anthropic-messages`、
   `google-generative-ai`
 - 对于自定义认证需求使用 `authHeader: true` + `headers`。
-- 如果你希望 `models.json` 存储在其他位置，请使用 `OPENCLAW_AGENT_DIR`（或 `PI_CODING_AGENT_DIR`）覆盖智能体配置根目录（默认：`~/.cml-hive-assist/agents/main/agent`）。
+- 如果你希望 `models.json` 存储在其他位置，请使用 `CML_HIVE_ASSIST_AGENT_DIR`（或 `PI_CODING_AGENT_DIR`）覆盖智能体配置根目录（默认：`~/.cml-hive-assist/agents/main/agent`）。
 
 ### `session`
 
@@ -3036,7 +3036,7 @@ Gateway网关监视 `~/.cml-hive-assist/cml-hive-assist.json`（或 `OPENCLAW_CO
 要在一台主机上运行多个 Gateway网关（用于冗余或救援机器人），请隔离每个实例的状态 + 配置并使用唯一端口：
 
 - `OPENCLAW_CONFIG_PATH`（每实例配置）
-- `OPENCLAW_STATE_DIR`（会话/凭据）
+- `CML_HIVE_ASSIST_STATE_DIR`（会话/凭据）
 - `agents.defaults.workspace`（记忆）
 - `gateway.port`（每实例唯一）
 
@@ -3052,7 +3052,7 @@ Gateway网关监视 `~/.cml-hive-assist/cml-hive-assist.json`（或 `OPENCLAW_CO
 
 ```bash
 OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/a.json \
-OPENCLAW_STATE_DIR=~/.cml-hive-assist-a \
+CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-a \
 cml-hive-assist gateway --port 19001
 ```
 

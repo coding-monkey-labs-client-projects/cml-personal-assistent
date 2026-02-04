@@ -1,5 +1,5 @@
-import type { CmlHiveAssistConfig } from "openclaw/plugin-sdk";
-import { loadWebMedia, resolveChannelMediaMaxBytes } from "openclaw/plugin-sdk";
+import type { CmlHiveAssistConfig } from "cml-hive-assist/plugin-sdk";
+import { loadWebMedia, resolveChannelMediaMaxBytes } from "cml-hive-assist/plugin-sdk";
 import { createMSTeamsConversationStoreFs } from "./conversation-store-fs.js";
 import {
   classifyMSTeamsSendError,

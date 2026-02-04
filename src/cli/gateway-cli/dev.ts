@@ -60,7 +60,7 @@ async function ensureDevWorkspace(dir: string) {
   const [agents, soul, tools, identity, user] = await Promise.all([
     loadDevTemplate(
       "AGENTS.dev.md",
-      `# AGENTS.md - CmlHiveAssist Dev Workspace\n\nDefault dev workspace for openclaw gateway --dev.\n`,
+      `# AGENTS.md - CmlHiveAssist Dev Workspace\n\nDefault dev workspace for cml-hive-assist gateway --dev.\n`,
     ),
     loadDevTemplate(
       "SOUL.dev.md",

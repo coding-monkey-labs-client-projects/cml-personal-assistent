@@ -5,8 +5,8 @@ import { describe, expect, it } from "vitest";
 import { ensureCmlHiveAssistCliOnPath } from "./path-env.js";
 
 describe("ensureCmlHiveAssistCliOnPath", () => {
-  it("prepends the bundled app bin dir when a sibling openclaw exists", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-path-"));
+  it("prepends the bundled app bin dir when a sibling cml-hive-assist exists", async () => {
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-path-"));
     try {
       const appBinDir = path.join(tmp, "AppBin");
       await fs.mkdir(appBinDir, { recursive: true });
@@ -64,7 +64,7 @@ describe("ensureCmlHiveAssistCliOnPath", () => {
   });
 
   it("prepends mise shims when available", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-path-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-path-"));
     const originalPath = process.env.PATH;
     const originalFlag = process.env.CML_HIVE_ASSIST_PATH_BOOTSTRAPPED;
     const originalMiseDataDir = process.env.MISE_DATA_DIR;
@@ -120,7 +120,7 @@ describe("ensureCmlHiveAssistCliOnPath", () => {
   });
 
   it("prepends Linuxbrew dirs when present", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-path-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-path-"));
     const originalPath = process.env.PATH;
     const originalFlag = process.env.CML_HIVE_ASSIST_PATH_BOOTSTRAPPED;
     const originalHomebrewPrefix = process.env.HOMEBREW_PREFIX;

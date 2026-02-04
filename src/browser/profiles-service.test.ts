@@ -19,7 +19,7 @@ vi.mock("./trash.js", () => ({
 }));
 
 vi.mock("./chrome.js", () => ({
-  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/openclaw-test/openclaw/user-data"),
+  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/cml-hive-assist-test/cml-hive-assist/user-data"),
 }));
 
 import { loadConfig, writeConfigFile } from "../config/config.js";
@@ -133,7 +133,7 @@ describe("BrowserProfilesService", () => {
       },
     });
 
-    const tempDir = fs.mkdtempSync(path.join("/tmp", "openclaw-profile-"));
+    const tempDir = fs.mkdtempSync(path.join("/tmp", "cml-hive-assist-profile-"));
     const userDataDir = path.join(tempDir, "work", "user-data");
     fs.mkdirSync(path.dirname(userDataDir), { recursive: true });
     vi.mocked(resolveCmlHiveAssistUserDataDir).mockReturnValue(userDataDir);

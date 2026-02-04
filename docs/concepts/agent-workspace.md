@@ -24,7 +24,7 @@ inside a sandbox workspace under `~/.cml-hive-assist/sandboxes`, not your host w
 ## Default location
 
 - Default: `~/.cml-hive-assist/workspace`
-- If `OPENCLAW_PROFILE` is set and not `"default"`, the default becomes
+- If `CML_HIVE_ASSIST_PROFILE` is set and not `"default"`, the default becomes
   `~/.cml-hive-assist/workspace-<profile>`.
 - Override in `~/.cml-hive-assist/cml-hive-assist.json`:
 

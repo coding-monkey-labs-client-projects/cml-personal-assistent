@@ -28,7 +28,7 @@ type GatewayWsLogStyle = "auto" | "full" | "compact";
 
 async function main() {
   if (hasFlag(args, "--version") || hasFlag(args, "-v")) {
-    // Match `openclaw --version` behavior for Swift env/version checks.
+    // Match `cml-hive-assist --version` behavior for Swift env/version checks.
     // Keep output a single line.
     console.log(BUNDLED_VERSION);
     process.exit(0);
@@ -217,7 +217,7 @@ async function main() {
 
 void main().catch((err) => {
   console.error(
-    "[openclaw] Gateway daemon failed:",
+    "[cml-hive-assist] Gateway daemon failed:",
     err instanceof Error ? (err.stack ?? err.message) : err,
   );
   process.exit(1);

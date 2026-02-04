@@ -38,7 +38,7 @@ describe("gateway e2e", () => {
 
       const { baseUrl: openaiBaseUrl, restore } = installOpenAiResponsesMock();
 
-      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gw-mock-home-"));
+      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-gw-mock-home-"));
       process.env.HOME = tempHome;
       process.env.CML_HIVE_ASSIST_SKIP_CHANNELS = "1";
       process.env.CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER = "1";
@@ -54,10 +54,10 @@ describe("gateway e2e", () => {
 
       const nonceA = randomUUID();
       const nonceB = randomUUID();
-      const toolProbePath = path.join(workspaceDir, `.openclaw-tool-probe.${nonceA}.txt`);
+      const toolProbePath = path.join(workspaceDir, `.cml-hive-assist-tool-probe.${nonceA}.txt`);
       await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
-      const configDir = path.join(tempHome, ".openclaw");
+      const configDir = path.join(tempHome, ".cml-hive-assist");
       await fs.mkdir(configDir, { recursive: true });
       const configPath = path.join(configDir, "cml-hive-assist.json");
 
@@ -170,7 +170,7 @@ describe("gateway e2e", () => {
     process.env.CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER = "1";
     delete process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
 
-    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-wizard-home-"));
+    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-wizard-home-"));
     process.env.HOME = tempHome;
     delete process.env.CML_HIVE_ASSIST_STATE_DIR;
     delete process.env.CML_HIVE_ASSIST_CONFIG_PATH;

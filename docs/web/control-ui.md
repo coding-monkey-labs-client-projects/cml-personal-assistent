@@ -162,7 +162,7 @@ pnpm ui:build # auto-installs UI deps on first run
 Optional absolute base (when you want fixed asset URLs):
 
 ```bash
-OPENCLAW_CONTROL_UI_BASE_PATH=/cml-hive-assist/ pnpm ui:build
+CML_HIVE_ASSIST_CONTROL_UI_BASE_PATH=/cml-hive-assist/ pnpm ui:build
 ```
 
 For local development (separate dev server):

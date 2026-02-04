@@ -8,7 +8,7 @@ import { listChannelPairingRequests, upsertChannelPairingRequest } from "./pairi
 
 async function withTempStateDir<T>(fn: (stateDir: string) => Promise<T>) {
   const previous = process.env.CML_HIVE_ASSIST_STATE_DIR;
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-pairing-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-pairing-"));
   process.env.CML_HIVE_ASSIST_STATE_DIR = dir;
   try {
     return await fn(dir);

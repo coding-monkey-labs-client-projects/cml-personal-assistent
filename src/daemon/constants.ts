@@ -1,11 +1,11 @@
 // Default service labels (canonical + legacy compatibility)
 export const GATEWAY_LAUNCH_AGENT_LABEL = "ai.cml-hive-assist.gateway";
-export const GATEWAY_SYSTEMD_SERVICE_NAME = "openclaw-gateway";
+export const GATEWAY_SYSTEMD_SERVICE_NAME = "cml-hive-assist-gateway";
 export const GATEWAY_WINDOWS_TASK_NAME = "CmlHiveAssist Gateway";
 export const GATEWAY_SERVICE_MARKER = "cml-hive-assist";
 export const GATEWAY_SERVICE_KIND = "gateway";
 export const NODE_LAUNCH_AGENT_LABEL = "ai.cml-hive-assist.node";
-export const NODE_SYSTEMD_SERVICE_NAME = "openclaw-node";
+export const NODE_SYSTEMD_SERVICE_NAME = "cml-hive-assist-node";
 export const NODE_WINDOWS_TASK_NAME = "CmlHiveAssist Node";
 export const NODE_SERVICE_MARKER = "cml-hive-assist";
 export const NODE_SERVICE_KIND = "node";
@@ -45,7 +45,7 @@ export function resolveGatewaySystemdServiceName(profile?: string): string {
   if (!suffix) {
     return GATEWAY_SYSTEMD_SERVICE_NAME;
   }
-  return `openclaw-gateway${suffix}`;
+  return `cml-hive-assist-gateway${suffix}`;
 }
 
 export function resolveGatewayWindowsTaskName(profile?: string): string {

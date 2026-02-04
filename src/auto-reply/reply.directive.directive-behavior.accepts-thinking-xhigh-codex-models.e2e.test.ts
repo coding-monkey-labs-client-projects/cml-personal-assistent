@@ -39,10 +39,10 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     },
     {
       env: {
-        CML_HIVE_ASSIST_AGENT_DIR: (home) => path.join(home, ".openclaw", "agent"),
-        PI_CODING_AGENT_DIR: (home) => path.join(home, ".openclaw", "agent"),
+        CML_HIVE_ASSIST_AGENT_DIR: (home) => path.join(home, ".cml-hive-assist", "agent"),
+        PI_CODING_AGENT_DIR: (home) => path.join(home, ".cml-hive-assist", "agent"),
       },
-      prefix: "openclaw-reply-",
+      prefix: "cml-hive-assist-reply-",
     },
   );
 }

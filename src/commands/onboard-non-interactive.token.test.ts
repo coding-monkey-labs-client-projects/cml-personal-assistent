@@ -24,7 +24,7 @@ describe("onboard (non-interactive): token auth", () => {
     delete process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
     delete process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
 
-    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-onboard-token-"));
+    const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-onboard-token-"));
     process.env.HOME = tempHome;
     process.env.CML_HIVE_ASSIST_STATE_DIR = tempHome;
     process.env.CML_HIVE_ASSIST_CONFIG_PATH = path.join(tempHome, "cml-hive-assist.json");

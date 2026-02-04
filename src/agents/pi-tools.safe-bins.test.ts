@@ -46,7 +46,7 @@ describe("createCmlHiveAssistCodingTools safeBins", () => {
       return;
     }
 
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-safe-bins-"));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-safe-bins-"));
     const cfg: CmlHiveAssistConfig = {
       tools: {
         exec: {

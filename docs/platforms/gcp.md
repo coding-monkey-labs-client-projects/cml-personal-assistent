@@ -215,13 +215,13 @@ mkdir -p ~/.cml-hive-assist/workspace
 Create `.env` in the repository root.
 
 ```bash
-OPENCLAW_IMAGE=cml-hive-assist:latest
-OPENCLAW_GATEWAY_TOKEN=change-me-now
-OPENCLAW_GATEWAY_BIND=lan
-OPENCLAW_GATEWAY_PORT=18789
+CML_HIVE_ASSIST_IMAGE=cml-hive-assist:latest
+CML_HIVE_ASSIST_GATEWAY_TOKEN=change-me-now
+CML_HIVE_ASSIST_GATEWAY_BIND=lan
+CML_HIVE_ASSIST_GATEWAY_PORT=18789
 
-OPENCLAW_CONFIG_DIR=/home/$USER/.cml-hive-assist
-OPENCLAW_WORKSPACE_DIR=/home/$USER/.cml-hive-assist/workspace
+CML_HIVE_ASSIST_CONFIG_DIR=/home/$USER/.cml-hive-assist
+CML_HIVE_ASSIST_WORKSPACE_DIR=/home/$USER/.cml-hive-assist/workspace
 
 GOG_KEYRING_PASSWORD=change-me-now
 XDG_CONFIG_HOME=/home/node/.cml-hive-assist
@@ -244,7 +244,7 @@ Create or update `docker-compose.yml`.
 ```yaml
 services:
   cml-hive-assist-gateway:
-    image: ${OPENCLAW_IMAGE}
+    image: ${CML_HIVE_ASSIST_IMAGE}
     build: .
     restart: unless-stopped
     env_file:
@@ -253,19 +253,19 @@ services:
       - HOME=/home/node
       - NODE_ENV=production
       - TERM=xterm-256color
-      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND}
-      - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT}
-      - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
+      - CML_HIVE_ASSIST_GATEWAY_BIND=${CML_HIVE_ASSIST_GATEWAY_BIND}
+      - CML_HIVE_ASSIST_GATEWAY_PORT=${CML_HIVE_ASSIST_GATEWAY_PORT}
+      - CML_HIVE_ASSIST_GATEWAY_TOKEN=${CML_HIVE_ASSIST_GATEWAY_TOKEN}
       - GOG_KEYRING_PASSWORD=${GOG_KEYRING_PASSWORD}
       - XDG_CONFIG_HOME=${XDG_CONFIG_HOME}
       - PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     volumes:
-      - ${OPENCLAW_CONFIG_DIR}:/home/node/.cml-hive-assist
-      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.cml-hive-assist/workspace
+      - ${CML_HIVE_ASSIST_CONFIG_DIR}:/home/node/.cml-hive-assist
+      - ${CML_HIVE_ASSIST_WORKSPACE_DIR}:/home/node/.cml-hive-assist/workspace
     ports:
       # Recommended: keep the Gateway loopback-only on the VM; access via SSH tunnel.
       # To expose it publicly, remove the `127.0.0.1:` prefix and firewall accordingly.
-      - "127.0.0.1:${OPENCLAW_GATEWAY_PORT}:18789"
+      - "127.0.0.1:${CML_HIVE_ASSIST_GATEWAY_PORT}:18789"
 
       # Optional: only if you run iOS/Android nodes against this VM and need Canvas host.
       # If you expose this publicly, read /gateway/security and firewall accordingly.
@@ -276,9 +276,9 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${OPENCLAW_GATEWAY_BIND}",
+        "${CML_HIVE_ASSIST_GATEWAY_BIND}",
         "--port",
-        "${OPENCLAW_GATEWAY_PORT}",
+        "${CML_HIVE_ASSIST_GATEWAY_PORT}",
       ]
 ```
 
@@ -407,18 +407,18 @@ Paste your gateway token.
 CmlHiveAssist runs in Docker, but Docker is not the source of truth.
 All long-lived state must survive restarts, rebuilds, and reboots.
 
-| Component           | Location                          | Persistence mechanism  | Notes                            |
-| ------------------- | --------------------------------- | ---------------------- | -------------------------------- |
+| Component           | Location                                 | Persistence mechanism  | Notes                                   |
+| ------------------- | ---------------------------------------- | ---------------------- | --------------------------------------- |
 | Gateway config      | `/home/node/.cml-hive-assist/`           | Host volume mount      | Includes `cml-hive-assist.json`, tokens |
-| Model auth profiles | `/home/node/.cml-hive-assist/`           | Host volume mount      | OAuth tokens, API keys           |
-| Skill configs       | `/home/node/.cml-hive-assist/skills/`    | Host volume mount      | Skill-level state                |
-| Agent workspace     | `/home/node/.cml-hive-assist/workspace/` | Host volume mount      | Code and agent artifacts         |
-| WhatsApp session    | `/home/node/.cml-hive-assist/`           | Host volume mount      | Preserves QR login               |
-| Gmail keyring       | `/home/node/.cml-hive-assist/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`  |
-| External binaries   | `/usr/local/bin/`                 | Docker image           | Must be baked at build time      |
-| Node runtime        | Container filesystem              | Docker image           | Rebuilt every image build        |
-| OS packages         | Container filesystem              | Docker image           | Do not install at runtime        |
-| Docker container    | Ephemeral                         | Restartable            | Safe to destroy                  |
+| Model auth profiles | `/home/node/.cml-hive-assist/`           | Host volume mount      | OAuth tokens, API keys                  |
+| Skill configs       | `/home/node/.cml-hive-assist/skills/`    | Host volume mount      | Skill-level state                       |
+| Agent workspace     | `/home/node/.cml-hive-assist/workspace/` | Host volume mount      | Code and agent artifacts                |
+| WhatsApp session    | `/home/node/.cml-hive-assist/`           | Host volume mount      | Preserves QR login                      |
+| Gmail keyring       | `/home/node/.cml-hive-assist/`           | Host volume + password | Requires `GOG_KEYRING_PASSWORD`         |
+| External binaries   | `/usr/local/bin/`                        | Docker image           | Must be baked at build time             |
+| Node runtime        | Container filesystem                     | Docker image           | Rebuilt every image build               |
+| OS packages         | Container filesystem                     | Docker image           | Do not install at runtime               |
+| Docker container    | Ephemeral                                | Restartable            | Safe to destroy                         |
 
 ---
 

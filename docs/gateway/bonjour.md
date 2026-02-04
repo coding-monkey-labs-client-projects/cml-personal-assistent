@@ -155,11 +155,11 @@ sequences (e.g. spaces become `\032`).
 
 ## Disabling / configuration
 
-- `OPENCLAW_DISABLE_BONJOUR=1` disables advertising (legacy: `OPENCLAW_DISABLE_BONJOUR`).
+- `CML_HIVE_ASSIST_DISABLE_BONJOUR=1` disables advertising (legacy: `CML_HIVE_ASSIST_DISABLE_BONJOUR`).
 - `gateway.bind` in `~/.cml-hive-assist/cml-hive-assist.json` controls the Gateway bind mode.
-- `OPENCLAW_SSH_PORT` overrides the SSH port advertised in TXT (legacy: `OPENCLAW_SSH_PORT`).
-- `OPENCLAW_TAILNET_DNS` publishes a MagicDNS hint in TXT (legacy: `OPENCLAW_TAILNET_DNS`).
-- `OPENCLAW_CLI_PATH` overrides the advertised CLI path (legacy: `OPENCLAW_CLI_PATH`).
+- `CML_HIVE_ASSIST_SSH_PORT` overrides the SSH port advertised in TXT (legacy: `CML_HIVE_ASSIST_SSH_PORT`).
+- `CML_HIVE_ASSIST_TAILNET_DNS` publishes a MagicDNS hint in TXT (legacy: `CML_HIVE_ASSIST_TAILNET_DNS`).
+- `CML_HIVE_ASSIST_CLI_PATH` overrides the advertised CLI path (legacy: `CML_HIVE_ASSIST_CLI_PATH`).
 
 ## Related docs
 

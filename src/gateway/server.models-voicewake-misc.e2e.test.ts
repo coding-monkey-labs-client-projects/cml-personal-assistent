@@ -97,7 +97,7 @@ describe("gateway server models + voicewake", () => {
     const prevHomeDrive = process.env.HOMEDRIVE;
     const prevHomePath = process.env.HOMEPATH;
     process.env.HOME = homeDir;
-    process.env.CML_HIVE_ASSIST_STATE_DIR = path.join(homeDir, ".openclaw");
+    process.env.CML_HIVE_ASSIST_STATE_DIR = path.join(homeDir, ".cml-hive-assist");
     process.env.USERPROFILE = homeDir;
     if (process.platform === "win32") {
       const parsed = path.parse(homeDir);
@@ -139,7 +139,7 @@ describe("gateway server models + voicewake", () => {
     "voicewake.get returns defaults and voicewake.set broadcasts",
     { timeout: 60_000 },
     async () => {
-      const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-home-"));
+      const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-home-"));
       const restoreHome = setTempHome(homeDir);
 
       const initial = await rpcReq<{ triggers: string[] }>(ws, "voicewake.get");
@@ -170,7 +170,10 @@ describe("gateway server models + voicewake", () => {
       expect(after.payload?.triggers).toEqual(["hi", "there"]);
 
       const onDisk = JSON.parse(
-        await fs.readFile(path.join(homeDir, ".openclaw", "settings", "voicewake.json"), "utf8"),
+        await fs.readFile(
+          path.join(homeDir, ".cml-hive-assist", "settings", "voicewake.json"),
+          "utf8",
+        ),
       ) as { triggers?: unknown; updatedAtMs?: unknown };
       expect(onDisk.triggers).toEqual(["hi", "there"]);
       expect(typeof onDisk.updatedAtMs).toBe("number");
@@ -180,7 +183,7 @@ describe("gateway server models + voicewake", () => {
   );
 
   test("pushes voicewake.changed to nodes on connect and on updates", async () => {
-    const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-home-"));
+    const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-home-"));
     const restoreHome = setTempHome(homeDir);
 
     const nodeWs = new WebSocket(`ws://127.0.0.1:${port}`);

@@ -1,5 +1,5 @@
-import type { CmlHiveAssistPluginApi } from "openclaw/plugin-sdk";
-import { emptyPluginConfigSchema } from "openclaw/plugin-sdk";
+import type { CmlHiveAssistPluginApi } from "cml-hive-assist/plugin-sdk";
+import { emptyPluginConfigSchema } from "cml-hive-assist/plugin-sdk";
 import { slackPlugin } from "./src/channel.js";
 import { setSlackRuntime } from "./src/runtime.js";
 

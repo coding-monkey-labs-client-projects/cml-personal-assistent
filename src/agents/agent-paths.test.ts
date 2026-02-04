@@ -33,7 +33,7 @@ describe("resolveCmlHiveAssistAgentDir", () => {
   });
 
   it("defaults to the multi-agent path when no overrides are set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-agent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-agent-"));
     process.env.CML_HIVE_ASSIST_STATE_DIR = tempStateDir;
     delete process.env.CML_HIVE_ASSIST_AGENT_DIR;
     delete process.env.PI_CODING_AGENT_DIR;
@@ -44,7 +44,7 @@ describe("resolveCmlHiveAssistAgentDir", () => {
   });
 
   it("honors CML_HIVE_ASSIST_AGENT_DIR overrides", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-agent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-agent-"));
     const override = path.join(tempStateDir, "agent");
     process.env.CML_HIVE_ASSIST_AGENT_DIR = override;
     delete process.env.PI_CODING_AGENT_DIR;

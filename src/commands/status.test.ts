@@ -94,7 +94,7 @@ vi.mock("../memory/manager.js", () => ({
         files: 2,
         chunks: 3,
         dirty: false,
-        workspaceDir: "/tmp/openclaw",
+        workspaceDir: "/tmp/cml-hive-assist",
         dbPath: "/tmp/memory.sqlite",
         provider: "openai",
         model: "text-embedding-3-small",
@@ -209,8 +209,8 @@ vi.mock("../gateway/call.js", async (importOriginal) => {
 vi.mock("../gateway/session-utils.js", () => ({
   listAgentsForGateway: mocks.listAgentsForGateway,
 }));
-vi.mock("../infra/openclaw-root.js", () => ({
-  resolveCmlHiveAssistPackageRoot: vi.fn().mockResolvedValue("/tmp/openclaw"),
+vi.mock("../infra/cml-hive-assist-root.js", () => ({
+  resolveCmlHiveAssistPackageRoot: vi.fn().mockResolvedValue("/tmp/cml-hive-assist"),
 }));
 vi.mock("../infra/os-summary.js", () => ({
   resolveOsSummary: () => ({
@@ -222,11 +222,11 @@ vi.mock("../infra/os-summary.js", () => ({
 }));
 vi.mock("../infra/update-check.js", () => ({
   checkUpdateStatus: vi.fn().mockResolvedValue({
-    root: "/tmp/openclaw",
+    root: "/tmp/cml-hive-assist",
     installKind: "git",
     packageManager: "pnpm",
     git: {
-      root: "/tmp/openclaw",
+      root: "/tmp/cml-hive-assist",
       branch: "main",
       upstream: "origin/main",
       dirty: false,
@@ -237,8 +237,8 @@ vi.mock("../infra/update-check.js", () => ({
     deps: {
       manager: "pnpm",
       status: "ok",
-      lockfilePath: "/tmp/openclaw/pnpm-lock.yaml",
-      markerPath: "/tmp/openclaw/node_modules/.modules.yaml",
+      lockfilePath: "/tmp/cml-hive-assist/pnpm-lock.yaml",
+      markerPath: "/tmp/cml-hive-assist/node_modules/.modules.yaml",
     },
     registry: { latestVersion: "0.0.0" },
   }),
@@ -335,10 +335,10 @@ describe("statusCommand", () => {
     expect(
       logs.some(
         (l) =>
-          l.includes("openclaw status --all") ||
-          l.includes("openclaw --profile isolated status --all") ||
-          l.includes("openclaw status --all") ||
-          l.includes("openclaw --profile isolated status --all"),
+          l.includes("cml-hive-assist status --all") ||
+          l.includes("cml-hive-assist --profile isolated status --all") ||
+          l.includes("cml-hive-assist status --all") ||
+          l.includes("cml-hive-assist --profile isolated status --all"),
       ),
     ).toBe(true);
   });

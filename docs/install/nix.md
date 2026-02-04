@@ -45,13 +45,13 @@ Reference the nix-cml-hive-assist README for module options.
 
 ## Nix Mode Runtime Behavior
 
-When `OPENCLAW_NIX_MODE=1` is set (automatic with nix-cml-hive-assist):
+When `CML_HIVE_ASSIST_NIX_MODE=1` is set (automatic with nix-cml-hive-assist):
 
 CmlHiveAssist supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
 Enable it by exporting:
 
 ```bash
-OPENCLAW_NIX_MODE=1
+CML_HIVE_ASSIST_NIX_MODE=1
 ```
 
 On macOS, the GUI app does not automatically inherit shell env vars. You can
@@ -63,10 +63,10 @@ defaults write bot.molt.mac cml-hive-assist.nixMode -bool true
 
 ### Config + state paths
 
-CmlHiveAssist reads JSON5 config from `OPENCLAW_CONFIG_PATH` and stores mutable data in `OPENCLAW_STATE_DIR`.
+CmlHiveAssist reads JSON5 config from `CML_HIVE_ASSIST_CONFIG_PATH` and stores mutable data in `CML_HIVE_ASSIST_STATE_DIR`.
 
-- `OPENCLAW_STATE_DIR` (default: `~/.cml-hive-assist`)
-- `OPENCLAW_CONFIG_PATH` (default: `$OPENCLAW_STATE_DIR/cml-hive-assist.json`)
+- `CML_HIVE_ASSIST_STATE_DIR` (default: `~/.cml-hive-assist`)
+- `CML_HIVE_ASSIST_CONFIG_PATH` (default: `$CML_HIVE_ASSIST_STATE_DIR/cml-hive-assist.json`)
 
 When running under Nix, set these explicitly to Nix-managed locations so runtime state and config
 stay out of the immutable store.

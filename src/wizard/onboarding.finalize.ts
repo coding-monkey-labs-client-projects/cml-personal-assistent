@@ -306,9 +306,9 @@ export async function finalizeOnboardingWizard(
     await prompter.note(
       [
         "Gateway token: shared auth for the Gateway + Control UI.",
-        "Stored in: ~/.openclaw/cml-hive-assist.json (gateway.auth.token) or CML_HIVE_ASSIST_GATEWAY_TOKEN.",
+        "Stored in: ~/.cml-hive-assist/cml-hive-assist.json (gateway.auth.token) or CML_HIVE_ASSIST_GATEWAY_TOKEN.",
         "Web UI stores a copy in this browser's localStorage (cml-hive-assist.control.settings.v1).",
-        `Get the tokenized link anytime: ${formatCliCommand("openclaw dashboard --no-open")}`,
+        `Get the tokenized link anytime: ${formatCliCommand("cml-hive-assist dashboard --no-open")}`,
       ].join("\n"),
       "Token",
     );
@@ -366,7 +366,7 @@ export async function finalizeOnboardingWizard(
       );
     } else {
       await prompter.note(
-        `When you're ready: ${formatCliCommand("openclaw dashboard --no-open")}`,
+        `When you're ready: ${formatCliCommand("cml-hive-assist dashboard --no-open")}`,
         "Later",
       );
     }
@@ -444,7 +444,7 @@ export async function finalizeOnboardingWizard(
           "CmlHiveAssist uses Brave Search for the `web_search` tool. Without a Brave Search API key, web search won’t work.",
           "",
           "Set it up interactively:",
-          `- Run: ${formatCliCommand("openclaw configure --section web")}`,
+          `- Run: ${formatCliCommand("cml-hive-assist configure --section web")}`,
           "- Enable web_search and paste your Brave Search API key",
           "",
           "Alternative: set BRAVE_API_KEY in the Gateway environment (no config changes).",

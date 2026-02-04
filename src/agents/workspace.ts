@@ -12,9 +12,9 @@ export function resolveDefaultAgentWorkspaceDir(
 ): string {
   const profile = env.CML_HIVE_ASSIST_PROFILE?.trim();
   if (profile && profile.toLowerCase() !== "default") {
-    return path.join(homedir(), ".openclaw", `workspace-${profile}`);
+    return path.join(homedir(), ".cml-hive-assist", `workspace-${profile}`);
   }
-  return path.join(homedir(), ".openclaw", "workspace");
+  return path.join(homedir(), ".cml-hive-assist", "workspace");
 }
 
 export const DEFAULT_AGENT_WORKSPACE_DIR = resolveDefaultAgentWorkspaceDir();

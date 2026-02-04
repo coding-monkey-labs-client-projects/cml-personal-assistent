@@ -35,7 +35,11 @@ export type ParsedHookFrontmatter = Record<string, string>;
 export type Hook = {
   name: string;
   description: string;
-  source: "openclaw-bundled" | "openclaw-managed" | "openclaw-workspace" | "openclaw-plugin";
+  source:
+    | "cml-hive-assist-bundled"
+    | "cml-hive-assist-managed"
+    | "cml-hive-assist-workspace"
+    | "cml-hive-assist-plugin";
   pluginId?: string;
   filePath: string; // Path to HOOK.md
   baseDir: string; // Directory containing hook

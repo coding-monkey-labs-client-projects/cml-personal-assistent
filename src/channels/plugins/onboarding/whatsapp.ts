@@ -28,7 +28,10 @@ function setWhatsAppAllowFrom(cfg: CmlHiveAssistConfig, allowFrom?: string[]): C
   return mergeWhatsAppConfig(cfg, { allowFrom }, { unsetOnUndefined: ["allowFrom"] });
 }
 
-function setWhatsAppSelfChatMode(cfg: CmlHiveAssistConfig, selfChatMode: boolean): CmlHiveAssistConfig {
+function setWhatsAppSelfChatMode(
+  cfg: CmlHiveAssistConfig,
+  selfChatMode: boolean,
+): CmlHiveAssistConfig {
   return mergeWhatsAppConfig(cfg, { selfChatMode });
 }
 
@@ -341,7 +344,7 @@ export const whatsappOnboardingAdapter: ChannelOnboardingAdapter = {
       }
     } else if (!linked) {
       await prompter.note(
-        `Run \`${formatCliCommand("openclaw channels login")}\` later to link WhatsApp.`,
+        `Run \`${formatCliCommand("cml-hive-assist channels login")}\` later to link WhatsApp.`,
         "WhatsApp",
       );
     }

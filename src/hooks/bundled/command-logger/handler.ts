@@ -39,7 +39,8 @@ const logCommand: HookHandler = async (event) => {
 
   try {
     // Create log directory
-    const stateDir = process.env.CML_HIVE_ASSIST_STATE_DIR?.trim() || path.join(os.homedir(), ".openclaw");
+    const stateDir =
+      process.env.CML_HIVE_ASSIST_STATE_DIR?.trim() || path.join(os.homedir(), ".cml-hive-assist");
     const logDir = path.join(stateDir, "logs");
     await fs.mkdir(logDir, { recursive: true });
 

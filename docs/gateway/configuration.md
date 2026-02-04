@@ -271,7 +271,7 @@ CmlHiveAssist reads env vars from the parent process (shell, launchd/systemd, CI
 Additionally, it loads:
 
 - `.env` from the current working directory (if present)
-- a global fallback `.env` from `~/.cml-hive-assist/.env` (aka `$OPENCLAW_STATE_DIR/.env`)
+- a global fallback `.env` from `~/.cml-hive-assist/.env` (aka `$CML_HIVE_ASSIST_STATE_DIR/.env`)
 
 Neither `.env` file overrides existing env vars.
 
@@ -309,8 +309,8 @@ This effectively sources your shell profile.
 
 Env var equivalent:
 
-- `OPENCLAW_LOAD_SHELL_ENV=1`
-- `OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000`
+- `CML_HIVE_ASSIST_LOAD_SHELL_ENV=1`
+- `CML_HIVE_ASSIST_SHELL_ENV_TIMEOUT_MS=15000`
 
 ### Env var substitution in config
 
@@ -328,7 +328,7 @@ You can reference environment variables directly in any config string value usin
   },
   gateway: {
     auth: {
-      token: "${OPENCLAW_GATEWAY_TOKEN}",
+      token: "${CML_HIVE_ASSIST_GATEWAY_TOKEN}",
     },
   },
 }
@@ -365,7 +365,7 @@ See also: [/concepts/oauth](/concepts/oauth)
 
 Legacy OAuth imports:
 
-- `~/.cml-hive-assist/credentials/oauth.json` (or `$OPENCLAW_STATE_DIR/credentials/oauth.json`)
+- `~/.cml-hive-assist/credentials/oauth.json` (or `$CML_HIVE_ASSIST_STATE_DIR/credentials/oauth.json`)
 
 The embedded Pi agent maintains a runtime cache at:
 
@@ -377,8 +377,8 @@ Legacy agent dir (pre multi-agent):
 
 Overrides:
 
-- OAuth dir (legacy import only): `OPENCLAW_OAUTH_DIR`
-- Agent dir (default agent root override): `OPENCLAW_AGENT_DIR` (preferred), `PI_CODING_AGENT_DIR` (legacy)
+- OAuth dir (legacy import only): `CML_HIVE_ASSIST_OAUTH_DIR`
+- Agent dir (default agent root override): `CML_HIVE_ASSIST_AGENT_DIR` (preferred), `PI_CODING_AGENT_DIR` (legacy)
 
 On first use, CmlHiveAssist imports `oauth.json` entries into `auth-profiles.json`.
 
@@ -2711,7 +2711,7 @@ Notes:
 - Supported APIs: `openai-completions`, `openai-responses`, `anthropic-messages`,
   `google-generative-ai`
 - Use `authHeader: true` + `headers` for custom auth needs.
-- Override the agent config root with `OPENCLAW_AGENT_DIR` (or `PI_CODING_AGENT_DIR`)
+- Override the agent config root with `CML_HIVE_ASSIST_AGENT_DIR` (or `PI_CODING_AGENT_DIR`)
   if you want `models.json` stored elsewhere (default: `~/.cml-hive-assist/agents/main/agent`).
 
 ### `session`
@@ -2976,7 +2976,7 @@ Notes:
 - `cml-hive-assist gateway` refuses to start unless `gateway.mode` is set to `local` (or you pass the override flag).
 - `gateway.port` controls the single multiplexed port used for WebSocket + HTTP (control UI, hooks, A2UI).
 - OpenAI Chat Completions endpoint: **disabled by default**; enable with `gateway.http.endpoints.chatCompletions.enabled: true`.
-- Precedence: `--port` > `OPENCLAW_GATEWAY_PORT` > `gateway.port` > default `18789`.
+- Precedence: `--port` > `CML_HIVE_ASSIST_GATEWAY_PORT` > `gateway.port` > default `18789`.
 - Gateway auth is required by default (token/password or Tailscale Serve identity). Non-loopback binds require a shared token/password.
 - The onboarding wizard generates a gateway token by default (even on loopback).
 - `gateway.remote.token` is **only** for remote CLI calls; it does not enable local gateway auth. `gateway.token` is ignored.
@@ -2986,7 +2986,7 @@ Auth and Tailscale:
 - `gateway.auth.mode` sets the handshake requirements (`token` or `password`). When unset, token auth is assumed.
 - `gateway.auth.token` stores the shared token for token auth (used by the CLI on the same machine).
 - When `gateway.auth.mode` is set, only that method is accepted (plus optional Tailscale headers).
-- `gateway.auth.password` can be set here, or via `OPENCLAW_GATEWAY_PASSWORD` (recommended).
+- `gateway.auth.password` can be set here, or via `CML_HIVE_ASSIST_GATEWAY_PASSWORD` (recommended).
 - `gateway.auth.allowTailscale` allows Tailscale Serve identity headers
   (`tailscale-user-login`) to satisfy auth when the request arrives on loopback
   with `x-forwarded-for`, `x-forwarded-proto`, and `x-forwarded-host`. CmlHiveAssist
@@ -3041,7 +3041,7 @@ Direct transport example (macOS app):
 
 ### `gateway.reload` (Config hot reload)
 
-The Gateway watches `~/.cml-hive-assist/cml-hive-assist.json` (or `OPENCLAW_CONFIG_PATH`) and applies changes automatically.
+The Gateway watches `~/.cml-hive-assist/cml-hive-assist.json` (or `CML_HIVE_ASSIST_CONFIG_PATH`) and applies changes automatically.
 
 Modes:
 
@@ -3065,7 +3065,7 @@ Modes:
 
 Files watched:
 
-- `~/.cml-hive-assist/cml-hive-assist.json` (or `OPENCLAW_CONFIG_PATH`)
+- `~/.cml-hive-assist/cml-hive-assist.json` (or `CML_HIVE_ASSIST_CONFIG_PATH`)
 
 Hot-applied (no full gateway restart):
 
@@ -3090,8 +3090,8 @@ Requires full Gateway restart:
 
 To run multiple gateways on one host (for redundancy or a rescue bot), isolate per-instance state + config and use unique ports:
 
-- `OPENCLAW_CONFIG_PATH` (per-instance config)
-- `OPENCLAW_STATE_DIR` (sessions/creds)
+- `CML_HIVE_ASSIST_CONFIG_PATH` (per-instance config)
+- `CML_HIVE_ASSIST_STATE_DIR` (sessions/creds)
 - `agents.defaults.workspace` (memories)
 - `gateway.port` (unique per instance)
 
@@ -3106,8 +3106,8 @@ See [Multiple gateways](/gateway/multiple-gateways) for browser/CDP port isolati
 Example:
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/a.json \
-OPENCLAW_STATE_DIR=~/.cml-hive-assist-a \
+CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist/a.json \
+CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-a \
 cml-hive-assist gateway --port 19001
 ```
 
@@ -3210,7 +3210,7 @@ Gateway auto-start:
 
 - If `hooks.enabled=true` and `hooks.gmail.account` is set, the Gateway starts
   `gog gmail watch serve` on boot and auto-renews the watch.
-- Set `OPENCLAW_SKIP_GMAIL_WATCHER=1` to disable the auto-start (for manual runs).
+- Set `CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER=1` to disable the auto-start (for manual runs).
 - Avoid running a separate `gog gmail watch serve` alongside the Gateway; it will
   fail with `listen tcp 127.0.0.1:8788: bind: address already in use`.
 
@@ -3255,7 +3255,7 @@ Changes to `canvasHost.*` require a gateway restart (config reload will restart)
 Disable with:
 
 - config: `canvasHost: { enabled: false }`
-- env: `OPENCLAW_SKIP_CANVAS_HOST=1`
+- env: `CML_HIVE_ASSIST_SKIP_CANVAS_HOST=1`
 
 ### `bridge` (legacy TCP bridge, removed)
 
@@ -3314,7 +3314,7 @@ Controls LAN mDNS discovery broadcasts (`_cml-hive-assist-gw._tcp`).
 - `minimal` (default): omit `cliPath` + `sshPort` from TXT records
 - `full`: include `cliPath` + `sshPort` in TXT records
 - `off`: disable mDNS broadcasts entirely
-- Hostname: defaults to `cml-hive-assist` (advertises `cml-hive-assist.local`). Override with `OPENCLAW_MDNS_HOSTNAME`.
+- Hostname: defaults to `cml-hive-assist` (advertises `cml-hive-assist.local`). Override with `CML_HIVE_ASSIST_MDNS_HOSTNAME`.
 
 ```json5
 {

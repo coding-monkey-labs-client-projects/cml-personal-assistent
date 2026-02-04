@@ -35,7 +35,7 @@ export const TOOL_GROUPS: Record<string, string[]> = {
   // Nodes + device tools
   "group:nodes": ["nodes"],
   // All CmlHiveAssist native tools (excludes provider plugins).
-  "group:openclaw": [
+  "group:cml-hive-assist": [
     "browser",
     "canvas",
     "nodes",

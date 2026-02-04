@@ -15,7 +15,7 @@ describe("normalizeLegacyConfigValues", () => {
 
   beforeEach(() => {
     previousOauthDir = process.env.CML_HIVE_ASSIST_OAUTH_DIR;
-    tempOauthDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-oauth-"));
+    tempOauthDir = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-oauth-"));
     process.env.CML_HIVE_ASSIST_OAUTH_DIR = tempOauthDir;
   });
 
@@ -93,7 +93,7 @@ describe("normalizeLegacyConfigValues", () => {
   });
 
   it("copies legacy ack reaction when authDir override exists", () => {
-    const customDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-wa-auth-"));
+    const customDir = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-wa-auth-"));
     try {
       writeCreds(customDir);
 

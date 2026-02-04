@@ -61,7 +61,7 @@ describe("writeOAuthCredentials", () => {
   });
 
   it("writes auth-profiles.json under CML_HIVE_ASSIST_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-oauth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-oauth-"));
     process.env.CML_HIVE_ASSIST_STATE_DIR = tempStateDir;
     process.env.CML_HIVE_ASSIST_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.CML_HIVE_ASSIST_AGENT_DIR;
@@ -120,7 +120,7 @@ describe("setMinimaxApiKey", () => {
   });
 
   it("writes to CML_HIVE_ASSIST_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-minimax-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-minimax-"));
     process.env.CML_HIVE_ASSIST_STATE_DIR = tempStateDir;
     process.env.CML_HIVE_ASSIST_AGENT_DIR = path.join(tempStateDir, "custom-agent");
     process.env.PI_CODING_AGENT_DIR = process.env.CML_HIVE_ASSIST_AGENT_DIR;

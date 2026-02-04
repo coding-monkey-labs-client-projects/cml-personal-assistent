@@ -113,13 +113,13 @@ vi.mock("./chrome.js", () => ({
     return {
       pid: 123,
       exe: { kind: "chrome", path: "/fake/chrome" },
-      userDataDir: "/tmp/openclaw",
+      userDataDir: "/tmp/cml-hive-assist",
       cdpPort: profile.cdpPort,
       startedAt: Date.now(),
       proc,
     };
   }),
-  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/openclaw"),
+  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/cml-hive-assist"),
   stopCmlHiveAssistChrome: vi.fn(async () => {
     reachable = false;
   }),
@@ -434,8 +434,8 @@ describe("profile CRUD endpoints", () => {
     await startBrowserControlServerFromConfig();
     const base = `http://127.0.0.1:${testPort}`;
 
-    // openclaw is the default profile
-    const result = await realFetch(`${base}/profiles/openclaw`, {
+    // cml-hive-assist is the default profile
+    const result = await realFetch(`${base}/profiles/cml-hive-assist`, {
       method: "DELETE",
     });
     expect(result.status).toBe(400);

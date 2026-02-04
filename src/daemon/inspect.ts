@@ -73,8 +73,8 @@ function detectMarker(content: string): Marker | null {
 
 function hasGatewayServiceMarker(content: string): boolean {
   const lower = content.toLowerCase();
-  const markerKeys = ["openclaw_service_marker"];
-  const kindKeys = ["openclaw_service_kind"];
+  const markerKeys = ["cml-hive-assist_service_marker"];
+  const kindKeys = ["cml-hive-assist_service_kind"];
   const markerValues = [GATEWAY_SERVICE_MARKER.toLowerCase()];
   const hasMarkerKey = markerKeys.some((key) => lower.includes(key));
   const hasKindKey = kindKeys.some((key) => lower.includes(key));
@@ -102,7 +102,7 @@ function isCmlHiveAssistGatewaySystemdService(name: string, contents: string): b
   if (hasGatewayServiceMarker(contents)) {
     return true;
   }
-  if (!name.startsWith("openclaw-gateway")) {
+  if (!name.startsWith("cml-hive-assist-gateway")) {
     return false;
   }
   return contents.toLowerCase().includes("gateway");
@@ -114,7 +114,7 @@ function isCmlHiveAssistGatewayTaskName(name: string): boolean {
     return false;
   }
   const defaultName = resolveGatewayWindowsTaskName().toLowerCase();
-  return normalized === defaultName || normalized.startsWith("openclaw gateway");
+  return normalized === defaultName || normalized.startsWith("cml-hive-assist gateway");
 }
 
 function tryExtractPlistLabel(contents: string): string | null {

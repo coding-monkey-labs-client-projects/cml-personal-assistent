@@ -167,7 +167,7 @@ export async function setupSkills(
           runtime.log(result.stdout.trim());
         }
         runtime.log(
-          `Tip: run \`${formatCliCommand("openclaw doctor")}\` to review skills + requirements.`,
+          `Tip: run \`${formatCliCommand("cml-hive-assist doctor")}\` to review skills + requirements.`,
         );
         runtime.log("Docs: https://docs.cml-hive-assist.ai/skills");
       }

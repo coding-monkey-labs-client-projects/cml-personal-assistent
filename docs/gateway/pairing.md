@@ -85,7 +85,7 @@ Pairing state is stored under the Gateway state directory (default `~/.cml-hive-
 - `~/.cml-hive-assist/nodes/paired.json`
 - `~/.cml-hive-assist/nodes/pending.json`
 
-If you override `OPENCLAW_STATE_DIR`, the `nodes/` folder moves with it.
+If you override `CML_HIVE_ASSIST_STATE_DIR`, the `nodes/` folder moves with it.
 
 Security notes:
 

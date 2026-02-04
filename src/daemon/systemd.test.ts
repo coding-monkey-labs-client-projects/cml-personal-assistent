@@ -23,21 +23,21 @@ describe("resolveSystemdUserUnitPath", () => {
   it("uses default service name when CML_HIVE_ASSIST_PROFILE is default", () => {
     const env = { HOME: "/home/test", CML_HIVE_ASSIST_PROFILE: "default" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/openclaw-gateway.service",
+      "/home/test/.config/systemd/user/cml-hive-assist-gateway.service",
     );
   });
 
   it("uses default service name when CML_HIVE_ASSIST_PROFILE is unset", () => {
     const env = { HOME: "/home/test" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/openclaw-gateway.service",
+      "/home/test/.config/systemd/user/cml-hive-assist-gateway.service",
     );
   });
 
   it("uses profile-specific service name when CML_HIVE_ASSIST_PROFILE is set to a custom value", () => {
     const env = { HOME: "/home/test", CML_HIVE_ASSIST_PROFILE: "jbphoenix" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/openclaw-gateway-jbphoenix.service",
+      "/home/test/.config/systemd/user/cml-hive-assist-gateway-jbphoenix.service",
     );
   });
 
@@ -75,21 +75,21 @@ describe("resolveSystemdUserUnitPath", () => {
   it("handles case-insensitive 'Default' profile", () => {
     const env = { HOME: "/home/test", CML_HIVE_ASSIST_PROFILE: "Default" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/openclaw-gateway.service",
+      "/home/test/.config/systemd/user/cml-hive-assist-gateway.service",
     );
   });
 
   it("handles case-insensitive 'DEFAULT' profile", () => {
     const env = { HOME: "/home/test", CML_HIVE_ASSIST_PROFILE: "DEFAULT" };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/openclaw-gateway.service",
+      "/home/test/.config/systemd/user/cml-hive-assist-gateway.service",
     );
   });
 
   it("trims whitespace from CML_HIVE_ASSIST_PROFILE", () => {
     const env = { HOME: "/home/test", CML_HIVE_ASSIST_PROFILE: "  myprofile  " };
     expect(resolveSystemdUserUnitPath(env)).toBe(
-      "/home/test/.config/systemd/user/openclaw-gateway-myprofile.service",
+      "/home/test/.config/systemd/user/cml-hive-assist-gateway-myprofile.service",
     );
   });
 });

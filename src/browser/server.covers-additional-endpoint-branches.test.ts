@@ -113,13 +113,13 @@ vi.mock("./chrome.js", () => ({
     return {
       pid: 123,
       exe: { kind: "chrome", path: "/fake/chrome" },
-      userDataDir: "/tmp/openclaw",
+      userDataDir: "/tmp/cml-hive-assist",
       cdpPort: profile.cdpPort,
       startedAt: Date.now(),
       proc,
     };
   }),
-  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/openclaw"),
+  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/cml-hive-assist"),
   stopCmlHiveAssistChrome: vi.fn(async () => {
     reachable = false;
   }),
@@ -393,7 +393,7 @@ describe("backward compatibility (profile parameter)", () => {
       profile?: string;
     };
     expect(status.running).toBe(false);
-    // Should use default profile (openclaw)
+    // Should use default profile (cml-hive-assist)
     expect(status.profile).toBe("cml-hive-assist");
   });
 
@@ -464,18 +464,18 @@ describe("backward compatibility (profile parameter)", () => {
       profiles: Array<{ name: string }>;
     };
     expect(Array.isArray(result.profiles)).toBe(true);
-    // Should at least have the default openclaw profile
+    // Should at least have the default cml-hive-assist profile
     expect(result.profiles.some((p) => p.name === "cml-hive-assist")).toBe(true);
   });
 
-  it("GET /tabs?profile=openclaw returns tabs for specified profile", async () => {
+  it("GET /tabs?profile=cml-hive-assist returns tabs for specified profile", async () => {
     const { startBrowserControlServerFromConfig } = await import("./server.js");
     await startBrowserControlServerFromConfig();
     const base = `http://127.0.0.1:${testPort}`;
 
     await realFetch(`${base}/start`, { method: "POST" });
 
-    const result = (await realFetch(`${base}/tabs?profile=openclaw`).then((r) => r.json())) as {
+    const result = (await realFetch(`${base}/tabs?profile=cml-hive-assist`).then((r) => r.json())) as {
       running: boolean;
       tabs: unknown[];
     };
@@ -483,14 +483,14 @@ describe("backward compatibility (profile parameter)", () => {
     expect(Array.isArray(result.tabs)).toBe(true);
   });
 
-  it("POST /tabs/open?profile=openclaw opens tab in specified profile", async () => {
+  it("POST /tabs/open?profile=cml-hive-assist opens tab in specified profile", async () => {
     const { startBrowserControlServerFromConfig } = await import("./server.js");
     await startBrowserControlServerFromConfig();
     const base = `http://127.0.0.1:${testPort}`;
 
     await realFetch(`${base}/start`, { method: "POST" });
 
-    const result = (await realFetch(`${base}/tabs/open?profile=openclaw`, {
+    const result = (await realFetch(`${base}/tabs/open?profile=cml-hive-assist`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: "https://example.com" }),

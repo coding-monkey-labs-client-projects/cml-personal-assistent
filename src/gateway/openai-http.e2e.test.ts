@@ -124,7 +124,7 @@ describe("OpenAI-compatible HTTP API (e2e)", () => {
         const res = await postChatCompletions(
           port,
           { model: "cml-hive-assist", messages: [{ role: "user", content: "hi" }] },
-          { "x-openclaw-agent-id": "beta" },
+          { "x-cml-hive-assist-agent-id": "beta" },
         );
         expect(res.status).toBe(200);
 
@@ -160,7 +160,7 @@ describe("OpenAI-compatible HTTP API (e2e)", () => {
             model: "cml-hive-assist:beta",
             messages: [{ role: "user", content: "hi" }],
           },
-          { "x-openclaw-agent-id": "alpha" },
+          { "x-cml-hive-assist-agent-id": "alpha" },
         );
         expect(res.status).toBe(200);
 
@@ -178,8 +178,8 @@ describe("OpenAI-compatible HTTP API (e2e)", () => {
           port,
           { model: "cml-hive-assist", messages: [{ role: "user", content: "hi" }] },
           {
-            "x-openclaw-agent-id": "beta",
-            "x-openclaw-session-key": "agent:beta:openai:custom",
+            "x-cml-hive-assist-agent-id": "beta",
+            "x-cml-hive-assist-session-key": "agent:beta:openai:custom",
           },
         );
         expect(res.status).toBe(200);

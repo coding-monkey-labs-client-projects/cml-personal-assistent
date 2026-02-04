@@ -78,7 +78,7 @@ CmlHiveAssist 拥有三个 Vitest 测试套件（单元/集成、端到端、实
 - 命令：`pnpm test:live`
 - 配置：`vitest.live.config.ts`
 - 文件：`src/**/*.live.test.ts`
-- 默认：通过 `pnpm test:live` **启用**（设置 `OPENCLAW_LIVE_TEST=1`）
+- 默认：通过 `pnpm test:live` **启用**（设置 `CML_HIVE_ASSIST_LIVE_TEST=1`）
 - 范围：
   - "这个提供商/模型*今天*在真实凭证下是否真正工作？"
   - 捕获提供商格式变更、工具调用异常、认证问题和速率限制行为
@@ -87,7 +87,7 @@ CmlHiveAssist 拥有三个 Vitest 测试套件（单元/集成、端到端、实
   - 会花费金钱/消耗速率限制
   - 建议运行缩小范围的子集而不是"所有内容"
   - 实时运行会加载 `~/.profile` 以获取缺失的 API 密钥
-  - Anthropic 密钥轮换：设置 `OPENCLAW_LIVE_ANTHROPIC_KEYS="sk-...,sk-..."`（或 `OPENCLAW_LIVE_ANTHROPIC_KEY=sk-...`）或多个 `ANTHROPIC_API_KEY*` 变量；测试会在遇到速率限制时重试
+  - Anthropic 密钥轮换：设置 `CML_HIVE_ASSIST_LIVE_ANTHROPIC_KEYS="sk-...,sk-..."`（或 `CML_HIVE_ASSIST_LIVE_ANTHROPIC_KEY=sk-...`）或多个 `ANTHROPIC_API_KEY*` 变量；测试会在遇到速率限制时重试
 
 ## 我应该运行哪个套件？
 
@@ -112,17 +112,17 @@ CmlHiveAssist 拥有三个 Vitest 测试套件（单元/集成、端到端、实
   - 使用 `getApiKeyForModel` 选择你有凭证的模型
   - 对每个模型运行一个小型补全（以及需要时的定向回归测试）
 - 如何启用：
-  - `pnpm test:live`（或直接调用 Vitest 时设置 `OPENCLAW_LIVE_TEST=1`）
-- 设置 `OPENCLAW_LIVE_MODELS=modern`（或 `all`，modern 的别名）来实际运行此套件；否则会跳过以保持 `pnpm test:live` 聚焦于 Gateway网关冒烟测试
+  - `pnpm test:live`（或直接调用 Vitest 时设置 `CML_HIVE_ASSIST_LIVE_TEST=1`）
+- 设置 `CML_HIVE_ASSIST_LIVE_MODELS=modern`（或 `all`，modern 的别名）来实际运行此套件；否则会跳过以保持 `pnpm test:live` 聚焦于 Gateway网关冒烟测试
 - 如何选择模型：
-  - `OPENCLAW_LIVE_MODELS=modern` 运行现代允许列表（Opus/Sonnet/Haiku 4.5、GPT-5.x + Codex、Gemini 3、GLM 4.7、MiniMax M2.1、Grok 4）
-  - `OPENCLAW_LIVE_MODELS=all` 是现代允许列表的别名
-  - 或 `OPENCLAW_LIVE_MODELS="openai/gpt-5.2,anthropic/claude-opus-4-5,..."`（逗号分隔的允许列表）
+  - `CML_HIVE_ASSIST_LIVE_MODELS=modern` 运行现代允许列表（Opus/Sonnet/Haiku 4.5、GPT-5.x + Codex、Gemini 3、GLM 4.7、MiniMax M2.1、Grok 4）
+  - `CML_HIVE_ASSIST_LIVE_MODELS=all` 是现代允许列表的别名
+  - 或 `CML_HIVE_ASSIST_LIVE_MODELS="openai/gpt-5.2,anthropic/claude-opus-4-5,..."`（逗号分隔的允许列表）
 - 如何选择提供商：
-  - `OPENCLAW_LIVE_PROVIDERS="google,google-antigravity,google-gemini-cli"`（逗号分隔的允许列表）
+  - `CML_HIVE_ASSIST_LIVE_PROVIDERS="google,google-antigravity,google-gemini-cli"`（逗号分隔的允许列表）
 - 密钥来源：
   - 默认：profile 存储和环境变量回退
-  - 设置 `OPENCLAW_LIVE_REQUIRE_PROFILE_KEYS=1` 以强制仅使用 **profile 存储**
+  - 设置 `CML_HIVE_ASSIST_LIVE_REQUIRE_PROFILE_KEYS=1` 以强制仅使用 **profile 存储**
 - 为何存在：
   - 将"提供商 API 故障/密钥无效"与"Gateway网关智能体管道故障"分离
   - 包含小型、隔离的回归测试（示例：OpenAI Responses/Codex Responses 推理重放 + 工具调用流程）
@@ -144,13 +144,13 @@ CmlHiveAssist 拥有三个 Vitest 测试套件（单元/集成、端到端、实
   - image 探测：测试附加一个生成的 PNG（猫 + 随机代码），期望模型返回 `cat <CODE>`。
   - 实现参考：`src/gateway/gateway-models.profiles.live.test.ts` 和 `src/gateway/live-image-probe.ts`。
 - 如何启用：
-  - `pnpm test:live`（或直接调用 Vitest 时设置 `OPENCLAW_LIVE_TEST=1`）
+  - `pnpm test:live`（或直接调用 Vitest 时设置 `CML_HIVE_ASSIST_LIVE_TEST=1`）
 - 如何选择模型：
   - 默认：现代允许列表（Opus/Sonnet/Haiku 4.5、GPT-5.x + Codex、Gemini 3、GLM 4.7、MiniMax M2.1、Grok 4）
-  - `OPENCLAW_LIVE_GATEWAY_MODELS=all` 是现代允许列表的别名
-  - 或设置 `OPENCLAW_LIVE_GATEWAY_MODELS="provider/model"`（或逗号分隔列表）来缩小范围
+  - `CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS=all` 是现代允许列表的别名
+  - 或设置 `CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS="provider/model"`（或逗号分隔列表）来缩小范围
 - 如何选择提供商（避免"OpenRouter 全部"）：
-  - `OPENCLAW_LIVE_GATEWAY_PROVIDERS="google,google-antigravity,google-gemini-cli,openai,anthropic,zai,minimax"`（逗号分隔的允许列表）
+  - `CML_HIVE_ASSIST_LIVE_GATEWAY_PROVIDERS="google,google-antigravity,google-gemini-cli,openai,anthropic,zai,minimax"`（逗号分隔的允许列表）
 - 工具 + 图像探测在此实时测试中始终开启：
   - `read` 探测 + `exec+read` 探测（工具压力测试）
   - 当模型声明支持图像输入时运行 image 探测
@@ -173,19 +173,19 @@ cml-hive-assist models list --json
 - 测试：`src/agents/anthropic.setup-token.live.test.ts`
 - 目标：验证 Claude Code CLI setup-token（或粘贴的 setup-token profile）能否完成 Anthropic 提示。
 - 启用：
-  - `pnpm test:live`（或直接调用 Vitest 时设置 `OPENCLAW_LIVE_TEST=1`）
-  - `OPENCLAW_LIVE_SETUP_TOKEN=1`
+  - `pnpm test:live`（或直接调用 Vitest 时设置 `CML_HIVE_ASSIST_LIVE_TEST=1`）
+  - `CML_HIVE_ASSIST_LIVE_SETUP_TOKEN=1`
 - 令牌来源（选一个）：
-  - Profile：`OPENCLAW_LIVE_SETUP_TOKEN_PROFILE=anthropic:setup-token-test`
-  - 原始令牌：`OPENCLAW_LIVE_SETUP_TOKEN_VALUE=sk-ant-oat01-...`
+  - Profile：`CML_HIVE_ASSIST_LIVE_SETUP_TOKEN_PROFILE=anthropic:setup-token-test`
+  - 原始令牌：`CML_HIVE_ASSIST_LIVE_SETUP_TOKEN_VALUE=sk-ant-oat01-...`
 - 模型覆盖（可选）：
-  - `OPENCLAW_LIVE_SETUP_TOKEN_MODEL=anthropic/claude-opus-4-5`
+  - `CML_HIVE_ASSIST_LIVE_SETUP_TOKEN_MODEL=anthropic/claude-opus-4-5`
 
 设置示例：
 
 ```bash
 cml-hive-assist models auth paste-token --provider anthropic --profile-id anthropic:setup-token-test
-OPENCLAW_LIVE_SETUP_TOKEN=1 OPENCLAW_LIVE_SETUP_TOKEN_PROFILE=anthropic:setup-token-test pnpm test:live src/agents/anthropic.setup-token.live.test.ts
+CML_HIVE_ASSIST_LIVE_SETUP_TOKEN=1 CML_HIVE_ASSIST_LIVE_SETUP_TOKEN_PROFILE=anthropic:setup-token-test pnpm test:live src/agents/anthropic.setup-token.live.test.ts
 ```
 
 ## 实时测试：CLI 后端冒烟测试（Claude Code CLI 或其他本地 CLI）
@@ -193,29 +193,29 @@ OPENCLAW_LIVE_SETUP_TOKEN=1 OPENCLAW_LIVE_SETUP_TOKEN_PROFILE=anthropic:setup-to
 - 测试：`src/gateway/gateway-cli-backend.live.test.ts`
 - 目标：使用本地 CLI 后端验证 Gateway网关 + 智能体管道，不影响你的默认配置。
 - 启用：
-  - `pnpm test:live`（或直接调用 Vitest 时设置 `OPENCLAW_LIVE_TEST=1`）
-  - `OPENCLAW_LIVE_CLI_BACKEND=1`
+  - `pnpm test:live`（或直接调用 Vitest 时设置 `CML_HIVE_ASSIST_LIVE_TEST=1`）
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND=1`
 - 默认值：
   - 模型：`claude-cli/claude-sonnet-4-5`
   - 命令：`claude`
   - 参数：`["-p","--output-format","json","--dangerously-skip-permissions"]`
 - 覆盖（可选）：
-  - `OPENCLAW_LIVE_CLI_BACKEND_MODEL="claude-cli/claude-opus-4-5"`
-  - `OPENCLAW_LIVE_CLI_BACKEND_MODEL="codex-cli/gpt-5.2-codex"`
-  - `OPENCLAW_LIVE_CLI_BACKEND_COMMAND="/full/path/to/claude"`
-  - `OPENCLAW_LIVE_CLI_BACKEND_ARGS='["-p","--output-format","json","--permission-mode","bypassPermissions"]'`
-  - `OPENCLAW_LIVE_CLI_BACKEND_CLEAR_ENV='["ANTHROPIC_API_KEY","ANTHROPIC_API_KEY_OLD"]'`
-  - `OPENCLAW_LIVE_CLI_BACKEND_IMAGE_PROBE=1` 发送真实图像附件（路径注入到提示中）。
-  - `OPENCLAW_LIVE_CLI_BACKEND_IMAGE_ARG="--image"` 将图像文件路径作为 CLI 参数传递而非提示注入。
-  - `OPENCLAW_LIVE_CLI_BACKEND_IMAGE_MODE="repeat"`（或 `"list"`）控制设置 `IMAGE_ARG` 时图像参数的传递方式。
-  - `OPENCLAW_LIVE_CLI_BACKEND_RESUME_PROBE=1` 发送第二轮并验证恢复流程。
-- `OPENCLAW_LIVE_CLI_BACKEND_DISABLE_MCP_CONFIG=0` 保持 Claude Code CLI MCP 配置启用（默认使用临时空文件禁用 MCP 配置）。
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_MODEL="claude-cli/claude-opus-4-5"`
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_MODEL="codex-cli/gpt-5.2-codex"`
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_COMMAND="/full/path/to/claude"`
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_ARGS='["-p","--output-format","json","--permission-mode","bypassPermissions"]'`
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_CLEAR_ENV='["ANTHROPIC_API_KEY","ANTHROPIC_API_KEY_OLD"]'`
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_IMAGE_PROBE=1` 发送真实图像附件（路径注入到提示中）。
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_IMAGE_ARG="--image"` 将图像文件路径作为 CLI 参数传递而非提示注入。
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_IMAGE_MODE="repeat"`（或 `"list"`）控制设置 `IMAGE_ARG` 时图像参数的传递方式。
+  - `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_RESUME_PROBE=1` 发送第二轮并验证恢复流程。
+- `CML_HIVE_ASSIST_LIVE_CLI_BACKEND_DISABLE_MCP_CONFIG=0` 保持 Claude Code CLI MCP 配置启用（默认使用临时空文件禁用 MCP 配置）。
 
 示例：
 
 ```bash
-OPENCLAW_LIVE_CLI_BACKEND=1 \
-  OPENCLAW_LIVE_CLI_BACKEND_MODEL="claude-cli/claude-sonnet-4-5" \
+CML_HIVE_ASSIST_LIVE_CLI_BACKEND=1 \
+  CML_HIVE_ASSIST_LIVE_CLI_BACKEND_MODEL="claude-cli/claude-sonnet-4-5" \
   pnpm test:live src/gateway/gateway-cli-backend.live.test.ts
 ```
 
@@ -224,17 +224,17 @@ OPENCLAW_LIVE_CLI_BACKEND=1 \
 缩小范围的、明确的允许列表最快且最不容易出问题：
 
 - 单个模型，直接测试（无 Gateway网关）：
-  - `OPENCLAW_LIVE_MODELS="openai/gpt-5.2" pnpm test:live src/agents/models.profiles.live.test.ts`
+  - `CML_HIVE_ASSIST_LIVE_MODELS="openai/gpt-5.2" pnpm test:live src/agents/models.profiles.live.test.ts`
 
 - 单个模型，Gateway网关冒烟测试：
-  - `OPENCLAW_LIVE_GATEWAY_MODELS="openai/gpt-5.2" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
+  - `CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS="openai/gpt-5.2" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
 
 - 跨多个提供商的工具调用：
-  - `OPENCLAW_LIVE_GATEWAY_MODELS="openai/gpt-5.2,anthropic/claude-opus-4-5,google/gemini-3-flash-preview,zai/glm-4.7,minimax/minimax-m2.1" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
+  - `CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS="openai/gpt-5.2,anthropic/claude-opus-4-5,google/gemini-3-flash-preview,zai/glm-4.7,minimax/minimax-m2.1" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
 
 - Google 专项（Gemini API 密钥 + Antigravity）：
-  - Gemini（API 密钥）：`OPENCLAW_LIVE_GATEWAY_MODELS="google/gemini-3-flash-preview" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
-  - Antigravity（OAuth）：`OPENCLAW_LIVE_GATEWAY_MODELS="google-antigravity/claude-opus-4-5-thinking,google-antigravity/gemini-3-pro-high" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
+  - Gemini（API 密钥）：`CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS="google/gemini-3-flash-preview" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
+  - Antigravity（OAuth）：`CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS="google-antigravity/claude-opus-4-5-thinking,google-antigravity/gemini-3-pro-high" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
 
 注意：
 
@@ -262,7 +262,7 @@ OPENCLAW_LIVE_CLI_BACKEND=1 \
 - MiniMax：`minimax/minimax-m2.1`
 
 运行带工具 + 图像的 Gateway网关冒烟测试：
-`OPENCLAW_LIVE_GATEWAY_MODELS="openai/gpt-5.2,openai-codex/gpt-5.2,anthropic/claude-opus-4-5,google/gemini-3-pro-preview,google/gemini-3-flash-preview,google-antigravity/claude-opus-4-5-thinking,google-antigravity/gemini-3-flash,zai/glm-4.7,minimax/minimax-m2.1" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
+`CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS="openai/gpt-5.2,openai-codex/gpt-5.2,anthropic/claude-opus-4-5,google/gemini-3-pro-preview,google/gemini-3-flash-preview,google-antigravity/claude-opus-4-5-thinking,google-antigravity/gemini-3-flash,zai/glm-4.7,minimax/minimax-m2.1" pnpm test:live src/gateway/gateway-models.profiles.live.test.ts`
 
 ### 基线：工具调用（Read + 可选 Exec）
 
@@ -283,7 +283,7 @@ OPENCLAW_LIVE_CLI_BACKEND=1 \
 
 ### 视觉：图像发送（附件 → 多模态消息）
 
-在 `OPENCLAW_LIVE_GATEWAY_MODELS` 中至少包含一个支持图像的模型（Claude/Gemini/OpenAI 视觉能力变体等）以测试图像探测。
+在 `CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS` 中至少包含一个支持图像的模型（Claude/Gemini/OpenAI 视觉能力变体等）以测试图像探测。
 
 ### 聚合器/替代网关
 
@@ -307,7 +307,7 @@ OPENCLAW_LIVE_CLI_BACKEND=1 \
 - 如果实时测试提示"无凭证"，按照调试 `cml-hive-assist models list`/模型选择的方式来调试。
 
 - Profile 存储：`~/.cml-hive-assist/credentials/`（首选；测试中"profile 密钥"的含义）
-- 配置：`~/.cml-hive-assist/cml-hive-assist.json`（或 `OPENCLAW_CONFIG_PATH`）
+- 配置：`~/.cml-hive-assist/cml-hive-assist.json`（或 `CML_HIVE_ASSIST_CONFIG_PATH`）
 
 如果你想依赖环境变量密钥（例如在 `~/.profile` 中导出的），在 `source ~/.profile` 之后运行本地测试，或使用下面的 Docker 运行器（它们可以将 `~/.profile` 挂载到容器中）。
 
@@ -328,11 +328,11 @@ OPENCLAW_LIVE_CLI_BACKEND=1 \
 
 常用环境变量：
 
-- `OPENCLAW_CONFIG_DIR=...`（默认：`~/.cml-hive-assist`）挂载到 `/home/node/.cml-hive-assist`
-- `OPENCLAW_WORKSPACE_DIR=...`（默认：`~/.cml-hive-assist/workspace`）挂载到 `/home/node/.cml-hive-assist/workspace`
-- `OPENCLAW_PROFILE_FILE=...`（默认：`~/.profile`）挂载到 `/home/node/.profile` 并在运行测试前加载
-- `OPENCLAW_LIVE_GATEWAY_MODELS=...` / `OPENCLAW_LIVE_MODELS=...` 缩小运行范围
-- `OPENCLAW_LIVE_REQUIRE_PROFILE_KEYS=1` 确保凭证来自 profile 存储（而非环境变量）
+- `CML_HIVE_ASSIST_CONFIG_DIR=...`（默认：`~/.cml-hive-assist`）挂载到 `/home/node/.cml-hive-assist`
+- `CML_HIVE_ASSIST_WORKSPACE_DIR=...`（默认：`~/.cml-hive-assist/workspace`）挂载到 `/home/node/.cml-hive-assist/workspace`
+- `CML_HIVE_ASSIST_PROFILE_FILE=...`（默认：`~/.profile`）挂载到 `/home/node/.profile` 并在运行测试前加载
+- `CML_HIVE_ASSIST_LIVE_GATEWAY_MODELS=...` / `CML_HIVE_ASSIST_LIVE_MODELS=...` 缩小运行范围
+- `CML_HIVE_ASSIST_LIVE_REQUIRE_PROFILE_KEYS=1` 确保凭证来自 profile 存储（而非环境变量）
 
 ## 文档完整性检查
 

@@ -22,7 +22,7 @@ async function writeAuthStore(agentDir: string) {
 
 describe("resolveSessionAuthProfileOverride", () => {
   it("keeps user override when provider alias differs", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-auth-"));
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
     process.env.CML_HIVE_ASSIST_STATE_DIR = tmpDir;
     try {

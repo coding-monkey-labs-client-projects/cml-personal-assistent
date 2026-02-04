@@ -1,5 +1,5 @@
 import type { GatewayRequestHandlers } from "./types.ts";
-import { resolveCmlHiveAssistPackageRoot } from "../../infra/openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../../infra/cml-hive-assist-root.ts";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,

@@ -25,7 +25,7 @@ import {
   type ChannelPlugin,
   type CmlHiveAssistConfig,
   type ResolvedTelegramAccount,
-} from "openclaw/plugin-sdk";
+} from "cml-hive-assist/plugin-sdk";
 import { getTelegramRuntime } from "./runtime.js";
 
 const meta = getChatChannelMeta("telegram");

@@ -37,7 +37,10 @@ export function resolveConfigPath(config: CmlHiveAssistConfig | undefined, pathS
   return current;
 }
 
-export function isConfigPathTruthy(config: CmlHiveAssistConfig | undefined, pathStr: string): boolean {
+export function isConfigPathTruthy(
+  config: CmlHiveAssistConfig | undefined,
+  pathStr: string,
+): boolean {
   const value = resolveConfigPath(config, pathStr);
   if (value === undefined && pathStr in DEFAULT_CONFIG_VALUES) {
     return DEFAULT_CONFIG_VALUES[pathStr];
@@ -75,7 +78,7 @@ function normalizeAllowlist(input: unknown): string[] | undefined {
   return normalized.length > 0 ? normalized : undefined;
 }
 
-const BUNDLED_SOURCES = new Set(["openclaw-bundled"]);
+const BUNDLED_SOURCES = new Set(["cml-hive-assist-bundled"]);
 
 function isBundledSkill(entry: SkillEntry): boolean {
   return BUNDLED_SOURCES.has(entry.skill.source);

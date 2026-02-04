@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { runCommandWithTimeout } from "../process/exec.ts";
 import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
-import { resolveCmlHiveAssistPackageRoot } from "./openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "./cml-hive-assist-root.ts";
 
 export function resolveControlUiRepoRoot(
   argv1: string | undefined = process.argv[1],

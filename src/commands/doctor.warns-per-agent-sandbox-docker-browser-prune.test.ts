@@ -78,7 +78,7 @@ beforeEach(() => {
   originalStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
   originalUpdateInProgress = process.env.CML_HIVE_ASSIST_UPDATE_IN_PROGRESS;
   process.env.CML_HIVE_ASSIST_UPDATE_IN_PROGRESS = "1";
-  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-"));
+  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-doctor-state-"));
   process.env.CML_HIVE_ASSIST_STATE_DIR = tempStateDir;
   fs.mkdirSync(path.join(tempStateDir, "agents", "main", "sessions"), {
     recursive: true,
@@ -215,7 +215,7 @@ vi.mock("../process/exec.js", () => ({
   runCommandWithTimeout,
 }));
 
-vi.mock("../infra/openclaw-root.js", () => ({
+vi.mock("../infra/cml-hive-assist-root.js", () => ({
   resolveCmlHiveAssistPackageRoot,
 }));
 
@@ -344,7 +344,7 @@ describe("doctor command", () => {
           list: [
             {
               id: "work",
-              workspace: "~/openclaw-work",
+              workspace: "~/cml-hive-assist-work",
               sandbox: {
                 mode: "all",
                 scope: "shared",
@@ -393,7 +393,7 @@ describe("doctor command", () => {
       parsed: {},
       valid: true,
       config: {
-        agents: { defaults: { workspace: "/Users/steipete/openclaw" } },
+        agents: { defaults: { workspace: "/Users/steipete/cml-hive-assist" } },
       },
       issues: [],
       legacyIssues: [],
@@ -406,7 +406,7 @@ describe("doctor command", () => {
     const legacyAgentsPath = path.join(legacyPath, "AGENTS.md");
     const existsSpy = vi.spyOn(fs, "existsSync").mockImplementation((value) => {
       if (
-        value === "/Users/steipete/openclaw" ||
+        value === "/Users/steipete/cml-hive-assist" ||
         value === legacyPath ||
         value === legacyAgentsPath
       ) {

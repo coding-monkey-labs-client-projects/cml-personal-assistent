@@ -6,7 +6,7 @@ import { withTempHome } from "./test-helpers.js";
 describe("config compaction settings", () => {
   it("preserves memory flush config values", async () => {
     await withTempHome(async (home) => {
-      const configDir = path.join(home, ".openclaw");
+      const configDir = path.join(home, ".cml-hive-assist");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
         path.join(configDir, "cml-hive-assist.json"),
@@ -48,7 +48,7 @@ describe("config compaction settings", () => {
 
   it("defaults compaction mode to safeguard", async () => {
     await withTempHome(async (home) => {
-      const configDir = path.join(home, ".openclaw");
+      const configDir = path.join(home, ".cml-hive-assist");
       await fs.mkdir(configDir, { recursive: true });
       await fs.writeFile(
         path.join(configDir, "cml-hive-assist.json"),

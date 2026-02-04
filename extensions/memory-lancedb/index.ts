@@ -6,12 +6,12 @@
  * Provides seamless auto-recall and auto-capture via lifecycle hooks.
  */
 
-import type { CmlHiveAssistPluginApi } from "openclaw/plugin-sdk";
+import type { CmlHiveAssistPluginApi } from "cml-hive-assist/plugin-sdk";
 import * as lancedb from "@lancedb/lancedb";
 import { Type } from "@sinclair/typebox";
+import { stringEnum } from "cml-hive-assist/plugin-sdk";
 import { randomUUID } from "node:crypto";
 import OpenAI from "openai";
-import { stringEnum } from "openclaw/plugin-sdk";
 import {
   MEMORY_CATEGORIES,
   type MemoryCategory,

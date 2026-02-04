@@ -33,7 +33,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
       env: {
         CML_HIVE_ASSIST_BUNDLED_SKILLS_DIR: (home) => path.join(home, "bundled-skills"),
       },
-      prefix: "openclaw-media-note-",
+      prefix: "cml-hive-assist-media-note-",
     },
   );
 }

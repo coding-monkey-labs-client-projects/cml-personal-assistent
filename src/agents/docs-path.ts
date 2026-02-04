@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/cml-hive-assist-root.ts";
 
 export async function resolveCmlHiveAssistDocsPath(params: {
   workspaceDir?: string;

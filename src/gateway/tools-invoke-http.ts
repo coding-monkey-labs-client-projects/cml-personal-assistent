@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import { createCmlHiveAssistTools } from "../agents/openclaw-tools.ts";
+import { createCmlHiveAssistTools } from "../agents/cml-hive-assist-tools.ts";
 import {
   filterToolsByPolicy,
   resolveEffectiveToolPolicy,
@@ -170,9 +170,9 @@ export async function handleToolsInvokeHttpRequest(
 
   // Resolve message channel/account hints (optional headers) for policy inheritance.
   const messageChannel = normalizeMessageChannel(
-    getHeader(req, "x-openclaw-message-channel") ?? "",
+    getHeader(req, "x-cml-hive-assist-message-channel") ?? "",
   );
-  const accountId = getHeader(req, "x-openclaw-account-id")?.trim() || undefined;
+  const accountId = getHeader(req, "x-cml-hive-assist-account-id")?.trim() || undefined;
 
   const {
     agentId,

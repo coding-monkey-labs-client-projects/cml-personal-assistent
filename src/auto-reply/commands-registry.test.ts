@@ -146,9 +146,11 @@ describe("commands registry", () => {
   });
 
   it("normalizes telegram-style command mentions for the current bot", () => {
-    expect(normalizeCommandBody("/help@openclaw", { botUsername: "cml-hive-assist" })).toBe("/help");
+    expect(normalizeCommandBody("/help@cml-hive-assist", { botUsername: "cml-hive-assist" })).toBe(
+      "/help",
+    );
     expect(
-      normalizeCommandBody("/help@openclaw args", {
+      normalizeCommandBody("/help@cml-hive-assist args", {
         botUsername: "cml-hive-assist",
       }),
     ).toBe("/help args");

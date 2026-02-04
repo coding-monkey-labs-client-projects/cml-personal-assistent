@@ -6,7 +6,7 @@ import {
 } from "./constants.ts";
 
 function decoratedMarkerPath(userDataDir: string) {
-  return path.join(userDataDir, ".openclaw-profile-decorated");
+  return path.join(userDataDir, ".cml-hive-assist-profile-decorated");
 }
 
 function safeReadJson(filePath: string): Record<string, unknown> | null {

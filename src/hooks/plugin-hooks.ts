@@ -25,7 +25,7 @@ function normalizePluginHookEntry(api: CmlHiveAssistPluginApi, entry: HookEntry)
     ...entry,
     hook: {
       ...entry.hook,
-      source: "openclaw-plugin",
+      source: "cml-hive-assist-plugin",
       pluginId: api.id,
     },
     metadata: {
@@ -64,7 +64,7 @@ export async function registerPluginHooksFromDir(
   const resolvedDir = resolveHookDir(api, dir);
   const hooks = loadHookEntriesFromDir({
     dir: resolvedDir,
-    source: "openclaw-plugin",
+    source: "cml-hive-assist-plugin",
     pluginId: api.id,
   });
 

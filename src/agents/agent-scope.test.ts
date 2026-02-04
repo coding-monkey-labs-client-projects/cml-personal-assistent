@@ -16,7 +16,7 @@ describe("resolveAgentConfig", () => {
   it("should return undefined when agent id does not exist", () => {
     const cfg: CmlHiveAssistConfig = {
       agents: {
-        list: [{ id: "main", workspace: "~/openclaw" }],
+        list: [{ id: "main", workspace: "~/cml-hive-assist" }],
       },
     };
     const result = resolveAgentConfig(cfg, "nonexistent");
@@ -30,8 +30,8 @@ describe("resolveAgentConfig", () => {
           {
             id: "main",
             name: "Main Agent",
-            workspace: "~/openclaw",
-            agentDir: "~/.openclaw/agents/main",
+            workspace: "~/cml-hive-assist",
+            agentDir: "~/.cml-hive-assist/agents/main",
             model: "anthropic/claude-opus-4",
           },
         ],
@@ -40,8 +40,8 @@ describe("resolveAgentConfig", () => {
     const result = resolveAgentConfig(cfg, "main");
     expect(result).toEqual({
       name: "Main Agent",
-      workspace: "~/openclaw",
-      agentDir: "~/.openclaw/agents/main",
+      workspace: "~/cml-hive-assist",
+      agentDir: "~/.cml-hive-assist/agents/main",
       model: "anthropic/claude-opus-4",
       identity: undefined,
       groupChat: undefined,
@@ -113,7 +113,7 @@ describe("resolveAgentConfig", () => {
         list: [
           {
             id: "work",
-            workspace: "~/openclaw-work",
+            workspace: "~/cml-hive-assist-work",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -141,7 +141,7 @@ describe("resolveAgentConfig", () => {
         list: [
           {
             id: "restricted",
-            workspace: "~/openclaw-restricted",
+            workspace: "~/cml-hive-assist-restricted",
             tools: {
               allow: ["read"],
               deny: ["exec", "write", "edit"],
@@ -171,7 +171,7 @@ describe("resolveAgentConfig", () => {
         list: [
           {
             id: "family",
-            workspace: "~/openclaw-family",
+            workspace: "~/cml-hive-assist-family",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -192,12 +192,12 @@ describe("resolveAgentConfig", () => {
   it("should normalize agent id", () => {
     const cfg: CmlHiveAssistConfig = {
       agents: {
-        list: [{ id: "main", workspace: "~/openclaw" }],
+        list: [{ id: "main", workspace: "~/cml-hive-assist" }],
       },
     };
     // Should normalize to "main" (default)
     const result = resolveAgentConfig(cfg, "");
     expect(result).toBeDefined();
-    expect(result?.workspace).toBe("~/openclaw");
+    expect(result?.workspace).toBe("~/cml-hive-assist");
   });
 });

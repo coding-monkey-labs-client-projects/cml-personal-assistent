@@ -39,8 +39,8 @@ reach other host locations unless sandboxing is enabled. See
 
 ## Paths (quick map)
 
-- Config: `~/.cml-hive-assist/cml-hive-assist.json` (or `OPENCLAW_CONFIG_PATH`)
-- State dir: `~/.cml-hive-assist` (or `OPENCLAW_STATE_DIR`)
+- Config: `~/.cml-hive-assist/cml-hive-assist.json` (or `CML_HIVE_ASSIST_CONFIG_PATH`)
+- State dir: `~/.cml-hive-assist` (or `CML_HIVE_ASSIST_STATE_DIR`)
 - Workspace: `~/.cml-hive-assist/workspace` (or `~/.cml-hive-assist/workspace-<agentId>`)
 - Agent dir: `~/.cml-hive-assist/agents/<agentId>/agent` (or `agents.list[].agentDir`)
 - Sessions: `~/.cml-hive-assist/agents/<agentId>/sessions`
@@ -51,7 +51,7 @@ If you do nothing, CmlHiveAssist runs a single agent:
 
 - `agentId` defaults to **`main`**.
 - Sessions are keyed as `agent:main:<mainKey>`.
-- Workspace defaults to `~/.cml-hive-assist/workspace` (or `~/.cml-hive-assist/workspace-<profile>` when `OPENCLAW_PROFILE` is set).
+- Workspace defaults to `~/.cml-hive-assist/workspace` (or `~/.cml-hive-assist/workspace-<profile>` when `CML_HIVE_ASSIST_PROFILE` is set).
 - State defaults to `~/.cml-hive-assist/agents/main/agent`.
 
 ## Agent helper

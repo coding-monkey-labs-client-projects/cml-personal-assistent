@@ -83,7 +83,7 @@ function isGatewayArgv(args: string[]): boolean {
   }
 
   const exe = normalized[0] ?? "";
-  return exe.endsWith("/openclaw") || exe === "cml-hive-assist";
+  return exe.endsWith("/cml-hive-assist") || exe === "cml-hive-assist";
 }
 
 function readLinuxCmdline(pid: number): string[] | null {

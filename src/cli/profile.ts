@@ -89,7 +89,7 @@ export function parseCliProfileArgs(argv: string[]): CliProfileParseResult {
 
 function resolveProfileStateDir(profile: string, homedir: () => string): string {
   const suffix = profile.toLowerCase() === "default" ? "" : `-${profile}`;
-  return path.join(homedir(), `.openclaw${suffix}`);
+  return path.join(homedir(), `.cml-hive-assist${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {
@@ -107,7 +107,8 @@ export function applyCliProfileEnv(params: {
   // Convenience only: fill defaults, never override explicit env values.
   env.CML_HIVE_ASSIST_PROFILE = profile;
 
-  const stateDir = env.CML_HIVE_ASSIST_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
+  const stateDir =
+    env.CML_HIVE_ASSIST_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
   if (!env.CML_HIVE_ASSIST_STATE_DIR?.trim()) {
     env.CML_HIVE_ASSIST_STATE_DIR = stateDir;
   }

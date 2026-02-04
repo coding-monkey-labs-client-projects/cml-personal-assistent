@@ -228,7 +228,7 @@ describe("buildServiceEnvironment", () => {
     expect(env.CML_HIVE_ASSIST_SERVICE_MARKER).toBe("cml-hive-assist");
     expect(env.CML_HIVE_ASSIST_SERVICE_KIND).toBe("gateway");
     expect(typeof env.CML_HIVE_ASSIST_SERVICE_VERSION).toBe("string");
-    expect(env.CML_HIVE_ASSIST_SYSTEMD_UNIT).toBe("openclaw-gateway.service");
+    expect(env.CML_HIVE_ASSIST_SYSTEMD_UNIT).toBe("cml-hive-assist-gateway.service");
     if (process.platform === "darwin") {
       expect(env.CML_HIVE_ASSIST_LAUNCHD_LABEL).toBe("ai.cml-hive-assist.gateway");
     }
@@ -239,7 +239,7 @@ describe("buildServiceEnvironment", () => {
       env: { HOME: "/home/user", CML_HIVE_ASSIST_PROFILE: "work" },
       port: 18789,
     });
-    expect(env.CML_HIVE_ASSIST_SYSTEMD_UNIT).toBe("openclaw-gateway-work.service");
+    expect(env.CML_HIVE_ASSIST_SYSTEMD_UNIT).toBe("cml-hive-assist-gateway-work.service");
     if (process.platform === "darwin") {
       expect(env.CML_HIVE_ASSIST_LAUNCHD_LABEL).toBe("ai.cml-hive-assist.work");
     }

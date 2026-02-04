@@ -143,9 +143,9 @@ out to QMD for retrieval. Key points:
 
     ```bash
     # Pick the same state dir CmlHiveAssist uses
-    STATE_DIR="${OPENCLAW_STATE_DIR:-$HOME/.cml-hive-assist}"
+    STATE_DIR="${CML_HIVE_ASSIST_STATE_DIR:-$HOME/.cml-hive-assist}"
     if [ -d "$HOME/.moltbot" ] && [ ! -d "$HOME/.cml-hive-assist" ] \
-      && [ -z "${OPENCLAW_STATE_DIR:-}" ]; then
+      && [ -z "${CML_HIVE_ASSIST_STATE_DIR:-}" ]; then
       STATE_DIR="$HOME/.moltbot"
     fi
 

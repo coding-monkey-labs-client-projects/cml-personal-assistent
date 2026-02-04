@@ -23,7 +23,7 @@ export type AcpServerOptions = {
 };
 
 export const ACP_AGENT_INFO = {
-  name: "openclaw-acp",
+  name: "cml-hive-assist-acp",
   title: "CmlHiveAssist ACP Gateway",
   version: VERSION,
 };

@@ -13,7 +13,7 @@ vi.mock("./models-config.js", () => ({
 }));
 
 vi.mock("./agent-paths.js", () => ({
-  resolveCmlHiveAssistAgentDir: () => "/tmp/openclaw",
+  resolveCmlHiveAssistAgentDir: () => "/tmp/cml-hive-assist",
 }));
 
 describe("loadModelCatalog", () => {

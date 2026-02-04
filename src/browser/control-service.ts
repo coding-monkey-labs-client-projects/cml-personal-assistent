@@ -73,7 +73,7 @@ export async function stopBrowserControlService(): Promise<void> {
       }
     }
   } catch (err) {
-    logService.warn(`openclaw browser stop failed: ${String(err)}`);
+    logService.warn(`cml-hive-assist browser stop failed: ${String(err)}`);
   }
 
   state = null;

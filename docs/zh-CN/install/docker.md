@@ -55,9 +55,9 @@ Docker 是**可选的**。仅在你需要容器化 Gateway网关或验证 Docker
 
 可选环境变量：
 
-- `OPENCLAW_DOCKER_APT_PACKAGES` — 在构建期间安装额外的 apt 软件包
-- `OPENCLAW_EXTRA_MOUNTS` — 添加额外的主机绑定挂载
-- `OPENCLAW_HOME_VOLUME` — 将 `/home/node` 持久化到命名卷
+- `CML_HIVE_ASSIST_DOCKER_APT_PACKAGES` — 在构建期间安装额外的 apt 软件包
+- `CML_HIVE_ASSIST_EXTRA_MOUNTS` — 添加额外的主机绑定挂载
+- `CML_HIVE_ASSIST_HOME_VOLUME` — 将 `/home/node` 持久化到命名卷
 
 完成后：
 
@@ -81,60 +81,60 @@ docker compose up -d cml-hive-assist-gateway
 
 ### 额外挂载（可选）
 
-如果你想将额外的主机目录挂载到容器中，请在运行 `docker-setup.sh` 之前设置 `OPENCLAW_EXTRA_MOUNTS`。该变量接受逗号分隔的 Docker 绑定挂载列表，并通过生成 `docker-compose.extra.yml` 将其应用到 `cml-hive-assist-gateway` 和 `cml-hive-assist-cli`。
+如果你想将额外的主机目录挂载到容器中，请在运行 `docker-setup.sh` 之前设置 `CML_HIVE_ASSIST_EXTRA_MOUNTS`。该变量接受逗号分隔的 Docker 绑定挂载列表，并通过生成 `docker-compose.extra.yml` 将其应用到 `cml-hive-assist-gateway` 和 `cml-hive-assist-cli`。
 
 示例：
 
 ```bash
-export OPENCLAW_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
+export CML_HIVE_ASSIST_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
 ./docker-setup.sh
 ```
 
 注意事项：
 
 - 在 macOS/Windows 上，路径必须与 Docker Desktop 共享。
-- 如果修改了 `OPENCLAW_EXTRA_MOUNTS`，请重新运行 `docker-setup.sh` 以重新生成额外的 compose 文件。
+- 如果修改了 `CML_HIVE_ASSIST_EXTRA_MOUNTS`，请重新运行 `docker-setup.sh` 以重新生成额外的 compose 文件。
 - `docker-compose.extra.yml` 是自动生成的。请勿手动编辑。
 
 ### 持久化整个容器 home 目录（可选）
 
-如果你希望 `/home/node` 在容器重建后持久保留，请通过 `OPENCLAW_HOME_VOLUME` 设置命名卷。这会创建一个 Docker 卷并挂载到 `/home/node`，同时保留标准的配置/工作区绑定挂载。此处请使用命名卷（而非绑定路径）；绑定挂载请使用 `OPENCLAW_EXTRA_MOUNTS`。
+如果你希望 `/home/node` 在容器重建后持久保留，请通过 `CML_HIVE_ASSIST_HOME_VOLUME` 设置命名卷。这会创建一个 Docker 卷并挂载到 `/home/node`，同时保留标准的配置/工作区绑定挂载。此处请使用命名卷（而非绑定路径）；绑定挂载请使用 `CML_HIVE_ASSIST_EXTRA_MOUNTS`。
 
 示例：
 
 ```bash
-export OPENCLAW_HOME_VOLUME="cml-hive-assist_home"
+export CML_HIVE_ASSIST_HOME_VOLUME="cml-hive-assist_home"
 ./docker-setup.sh
 ```
 
 可以与额外挂载组合使用：
 
 ```bash
-export OPENCLAW_HOME_VOLUME="cml-hive-assist_home"
-export OPENCLAW_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
+export CML_HIVE_ASSIST_HOME_VOLUME="cml-hive-assist_home"
+export CML_HIVE_ASSIST_EXTRA_MOUNTS="$HOME/.codex:/home/node/.codex:ro,$HOME/github:/home/node/github:rw"
 ./docker-setup.sh
 ```
 
 注意事项：
 
-- 如果修改了 `OPENCLAW_HOME_VOLUME`，请重新运行 `docker-setup.sh` 以重新生成额外的 compose 文件。
+- 如果修改了 `CML_HIVE_ASSIST_HOME_VOLUME`，请重新运行 `docker-setup.sh` 以重新生成额外的 compose 文件。
 - 命名卷会一直保留，直到通过 `docker volume rm <name>` 删除。
 
 ### 安装额外的 apt 软件包（可选）
 
-如果你需要在镜像中安装系统软件包（例如构建工具或媒体库），请在运行 `docker-setup.sh` 之前设置 `OPENCLAW_DOCKER_APT_PACKAGES`。这会在镜像构建期间安装软件包，因此即使容器被删除也会保留。
+如果你需要在镜像中安装系统软件包（例如构建工具或媒体库），请在运行 `docker-setup.sh` 之前设置 `CML_HIVE_ASSIST_DOCKER_APT_PACKAGES`。这会在镜像构建期间安装软件包，因此即使容器被删除也会保留。
 
 示例：
 
 ```bash
-export OPENCLAW_DOCKER_APT_PACKAGES="ffmpeg build-essential"
+export CML_HIVE_ASSIST_DOCKER_APT_PACKAGES="ffmpeg build-essential"
 ./docker-setup.sh
 ```
 
 注意事项：
 
 - 该变量接受以空格分隔的 apt 软件包名称列表。
-- 如果修改了 `OPENCLAW_DOCKER_APT_PACKAGES`，请重新运行 `docker-setup.sh` 以重建镜像。
+- 如果修改了 `CML_HIVE_ASSIST_DOCKER_APT_PACKAGES`，请重新运行 `docker-setup.sh` 以重建镜像。
 
 ### 加速重建（推荐）
 
@@ -195,7 +195,7 @@ docker compose run --rm cml-hive-assist-cli channels add --channel discord --tok
 ### 健康检查
 
 ```bash
-docker compose exec cml-hive-assist-gateway node dist/index.js health --token "$OPENCLAW_GATEWAY_TOKEN"
+docker compose exec cml-hive-assist-gateway node dist/index.js health --token "$CML_HIVE_ASSIST_GATEWAY_TOKEN"
 ```
 
 ### 端到端冒烟测试（Docker）

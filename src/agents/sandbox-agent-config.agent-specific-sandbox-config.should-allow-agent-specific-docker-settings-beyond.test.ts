@@ -97,7 +97,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/openclaw-work",
+            workspace: "~/cml-hive-assist-work",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -135,7 +135,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "main",
-            workspace: "~/openclaw",
+            workspace: "~/cml-hive-assist",
             sandbox: {
               mode: "off", // Agent override
             },
@@ -166,7 +166,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "family",
-            workspace: "~/openclaw-family",
+            workspace: "~/cml-hive-assist-family",
             sandbox: {
               mode: "all", // Agent override
               scope: "agent",
@@ -199,7 +199,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/openclaw-work",
+            workspace: "~/cml-hive-assist-work",
             sandbox: {
               mode: "all",
               scope: "agent", // Agent override

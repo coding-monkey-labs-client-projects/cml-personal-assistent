@@ -89,7 +89,7 @@ describe("Agent-specific sandbox config", () => {
           list: [
             {
               id: "main",
-              workspace: "~/openclaw",
+              workspace: "~/cml-hive-assist",
             },
           ],
         },
@@ -122,7 +122,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/openclaw-work",
+            workspace: "~/cml-hive-assist-work",
             sandbox: {
               mode: "all",
               scope: "agent",
@@ -170,7 +170,7 @@ describe("Agent-specific sandbox config", () => {
         list: [
           {
             id: "work",
-            workspace: "~/openclaw-work",
+            workspace: "~/cml-hive-assist-work",
             sandbox: {
               mode: "all",
               scope: "shared",

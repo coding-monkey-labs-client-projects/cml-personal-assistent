@@ -2,7 +2,7 @@ import {
   resolveChannelMediaMaxBytes,
   type CmlHiveAssistConfig,
   type PluginRuntime,
-} from "openclaw/plugin-sdk";
+} from "cml-hive-assist/plugin-sdk";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
 import type {
   MSTeamsConversationStore,

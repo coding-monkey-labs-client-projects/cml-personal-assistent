@@ -127,7 +127,7 @@ export function renderApp(state: AppViewState) {
               <img src="/favicon.svg" alt="CmlHiveAssist" />
             </div>
             <div class="brand-text">
-              <div class="brand-title">OPENCLAW</div>
+              <div class="brand-title">CML HIVE ASSIST</div>
               <div class="brand-sub">Gateway Dashboard</div>
             </div>
           </div>
@@ -873,16 +873,20 @@ export function renderApp(state: AppViewState) {
                     chatFocusMode: !state.settings.chatFocusMode,
                   });
                 },
-                onChatScroll: (event) => (state as unknown as CmlHiveAssistApp).handleChatScroll(event),
+                onChatScroll: (event) =>
+                  (state as unknown as CmlHiveAssistApp).handleChatScroll(event),
                 onDraftChange: (next) => (state.chatMessage = next),
                 attachments: state.chatAttachments,
                 onAttachmentsChange: (next) => (state.chatAttachments = next),
                 onSend: () => (state as unknown as CmlHiveAssistApp).handleSendChat(),
                 canAbort: Boolean(state.chatRunId),
                 onAbort: () => void (state as unknown as CmlHiveAssistApp).handleAbortChat(),
-                onQueueRemove: (id) => (state as unknown as CmlHiveAssistApp).removeQueuedMessage(id),
+                onQueueRemove: (id) =>
+                  (state as unknown as CmlHiveAssistApp).removeQueuedMessage(id),
                 onNewSession: () =>
-                  (state as unknown as CmlHiveAssistApp).handleSendChat("/new", { restoreDraft: true }),
+                  (state as unknown as CmlHiveAssistApp).handleSendChat("/new", {
+                    restoreDraft: true,
+                  }),
                 showNewMessages: state.chatNewMessagesBelow,
                 onScrollToBottom: () => state.scrollToBottom(),
                 // Sidebar props for tool output viewing

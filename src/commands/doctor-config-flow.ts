@@ -153,7 +153,7 @@ async function maybeMigrateLegacyConfig(): Promise<string[]> {
     return changes;
   }
 
-  const targetDir = path.join(home, ".openclaw");
+  const targetDir = path.join(home, ".cml-hive-assist");
   const targetPath = path.join(targetDir, "cml-hive-assist.json");
   try {
     await fs.access(targetPath);
@@ -247,7 +247,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
       }
     } else {
       fixHints.push(
-        `Run "${formatCliCommand("openclaw doctor --fix")}" to apply legacy migrations.`,
+        `Run "${formatCliCommand("cml-hive-assist doctor --fix")}" to apply legacy migrations.`,
       );
     }
   }
@@ -260,7 +260,9 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = normalized.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("openclaw doctor --fix")}" to apply these changes.`);
+      fixHints.push(
+        `Run "${formatCliCommand("cml-hive-assist doctor --fix")}" to apply these changes.`,
+      );
     }
   }
 
@@ -272,7 +274,9 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
     if (shouldRepair) {
       cfg = autoEnable.config;
     } else {
-      fixHints.push(`Run "${formatCliCommand("openclaw doctor --fix")}" to apply these changes.`);
+      fixHints.push(
+        `Run "${formatCliCommand("cml-hive-assist doctor --fix")}" to apply these changes.`,
+      );
     }
   }
 
@@ -286,7 +290,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
       note(lines, "Doctor changes");
     } else {
       note(lines, "Unknown config keys");
-      fixHints.push('Run "openclaw doctor --fix" to remove these keys.');
+      fixHints.push('Run "cml-hive-assist doctor --fix" to remove these keys.');
     }
   }
 

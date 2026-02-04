@@ -23,7 +23,7 @@ vi.mock("../agents/model-catalog.js", () => ({
 }));
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withTempHomeBase(fn, { prefix: "openclaw-stream-" });
+  return withTempHomeBase(fn, { prefix: "cml-hive-assist-stream-" });
 }
 
 describe("block streaming", () => {

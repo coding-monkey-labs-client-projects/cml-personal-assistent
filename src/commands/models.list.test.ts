@@ -2,13 +2,13 @@ import { describe, expect, it, vi } from "vitest";
 
 const loadConfig = vi.fn();
 const ensureCmlHiveAssistModelsJson = vi.fn().mockResolvedValue(undefined);
-const resolveCmlHiveAssistAgentDir = vi.fn().mockReturnValue("/tmp/openclaw-agent");
+const resolveCmlHiveAssistAgentDir = vi.fn().mockReturnValue("/tmp/cml-hive-assist-agent");
 const ensureAuthProfileStore = vi.fn().mockReturnValue({ version: 1, profiles: {} });
 const listProfilesForProvider = vi.fn().mockReturnValue([]);
 const resolveAuthProfileDisplayLabel = vi.fn(({ profileId }: { profileId: string }) => profileId);
 const resolveAuthStorePathForDisplay = vi
   .fn()
-  .mockReturnValue("/tmp/openclaw-agent/auth-profiles.json");
+  .mockReturnValue("/tmp/cml-hive-assist-agent/auth-profiles.json");
 const resolveProfileUnusableUntilForDisplay = vi.fn().mockReturnValue(null);
 const resolveEnvApiKey = vi.fn().mockReturnValue(undefined);
 const resolveAwsSdkEnvVarName = vi.fn().mockReturnValue(undefined);
@@ -20,7 +20,7 @@ const modelRegistryState = {
 
 vi.mock("../config/config.js", () => ({
   CONFIG_PATH: "/tmp/cml-hive-assist.json",
-  STATE_DIR: "/tmp/openclaw-state",
+  STATE_DIR: "/tmp/cml-hive-assist-state",
   loadConfig,
 }));
 

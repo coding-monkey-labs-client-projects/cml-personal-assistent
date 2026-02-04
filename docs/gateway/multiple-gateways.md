@@ -12,8 +12,8 @@ Most setups should use one Gateway because a single Gateway can handle multiple 
 
 ## Isolation checklist (required)
 
-- `OPENCLAW_CONFIG_PATH` — per-instance config file
-- `OPENCLAW_STATE_DIR` — per-instance sessions, creds, caches
+- `CML_HIVE_ASSIST_CONFIG_PATH` — per-instance config file
+- `CML_HIVE_ASSIST_STATE_DIR` — per-instance sessions, creds, caches
 - `agents.defaults.workspace` — per-instance workspace root
 - `gateway.port` (or `--port`) — unique per instance
 - Derived ports (browser/canvas) must not overlap
@@ -22,7 +22,7 @@ If these are shared, you will hit config races and port conflicts.
 
 ## Recommended: profiles (`--profile`)
 
-Profiles auto-scope `OPENCLAW_STATE_DIR` + `OPENCLAW_CONFIG_PATH` and suffix service names.
+Profiles auto-scope `CML_HIVE_ASSIST_STATE_DIR` + `CML_HIVE_ASSIST_CONFIG_PATH` and suffix service names.
 
 ```bash
 # main
@@ -76,7 +76,7 @@ cml-hive-assist --profile rescue gateway install
 
 ## Port mapping (derived)
 
-Base port = `gateway.port` (or `OPENCLAW_GATEWAY_PORT` / `--port`).
+Base port = `gateway.port` (or `CML_HIVE_ASSIST_GATEWAY_PORT` / `--port`).
 
 - browser control service port = base + 2 (loopback only)
 - `canvasHost.port = base + 4`
@@ -94,12 +94,12 @@ If you override any of these in config or env, you must keep them unique per ins
 ## Manual env example
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/main.json \
-OPENCLAW_STATE_DIR=~/.cml-hive-assist-main \
+CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist/main.json \
+CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-main \
 cml-hive-assist gateway --port 18789
 
-OPENCLAW_CONFIG_PATH=~/.cml-hive-assist/rescue.json \
-OPENCLAW_STATE_DIR=~/.cml-hive-assist-rescue \
+CML_HIVE_ASSIST_CONFIG_PATH=~/.cml-hive-assist/rescue.json \
+CML_HIVE_ASSIST_STATE_DIR=~/.cml-hive-assist-rescue \
 cml-hive-assist gateway --port 19001
 ```
 

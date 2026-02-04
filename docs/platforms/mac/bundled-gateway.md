@@ -61,8 +61,8 @@ incompatible, update the global CLI to match the app version.
 ```bash
 cml-hive-assist --version
 
-OPENCLAW_SKIP_CHANNELS=1 \
-OPENCLAW_SKIP_CANVAS_HOST=1 \
+CML_HIVE_ASSIST_SKIP_CHANNELS=1 \
+CML_HIVE_ASSIST_SKIP_CANVAS_HOST=1 \
 cml-hive-assist gateway --port 18999 --bind loopback
 ```
 

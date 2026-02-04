@@ -196,7 +196,7 @@ export async function runConfigureWizard(
       }
       if (!snapshot.valid) {
         outro(
-          `Config invalid. Run \`${formatCliCommand("openclaw doctor")}\` to repair it, then re-run configure.`,
+          `Config invalid. Run \`${formatCliCommand("cml-hive-assist doctor")}\` to repair it, then re-run configure.`,
         );
         runtime.exit(1);
         return;
@@ -504,7 +504,8 @@ export async function runConfigureWizard(
           const remoteUrl = nextConfig.gateway?.remote?.url?.trim();
           const wsUrl =
             nextConfig.gateway?.mode === "remote" && remoteUrl ? remoteUrl : localLinks.wsUrl;
-          const token = nextConfig.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
+          const token =
+            nextConfig.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
           const password =
             nextConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
           await waitForGatewayReachable({
@@ -553,8 +554,10 @@ export async function runConfigureWizard(
       basePath: nextConfig.gateway?.controlUi?.basePath,
     });
     // Try both new and old passwords since gateway may still have old config.
-    const newPassword = nextConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
-    const oldPassword = baseConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
+    const newPassword =
+      nextConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
+    const oldPassword =
+      baseConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
     const token = nextConfig.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
 
     let gatewayProbe = await probeGatewayReachable({

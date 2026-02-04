@@ -16,7 +16,7 @@ export function formatBonjourInstanceName(displayName: string) {
   if (!trimmed) {
     return "CmlHiveAssist";
   }
-  if (/openclaw/i.test(trimmed)) {
+  if (/cml-hive-assist/i.test(trimmed)) {
     return trimmed;
   }
   return `${trimmed} (CmlHiveAssist)`;

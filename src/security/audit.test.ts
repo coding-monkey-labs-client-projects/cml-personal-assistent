@@ -122,7 +122,7 @@ describe("security audit", () => {
   });
 
   it("treats Windows ACL-only perms as secure", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-win-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-security-audit-win-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
     const configPath = path.join(stateDir, "cml-hive-assist.json");
@@ -159,7 +159,9 @@ describe("security audit", () => {
   });
 
   it("flags Windows ACLs when Users can read the state dir", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-win-open-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "cml-hive-assist-security-audit-win-open-"),
+    );
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true });
     const configPath = path.join(stateDir, "cml-hive-assist.json");
@@ -391,7 +393,7 @@ describe("security audit", () => {
 
   it("flags Discord native commands without a guild user allowlist", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-discord-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-security-audit-discord-"));
     process.env.CML_HIVE_ASSIST_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -439,7 +441,7 @@ describe("security audit", () => {
   it("does not flag Discord slash commands when dm.allowFrom includes a Discord snowflake id", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
     const tmp = await fs.mkdtemp(
-      path.join(os.tmpdir(), "openclaw-security-audit-discord-allowfrom-snowflake-"),
+      path.join(os.tmpdir(), "cml-hive-assist-security-audit-discord-allowfrom-snowflake-"),
     );
     process.env.CML_HIVE_ASSIST_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
@@ -487,7 +489,9 @@ describe("security audit", () => {
 
   it("flags Discord slash commands when access-group enforcement is disabled and no users allowlist exists", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-discord-open-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "cml-hive-assist-security-audit-discord-open-"),
+    );
     process.env.CML_HIVE_ASSIST_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -535,7 +539,7 @@ describe("security audit", () => {
 
   it("flags Slack slash commands without a channel users allowlist", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-slack-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-security-audit-slack-"));
     process.env.CML_HIVE_ASSIST_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -577,7 +581,9 @@ describe("security audit", () => {
 
   it("flags Slack slash commands when access-group enforcement is disabled", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-slack-open-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "cml-hive-assist-security-audit-slack-open-"),
+    );
     process.env.CML_HIVE_ASSIST_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -620,7 +626,9 @@ describe("security audit", () => {
 
   it("flags Telegram group commands without a sender allowlist", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-telegram-"));
+    const tmp = await fs.mkdtemp(
+      path.join(os.tmpdir(), "cml-hive-assist-security-audit-telegram-"),
+    );
     process.env.CML_HIVE_ASSIST_STATE_DIR = tmp;
     await fs.mkdir(path.join(tmp, "credentials"), { recursive: true, mode: 0o700 });
     try {
@@ -817,8 +825,8 @@ describe("security audit", () => {
       config: cfg,
       includeFilesystem: false,
       includeChannelSecurity: false,
-      stateDir: "/Users/test/Dropbox/.openclaw",
-      configPath: "/Users/test/Dropbox/.openclaw/cml-hive-assist.json",
+      stateDir: "/Users/test/Dropbox/.cml-hive-assist",
+      configPath: "/Users/test/Dropbox/.cml-hive-assist/cml-hive-assist.json",
     });
 
     expect(res.findings).toEqual(
@@ -829,7 +837,7 @@ describe("security audit", () => {
   });
 
   it("flags group/world-readable config include files", async () => {
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-security-audit-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(stateDir, { recursive: true, mode: 0o700 });
 
@@ -902,7 +910,7 @@ describe("security audit", () => {
     delete process.env.TELEGRAM_BOT_TOKEN;
     delete process.env.SLACK_BOT_TOKEN;
     delete process.env.SLACK_APP_TOKEN;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-security-audit-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(path.join(stateDir, "extensions", "some-plugin"), {
       recursive: true,
@@ -951,7 +959,7 @@ describe("security audit", () => {
   it("flags unallowlisted extensions as critical when native skill commands are exposed", async () => {
     const prevDiscordToken = process.env.DISCORD_BOT_TOKEN;
     delete process.env.DISCORD_BOT_TOKEN;
-    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-security-audit-"));
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-security-audit-"));
     const stateDir = path.join(tmp, "state");
     await fs.mkdir(path.join(stateDir, "extensions", "some-plugin"), {
       recursive: true,

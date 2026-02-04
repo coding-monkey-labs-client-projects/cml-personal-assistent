@@ -217,7 +217,7 @@ describe("control command parsing", () => {
       }),
     ).toBe(false);
     expect(
-      hasControlCommand("/help@openclaw", undefined, {
+      hasControlCommand("/help@cml-hive-assist", undefined, {
         botUsername: "cml-hive-assist",
       }),
     ).toBe(true);

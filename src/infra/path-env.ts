@@ -55,7 +55,7 @@ function candidateBinDirs(opts: EnsureCmlHiveAssistPathOpts): string[] {
 
   const candidates: string[] = [];
 
-  // Bundled macOS app: `openclaw` lives next to the executable (process.execPath).
+  // Bundled macOS app: `cml-hive-assist` lives next to the executable (process.execPath).
   try {
     const execDir = path.dirname(execPath);
     const siblingCli = path.join(execDir, "cml-hive-assist");
@@ -66,7 +66,7 @@ function candidateBinDirs(opts: EnsureCmlHiveAssistPathOpts): string[] {
     // ignore
   }
 
-  // Project-local installs (best effort): if a `node_modules/.bin/openclaw` exists near cwd,
+  // Project-local installs (best effort): if a `node_modules/.bin/cml-hive-assist` exists near cwd,
   // include it. This helps when running under launchd or other minimal PATH environments.
   const localBinDir = path.join(cwd, "node_modules", ".bin");
   if (isExecutable(path.join(localBinDir, "cml-hive-assist"))) {
@@ -98,7 +98,7 @@ function candidateBinDirs(opts: EnsureCmlHiveAssistPathOpts): string[] {
 }
 
 /**
- * Best-effort PATH bootstrap so skills that require the `openclaw` CLI can run
+ * Best-effort PATH bootstrap so skills that require the `cml-hive-assist` CLI can run
  * under launchd/minimal environments (and inside the macOS app bundle).
  */
 export function ensureCmlHiveAssistCliOnPath(opts: EnsureCmlHiveAssistPathOpts = {}) {

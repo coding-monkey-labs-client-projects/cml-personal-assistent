@@ -7,7 +7,7 @@ vi.mock("./chrome.js", () => ({
   launchCmlHiveAssistChrome: vi.fn(async () => {
     throw new Error("unexpected launch");
   }),
-  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/openclaw"),
+  resolveCmlHiveAssistUserDataDir: vi.fn(() => "/tmp/cml-hive-assist"),
   stopCmlHiveAssistChrome: vi.fn(async () => {}),
 }));
 
@@ -279,9 +279,9 @@ describe("browser server-context tab selection state", () => {
     const { createBrowserRouteContext } = await import("./server-context.js");
     const state = makeState("cml-hive-assist");
     const ctx = createBrowserRouteContext({ getState: () => state });
-    const openclaw = ctx.forProfile("cml-hive-assist");
+    const cmlHiveAssist = ctx.forProfile("cml-hive-assist");
 
-    const opened = await cml-hive-assist.openTab("https://created.example");
+    const opened = await cmlHiveAssist.openTab("https://created.example");
     expect(opened.targetId).toBe("CREATED");
     expect(state.profiles.get("cml-hive-assist")?.lastTargetId).toBe("CREATED");
   });

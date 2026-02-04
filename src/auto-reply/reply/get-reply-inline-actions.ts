@@ -7,7 +7,7 @@ import type { GetReplyOptions, ReplyPayload } from "../types.ts";
 import type { InlineDirectives } from "./directive-handling.ts";
 import type { createModelSelectionState } from "./model-selection.ts";
 import type { TypingController } from "./typing.ts";
-import { createCmlHiveAssistTools } from "../../agents/openclaw-tools.ts";
+import { createCmlHiveAssistTools } from "../../agents/cml-hive-assist-tools.ts";
 import { getChannelDock } from "../../channels/dock.ts";
 import { logVerbose } from "../../globals.ts";
 import { resolveGatewayMessageChannel } from "../../utils/message-channel.ts";

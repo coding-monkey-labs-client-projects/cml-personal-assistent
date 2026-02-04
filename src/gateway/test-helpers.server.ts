@@ -83,10 +83,10 @@ async function setupGatewayTestHome() {
   previousSkipBrowserControl = process.env.CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER;
   previousSkipGmailWatcher = process.env.CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER;
   previousSkipCanvasHost = process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST;
-  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-home-"));
+  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.CML_HIVE_ASSIST_STATE_DIR = path.join(tempHome, ".openclaw");
+  process.env.CML_HIVE_ASSIST_STATE_DIR = path.join(tempHome, ".cml-hive-assist");
   delete process.env.CML_HIVE_ASSIST_CONFIG_PATH;
 }
 
@@ -105,8 +105,8 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
   }
   applyGatewaySkipEnv();
   tempConfigRoot = options.uniqueConfigRoot
-    ? await fs.mkdtemp(path.join(tempHome, "openclaw-test-"))
-    : path.join(tempHome, ".openclaw-test");
+    ? await fs.mkdtemp(path.join(tempHome, "cml-hive-assist-test-"))
+    : path.join(tempHome, ".cml-hive-assist-test");
   setTestConfigRoot(tempConfigRoot);
   sessionStoreSaveDelayMs.value = 0;
   testTailnetIPv4.value = undefined;

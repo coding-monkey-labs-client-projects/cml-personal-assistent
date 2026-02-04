@@ -38,7 +38,10 @@ export function resolveConfigPath(config: CmlHiveAssistConfig | undefined, pathS
   return current;
 }
 
-export function isConfigPathTruthy(config: CmlHiveAssistConfig | undefined, pathStr: string): boolean {
+export function isConfigPathTruthy(
+  config: CmlHiveAssistConfig | undefined,
+  pathStr: string,
+): boolean {
   const value = resolveConfigPath(config, pathStr);
   if (value === undefined && pathStr in DEFAULT_CONFIG_VALUES) {
     return DEFAULT_CONFIG_VALUES[pathStr];
@@ -88,7 +91,7 @@ export function shouldIncludeHook(params: {
   const { entry, config, eligibility } = params;
   const hookKey = resolveHookKey(entry.hook.name, entry);
   const hookConfig = resolveHookConfig(config, hookKey);
-  const pluginManaged = entry.hook.source === "openclaw-plugin";
+  const pluginManaged = entry.hook.source === "cml-hive-assist-plugin";
   const osList = entry.metadata?.os ?? [];
   const remotePlatforms = eligibility?.remote?.platforms ?? [];
 

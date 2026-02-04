@@ -58,8 +58,8 @@ metadata:
 
     // Verify the metadata is valid JSON
     const parsed = JSON.parse(result.metadata);
-    expect(parsed.cml-hive-assist.emoji).toBe("💾");
-    expect(parsed.cml-hive-assist.events).toEqual(["command:new"]);
+    expect(parsed["cml-hive-assist"].emoji).toBe("💾");
+    expect(parsed["cml-hive-assist"].events).toEqual(["command:new"]);
   });
 
   it("parses multi-line metadata with complex nested structure", () => {
@@ -83,10 +83,10 @@ metadata:
     expect(result.metadata).toBeDefined();
 
     const parsed = JSON.parse(result.metadata);
-    expect(parsed.cml-hive-assist.emoji).toBe("📝");
-    expect(parsed.cml-hive-assist.events).toEqual(["command"]);
-    expect(parsed.cml-hive-assist.requires.config).toEqual(["workspace.dir"]);
-    expect(parsed.cml-hive-assist.install[0].kind).toBe("bundled");
+    expect(parsed["cml-hive-assist"].emoji).toBe("📝");
+    expect(parsed["cml-hive-assist"].events).toEqual(["command"]);
+    expect(parsed["cml-hive-assist"].requires.config).toEqual(["workspace.dir"]);
+    expect(parsed["cml-hive-assist"].install[0].kind).toBe("bundled");
   });
 
   it("handles single-line metadata (inline JSON)", () => {
@@ -149,7 +149,7 @@ description: 'single-quoted'
 });
 
 describe("resolveCmlHiveAssistMetadata", () => {
-  it("extracts openclaw metadata from parsed frontmatter", () => {
+  it("extracts cml-hive-assist metadata from parsed frontmatter", () => {
     const frontmatter = {
       name: "test-hook",
       metadata: JSON.stringify({
@@ -178,7 +178,7 @@ describe("resolveCmlHiveAssistMetadata", () => {
     expect(result).toBeUndefined();
   });
 
-  it("returns undefined when openclaw key is missing", () => {
+  it("returns undefined when cml-hive-assist key is missing", () => {
     const frontmatter = {
       metadata: JSON.stringify({ other: "data" }),
     };
@@ -201,7 +201,7 @@ describe("resolveCmlHiveAssistMetadata", () => {
           events: ["command"],
           install: [
             { id: "bundled", kind: "bundled", label: "Bundled with CmlHiveAssist" },
-            { id: "npm", kind: "npm", package: "@openclaw/hook" },
+            { id: "npm", kind: "npm", package: "@cml-hive-assist/hook" },
           ],
         },
       }),
@@ -211,7 +211,7 @@ describe("resolveCmlHiveAssistMetadata", () => {
     expect(result?.install).toHaveLength(2);
     expect(result?.install?.[0].kind).toBe("bundled");
     expect(result?.install?.[1].kind).toBe("npm");
-    expect(result?.install?.[1].package).toBe("@openclaw/hook");
+    expect(result?.install?.[1].package).toBe("@cml-hive-assist/hook");
   });
 
   it("handles os restrictions", () => {
@@ -253,12 +253,12 @@ metadata:
     expect(frontmatter.name).toBe("session-memory");
     expect(frontmatter.metadata).toBeDefined();
 
-    const openclaw = resolveCmlHiveAssistMetadata(frontmatter);
-    expect(openclaw).toBeDefined();
-    expect(openclaw?.emoji).toBe("💾");
-    expect(openclaw?.events).toEqual(["command:new"]);
-    expect(openclaw?.requires?.config).toEqual(["workspace.dir"]);
-    expect(openclaw?.install?.[0].kind).toBe("bundled");
+    const cmlHiveAssist = resolveCmlHiveAssistMetadata(frontmatter);
+    expect(cmlHiveAssist).toBeDefined();
+    expect(cmlHiveAssist?.emoji).toBe("💾");
+    expect(cmlHiveAssist?.events).toEqual(["command:new"]);
+    expect(cmlHiveAssist?.requires?.config).toEqual(["workspace.dir"]);
+    expect(cmlHiveAssist?.install?.[0].kind).toBe("bundled");
   });
 
   it("parses YAML metadata map", () => {
@@ -272,9 +272,9 @@ metadata:
 ---
 `;
     const frontmatter = parseFrontmatter(content);
-    const openclaw = resolveCmlHiveAssistMetadata(frontmatter);
-    expect(openclaw?.emoji).toBe("disk");
-    expect(openclaw?.events).toEqual(["command:new"]);
+    const cmlHiveAssist = resolveCmlHiveAssistMetadata(frontmatter);
+    expect(cmlHiveAssist?.emoji).toBe("disk");
+    expect(cmlHiveAssist?.events).toEqual(["command:new"]);
   });
 });
 

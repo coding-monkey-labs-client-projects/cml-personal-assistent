@@ -294,7 +294,7 @@ Optional allowlist (disable specific overrides while keeping tags enabled):
 ## Per-user preferences
 
 Slash commands write local overrides to `prefsPath` (default:
-`~/.cml-hive-assist/settings/tts.json`, override with `OPENCLAW_TTS_PREFS` or
+`~/.cml-hive-assist/settings/tts.json`, override with `CML_HIVE_ASSIST_TTS_PREFS` or
 `messages.tts.prefsPath`).
 
 Stored fields:

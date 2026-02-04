@@ -95,8 +95,8 @@ const spawnGatewayInstance = async (name: string): Promise<GatewayInstance> => {
   const port = await getFreePort();
   const hookToken = `token-${name}-${randomUUID()}`;
   const gatewayToken = `gateway-${name}-${randomUUID()}`;
-  const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), `openclaw-e2e-${name}-`));
-  const configDir = path.join(homeDir, ".openclaw");
+  const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), `cml-hive-assist-e2e-${name}-`));
+  const configDir = path.join(homeDir, ".cml-hive-assist");
   await fs.mkdir(configDir, { recursive: true });
   const configPath = path.join(configDir, "cml-hive-assist.json");
   const stateDir = path.join(configDir, "state");

@@ -38,21 +38,21 @@ describe("resolveTaskScriptPath", () => {
   it("uses default path when CML_HIVE_ASSIST_PROFILE is default", () => {
     const env = { USERPROFILE: "C:\\Users\\test", CML_HIVE_ASSIST_PROFILE: "default" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".openclaw", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".cml-hive-assist", "gateway.cmd"),
     );
   });
 
   it("uses default path when CML_HIVE_ASSIST_PROFILE is unset", () => {
     const env = { USERPROFILE: "C:\\Users\\test" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".openclaw", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".cml-hive-assist", "gateway.cmd"),
     );
   });
 
   it("uses profile-specific path when CML_HIVE_ASSIST_PROFILE is set to a custom value", () => {
     const env = { USERPROFILE: "C:\\Users\\test", CML_HIVE_ASSIST_PROFILE: "jbphoenix" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".openclaw-jbphoenix", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".cml-hive-assist-jbphoenix", "gateway.cmd"),
     );
   });
 
@@ -60,43 +60,45 @@ describe("resolveTaskScriptPath", () => {
     const env = {
       USERPROFILE: "C:\\Users\\test",
       CML_HIVE_ASSIST_PROFILE: "rescue",
-      CML_HIVE_ASSIST_STATE_DIR: "C:\\State\\openclaw",
+      CML_HIVE_ASSIST_STATE_DIR: "C:\\State\\cml-hive-assist",
     };
-    expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\State\\openclaw", "gateway.cmd"));
+    expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\State\\cml-hive-assist", "gateway.cmd"));
   });
 
   it("handles case-insensitive 'Default' profile", () => {
     const env = { USERPROFILE: "C:\\Users\\test", CML_HIVE_ASSIST_PROFILE: "Default" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".openclaw", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".cml-hive-assist", "gateway.cmd"),
     );
   });
 
   it("handles case-insensitive 'DEFAULT' profile", () => {
     const env = { USERPROFILE: "C:\\Users\\test", CML_HIVE_ASSIST_PROFILE: "DEFAULT" };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".openclaw", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".cml-hive-assist", "gateway.cmd"),
     );
   });
 
   it("trims whitespace from CML_HIVE_ASSIST_PROFILE", () => {
     const env = { USERPROFILE: "C:\\Users\\test", CML_HIVE_ASSIST_PROFILE: "  myprofile  " };
     expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".openclaw-myprofile", "gateway.cmd"),
+      path.join("C:\\Users\\test", ".cml-hive-assist-myprofile", "gateway.cmd"),
     );
   });
 
   it("falls back to HOME when USERPROFILE is not set", () => {
     const env = { HOME: "/home/test", CML_HIVE_ASSIST_PROFILE: "default" };
-    expect(resolveTaskScriptPath(env)).toBe(path.join("/home/test", ".openclaw", "gateway.cmd"));
+    expect(resolveTaskScriptPath(env)).toBe(
+      path.join("/home/test", ".cml-hive-assist", "gateway.cmd"),
+    );
   });
 });
 
 describe("readScheduledTaskCommand", () => {
   it("parses basic command script", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".openclaw", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".cml-hive-assist", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -115,13 +117,13 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses script with working directory", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".openclaw", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".cml-hive-assist", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
-        ["@echo off", "cd /d C:\\Projects\\openclaw", "node gateway.js"].join("\r\n"),
+        ["@echo off", "cd /d C:\\Projects\\cml-hive-assist", "node gateway.js"].join("\r\n"),
         "utf8",
       );
 
@@ -129,7 +131,7 @@ describe("readScheduledTaskCommand", () => {
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["node", "gateway.js"],
-        workingDirectory: "C:\\Projects\\openclaw",
+        workingDirectory: "C:\\Projects\\cml-hive-assist",
       });
     } finally {
       await fs.rm(tmpDir, { recursive: true, force: true });
@@ -137,9 +139,9 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses script with environment variables", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".openclaw", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".cml-hive-assist", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -162,9 +164,9 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses script with quoted arguments containing spaces", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".openclaw", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".cml-hive-assist", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       // Use forward slashes which work in Windows cmd and avoid escape parsing issues
       await fs.writeFile(
@@ -184,7 +186,7 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("returns null when script does not exist", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-schtasks-test-"));
     try {
       const env = { USERPROFILE: tmpDir, CML_HIVE_ASSIST_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
@@ -195,9 +197,9 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("returns null when script has no command", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".openclaw", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".cml-hive-assist", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
@@ -214,16 +216,16 @@ describe("readScheduledTaskCommand", () => {
   });
 
   it("parses full script with all components", async () => {
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-schtasks-test-"));
     try {
-      const scriptPath = path.join(tmpDir, ".openclaw", "gateway.cmd");
+      const scriptPath = path.join(tmpDir, ".cml-hive-assist", "gateway.cmd");
       await fs.mkdir(path.dirname(scriptPath), { recursive: true });
       await fs.writeFile(
         scriptPath,
         [
           "@echo off",
           "rem CmlHiveAssist Gateway",
-          "cd /d C:\\Projects\\openclaw",
+          "cd /d C:\\Projects\\cml-hive-assist",
           "set NODE_ENV=production",
           "set CML_HIVE_ASSIST_PORT=18789",
           "node gateway.js --verbose",
@@ -235,7 +237,7 @@ describe("readScheduledTaskCommand", () => {
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["node", "gateway.js", "--verbose"],
-        workingDirectory: "C:\\Projects\\openclaw",
+        workingDirectory: "C:\\Projects\\cml-hive-assist",
         environment: {
           NODE_ENV: "production",
           CML_HIVE_ASSIST_PORT: "18789",

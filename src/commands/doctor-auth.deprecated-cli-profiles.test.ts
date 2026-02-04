@@ -24,7 +24,7 @@ function makePrompter(confirmValue: boolean): DoctorPrompter {
 beforeEach(() => {
   originalAgentDir = process.env.CML_HIVE_ASSIST_AGENT_DIR;
   originalPiAgentDir = process.env.PI_CODING_AGENT_DIR;
-  tempAgentDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-auth-"));
+  tempAgentDir = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-auth-"));
   process.env.CML_HIVE_ASSIST_AGENT_DIR = tempAgentDir;
   process.env.PI_CODING_AGENT_DIR = tempAgentDir;
 });

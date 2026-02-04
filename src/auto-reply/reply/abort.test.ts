@@ -29,7 +29,7 @@ vi.mock("../../agents/subagent-registry.js", () => ({
 
 describe("abort detection", () => {
   it("triggerBodyNormalized extracts /stop from RawBody for abort detection", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-abort-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-abort-"));
     const storePath = path.join(root, "sessions.json");
     const cfg = { session: { store: storePath } } as CmlHiveAssistConfig;
 
@@ -63,7 +63,7 @@ describe("abort detection", () => {
   });
 
   it("fast-aborts even when text commands are disabled", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-abort-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-abort-"));
     const storePath = path.join(root, "sessions.json");
     const cfg = { session: { store: storePath }, commands: { text: false } } as CmlHiveAssistConfig;
 
@@ -85,7 +85,7 @@ describe("abort detection", () => {
   });
 
   it("fast-abort clears queued followups and session lane", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-abort-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-abort-"));
     const storePath = path.join(root, "sessions.json");
     const cfg = { session: { store: storePath } } as CmlHiveAssistConfig;
     const sessionKey = "telegram:123";
@@ -150,7 +150,7 @@ describe("abort detection", () => {
   });
 
   it("fast-abort stops active subagent runs for requester session", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-abort-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-abort-"));
     const storePath = path.join(root, "sessions.json");
     const cfg = { session: { store: storePath } } as CmlHiveAssistConfig;
     const sessionKey = "telegram:parent";

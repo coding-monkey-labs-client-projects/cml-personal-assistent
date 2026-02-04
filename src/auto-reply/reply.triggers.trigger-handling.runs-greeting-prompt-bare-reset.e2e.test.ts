@@ -68,7 +68,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
       vi.mocked(abortEmbeddedPiRun).mockClear();
       return await fn(home);
     },
-    { prefix: "openclaw-triggers-" },
+    { prefix: "cml-hive-assist-triggers-" },
   );
 }
 
@@ -125,7 +125,7 @@ describe("trigger handling", () => {
             },
           },
           session: {
-            store: join(tmpdir(), `openclaw-session-test-${Date.now()}.json`),
+            store: join(tmpdir(), `cml-hive-assist-session-test-${Date.now()}.json`),
           },
         },
       );
@@ -159,7 +159,7 @@ describe("trigger handling", () => {
             },
           },
           session: {
-            store: join(tmpdir(), `openclaw-session-test-${Date.now()}.json`),
+            store: join(tmpdir(), `cml-hive-assist-session-test-${Date.now()}.json`),
           },
         },
       );
@@ -190,7 +190,7 @@ describe("trigger handling", () => {
             },
           },
           session: {
-            store: join(tmpdir(), `openclaw-session-test-${Date.now()}.json`),
+            store: join(tmpdir(), `cml-hive-assist-session-test-${Date.now()}.json`),
           },
         },
       );

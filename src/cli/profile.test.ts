@@ -16,7 +16,13 @@ describe("parseCliProfileArgs", () => {
       throw new Error(res.error);
     }
     expect(res.profile).toBeNull();
-    expect(res.argv).toEqual(["node", "cml-hive-assist", "gateway", "--dev", "--allow-unconfigured"]);
+    expect(res.argv).toEqual([
+      "node",
+      "cml-hive-assist",
+      "gateway",
+      "--dev",
+      "--allow-unconfigured",
+    ]);
   });
 
   it("still accepts global --dev before subcommand", () => {
@@ -43,12 +49,26 @@ describe("parseCliProfileArgs", () => {
   });
 
   it("rejects combining --dev with --profile (dev first)", () => {
-    const res = parseCliProfileArgs(["node", "cml-hive-assist", "--dev", "--profile", "work", "status"]);
+    const res = parseCliProfileArgs([
+      "node",
+      "cml-hive-assist",
+      "--dev",
+      "--profile",
+      "work",
+      "status",
+    ]);
     expect(res.ok).toBe(false);
   });
 
   it("rejects combining --dev with --profile (profile first)", () => {
-    const res = parseCliProfileArgs(["node", "cml-hive-assist", "--profile", "work", "--dev", "status"]);
+    const res = parseCliProfileArgs([
+      "node",
+      "cml-hive-assist",
+      "--profile",
+      "work",
+      "--dev",
+      "status",
+    ]);
     expect(res.ok).toBe(false);
   });
 });
@@ -61,10 +81,12 @@ describe("applyCliProfileEnv", () => {
       env,
       homedir: () => "/home/peter",
     });
-    const expectedStateDir = path.join("/home/peter", ".openclaw-dev");
+    const expectedStateDir = path.join("/home/peter", ".cml-hive-assist-dev");
     expect(env.CML_HIVE_ASSIST_PROFILE).toBe("dev");
     expect(env.CML_HIVE_ASSIST_STATE_DIR).toBe(expectedStateDir);
-    expect(env.CML_HIVE_ASSIST_CONFIG_PATH).toBe(path.join(expectedStateDir, "cml-hive-assist.json"));
+    expect(env.CML_HIVE_ASSIST_CONFIG_PATH).toBe(
+      path.join(expectedStateDir, "cml-hive-assist.json"),
+    );
     expect(env.CML_HIVE_ASSIST_GATEWAY_PORT).toBe("19001");
   });
 
@@ -86,60 +108,66 @@ describe("applyCliProfileEnv", () => {
 
 describe("formatCliCommand", () => {
   it("returns command unchanged when no profile is set", () => {
-    expect(formatCliCommand("openclaw doctor --fix", {})).toBe("openclaw doctor --fix");
+    expect(formatCliCommand("cml-hive-assist doctor --fix", {})).toBe(
+      "cml-hive-assist doctor --fix",
+    );
   });
 
   it("returns command unchanged when profile is default", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { CML_HIVE_ASSIST_PROFILE: "default" })).toBe(
-      "openclaw doctor --fix",
-    );
+    expect(
+      formatCliCommand("cml-hive-assist doctor --fix", { CML_HIVE_ASSIST_PROFILE: "default" }),
+    ).toBe("cml-hive-assist doctor --fix");
   });
 
   it("returns command unchanged when profile is Default (case-insensitive)", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { CML_HIVE_ASSIST_PROFILE: "Default" })).toBe(
-      "openclaw doctor --fix",
-    );
+    expect(
+      formatCliCommand("cml-hive-assist doctor --fix", { CML_HIVE_ASSIST_PROFILE: "Default" }),
+    ).toBe("cml-hive-assist doctor --fix");
   });
 
   it("returns command unchanged when profile is invalid", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { CML_HIVE_ASSIST_PROFILE: "bad profile" })).toBe(
-      "openclaw doctor --fix",
-    );
+    expect(
+      formatCliCommand("cml-hive-assist doctor --fix", { CML_HIVE_ASSIST_PROFILE: "bad profile" }),
+    ).toBe("cml-hive-assist doctor --fix");
   });
 
   it("returns command unchanged when --profile is already present", () => {
     expect(
-      formatCliCommand("openclaw --profile work doctor --fix", { CML_HIVE_ASSIST_PROFILE: "work" }),
-    ).toBe("openclaw --profile work doctor --fix");
+      formatCliCommand("cml-hive-assist --profile work doctor --fix", {
+        CML_HIVE_ASSIST_PROFILE: "work",
+      }),
+    ).toBe("cml-hive-assist --profile work doctor --fix");
   });
 
   it("returns command unchanged when --dev is already present", () => {
-    expect(formatCliCommand("openclaw --dev doctor", { CML_HIVE_ASSIST_PROFILE: "dev" })).toBe(
-      "openclaw --dev doctor",
-    );
+    expect(
+      formatCliCommand("cml-hive-assist --dev doctor", { CML_HIVE_ASSIST_PROFILE: "dev" }),
+    ).toBe("cml-hive-assist --dev doctor");
   });
 
   it("inserts --profile flag when profile is set", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { CML_HIVE_ASSIST_PROFILE: "work" })).toBe(
-      "openclaw --profile work doctor --fix",
-    );
+    expect(
+      formatCliCommand("cml-hive-assist doctor --fix", { CML_HIVE_ASSIST_PROFILE: "work" }),
+    ).toBe("cml-hive-assist --profile work doctor --fix");
   });
 
   it("trims whitespace from profile", () => {
-    expect(formatCliCommand("openclaw doctor --fix", { CML_HIVE_ASSIST_PROFILE: "  jbopenclaw  " })).toBe(
-      "openclaw --profile jbopenclaw doctor --fix",
-    );
+    expect(
+      formatCliCommand("cml-hive-assist doctor --fix", {
+        CML_HIVE_ASSIST_PROFILE: "  jbcml-hive-assist  ",
+      }),
+    ).toBe("cml-hive-assist --profile jbcml-hive-assist doctor --fix");
   });
 
-  it("handles command with no args after openclaw", () => {
+  it("handles command with no args after cml-hive-assist", () => {
     expect(formatCliCommand("cml-hive-assist", { CML_HIVE_ASSIST_PROFILE: "test" })).toBe(
-      "openclaw --profile test",
+      "cml-hive-assist --profile test",
     );
   });
 
   it("handles pnpm wrapper", () => {
-    expect(formatCliCommand("pnpm openclaw doctor", { CML_HIVE_ASSIST_PROFILE: "work" })).toBe(
-      "pnpm openclaw --profile work doctor",
-    );
+    expect(
+      formatCliCommand("pnpm cml-hive-assist doctor", { CML_HIVE_ASSIST_PROFILE: "work" }),
+    ).toBe("pnpm cml-hive-assist --profile work doctor");
   });
 });

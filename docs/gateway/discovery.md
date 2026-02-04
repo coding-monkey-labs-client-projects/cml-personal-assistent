@@ -70,11 +70,11 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
 
 Disable/override:
 
-- `OPENCLAW_DISABLE_BONJOUR=1` disables advertising.
+- `CML_HIVE_ASSIST_DISABLE_BONJOUR=1` disables advertising.
 - `gateway.bind` in `~/.cml-hive-assist/cml-hive-assist.json` controls the Gateway bind mode.
-- `OPENCLAW_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
-- `OPENCLAW_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
-- `OPENCLAW_CLI_PATH` overrides the advertised CLI path.
+- `CML_HIVE_ASSIST_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
+- `CML_HIVE_ASSIST_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
+- `CML_HIVE_ASSIST_CLI_PATH` overrides the advertised CLI path.
 
 ### 2) Tailnet (cross-network)
 

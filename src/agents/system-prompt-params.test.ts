@@ -6,14 +6,18 @@ import type { CmlHiveAssistConfig } from "../config/config.js";
 import { buildSystemPromptParams } from "./system-prompt-params.js";
 
 async function makeTempDir(label: string): Promise<string> {
-  return fs.mkdtemp(path.join(os.tmpdir(), `openclaw-${label}-`));
+  return fs.mkdtemp(path.join(os.tmpdir(), `cml-hive-assist-${label}-`));
 }
 
 async function makeRepoRoot(root: string): Promise<void> {
   await fs.mkdir(path.join(root, ".git"), { recursive: true });
 }
 
-function buildParams(params: { config?: CmlHiveAssistConfig; workspaceDir?: string; cwd?: string }) {
+function buildParams(params: {
+  config?: CmlHiveAssistConfig;
+  workspaceDir?: string;
+  cwd?: string;
+}) {
   return buildSystemPromptParams({
     config: params.config,
     workspaceDir: params.workspaceDir,

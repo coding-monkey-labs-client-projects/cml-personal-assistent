@@ -9,7 +9,7 @@ import { afterEach, describe, expect, it } from "vitest";
 const tempDirs: string[] = [];
 
 function makeTempDir() {
-  const dir = path.join(os.tmpdir(), `openclaw-plugin-install-${randomUUID()}`);
+  const dir = path.join(os.tmpdir(), `cml-hive-assist-plugin-install-${randomUUID()}`);
   fs.mkdirSync(dir, { recursive: true });
   tempDirs.push(dir);
   return dir;
@@ -92,7 +92,7 @@ afterEach(() => {
 });
 
 describe("installPluginFromArchive", () => {
-  it("installs into ~/.openclaw/extensions and uses unscoped id", async () => {
+  it("installs into ~/.cml-hive-assist/extensions and uses unscoped id", async () => {
     const stateDir = makeTempDir();
     const workDir = makeTempDir();
     const pkgDir = path.join(workDir, "package");
@@ -100,7 +100,7 @@ describe("installPluginFromArchive", () => {
     fs.writeFileSync(
       path.join(pkgDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/voice-call",
+        name: "@cml-hive-assist/voice-call",
         version: "0.0.1",
         cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
@@ -138,7 +138,7 @@ describe("installPluginFromArchive", () => {
     fs.writeFileSync(
       path.join(pkgDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/voice-call",
+        name: "@cml-hive-assist/voice-call",
         version: "0.0.1",
         cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
@@ -180,7 +180,7 @@ describe("installPluginFromArchive", () => {
     zip.file(
       "package/package.json",
       JSON.stringify({
-        name: "@openclaw/zipper",
+        name: "@cml-hive-assist/zipper",
         version: "0.0.1",
         cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
@@ -214,7 +214,7 @@ describe("installPluginFromArchive", () => {
     fs.writeFileSync(
       path.join(pkgDir, "package.json"),
       JSON.stringify({
-        name: "@openclaw/voice-call",
+        name: "@cml-hive-assist/voice-call",
         version: "0.0.1",
         cml-hive-assist: { extensions: ["./dist/index.js"] },
       }),
@@ -232,7 +232,7 @@ describe("installPluginFromArchive", () => {
       fs.writeFileSync(
         path.join(pkgDir, "package.json"),
         JSON.stringify({
-          name: "@openclaw/voice-call",
+          name: "@cml-hive-assist/voice-call",
           version: "0.0.2",
           cml-hive-assist: { extensions: ["./dist/index.js"] },
         }),
@@ -347,7 +347,7 @@ describe("installPluginFromArchive", () => {
     fs.mkdirSync(pkgDir, { recursive: true });
     fs.writeFileSync(
       path.join(pkgDir, "package.json"),
-      JSON.stringify({ name: "@openclaw/nope", version: "0.0.1" }),
+      JSON.stringify({ name: "@cml-hive-assist/nope", version: "0.0.1" }),
       "utf-8",
     );
 

@@ -11,7 +11,7 @@ import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.ts";
 import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.ts";
 import { probeGateway } from "../gateway/probe.ts";
 import { collectChannelStatusIssues } from "../infra/channels-status-issues.ts";
-import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/cml-hive-assist-root.ts";
 import { resolveOsSummary } from "../infra/os-summary.ts";
 import { inspectPortUsage } from "../infra/ports.ts";
 import { readRestartSentinel } from "../infra/restart-sentinel.ts";
@@ -403,7 +403,10 @@ export async function statusAllCommand(
         Item: "Gateway",
         Value: `${gatewayMode}${remoteUrlMissing ? " (remote.url missing)" : ""} · ${gatewayTarget} (${connection.urlSource}) · ${gatewayStatus}${gatewayAuth}`,
       },
-      { Item: "Security", Value: `Run: ${formatCliCommand("openclaw security audit --deep")}` },
+      {
+        Item: "Security",
+        Value: `Run: ${formatCliCommand("cml-hive-assist security audit --deep")}`,
+      },
       gatewaySelfLine
         ? { Item: "Gateway self", Value: gatewaySelfLine }
         : { Item: "Gateway self", Value: "unknown" },

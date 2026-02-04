@@ -50,10 +50,13 @@ export function resolveMessagePrefix(
     return "";
   }
 
-  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[openclaw]";
+  return resolveIdentityNamePrefix(cfg, agentId) ?? opts?.fallback ?? "[cml-hive-assist]";
 }
 
-export function resolveResponsePrefix(cfg: CmlHiveAssistConfig, agentId: string): string | undefined {
+export function resolveResponsePrefix(
+  cfg: CmlHiveAssistConfig,
+  agentId: string,
+): string | undefined {
   const configured = cfg.messages?.responsePrefix;
   if (configured !== undefined) {
     if (configured === "auto") {

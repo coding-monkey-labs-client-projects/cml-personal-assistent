@@ -10,7 +10,7 @@ import { loggingState } from "./state.ts";
 
 // Pin to /tmp so mac Debug UI and docs match; os.tmpdir() can be a per-user
 // randomized path on macOS which made the “Open log” button a no-op.
-export const DEFAULT_LOG_DIR = "/tmp/openclaw";
+export const DEFAULT_LOG_DIR = "/tmp/cml-hive-assist";
 export const DEFAULT_LOG_FILE = path.join(DEFAULT_LOG_DIR, "cml-hive-assist.log"); // legacy single-file path
 
 const LOG_PREFIX = "cml-hive-assist";

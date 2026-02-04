@@ -176,7 +176,7 @@ registry export). Drop a JSON file at one of:
 - `~/.cml-hive-assist/mpm/catalog.json`
 - `~/.cml-hive-assist/plugins/catalog.json`
 
-Or point `OPENCLAW_PLUGIN_CATALOG_PATHS` (or `OPENCLAW_MPM_CATALOG_PATHS`) at
+Or point `CML_HIVE_ASSIST_PLUGIN_CATALOG_PATHS` (or `CML_HIVE_ASSIST_MPM_CATALOG_PATHS`) at
 one or more JSON files (comma/semicolon/`PATH`-delimited). Each file should
 contain `{ "entries": [ { "name": "@scope/pkg", "cml-hive-assist": { "channel": {...}, "install": {...} } } ] }`.
 

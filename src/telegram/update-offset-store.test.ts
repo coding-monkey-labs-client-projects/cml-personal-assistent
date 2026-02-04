@@ -6,7 +6,7 @@ import { readTelegramUpdateOffset, writeTelegramUpdateOffset } from "./update-of
 
 async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
   const previous = process.env.CML_HIVE_ASSIST_STATE_DIR;
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-telegram-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-telegram-"));
   process.env.CML_HIVE_ASSIST_STATE_DIR = dir;
   try {
     return await fn(dir);

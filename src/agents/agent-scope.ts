@@ -72,7 +72,10 @@ export function resolveDefaultAgentId(cfg: CmlHiveAssistConfig): string {
   return normalizeAgentId(chosen || DEFAULT_AGENT_ID);
 }
 
-export function resolveSessionAgentIds(params: { sessionKey?: string; config?: CmlHiveAssistConfig }): {
+export function resolveSessionAgentIds(params: {
+  sessionKey?: string;
+  config?: CmlHiveAssistConfig;
+}): {
   defaultAgentId: string;
   sessionAgentId: string;
 } {
@@ -137,7 +140,10 @@ export function resolveAgentSkillsFilter(
   return normalized.length > 0 ? normalized : [];
 }
 
-export function resolveAgentModelPrimary(cfg: CmlHiveAssistConfig, agentId: string): string | undefined {
+export function resolveAgentModelPrimary(
+  cfg: CmlHiveAssistConfig,
+  agentId: string,
+): string | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.model;
   if (!raw) {
     return undefined;
@@ -178,7 +184,7 @@ export function resolveAgentWorkspaceDir(cfg: CmlHiveAssistConfig, agentId: stri
     }
     return DEFAULT_AGENT_WORKSPACE_DIR;
   }
-  return path.join(os.homedir(), ".openclaw", `workspace-${id}`);
+  return path.join(os.homedir(), ".cml-hive-assist", `workspace-${id}`);
 }
 
 export function resolveAgentDir(cfg: CmlHiveAssistConfig, agentId: string) {

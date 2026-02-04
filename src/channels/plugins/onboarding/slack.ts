@@ -54,7 +54,7 @@ function buildSlackManifest(botName: string) {
       },
       slash_commands: [
         {
-          command: "/openclaw",
+          command: "/cml-hive-assist",
           description: "Send a message to CmlHiveAssist",
           should_escape: false,
         },

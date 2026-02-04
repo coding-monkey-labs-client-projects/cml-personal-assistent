@@ -10,7 +10,7 @@ import {
   resolveUpdateAvailability,
 } from "../commands/status.update.ts";
 import { readConfigFileSnapshot, writeConfigFile } from "../config/config.ts";
-import { resolveCmlHiveAssistPackageRoot } from "../infra/openclaw-root.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/cml-hive-assist-root.ts";
 import { trimLogTail } from "../infra/restart-sentinel.ts";
 import { parseSemver } from "../infra/runtime-guard.ts";
 import {
@@ -82,7 +82,7 @@ const STEP_LABELS: Record<string, string> = {
   "deps install": "Installing dependencies",
   build: "Building",
   "ui:build": "Building UI",
-  "openclaw doctor": "Running doctor checks",
+  "cml-hive-assist doctor": "Running doctor checks",
   "git rev-parse HEAD (after)": "Verifying update",
   "global update": "Updating via package manager",
   "global install": "Installing global package",
@@ -115,8 +115,8 @@ const MAX_LOG_CHARS = 8000;
 const DEFAULT_PACKAGE_NAME = "cml-hive-assist";
 const CORE_PACKAGE_NAMES = new Set([DEFAULT_PACKAGE_NAME]);
 const CLI_NAME = resolveCliName();
-const CML_HIVE_ASSIST_REPO_URL = "https://github.com/openclaw/cml-hive-assist.git";
-const DEFAULT_GIT_DIR = path.join(os.homedir(), ".openclaw");
+const CML_HIVE_ASSIST_REPO_URL = "https://github.com/cml-hive-assist/cml-hive-assist.git";
+const DEFAULT_GIT_DIR = path.join(os.homedir(), ".cml-hive-assist");
 
 function normalizeTag(value?: string | null): string | null {
   if (!value) {
@@ -126,8 +126,8 @@ function normalizeTag(value?: string | null): string | null {
   if (!trimmed) {
     return null;
   }
-  if (trimmed.startsWith("openclaw@")) {
-    return trimmed.slice("openclaw@".length);
+  if (trimmed.startsWith("cml-hive-assist@")) {
+    return trimmed.slice("cml-hive-assist@".length);
   }
   if (trimmed.startsWith(`${DEFAULT_PACKAGE_NAME}@`)) {
     return trimmed.slice(`${DEFAULT_PACKAGE_NAME}@`.length);
@@ -313,7 +313,7 @@ async function ensureGitCheckout(params: {
     const empty = await isEmptyDir(params.dir);
     if (!empty) {
       throw new Error(
-        `CML_HIVE_ASSIST_GIT_DIR points at a non-git directory: ${params.dir}. Set CML_HIVE_ASSIST_GIT_DIR to an empty folder or an openclaw checkout.`,
+        `CML_HIVE_ASSIST_GIT_DIR points at a non-git directory: ${params.dir}. Set CML_HIVE_ASSIST_GIT_DIR to an empty folder or an cml-hive-assist checkout.`,
       );
     }
     return await runUpdateStep({
@@ -881,12 +881,12 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     if (result.reason === "not-git-install") {
       defaultRuntime.log(
         theme.warn(
-          `Skipped: this CmlHiveAssist install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("openclaw doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("openclaw gateway restart"), CLI_NAME)}\`.`,
+          `Skipped: this CmlHiveAssist install isn't a git checkout, and the package manager couldn't be detected. Update via your package manager, then run \`${replaceCliName(formatCliCommand("cml-hive-assist doctor"), CLI_NAME)}\` and \`${replaceCliName(formatCliCommand("cml-hive-assist gateway restart"), CLI_NAME)}\`.`,
         ),
       );
       defaultRuntime.log(
         theme.muted(
-          `Examples: \`${replaceCliName("npm i -g openclaw@latest", CLI_NAME)}\` or \`${replaceCliName("pnpm add -g openclaw@latest", CLI_NAME)}\``,
+          `Examples: \`${replaceCliName("npm i -g cml-hive-assist@latest", CLI_NAME)}\` or \`${replaceCliName("pnpm add -g cml-hive-assist@latest", CLI_NAME)}\``,
         ),
       );
     }
@@ -1015,7 +1015,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
         defaultRuntime.log(theme.warn(`Daemon restart failed: ${String(err)}`));
         defaultRuntime.log(
           theme.muted(
-            `You may need to restart the service manually: ${replaceCliName(formatCliCommand("openclaw gateway restart"), CLI_NAME)}`,
+            `You may need to restart the service manually: ${replaceCliName(formatCliCommand("cml-hive-assist gateway restart"), CLI_NAME)}`,
           ),
         );
       }
@@ -1025,13 +1025,13 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
     if (result.mode === "npm" || result.mode === "pnpm") {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${replaceCliName(formatCliCommand("openclaw doctor"), CLI_NAME)}\`, then \`${replaceCliName(formatCliCommand("openclaw gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${replaceCliName(formatCliCommand("cml-hive-assist doctor"), CLI_NAME)}\`, then \`${replaceCliName(formatCliCommand("cml-hive-assist gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
         ),
       );
     } else {
       defaultRuntime.log(
         theme.muted(
-          `Tip: Run \`${replaceCliName(formatCliCommand("openclaw gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
+          `Tip: Run \`${replaceCliName(formatCliCommand("cml-hive-assist gateway restart"), CLI_NAME)}\` to apply updates to a running gateway.`,
         ),
       );
     }
@@ -1045,7 +1045,7 @@ export async function updateCommand(opts: UpdateCommandOptions): Promise<void> {
 export async function updateWizardCommand(opts: UpdateWizardOptions = {}): Promise<void> {
   if (!process.stdin.isTTY) {
     defaultRuntime.error(
-      "Update wizard requires a TTY. Use `openclaw update --channel <stable|beta|dev>` instead.",
+      "Update wizard requires a TTY. Use `cml-hive-assist update --channel <stable|beta|dev>` instead.",
     );
     defaultRuntime.exit(1);
     return;
@@ -1136,7 +1136,7 @@ export async function updateWizardCommand(opts: UpdateWizardOptions = {}): Promi
         const empty = await isEmptyDir(gitDir);
         if (!empty) {
           defaultRuntime.error(
-            `CML_HIVE_ASSIST_GIT_DIR points at a non-git directory: ${gitDir}. Set CML_HIVE_ASSIST_GIT_DIR to an empty folder or an openclaw checkout.`,
+            `CML_HIVE_ASSIST_GIT_DIR points at a non-git directory: ${gitDir}. Set CML_HIVE_ASSIST_GIT_DIR to an empty folder or an cml-hive-assist checkout.`,
           );
           defaultRuntime.exit(1);
           return;
@@ -1190,15 +1190,15 @@ export function registerUpdateCli(program: Command) {
     .option("--yes", "Skip confirmation prompts (non-interactive)", false)
     .addHelpText("after", () => {
       const examples = [
-        ["openclaw update", "Update a source checkout (git)"],
-        ["openclaw update --channel beta", "Switch to beta channel (git + npm)"],
-        ["openclaw update --channel dev", "Switch to dev channel (git + npm)"],
-        ["openclaw update --tag beta", "One-off update to a dist-tag or version"],
-        ["openclaw update --no-restart", "Update without restarting the service"],
-        ["openclaw update --json", "Output result as JSON"],
-        ["openclaw update --yes", "Non-interactive (accept downgrade prompts)"],
-        ["openclaw update wizard", "Interactive update wizard"],
-        ["openclaw --update", "Shorthand for openclaw update"],
+        ["cml-hive-assist update", "Update a source checkout (git)"],
+        ["cml-hive-assist update --channel beta", "Switch to beta channel (git + npm)"],
+        ["cml-hive-assist update --channel dev", "Switch to dev channel (git + npm)"],
+        ["cml-hive-assist update --tag beta", "One-off update to a dist-tag or version"],
+        ["cml-hive-assist update --no-restart", "Update without restarting the service"],
+        ["cml-hive-assist update --json", "Output result as JSON"],
+        ["cml-hive-assist update --yes", "Non-interactive (accept downgrade prompts)"],
+        ["cml-hive-assist update wizard", "Interactive update wizard"],
+        ["cml-hive-assist --update", "Shorthand for cml-hive-assist update"],
       ] as const;
       const fmtExamples = examples
         .map(([cmd, desc]) => `  ${theme.command(cmd)} ${theme.muted(`# ${desc}`)}`)
@@ -1210,7 +1210,7 @@ ${theme.heading("What this does:")}
 
 ${theme.heading("Switch channels:")}
   - Use --channel stable|beta|dev to persist the update channel in config
-  - Run openclaw update status to see the active channel and source
+  - Run cml-hive-assist update status to see the active channel and source
   - Use --tag <dist-tag|version> for a one-off npm update without persisting
 
 ${theme.heading("Non-interactive:")}
@@ -1272,9 +1272,9 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/update", "docs.cml-hive-assist.ai
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw update status", "Show channel + version status."],
-          ["openclaw update status --json", "JSON output."],
-          ["openclaw update status --timeout 10", "Custom timeout."],
+          ["cml-hive-assist update status", "Show channel + version status."],
+          ["cml-hive-assist update status --json", "JSON output."],
+          ["cml-hive-assist update status --timeout 10", "Custom timeout."],
         ])}\n\n${theme.heading("Notes:")}\n${theme.muted(
           "- Shows current update channel (stable/beta/dev) and source",
         )}\n${theme.muted("- Includes git tag/branch/SHA for source checkouts")}\n\n${theme.muted(

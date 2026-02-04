@@ -48,7 +48,7 @@ For beta installs:
 curl -fsSL https://cml-hive-assist.ai/install.sh | bash -s -- --beta --verbose
 ```
 
-You can also set `OPENCLAW_VERBOSE=1` instead of the flag.
+You can also set `CML_HIVE_ASSIST_VERBOSE=1` instead of the flag.
 
 ### Gateway “unauthorized”, can’t connect, or keeps reconnecting
 

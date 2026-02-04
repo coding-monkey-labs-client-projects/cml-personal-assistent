@@ -8,7 +8,7 @@ import { resolveConfigPath, resolveGatewayLockDir, resolveStateDir } from "../co
 import { acquireGatewayLock, GatewayLockError } from "./gateway-lock.js";
 
 async function makeEnv() {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-lock-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-gateway-lock-"));
   const configPath = path.join(dir, "cml-hive-assist.json");
   await fs.writeFile(configPath, "{}", "utf8");
   await fs.mkdir(resolveGatewayLockDir(), { recursive: true });

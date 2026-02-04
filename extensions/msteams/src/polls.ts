@@ -102,11 +102,11 @@ export function extractMSTeamsPollVote(
     return null;
   }
   const pollId =
-    readNestedString(value, ["openclawPollId"]) ??
+    readNestedString(value, ["cmlHiveAssistPollId"]) ??
     readNestedString(value, ["pollId"]) ??
     readNestedString(value, ["cml-hive-assist", "pollId"]) ??
     readNestedString(value, ["cml-hive-assist", "poll", "id"]) ??
-    readNestedString(value, ["data", "openclawPollId"]) ??
+    readNestedString(value, ["data", "cmlHiveAssistPollId"]) ??
     readNestedString(value, ["data", "pollId"]) ??
     readNestedString(value, ["data", "cml-hive-assist", "pollId"]);
   if (!pollId) {
@@ -185,14 +185,14 @@ export function buildMSTeamsPollCard(params: {
         type: "Action.Submit",
         title: "Vote",
         data: {
-          openclawPollId: pollId,
+          cmlHiveAssistPollId: pollId,
           pollId,
         },
         msteams: {
           type: "messageBack",
-          text: "openclaw poll vote",
+          text: "cml-hive-assist poll vote",
           displayText: "Vote recorded",
-          value: { openclawPollId: pollId, pollId },
+          value: { cmlHiveAssistPollId: pollId, pollId },
         },
       },
     ],

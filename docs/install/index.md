@@ -146,12 +146,12 @@ Common flags:
 
 Equivalent env vars (useful for automation):
 
-- `OPENCLAW_INSTALL_METHOD=git|npm`
-- `OPENCLAW_GIT_DIR=...`
-- `OPENCLAW_GIT_UPDATE=0|1`
-- `OPENCLAW_NO_PROMPT=1`
-- `OPENCLAW_DRY_RUN=1`
-- `OPENCLAW_NO_ONBOARD=1`
+- `CML_HIVE_ASSIST_INSTALL_METHOD=git|npm`
+- `CML_HIVE_ASSIST_GIT_DIR=...`
+- `CML_HIVE_ASSIST_GIT_UPDATE=0|1`
+- `CML_HIVE_ASSIST_NO_PROMPT=1`
+- `CML_HIVE_ASSIST_DRY_RUN=1`
+- `CML_HIVE_ASSIST_NO_ONBOARD=1`
 - `SHARP_IGNORE_GLOBAL_LIBVIPS=0|1` (default: `1`; avoids `sharp` building against system libvips)
 
 ## Troubleshooting: `cml-hive-assist` not found (PATH)

@@ -123,7 +123,7 @@ function createMinimalRun(params?: {
 describe("runReplyAgent typing (heartbeat)", () => {
   it("still replies even if session reset fails to persist", async () => {
     const prevStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
-    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "openclaw-session-reset-fail-"));
+    const stateDir = await fs.mkdtemp(path.join(tmpdir(), "cml-hive-assist-session-reset-fail-"));
     process.env.CML_HIVE_ASSIST_STATE_DIR = stateDir;
     const saveSpy = vi.spyOn(sessions, "saveSessionStore").mockRejectedValueOnce(new Error("boom"));
     try {
