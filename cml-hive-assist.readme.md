@@ -16,17 +16,18 @@ corepack prepare pnpm@10.23.0 --activate
 
 ## Quick Reference
 
-| Task                 | Command                       |
-| -------------------- | ----------------------------- |
-| Install dependencies | `pnpm install`                |
-| Build (main)         | `pnpm build`                  |
-| Build (UI)           | `pnpm ui:build`               |
-| Build (all)          | `pnpm build && pnpm ui:build` |
-| Run tests            | `pnpm test`                   |
-| Type check           | `pnpm tsgo`                   |
-| Lint                 | `pnpm lint`                   |
-| Format check         | `pnpm format`                 |
-| Full check           | `pnpm check`                  |
+| Task                 | Command                                         |
+| -------------------- | ----------------------------------------------- |
+| Install dependencies | `pnpm install`                                  |
+| Build (main)         | `pnpm build`                                    |
+| Build (UI)           | `pnpm ui:build`                                 |
+| Build (UI V2)        | `pnpm ui2:build`                                |
+| Build (all)          | `pnpm build && pnpm ui:build && pnpm ui2:build` |
+| Run tests            | `pnpm test`                                     |
+| Type check           | `pnpm tsgo`                                     |
+| Lint                 | `pnpm lint`                                     |
+| Format check         | `pnpm format`                                   |
+| Full check           | `pnpm check`                                    |
 
 ---
 
@@ -46,17 +47,22 @@ Output: `dist/` directory with compiled JavaScript (156 files, ~5.5MB)
 
 ### UI Build (Vite + Lit)
 
+There are two UI versions:
+
 ```bash
-# Build Control UI
+# Build Control UI (original)
 pnpm ui:build
+# Output: dist/control-ui/
+
+# Build Control UI V2 (new)
+pnpm ui2:build
+# Output: dist/cml-hive-assist-ui/
 ```
 
-Output: `dist/control-ui/` directory
-
-### Full Build (Both)
+### Full Build (All)
 
 ```bash
-pnpm build && pnpm ui:build
+pnpm build && pnpm ui:build && pnpm ui2:build
 ```
 
 ### Development Mode

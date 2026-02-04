@@ -1,4 +1,5 @@
 import type { Command } from "commander";
+import { dashboardV2Command } from "../../commands/dashboard-v2.ts";
 import { dashboardCommand } from "../../commands/dashboard.ts";
 import { doctorCommand } from "../../commands/doctor.ts";
 import { resetCommand } from "../../commands/reset.ts";
@@ -51,6 +52,22 @@ export function registerMaintenanceCommands(program: Command) {
     .action(async (opts) => {
       await runCommandWithRuntime(defaultRuntime, async () => {
         await dashboardCommand(defaultRuntime, {
+          noOpen: Boolean(opts.noOpen),
+        });
+      });
+    });
+
+  program
+    .command("dashboard-v2")
+    .description("Open the new V2 Control UI with your current token")
+    .addHelpText(
+      "after",
+      () => `\n${theme.muted("Note:")} This opens the new V2 UI at /v2/ path.\n`,
+    )
+    .option("--no-open", "Print URL but do not launch a browser", false)
+    .action(async (opts) => {
+      await runCommandWithRuntime(defaultRuntime, async () => {
+        await dashboardV2Command(defaultRuntime, {
           noOpen: Boolean(opts.noOpen),
         });
       });

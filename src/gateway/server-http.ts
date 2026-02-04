@@ -13,6 +13,7 @@ import { resolveAgentAvatar } from "../agents/identity-avatar.ts";
 import { handleA2uiHttpRequest } from "../canvas-host/a2ui.ts";
 import { loadConfig } from "../config/config.ts";
 import { handleSlackHttpRequest } from "../slack/http/index.ts";
+import { handleControlUiV2HttpRequest } from "./control-ui-v2.ts";
 import { handleControlUiAvatarRequest, handleControlUiHttpRequest } from "./control-ui.ts";
 import { applyHookMappings } from "./hooks-mapping.ts";
 import {
@@ -295,6 +296,10 @@ export function createGatewayHttpServer(opts: {
             resolveAvatar: (agentId) => resolveAgentAvatar(configSnapshot, agentId),
           })
         ) {
+          return;
+        }
+        // Serve v2 UI at /v2/ path (new UI)
+        if (handleControlUiV2HttpRequest(req, res, { config: configSnapshot })) {
           return;
         }
         if (
