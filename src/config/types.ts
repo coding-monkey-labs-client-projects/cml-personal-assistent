@@ -29,3 +29,4 @@ export * from "./types.tts.ts";
 export * from "./types.tools.ts";
 export * from "./types.whatsapp.ts";
 export * from "./types.memory.ts";
+export * from "./types.security.ts";

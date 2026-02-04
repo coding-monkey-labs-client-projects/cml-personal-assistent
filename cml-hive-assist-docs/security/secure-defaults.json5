@@ -1,0 +1,201 @@
+{
+  // CML Hive Assist - Secure Defaults Configuration
+  //
+  // This file provides secure default settings that can be merged with your
+  // existing configuration. Copy this to ~/.cml-hive-assist/cml-hive-assist.json
+  // and customize as needed.
+  //
+  // For detailed guidance, see: cml-hive-assist-docs/security/configuration.md
+
+  // ============================================================================
+  // GATEWAY SECURITY
+  // ============================================================================
+  // The gateway is the HTTP/WebSocket server that handles all communication.
+  // Securing it is the first line of defense.
+
+  gateway: {
+    // RECOMMENDED: Bind only to localhost
+    // This prevents network access to the gateway.
+    // Change to "tailscale" for Tailscale-only access, or configure auth for broader access.
+    bind: "loopback",
+    port: 18789,
+
+    // Authentication settings
+    // REQUIRED for non-loopback binds
+    auth: {
+      mode: "password",
+      // IMPORTANT: Use environment variable, never hardcode
+      password: "${CML_HIVE_ASSIST_GATEWAY_PASSWORD}",
+    },
+
+    // Control UI security
+    controlUi: {
+      allowInsecureAuth: false,
+      dangerouslyDisableDeviceAuth: false,
+    },
+  },
+
+  // ============================================================================
+  // CHANNEL DM POLICIES
+  // ============================================================================
+  // DM policies control who can send direct messages to your agent.
+  // RECOMMENDED: Use "pairing" policy which requires device pairing before accepting DMs.
+
+  channels: {
+    whatsapp: {
+      dmPolicy: "pairing",
+      allowFrom: [],
+    },
+    telegram: {
+      dmPolicy: "pairing",
+      allowFrom: [],
+    },
+    discord: {
+      dm: {
+        policy: "pairing",
+        allowFrom: [],
+      },
+    },
+    slack: {
+      dm: {
+        policy: "pairing",
+        allowFrom: [],
+      },
+      allowBots: false,
+    },
+    signal: {
+      dmPolicy: "pairing",
+      allowFrom: [],
+    },
+    imessage: {
+      dmPolicy: "pairing",
+      allowFrom: [],
+    },
+  },
+
+  // ============================================================================
+  // AGENT DEFAULTS & SANDBOX
+  // ============================================================================
+  // Sandboxing isolates agent execution in Docker containers.
+
+  agents: {
+    defaults: {
+      workspace: "~/.cml-hive-assist/workspace",
+
+      sandbox: {
+        // RECOMMENDED for security: "always"
+        // ALTERNATIVE: "non-main" for balance of security and convenience
+        mode: "non-main",
+
+        workspaceAccess: "rw",
+        scope: "session",
+
+        docker: {
+          readOnlyRoot: true,
+          network: "none",
+          capDrop: ["ALL"],
+          pidsLimit: 100,
+          memory: "512m",
+          cpus: 0.5,
+        },
+
+        browser: {
+          allowHostControl: false,
+        },
+
+        prune: {
+          idleHours: 24,
+          maxAgeDays: 7,
+        },
+      },
+    },
+  },
+
+  // ============================================================================
+  // TOOL RESTRICTIONS
+  // ============================================================================
+  // Control which tools are available and restrict dangerous commands.
+
+  tools: {
+    profile: "coding",
+
+    // Bash tool with command restrictions
+    bash: {
+      enabled: true,
+      sandbox: true,
+      deniedPatterns: [
+        // Destructive file operations
+        "rm -rf /",
+        "rm -rf ~",
+        "rm -rf \\*",
+
+        // Remote code execution
+        "curl.*\\|.*bash",
+        "curl.*\\|.*sh",
+        "wget.*\\|.*bash",
+        "wget.*\\|.*sh",
+
+        // Privilege escalation
+        "sudo",
+        "su -",
+        "pkexec",
+        "doas",
+
+        // System file modification
+        "> /etc",
+        "> /usr",
+        "> /bin",
+        "> /sbin",
+
+        // Permission changes
+        "chmod 777",
+        "chmod -R 777",
+      ],
+    },
+
+    // Browser tool - disabled by default
+    browser: {
+      enabled: false,
+    },
+
+    // Exec tool settings
+    exec: {
+      host: "sandbox",
+      security: "allowlist",
+      ask: "on-miss",
+      timeoutSec: 60,
+    },
+  },
+
+  // ============================================================================
+  // AUDIT LOGGING
+  // ============================================================================
+  // Enable logging for security monitoring and compliance.
+
+  logging: {
+    level: "info",
+    auditTools: true,
+    auditFileOps: true,
+  },
+
+  // ============================================================================
+  // COMMAND RESTRICTIONS
+  // ============================================================================
+  // Restrict chat commands that could be abused.
+
+  commands: {
+    bash: false, // Disable /bash command
+    config: false, // Disable /config command
+    debug: false, // Disable /debug command
+    useAccessGroups: true,
+  },
+
+  // ============================================================================
+  // SESSION ISOLATION
+  // ============================================================================
+  // Isolate sessions by peer to prevent cross-user data leakage.
+
+  session: {
+    dmScope: "per-peer",
+  },
+}

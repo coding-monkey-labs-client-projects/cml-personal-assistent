@@ -1,0 +1,312 @@
+{
+  // CML Hive Assist - Secure Configuration Template
+  //
+  // This configuration prioritizes security over convenience.
+  // Customize based on your specific requirements.
+  //
+  // See: cml-hive-assist-docs/security/configuration.md for detailed guidance
+
+  // ============================================================================
+  // Gateway Configuration
+  // ============================================================================
+  gateway: {
+    // Bind to localhost only - prevents network exposure
+    port: 18789,
+    bind: "loopback",
+
+    // Authentication - required for non-loopback binds
+    auth: {
+      mode: "password",
+      // Use environment variable for password - never hardcode
+      password: "${CML_HIVE_ASSIST_GATEWAY_PASSWORD}",
+    },
+
+    // Rate limiting to prevent abuse
+    rateLimit: {
+      enabled: true,
+      maxRequests: 100,
+      windowMs: 60000,
+    },
+
+    // Control UI security
+    controlUi: {
+      // Do not allow insecure auth over HTTP
+      allowInsecureAuth: false,
+      // Require device authentication
+      dangerouslyDisableDeviceAuth: false,
+    },
+  },
+
+  // ============================================================================
+  // Channel Security - Strict DM Policies
+  // ============================================================================
+  channels: {
+    whatsapp: {
+      // Require pairing before accepting DMs
+      dmPolicy: "pairing",
+      // Explicit allowlist only - empty means pairing required
+      allowFrom: [],
+    },
+
+    telegram: {
+      dmPolicy: "pairing",
+      allowFrom: [],
+      // Retry configuration for reliability
+      retry: {
+        attempts: 3,
+        minDelayMs: 1000,
+        maxDelayMs: 5000,
+      },
+    },
+
+    discord: {
+      dm: {
+        policy: "pairing",
+        allowFrom: [],
+      },
+      retry: {
+        attempts: 3,
+        minDelayMs: 1000,
+        maxDelayMs: 5000,
+      },
+    },
+
+    slack: {
+      dm: {
+        policy: "pairing",
+        allowFrom: [],
+      },
+      // Do not respond to bot messages
+      allowBots: false,
+    },
+
+    signal: {
+      dmPolicy: "pairing",
+      allowFrom: [],
+    },
+
+    imessage: {
+      dmPolicy: "pairing",
+      allowFrom: [],
+    },
+  },
+
+  // ============================================================================
+  // Agent Defaults with Security Sandbox
+  // ============================================================================
+  agents: {
+    defaults: {
+      // Workspace configuration
+      workspace: "~/.cml-hive-assist/workspace",
+
+      // Sandbox configuration - isolate agent execution
+      sandbox: {
+        // Sandbox all sessions for maximum security
+        // Use "non-main" if you need host access for main sessions
+        mode: "always",
+
+        // Workspace access inside sandbox
+        workspaceAccess: "rw",
+
+        // Isolate each session
+        scope: "session",
+
+        // Docker sandbox settings
+        docker: {
+          image: "cml-hive-assist/sandbox:latest",
+          containerPrefix: "cml-hive-assist-sandbox-",
+
+          // Read-only root filesystem
+          readOnlyRoot: true,
+
+          // Tmpfs for writable paths
+          tmpfs: ["/tmp", "/var/tmp"],
+
+          // No network access by default
+          network: "none",
+
+          // Run as non-root user
+          user: "1000:1000",
+
+          // Drop all capabilities
+          capDrop: ["ALL"],
+
+          // Resource limits
+          pidsLimit: 100,
+          memory: "512m",
+          memorySwap: "512m",
+          cpus: 0.5,
+
+          // Process limits
+          ulimits: {
+            nofile: "1024:2048",
+            nproc: "256:512",
+          },
+        },
+
+        // Sandbox browser settings
+        browser: {
+          // Disable host browser access from sandbox
+          allowHostControl: false,
+          autoStart: false,
+        },
+
+        // Auto-prune old sandbox containers
+        prune: {
+          idleHours: 24,
+          maxAgeDays: 7,
+        },
+      },
+
+      // Model configuration
+      model: {
+        primary: "anthropic/claude-sonnet-4-20250514",
+        fallbacks: ["anthropic/claude-3-5-sonnet-20241022"],
+      },
+
+      // Disable heartbeat for security (or configure carefully)
+      heartbeat: {
+        every: "0",
+      },
+    },
+  },
+
+  // ============================================================================
+  // Tool Restrictions
+  // ============================================================================
+  tools: {
+    // Use coding profile as base
+    profile: "coding",
+
+    // Bash tool configuration
+    bash: {
+      enabled: true,
+      sandbox: true,
+
+      // Denied command patterns (regex)
+      deniedPatterns: [
+        "rm -rf /",
+        "rm -rf ~",
+        "rm -rf \\*",
+        "curl.*\\|.*bash",
+        "curl.*\\|.*sh",
+        "wget.*\\|.*bash",
+        "wget.*\\|.*sh",
+        "sudo",
+        "su -",
+        "su root",
+        "> /etc",
+        "> /usr",
+        "> /bin",
+        "> /sbin",
+        "chmod 777",
+        "chmod -R 777",
+        "pkexec",
+        "doas",
+      ],
+    },
+
+    // Browser tool - disabled by default for security
+    browser: {
+      enabled: false,
+    },
+
+    // Exec tool configuration
+    exec: {
+      // Run in sandbox
+      host: "sandbox",
+      // Require allowlist for commands
+      security: "allowlist",
+      // Ask before running unlisted commands
+      ask: "on-miss",
+      // Timeout for commands
+      timeoutSec: 60,
+      // Auto-background after 5 seconds
+      backgroundMs: 5000,
+    },
+
+    // Web tools configuration
+    web: {
+      search: {
+        enabled: true,
+        maxResults: 5,
+        timeoutSeconds: 30,
+        cacheTtlMinutes: 60,
+      },
+      fetch: {
+        enabled: true,
+        maxChars: 50000,
+        timeoutSeconds: 30,
+        maxRedirects: 3,
+      },
+    },
+
+    // Message tool restrictions
+    message: {
+      crossContext: {
+        // Allow within same provider
+        allowWithinProvider: true,
+        // Do not allow across providers
+        allowAcrossProviders: false,
+      },
+    },
+
+    // Sub-agent tool restrictions
+    subagents: {
+      tools: {
+        deny: ["browser", "elevated"],
+      },
+    },
+
+    // Sandbox tool restrictions
+    sandbox: {
+      tools: {
+        deny: ["elevated"],
+      },
+    },
+  },
+
+  // ============================================================================
+  // Audit Logging
+  // ============================================================================
+  logging: {
+    level: "info",
+
+    // Enable audit logging
+    auditTools: true,
+    auditFileOps: true,
+  },
+
+  // ============================================================================
+  // Session Configuration
+  // ============================================================================
+  session: {
+    // Isolate DM sessions per peer
+    dmScope: "per-peer",
+  },
+
+  // ============================================================================
+  // Commands Configuration
+  // ============================================================================
+  commands: {
+    // Disable bash chat command unless needed
+    bash: false,
+    // Disable config command for extra security
+    config: false,
+    // Disable debug command
+    debug: false,
+    // Require access groups
+    useAccessGroups: true,
+  },
+
+  // ============================================================================
+  // Skills Configuration
+  // ============================================================================
+  skills: {
+    load: {
+      // Watch for skill changes
+      watch: true,
+      watchDebounceMs: 1000,
+    },
+  },
+}
