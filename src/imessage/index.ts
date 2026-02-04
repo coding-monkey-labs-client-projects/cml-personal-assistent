@@ -1,3 +1,5 @@
-export { monitorIMessageProvider } from "./monitor.ts";
-export { probeIMessage } from "./probe.ts";
-export { sendMessageIMessage } from "./send.ts";
+// Stub file - iMessage channel removed
+
+export * from "./accounts.ts";
+export * from "./send.ts";
+export * from "./targets.ts";

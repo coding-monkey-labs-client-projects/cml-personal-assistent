@@ -1,82 +1,36 @@
+// Stub file - Discord channel removed
+// This file provides type-compatible stubs for code that references Discord
+
 import type { CmlHiveAssistConfig } from "../config/config.ts";
-import type { DiscordAccountConfig } from "../config/types.ts";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.ts";
-import { resolveDiscordToken } from "./token.ts";
 
 export type ResolvedDiscordAccount = {
   accountId: string;
-  enabled: boolean;
-  name?: string;
-  token: string;
-  tokenSource: "env" | "config" | "none";
-  config: DiscordAccountConfig;
+  tokenSource: string;
+  config: {
+    token?: string;
+    dm?: { allowFrom?: Array<string | number> };
+  };
 };
 
-function listConfiguredAccountIds(cfg: CmlHiveAssistConfig): string[] {
-  const accounts = cfg.channels?.discord?.accounts;
-  if (!accounts || typeof accounts !== "object") {
-    return [];
-  }
-  return Object.keys(accounts).filter(Boolean);
+export function listDiscordAccountIds(_cfg: CmlHiveAssistConfig): string[] {
+  return [];
 }
 
-export function listDiscordAccountIds(cfg: CmlHiveAssistConfig): string[] {
-  const ids = listConfiguredAccountIds(cfg);
-  if (ids.length === 0) {
-    return [DEFAULT_ACCOUNT_ID];
-  }
-  return ids.toSorted((a, b) => a.localeCompare(b));
+export function listEnabledDiscordAccounts(_cfg: CmlHiveAssistConfig): ResolvedDiscordAccount[] {
+  return [];
 }
 
-export function resolveDefaultDiscordAccountId(cfg: CmlHiveAssistConfig): string {
-  const ids = listDiscordAccountIds(cfg);
-  if (ids.includes(DEFAULT_ACCOUNT_ID)) {
-    return DEFAULT_ACCOUNT_ID;
-  }
-  return ids[0] ?? DEFAULT_ACCOUNT_ID;
+export function resolveDefaultDiscordAccountId(_cfg: CmlHiveAssistConfig): string {
+  return "default";
 }
 
-function resolveAccountConfig(
-  cfg: CmlHiveAssistConfig,
-  accountId: string,
-): DiscordAccountConfig | undefined {
-  const accounts = cfg.channels?.discord?.accounts;
-  if (!accounts || typeof accounts !== "object") {
-    return undefined;
-  }
-  return accounts[accountId] as DiscordAccountConfig | undefined;
-}
-
-function mergeDiscordAccountConfig(cfg: CmlHiveAssistConfig, accountId: string): DiscordAccountConfig {
-  const { accounts: _ignored, ...base } = (cfg.channels?.discord ?? {}) as DiscordAccountConfig & {
-    accounts?: unknown;
-  };
-  const account = resolveAccountConfig(cfg, accountId) ?? {};
-  return { ...base, ...account };
-}
-
-export function resolveDiscordAccount(params: {
+export function resolveDiscordAccount(_params: {
   cfg: CmlHiveAssistConfig;
   accountId?: string | null;
 }): ResolvedDiscordAccount {
-  const accountId = normalizeAccountId(params.accountId);
-  const baseEnabled = params.cfg.channels?.discord?.enabled !== false;
-  const merged = mergeDiscordAccountConfig(params.cfg, accountId);
-  const accountEnabled = merged.enabled !== false;
-  const enabled = baseEnabled && accountEnabled;
-  const tokenResolution = resolveDiscordToken(params.cfg, { accountId });
   return {
-    accountId,
-    enabled,
-    name: merged.name?.trim() || undefined,
-    token: tokenResolution.token,
-    tokenSource: tokenResolution.source,
-    config: merged,
+    accountId: "default",
+    tokenSource: "none",
+    config: {},
   };
-}
-
-export function listEnabledDiscordAccounts(cfg: CmlHiveAssistConfig): ResolvedDiscordAccount[] {
-  return listDiscordAccountIds(cfg)
-    .map((accountId) => resolveDiscordAccount({ cfg, accountId }))
-    .filter((account) => account.enabled);
 }

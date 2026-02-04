@@ -1,2 +1,5 @@
-export { monitorIMessageProvider } from "./monitor/monitor-provider.ts";
-export type { MonitorIMessageOpts } from "./monitor/types.ts";
+// Stub file - iMessage channel removed
+
+export function monitorIMessageProvider(): void {
+  // iMessage channel removed - no-op
+}
