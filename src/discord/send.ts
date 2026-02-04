@@ -207,3 +207,11 @@ export function listGuildEventsDiscord(): Promise<never[]> {
 export function createGuildEventDiscord(): Promise<null> {
   return Promise.resolve(null);
 }
+
+export function createScheduledEventDiscord(): Promise<{ ok: false; error: string }> {
+  return Promise.resolve({ ok: false, error: "Discord channel removed" });
+}
+
+export function listScheduledEventsDiscord(): Promise<never[]> {
+  return Promise.resolve([]);
+}

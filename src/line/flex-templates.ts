@@ -33,3 +33,23 @@ export function createActionCard(): null {
 export function createReceiptCard(): null {
   return null;
 }
+
+export function createMediaPlayerCard(): null {
+  return null;
+}
+
+export function createEventCard(): null {
+  return null;
+}
+
+export function createAgendaCard(): null {
+  return null;
+}
+
+export function createDeviceControlCard(): null {
+  return null;
+}
+
+export function createAppleTvRemoteCard(): null {
+  return null;
+}
