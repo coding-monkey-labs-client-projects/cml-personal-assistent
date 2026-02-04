@@ -14,9 +14,16 @@ Quick open (local Gateway):
 
 - http://127.0.0.1:18789/ (or http://localhost:18789/)
 
+There are two UI versions available:
+
+- **Control UI** (original) — Full-featured dashboard with chat, channels, config, nodes, cron, skills, logs
+- **Control UI V2** — Redesigned interface with modern styling (Chat, Channels, Agents, Config, Logs)
+
+See [Control UI](/web/control-ui) for details on switching between versions.
+
 Key references:
 
-- [Control UI](/web/control-ui) for usage and UI capabilities.
+- [Control UI](/web/control-ui) for usage, capabilities, and UI version selection.
 - [Tailscale](/gateway/tailscale) for Serve/Funnel automation.
 - [Web surfaces](/web) for bind modes and security notes.
 

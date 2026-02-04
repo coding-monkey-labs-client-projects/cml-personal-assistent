@@ -8,10 +8,19 @@ title: "Web"
 
 # Web (Gateway)
 
-The Gateway serves a small **browser Control UI** (Vite + Lit) from the same port as the Gateway WebSocket:
+The Gateway serves a **browser Control UI** (Vite + Lit) from the same port as the Gateway WebSocket:
 
 - default: `http://<host>:18789/`
 - optional prefix: set `gateway.controlUi.basePath` (e.g. `/cml-hive-assist`)
+
+There are two Control UI versions:
+
+| UI Version            | Source                | Output                     | Description                                                                        |
+| --------------------- | --------------------- | -------------------------- | ---------------------------------------------------------------------------------- |
+| Control UI (original) | `ui/`                 | `dist/control-ui/`         | Full-featured control panel with chat, channels, config, nodes, cron, skills, logs |
+| Control UI V2         | `cml-hive-assist-ui/` | `dist/cml-hive-assist-ui/` | Redesigned interface with modern styling (Chat, Channels, Agents, Config, Logs)    |
+
+The Gateway serves from `dist/control-ui/` by default. To use UI V2, configure `gateway.controlUi.assetPath`.
 
 Capabilities live in [Control UI](/web/control-ui).
 This page focuses on bind modes, security, and web-facing surfaces.
@@ -107,8 +116,28 @@ Open:
 
 ## Building the UI
 
-The Gateway serves static files from `dist/control-ui`. Build them with:
+The Gateway serves static files from `dist/control-ui` (original) or `dist/cml-hive-assist-ui` (V2).
 
 ```bash
-pnpm ui:build # auto-installs UI deps on first run
+# Build original Control UI
+pnpm ui:build
+
+# Build Control UI V2
+pnpm ui2:build
+
+# Build both
+pnpm ui:build && pnpm ui2:build
+```
+
+To switch to UI V2, set the asset path in config:
+
+```json5
+{
+  gateway: {
+    controlUi: {
+      enabled: true,
+      assetPath: "dist/cml-hive-assist-ui",
+    },
+  },
+}
 ```

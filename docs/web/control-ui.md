@@ -8,12 +8,44 @@ title: "Control UI"
 
 # Control UI (browser)
 
-The Control UI is a small **Vite + Lit** single-page app served by the Gateway:
+The Control UI is a **Vite + Lit** single-page app served by the Gateway:
 
 - default: `http://<host>:18789/`
 - optional prefix: set `gateway.controlUi.basePath` (e.g. `/cml-hive-assist`)
 
 It speaks **directly to the Gateway WebSocket** on the same port.
+
+## UI versions
+
+There are two Control UI implementations:
+
+| Version                   | Source                | Build Output               | Status                 |
+| ------------------------- | --------------------- | -------------------------- | ---------------------- |
+| **Control UI** (original) | `ui/`                 | `dist/control-ui/`         | Default, full-featured |
+| **Control UI V2**         | `cml-hive-assist-ui/` | `dist/cml-hive-assist-ui/` | Redesigned interface   |
+
+**Control UI V2** features a modern redesigned interface with:
+
+- **Chat** — Conversational interface with the assistant
+- **Channels** — WhatsApp, Telegram, Slack channel management
+- **Agents** — Agent configuration and monitoring
+- **Config** — Gateway configuration editor
+- **Logs** — Live log viewer
+
+To switch to UI V2, configure the asset path:
+
+```json5
+{
+  gateway: {
+    controlUi: {
+      enabled: true,
+      assetPath: "dist/cml-hive-assist-ui",
+    },
+  },
+}
+```
+
+The sections below describe the **original Control UI** unless otherwise noted. Both UIs use the same Gateway WebSocket protocol.
 
 ## Quick open (local)
 
@@ -153,25 +185,43 @@ See [Tailscale](/gateway/tailscale) for HTTPS setup guidance.
 
 ## Building the UI
 
-The Gateway serves static files from `dist/control-ui`. Build them with:
+The Gateway serves static files from `dist/control-ui` (original) or `dist/cml-hive-assist-ui` (V2).
+
+### Original Control UI
 
 ```bash
-pnpm ui:build # auto-installs UI deps on first run
+# Build
+pnpm ui:build
+
+# Development server
+pnpm ui:dev
 ```
 
-Optional absolute base (when you want fixed asset URLs):
+### Control UI V2
+
+```bash
+# Build
+pnpm ui2:build
+
+# Development server (from cml-hive-assist-ui directory)
+cd cml-hive-assist-ui && pnpm dev
+```
+
+### Build both
+
+```bash
+pnpm ui:build && pnpm ui2:build
+```
+
+### Optional absolute base (original UI)
+
+When you want fixed asset URLs:
 
 ```bash
 CML_HIVE_ASSIST_CONTROL_UI_BASE_PATH=/cml-hive-assist/ pnpm ui:build
 ```
 
-For local development (separate dev server):
-
-```bash
-pnpm ui:dev # auto-installs UI deps on first run
-```
-
-Then point the UI at your Gateway WS URL (e.g. `ws://127.0.0.1:18789`).
+After building, point the UI at your Gateway WS URL (e.g. `ws://127.0.0.1:18789`).
 
 ## Debugging/testing: dev server + remote Gateway
 
