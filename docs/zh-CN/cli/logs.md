@@ -2,7 +2,7 @@
 read_when:
   - 需要远程查看 Gateway网关日志（无需 SSH）
   - 需要 JSON 格式的日志行以供工具使用
-summary: 通过 RPC 查看 Gateway网关日志的 `openclaw logs` CLI 参考
+summary: 通过 RPC 查看 Gateway网关日志的 `cml-hive-assist logs` CLI 参考
 title: logs
 x-i18n:
   generated_at: "2026-02-01T20:21:08Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw logs`
+# `cml-hive-assist logs`
 
 通过 RPC 实时查看 Gateway网关文件日志（支持远程模式）。
 
@@ -24,8 +24,8 @@ x-i18n:
 ## 示例
 
 ```bash
-openclaw logs
-openclaw logs --follow
-openclaw logs --json
-openclaw logs --limit 500
+cml-hive-assist logs
+cml-hive-assist logs --follow
+cml-hive-assist logs --json
+cml-hive-assist logs --limit 500
 ```

@@ -1,6 +1,6 @@
-import { formatCliCommand } from "../cli/command-format.js";
-import { ensurePageState, getPageForTargetId } from "./pw-session.js";
-import { normalizeTimeoutMs } from "./pw-tools-core.shared.js";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { ensurePageState, getPageForTargetId } from "./pw-session.ts";
+import { normalizeTimeoutMs } from "./pw-tools-core.shared.ts";
 
 function matchUrlPattern(pattern: string, url: string): boolean {
   const p = pattern.trim();
@@ -82,7 +82,7 @@ export async function responseBodyViaPlaywright(opts: {
       cleanup();
       reject(
         new Error(
-          `Response not found for url pattern "${pattern}". Run '${formatCliCommand("openclaw browser requests")}' to inspect recent network activity.`,
+          `Response not found for url pattern "${pattern}". Run '${formatCliCommand("cml-hive-assist browser requests")}' to inspect recent network activity.`,
         ),
       );
     }, timeout);

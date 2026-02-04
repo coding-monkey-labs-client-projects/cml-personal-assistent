@@ -2,28 +2,28 @@ import { CURRENT_SESSION_VERSION } from "@mariozechner/pi-coding-agent";
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import type { MsgContext } from "../../auto-reply/templating.js";
-import type { GatewayRequestContext, GatewayRequestHandlers } from "./types.js";
-import { resolveSessionAgentId } from "../../agents/agent-scope.js";
-import { resolveEffectiveMessagesConfig, resolveIdentityName } from "../../agents/identity.js";
-import { resolveThinkingDefault } from "../../agents/model-selection.js";
-import { resolveAgentTimeoutMs } from "../../agents/timeout.js";
-import { dispatchInboundMessage } from "../../auto-reply/dispatch.js";
-import { createReplyDispatcher } from "../../auto-reply/reply/reply-dispatcher.js";
+import type { MsgContext } from "../../auto-reply/templating.ts";
+import type { GatewayRequestContext, GatewayRequestHandlers } from "./types.ts";
+import { resolveSessionAgentId } from "../../agents/agent-scope.ts";
+import { resolveEffectiveMessagesConfig, resolveIdentityName } from "../../agents/identity.ts";
+import { resolveThinkingDefault } from "../../agents/model-selection.ts";
+import { resolveAgentTimeoutMs } from "../../agents/timeout.ts";
+import { dispatchInboundMessage } from "../../auto-reply/dispatch.ts";
+import { createReplyDispatcher } from "../../auto-reply/reply/reply-dispatcher.ts";
 import {
   extractShortModelName,
   type ResponsePrefixContext,
-} from "../../auto-reply/reply/response-prefix-template.js";
-import { resolveSendPolicy } from "../../sessions/send-policy.js";
-import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.js";
+} from "../../auto-reply/reply/response-prefix-template.ts";
+import { resolveSendPolicy } from "../../sessions/send-policy.ts";
+import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.ts";
 import {
   abortChatRunById,
   abortChatRunsForSessionKey,
   isChatStopCommandText,
   resolveChatRunExpiresAtMs,
-} from "../chat-abort.js";
-import { type ChatImageContent, parseMessageWithAttachments } from "../chat-attachments.js";
-import { stripEnvelopeFromMessages } from "../chat-sanitize.js";
+} from "../chat-abort.ts";
+import { type ChatImageContent, parseMessageWithAttachments } from "../chat-attachments.ts";
+import { stripEnvelopeFromMessages } from "../chat-sanitize.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -32,16 +32,16 @@ import {
   validateChatHistoryParams,
   validateChatInjectParams,
   validateChatSendParams,
-} from "../protocol/index.js";
-import { getMaxChatHistoryMessagesBytes } from "../server-constants.js";
+} from "../protocol/index.ts";
+import { getMaxChatHistoryMessagesBytes } from "../server-constants.ts";
 import {
   capArrayByJsonBytes,
   loadSessionEntry,
   readSessionMessages,
   resolveSessionModelRef,
-} from "../session-utils.js";
-import { formatForLog } from "../ws-log.js";
-import { injectTimestamp, timestampOptsFromConfig } from "./agent-timestamp.js";
+} from "../session-utils.ts";
+import { formatForLog } from "../ws-log.ts";
+import { injectTimestamp, timestampOptsFromConfig } from "./agent-timestamp.ts";
 
 type TranscriptAppendResult = {
   ok: boolean;

@@ -1,36 +1,36 @@
-import type { ChannelMeta } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { DmPolicy } from "../config/types.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { WizardPrompter, WizardSelectOption } from "../wizard/prompts.js";
-import type { ChannelChoice } from "./onboard-types.js";
+import type { ChannelMeta } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { DmPolicy } from "../config/types.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { WizardPrompter, WizardSelectOption } from "../wizard/prompts.ts";
+import type { ChannelChoice } from "./onboard-types.ts";
 import type {
   ChannelOnboardingDmPolicy,
   ChannelOnboardingStatus,
   SetupChannelsOptions,
-} from "./onboarding/types.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { listChannelPluginCatalogEntries } from "../channels/plugins/catalog.js";
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { listChannelPlugins, getChannelPlugin } from "../channels/plugins/index.js";
+} from "./onboarding/types.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { listChannelPluginCatalogEntries } from "../channels/plugins/catalog.ts";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { listChannelPlugins, getChannelPlugin } from "../channels/plugins/index.ts";
 import {
   formatChannelPrimerLine,
   formatChannelSelectionLine,
   listChatChannels,
-} from "../channels/registry.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { isChannelConfigured } from "../config/plugin-auto-enable.js";
-import { enablePluginInConfig } from "../plugins/enable.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
-import { formatDocsLink } from "../terminal/links.js";
+} from "../channels/registry.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { isChannelConfigured } from "../config/plugin-auto-enable.ts";
+import { enablePluginInConfig } from "../plugins/enable.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.ts";
+import { formatDocsLink } from "../terminal/links.ts";
 import {
   ensureOnboardingPluginInstalled,
   reloadOnboardingPluginRegistry,
-} from "./onboarding/plugin-install.js";
+} from "./onboarding/plugin-install.ts";
 import {
   getChannelOnboardingAdapter,
   listChannelOnboardingAdapters,
-} from "./onboarding/registry.js";
+} from "./onboarding/registry.ts";
 
 type ConfiguredChannelAction = "update" | "disable" | "delete" | "skip";
 
@@ -82,7 +82,7 @@ async function promptConfiguredAction(params: {
 }
 
 async function promptRemovalAccountId(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   label: string;
   channel: ChannelChoice;
@@ -109,7 +109,7 @@ async function promptRemovalAccountId(params: {
 }
 
 async function collectChannelStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   options?: SetupChannelsOptions;
   accountOverrides: Partial<Record<ChannelChoice, string>>;
 }): Promise<ChannelStatusSummary> {
@@ -161,7 +161,7 @@ async function collectChannelStatus(params: {
 }
 
 export async function noteChannelStatus(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   options?: SetupChannelsOptions;
   accountOverrides?: Partial<Record<ChannelChoice, string>>;
@@ -192,7 +192,7 @@ async function noteChannelPrimer(
   await prompter.note(
     [
       "DM security: default is pairing; unknown DMs get a pairing code.",
-      `Approve with: ${formatCliCommand("openclaw pairing approve <channel> <code>")}`,
+      `Approve with: ${formatCliCommand("cml-hive-assist pairing approve <channel> <code>")}`,
       'Public DMs require dmPolicy="open" + allowFrom=["*"].',
       'Multi-user DMs: set session.dmScope="per-channel-peer" (or "per-account-channel-peer" for multi-account channels) to isolate sessions.',
       `Docs: ${formatDocsLink("/start/pairing", "start/pairing")}`,
@@ -219,11 +219,11 @@ function resolveQuickstartDefault(
 }
 
 async function maybeConfigureDmPolicies(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   selection: ChannelChoice[];
   prompter: WizardPrompter;
   accountIdsByChannel?: Map<ChannelChoice, string>;
-}): Promise<OpenClawConfig> {
+}): Promise<CmlHiveAssistConfig> {
   const { selection, prompter, accountIdsByChannel } = params;
   const dmPolicies = selection
     .map((channel) => getChannelOnboardingAdapter(channel)?.dmPolicy)
@@ -245,7 +245,7 @@ async function maybeConfigureDmPolicies(params: {
     await prompter.note(
       [
         "Default: pairing (unknown DMs get a pairing code).",
-        `Approve: ${formatCliCommand(`openclaw pairing approve ${policy.channel} <code>`)}`,
+        `Approve: ${formatCliCommand(`cml-hive-assist pairing approve ${policy.channel} <code>`)}`,
         `Allowlist DMs: ${policy.policyKey}="allowlist" + ${policy.allowFromKey} entries.`,
         `Public DMs: ${policy.policyKey}="open" + ${policy.allowFromKey} includes "*".`,
         'Multi-user DMs: set session.dmScope="per-channel-peer" (or "per-account-channel-peer" for multi-account channels) to isolate sessions.',
@@ -285,11 +285,11 @@ async function maybeConfigureDmPolicies(params: {
 // Channel-specific prompts moved into onboarding adapters.
 
 export async function setupChannels(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
   options?: SetupChannelsOptions,
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   let next = cfg;
   const forceAllowFromChannels = new Set(options?.forceAllowFromChannels ?? []);
   const accountOverrides: Partial<Record<ChannelChoice, string>> = {
@@ -616,7 +616,7 @@ export async function setupChannels(
         {
           value: "__skip__",
           label: "Skip for now",
-          hint: `You can add channels later via \`${formatCliCommand("openclaw channels add")}\``,
+          hint: `You can add channels later via \`${formatCliCommand("cml-hive-assist channels add")}\``,
         },
       ],
       initialValue: quickstartDefault,

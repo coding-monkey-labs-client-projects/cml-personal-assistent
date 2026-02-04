@@ -1,13 +1,13 @@
 import type { AgentEvent, AgentMessage } from "@mariozechner/pi-agent-core";
-import type { ReplyDirectiveParseResult } from "../auto-reply/reply/reply-directives.js";
-import type { ReasoningLevel } from "../auto-reply/thinking.js";
-import type { InlineCodeState } from "../markdown/code-spans.js";
-import type { EmbeddedBlockChunker } from "./pi-embedded-block-chunker.js";
-import type { MessagingToolSend } from "./pi-embedded-messaging.js";
+import type { ReplyDirectiveParseResult } from "../auto-reply/reply/reply-directives.ts";
+import type { ReasoningLevel } from "../auto-reply/thinking.ts";
+import type { InlineCodeState } from "../markdown/code-spans.ts";
+import type { EmbeddedBlockChunker } from "./pi-embedded-block-chunker.ts";
+import type { MessagingToolSend } from "./pi-embedded-messaging.ts";
 import type {
   BlockReplyChunking,
   SubscribeEmbeddedPiSessionParams,
-} from "./pi-embedded-subscribe.types.js";
+} from "./pi-embedded-subscribe.types.ts";
 
 export type EmbeddedSubscribeLogger = {
   debug: (message: string) => void;

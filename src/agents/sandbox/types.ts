@@ -1,6 +1,6 @@
-import type { SandboxDockerConfig } from "./types.docker.js";
+import type { SandboxDockerConfig } from "./types.docker.ts";
 
-export type { SandboxDockerConfig } from "./types.docker.js";
+export type { SandboxDockerConfig } from "./types.docker.ts";
 
 export type SandboxToolPolicy = {
   allow?: string[];

@@ -6,72 +6,72 @@ import {
 } from "@mariozechner/pi-coding-agent";
 import fs from "node:fs/promises";
 import os from "node:os";
-import type { ReasoningLevel, ThinkLevel } from "../../auto-reply/thinking.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ExecElevatedDefaults } from "../bash-tools.js";
-import type { EmbeddedPiCompactResult } from "./types.js";
-import { resolveHeartbeatPrompt } from "../../auto-reply/heartbeat.js";
-import { resolveChannelCapabilities } from "../../config/channel-capabilities.js";
-import { getMachineDisplayName } from "../../infra/machine-name.js";
-import { type enqueueCommand, enqueueCommandInLane } from "../../process/command-queue.js";
-import { isSubagentSessionKey } from "../../routing/session-key.js";
-import { resolveSignalReactionLevel } from "../../signal/reaction-level.js";
-import { resolveTelegramInlineButtonsScope } from "../../telegram/inline-buttons.js";
-import { resolveTelegramReactionLevel } from "../../telegram/reaction-level.js";
-import { buildTtsSystemPromptHint } from "../../tts/tts.js";
-import { resolveUserPath } from "../../utils.js";
-import { normalizeMessageChannel } from "../../utils/message-channel.js";
-import { isReasoningTagProvider } from "../../utils/provider-utils.js";
-import { resolveOpenClawAgentDir } from "../agent-paths.js";
-import { resolveSessionAgentIds } from "../agent-scope.js";
-import { makeBootstrapWarn, resolveBootstrapContextForRun } from "../bootstrap-files.js";
-import { listChannelSupportedActions, resolveChannelMessageToolHints } from "../channel-tools.js";
-import { formatUserTime, resolveUserTimeFormat, resolveUserTimezone } from "../date-time.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../defaults.js";
-import { resolveOpenClawDocsPath } from "../docs-path.js";
-import { getApiKeyForModel, resolveModelAuthMode } from "../model-auth.js";
-import { ensureOpenClawModelsJson } from "../models-config.js";
+import type { ReasoningLevel, ThinkLevel } from "../../auto-reply/thinking.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ExecElevatedDefaults } from "../bash-tools.ts";
+import type { EmbeddedPiCompactResult } from "./types.ts";
+import { resolveHeartbeatPrompt } from "../../auto-reply/heartbeat.ts";
+import { resolveChannelCapabilities } from "../../config/channel-capabilities.ts";
+import { getMachineDisplayName } from "../../infra/machine-name.ts";
+import { type enqueueCommand, enqueueCommandInLane } from "../../process/command-queue.ts";
+import { isSubagentSessionKey } from "../../routing/session-key.ts";
+import { resolveSignalReactionLevel } from "../../signal/reaction-level.ts";
+import { resolveTelegramInlineButtonsScope } from "../../telegram/inline-buttons.ts";
+import { resolveTelegramReactionLevel } from "../../telegram/reaction-level.ts";
+import { buildTtsSystemPromptHint } from "../../tts/tts.ts";
+import { resolveUserPath } from "../../utils.ts";
+import { normalizeMessageChannel } from "../../utils/message-channel.ts";
+import { isReasoningTagProvider } from "../../utils/provider-utils.ts";
+import { resolveCmlHiveAssistAgentDir } from "../agent-paths.ts";
+import { resolveSessionAgentIds } from "../agent-scope.ts";
+import { makeBootstrapWarn, resolveBootstrapContextForRun } from "../bootstrap-files.ts";
+import { listChannelSupportedActions, resolveChannelMessageToolHints } from "../channel-tools.ts";
+import { formatUserTime, resolveUserTimeFormat, resolveUserTimezone } from "../date-time.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../defaults.ts";
+import { resolveCmlHiveAssistDocsPath } from "../docs-path.ts";
+import { getApiKeyForModel, resolveModelAuthMode } from "../model-auth.ts";
+import { ensureCmlHiveAssistModelsJson } from "../models-config.ts";
 import {
   ensureSessionHeader,
   validateAnthropicTurns,
   validateGeminiTurns,
-} from "../pi-embedded-helpers.js";
+} from "../pi-embedded-helpers.ts";
 import {
   ensurePiCompactionReserveTokens,
   resolveCompactionReserveTokensFloor,
-} from "../pi-settings.js";
-import { createOpenClawCodingTools } from "../pi-tools.js";
-import { resolveSandboxContext } from "../sandbox.js";
-import { repairSessionFileIfNeeded } from "../session-file-repair.js";
-import { guardSessionManager } from "../session-tool-result-guard-wrapper.js";
-import { acquireSessionWriteLock } from "../session-write-lock.js";
+} from "../pi-settings.ts";
+import { createCmlHiveAssistCodingTools } from "../pi-tools.ts";
+import { resolveSandboxContext } from "../sandbox.ts";
+import { repairSessionFileIfNeeded } from "../session-file-repair.ts";
+import { guardSessionManager } from "../session-tool-result-guard-wrapper.ts";
+import { acquireSessionWriteLock } from "../session-write-lock.ts";
 import {
   applySkillEnvOverrides,
   applySkillEnvOverridesFromSnapshot,
   loadWorkspaceSkillEntries,
   resolveSkillsPromptForRun,
   type SkillSnapshot,
-} from "../skills.js";
-import { resolveTranscriptPolicy } from "../transcript-policy.js";
-import { buildEmbeddedExtensionPaths } from "./extensions.js";
+} from "../skills.ts";
+import { resolveTranscriptPolicy } from "../transcript-policy.ts";
+import { buildEmbeddedExtensionPaths } from "./extensions.ts";
 import {
   logToolSchemasForGoogle,
   sanitizeSessionHistory,
   sanitizeToolsForGoogle,
-} from "./google.js";
-import { getDmHistoryLimitFromSessionKey, limitHistoryTurns } from "./history.js";
-import { resolveGlobalLane, resolveSessionLane } from "./lanes.js";
-import { log } from "./logger.js";
-import { buildModelAliasLines, resolveModel } from "./model.js";
-import { buildEmbeddedSandboxInfo } from "./sandbox-info.js";
-import { prewarmSessionFile, trackSessionManagerAccess } from "./session-manager-cache.js";
+} from "./google.ts";
+import { getDmHistoryLimitFromSessionKey, limitHistoryTurns } from "./history.ts";
+import { resolveGlobalLane, resolveSessionLane } from "./lanes.ts";
+import { log } from "./logger.ts";
+import { buildModelAliasLines, resolveModel } from "./model.ts";
+import { buildEmbeddedSandboxInfo } from "./sandbox-info.ts";
+import { prewarmSessionFile, trackSessionManagerAccess } from "./session-manager-cache.ts";
 import {
   applySystemPromptOverrideToSession,
   buildEmbeddedSystemPrompt,
   createSystemPromptOverride,
-} from "./system-prompt.js";
-import { splitSdkTools } from "./tool-split.js";
-import { describeUnknownError, mapThinkingLevel, resolveExecToolDefaults } from "./utils.js";
+} from "./system-prompt.ts";
+import { splitSdkTools } from "./tool-split.ts";
+import { describeUnknownError, mapThinkingLevel, resolveExecToolDefaults } from "./utils.ts";
 
 export type CompactEmbeddedPiSessionParams = {
   sessionId: string;
@@ -91,7 +91,7 @@ export type CompactEmbeddedPiSessionParams = {
   sessionFile: string;
   workspaceDir: string;
   agentDir?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   skillsSnapshot?: SkillSnapshot;
   provider?: string;
   model?: string;
@@ -117,8 +117,8 @@ export async function compactEmbeddedPiSessionDirect(
 
   const provider = (params.provider ?? DEFAULT_PROVIDER).trim() || DEFAULT_PROVIDER;
   const modelId = (params.model ?? DEFAULT_MODEL).trim() || DEFAULT_MODEL;
-  const agentDir = params.agentDir ?? resolveOpenClawAgentDir();
-  await ensureOpenClawModelsJson(params.config, agentDir);
+  const agentDir = params.agentDir ?? resolveCmlHiveAssistAgentDir();
+  await ensureCmlHiveAssistModelsJson(params.config, agentDir);
   const { model, error, authStorage, modelRegistry } = resolveModel(
     provider,
     modelId,
@@ -147,7 +147,7 @@ export async function compactEmbeddedPiSessionDirect(
         );
       }
     } else if (model.provider === "github-copilot") {
-      const { resolveCopilotApiToken } = await import("../../providers/github-copilot-token.js");
+      const { resolveCopilotApiToken } = await import("../../providers/github-copilot-token.ts");
       const copilotToken = await resolveCopilotApiToken({
         githubToken: apiKeyInfo.apiKey,
       });
@@ -214,7 +214,7 @@ export async function compactEmbeddedPiSessionDirect(
       warn: makeBootstrapWarn({ sessionLabel, warn: (message) => log.warn(message) }),
     });
     const runAbortController = new AbortController();
-    const toolsRaw = createOpenClawCodingTools({
+    const toolsRaw = createCmlHiveAssistCodingTools({
       exec: {
         ...resolveExecToolDefaults(params.config),
         elevated: params.bashElevated,
@@ -320,7 +320,7 @@ export async function compactEmbeddedPiSessionDirect(
     });
     const isDefaultAgent = sessionAgentId === defaultAgentId;
     const promptMode = isSubagentSessionKey(params.sessionKey) ? "minimal" : "full";
-    const docsPath = await resolveOpenClawDocsPath({
+    const docsPath = await resolveCmlHiveAssistDocsPath({
       workspaceDir: effectiveWorkspace,
       argv1: process.argv[1],
       cwd: process.cwd(),

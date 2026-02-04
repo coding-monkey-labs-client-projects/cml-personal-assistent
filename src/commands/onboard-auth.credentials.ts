@@ -1,8 +1,8 @@
 import type { OAuthCredentials } from "@mariozechner/pi-ai";
-import { resolveOpenClawAgentDir } from "../agents/agent-paths.js";
-import { upsertAuthProfile } from "../agents/auth-profiles.js";
+import { resolveCmlHiveAssistAgentDir } from "../agents/agent-paths.ts";
+import { upsertAuthProfile } from "../agents/auth-profiles.ts";
 
-const resolveAuthAgentDir = (agentDir?: string) => agentDir ?? resolveOpenClawAgentDir();
+const resolveAuthAgentDir = (agentDir?: string) => agentDir ?? resolveCmlHiveAssistAgentDir();
 
 export async function writeOAuthCredentials(
   provider: string,

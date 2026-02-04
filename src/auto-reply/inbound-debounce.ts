@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { InboundDebounceByProvider } from "../config/types.messages.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { InboundDebounceByProvider } from "../config/types.messages.ts";
 
 const resolveMs = (value: unknown): number | undefined => {
   if (typeof value !== "number" || !Number.isFinite(value)) {
@@ -19,7 +19,7 @@ const resolveChannelOverride = (params: {
 };
 
 export function resolveInboundDebounceMs(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: string;
   overrideMs?: number;
 }): number {

@@ -7,15 +7,15 @@ import {
   channelsRemoveCommand,
   channelsResolveCommand,
   channelsStatusCommand,
-} from "../commands/channels.js";
-import { danger } from "../globals.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { runChannelLogin, runChannelLogout } from "./channel-auth.js";
-import { formatCliChannelOptions } from "./channel-options.js";
-import { runCommandWithRuntime } from "./cli-utils.js";
-import { hasExplicitOptions } from "./command-options.js";
+} from "../commands/channels.ts";
+import { danger } from "../globals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { runChannelLogin, runChannelLogout } from "./channel-auth.ts";
+import { formatCliChannelOptions } from "./channel-options.ts";
+import { runCommandWithRuntime } from "./cli-utils.ts";
+import { hasExplicitOptions } from "./command-options.ts";
 
 const optionNamesAdd = [
   "channel",
@@ -76,7 +76,7 @@ export function registerChannelsCli(program: Command) {
       () =>
         `\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/channels",
-          "docs.openclaw.ai/cli/channels",
+          "docs.cml-hive-assist.ai/cli/channels",
         )}\n`,
     );
 

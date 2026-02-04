@@ -1,6 +1,6 @@
 import os from "node:os";
 import path from "node:path";
-import { isValidProfileName } from "./profile-utils.js";
+import { isValidProfileName } from "./profile-utils.ts";
 
 export type CliProfileParseResult =
   | { ok: true; profile: string | null; argv: string[] }
@@ -89,7 +89,7 @@ export function parseCliProfileArgs(argv: string[]): CliProfileParseResult {
 
 function resolveProfileStateDir(profile: string, homedir: () => string): string {
   const suffix = profile.toLowerCase() === "default" ? "" : `-${profile}`;
-  return path.join(homedir(), `.openclaw${suffix}`);
+  return path.join(homedir(), `.cml-hive-assist${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {
@@ -105,18 +105,19 @@ export function applyCliProfileEnv(params: {
   }
 
   // Convenience only: fill defaults, never override explicit env values.
-  env.OPENCLAW_PROFILE = profile;
+  env.CML_HIVE_ASSIST_PROFILE = profile;
 
-  const stateDir = env.OPENCLAW_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
-  if (!env.OPENCLAW_STATE_DIR?.trim()) {
-    env.OPENCLAW_STATE_DIR = stateDir;
+  const stateDir =
+    env.CML_HIVE_ASSIST_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
+  if (!env.CML_HIVE_ASSIST_STATE_DIR?.trim()) {
+    env.CML_HIVE_ASSIST_STATE_DIR = stateDir;
   }
 
-  if (!env.OPENCLAW_CONFIG_PATH?.trim()) {
-    env.OPENCLAW_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+  if (!env.CML_HIVE_ASSIST_CONFIG_PATH?.trim()) {
+    env.CML_HIVE_ASSIST_CONFIG_PATH = path.join(stateDir, "cml-hive-assist.json");
   }
 
-  if (profile === "dev" && !env.OPENCLAW_GATEWAY_PORT?.trim()) {
-    env.OPENCLAW_GATEWAY_PORT = "19001";
+  if (profile === "dev" && !env.CML_HIVE_ASSIST_GATEWAY_PORT?.trim()) {
+    env.CML_HIVE_ASSIST_GATEWAY_PORT = "19001";
   }
 }

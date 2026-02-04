@@ -1,19 +1,19 @@
-import type { getReplyFromConfig } from "../../../auto-reply/reply.js";
-import type { MsgContext } from "../../../auto-reply/templating.js";
-import type { loadConfig } from "../../../config/config.js";
-import type { MentionConfig } from "../mentions.js";
-import type { WebInboundMsg } from "../types.js";
-import type { EchoTracker } from "./echo.js";
-import type { GroupHistoryEntry } from "./group-gating.js";
-import { logVerbose } from "../../../globals.js";
-import { resolveAgentRoute } from "../../../routing/resolve-route.js";
-import { buildGroupHistoryKey } from "../../../routing/session-key.js";
-import { normalizeE164 } from "../../../utils.js";
-import { maybeBroadcastMessage } from "./broadcast.js";
-import { applyGroupGating } from "./group-gating.js";
-import { updateLastRouteInBackground } from "./last-route.js";
-import { resolvePeerId } from "./peer.js";
-import { processMessage } from "./process-message.js";
+import type { getReplyFromConfig } from "../../../auto-reply/reply.ts";
+import type { MsgContext } from "../../../auto-reply/templating.ts";
+import type { loadConfig } from "../../../config/config.ts";
+import type { MentionConfig } from "../mentions.ts";
+import type { WebInboundMsg } from "../types.ts";
+import type { EchoTracker } from "./echo.ts";
+import type { GroupHistoryEntry } from "./group-gating.ts";
+import { logVerbose } from "../../../globals.ts";
+import { resolveAgentRoute } from "../../../routing/resolve-route.ts";
+import { buildGroupHistoryKey } from "../../../routing/session-key.ts";
+import { normalizeE164 } from "../../../utils.ts";
+import { maybeBroadcastMessage } from "./broadcast.ts";
+import { applyGroupGating } from "./group-gating.ts";
+import { updateLastRouteInBackground } from "./last-route.ts";
+import { resolvePeerId } from "./peer.ts";
+import { processMessage } from "./process-message.ts";
 
 export function createWebOnMessageHandler(params: {
   cfg: ReturnType<typeof loadConfig>;
@@ -26,7 +26,7 @@ export function createWebOnMessageHandler(params: {
   echoTracker: EchoTracker;
   backgroundTasks: Set<Promise<unknown>>;
   replyResolver: typeof getReplyFromConfig;
-  replyLogger: ReturnType<(typeof import("../../../logging.js"))["getChildLogger"]>;
+  replyLogger: ReturnType<(typeof import("../../../logging.ts"))["getChildLogger"]>;
   baseMentionConfig: MentionConfig;
   account: { authDir?: string; accountId?: string };
 }) {

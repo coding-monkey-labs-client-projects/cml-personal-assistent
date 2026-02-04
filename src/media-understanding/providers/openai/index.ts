@@ -1,6 +1,6 @@
-import type { MediaUnderstandingProvider } from "../../types.js";
-import { describeImageWithModel } from "../image.js";
-import { transcribeOpenAiCompatibleAudio } from "./audio.js";
+import type { MediaUnderstandingProvider } from "../../types.ts";
+import { describeImageWithModel } from "../image.ts";
+import { transcribeOpenAiCompatibleAudio } from "./audio.ts";
 
 export const openaiProvider: MediaUnderstandingProvider = {
   id: "openai",

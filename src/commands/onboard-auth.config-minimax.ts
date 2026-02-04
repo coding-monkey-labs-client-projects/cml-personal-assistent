@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import {
   buildMinimaxApiModelDefinition,
   buildMinimaxModelDefinition,
@@ -10,9 +10,9 @@ import {
   MINIMAX_HOSTED_MODEL_ID,
   MINIMAX_HOSTED_MODEL_REF,
   MINIMAX_LM_STUDIO_COST,
-} from "./onboard-auth.models.js";
+} from "./onboard-auth.models.ts";
 
-export function applyMinimaxProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyMinimaxProviderConfig(cfg: CmlHiveAssistConfig): CmlHiveAssistConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models["anthropic/claude-opus-4-5"] = {
     ...models["anthropic/claude-opus-4-5"],
@@ -59,9 +59,9 @@ export function applyMinimaxProviderConfig(cfg: OpenClawConfig): OpenClawConfig 
 }
 
 export function applyMinimaxHostedProviderConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   params?: { baseUrl?: string },
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[MINIMAX_HOSTED_MODEL_REF] = {
     ...models[MINIMAX_HOSTED_MODEL_REF],
@@ -103,7 +103,7 @@ export function applyMinimaxHostedProviderConfig(
   };
 }
 
-export function applyMinimaxConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyMinimaxConfig(cfg: CmlHiveAssistConfig): CmlHiveAssistConfig {
   const next = applyMinimaxProviderConfig(cfg);
   return {
     ...next,
@@ -126,9 +126,9 @@ export function applyMinimaxConfig(cfg: OpenClawConfig): OpenClawConfig {
 }
 
 export function applyMinimaxHostedConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   params?: { baseUrl?: string },
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const next = applyMinimaxHostedProviderConfig(cfg, params);
   return {
     ...next,
@@ -147,9 +147,9 @@ export function applyMinimaxHostedConfig(
 
 // MiniMax Anthropic-compatible API (platform.minimax.io/anthropic)
 export function applyMinimaxApiProviderConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   modelId: string = "MiniMax-M2.1",
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const providers = { ...cfg.models?.providers };
   const existingProvider = providers.minimax;
   const existingModels = Array.isArray(existingProvider?.models) ? existingProvider.models : [];
@@ -190,9 +190,9 @@ export function applyMinimaxApiProviderConfig(
 }
 
 export function applyMinimaxApiConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   modelId: string = "MiniMax-M2.1",
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const next = applyMinimaxApiProviderConfig(cfg, modelId);
   return {
     ...next,

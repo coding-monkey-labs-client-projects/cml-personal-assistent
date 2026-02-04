@@ -1,9 +1,9 @@
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig, MemorySearchConfig } from "../config/config.js";
-import { resolveStateDir } from "../config/paths.js";
-import { clampInt, clampNumber, resolveUserPath } from "../utils.js";
-import { resolveAgentConfig } from "./agent-scope.js";
+import type { CmlHiveAssistConfig, MemorySearchConfig } from "../config/config.ts";
+import { resolveStateDir } from "../config/paths.ts";
+import { clampInt, clampNumber, resolveUserPath } from "../utils.ts";
+import { resolveAgentConfig } from "./agent-scope.ts";
 
 export type ResolvedMemorySearchConfig = {
   enabled: boolean;
@@ -287,7 +287,7 @@ function mergeConfig(
 }
 
 export function resolveMemorySearchConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   agentId: string,
 ): ResolvedMemorySearchConfig | null {
   const defaults = cfg.agents?.defaults?.memorySearch;

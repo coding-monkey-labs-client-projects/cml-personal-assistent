@@ -1,5 +1,5 @@
-import { emitDiagnosticEvent } from "../infra/diagnostic-events.js";
-import { createSubsystemLogger } from "./subsystem.js";
+import { emitDiagnosticEvent } from "../infra/diagnostic-events.ts";
+import { createSubsystemLogger } from "./subsystem.ts";
 
 const diag = createSubsystemLogger("diagnostic");
 

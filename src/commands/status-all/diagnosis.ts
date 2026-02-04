@@ -1,12 +1,12 @@
-import type { ProgressReporter } from "../../cli/progress.js";
-import { resolveGatewayLogPaths } from "../../daemon/launchd.js";
-import { formatPortDiagnostics } from "../../infra/ports.js";
+import type { ProgressReporter } from "../../cli/progress.ts";
+import { resolveGatewayLogPaths } from "../../daemon/launchd.ts";
+import { formatPortDiagnostics } from "../../infra/ports.ts";
 import {
   type RestartSentinelPayload,
   summarizeRestartSentinel,
-} from "../../infra/restart-sentinel.js";
-import { formatAge, redactSecrets } from "./format.js";
-import { readFileTailLines, summarizeLogTail } from "./gateway.js";
+} from "../../infra/restart-sentinel.ts";
+import { formatAge, redactSecrets } from "./format.ts";
+import { readFileTailLines, summarizeLogTail } from "./gateway.ts";
 
 type ConfigIssueLike = { path: string; message: string };
 type ConfigSnapshotLike = {
@@ -242,6 +242,6 @@ export async function appendStatusAllDiagnosis(params: {
 
   lines.push("");
   lines.push(muted("Pasteable debug report. Auth tokens redacted."));
-  lines.push("Troubleshooting: https://docs.openclaw.ai/troubleshooting");
+  lines.push("Troubleshooting: https://docs.cml-hive-assist.ai/troubleshooting");
   lines.push("");
 }

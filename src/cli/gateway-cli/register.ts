@@ -1,16 +1,16 @@
 import type { Command } from "commander";
-import type { CostUsageSummary } from "../../infra/session-cost-usage.js";
-import type { GatewayDiscoverOpts } from "./discover.js";
-import { gatewayStatusCommand } from "../../commands/gateway-status.js";
-import { formatHealthChannelLines, type HealthSummary } from "../../commands/health.js";
-import { loadConfig } from "../../config/config.js";
-import { discoverGatewayBeacons } from "../../infra/bonjour-discovery.js";
-import { resolveWideAreaDiscoveryDomain } from "../../infra/widearea-dns.js";
-import { defaultRuntime } from "../../runtime.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { colorize, isRich, theme } from "../../terminal/theme.js";
-import { formatTokenCount, formatUsd } from "../../utils/usage-format.js";
-import { runCommandWithRuntime } from "../cli-utils.js";
+import type { CostUsageSummary } from "../../infra/session-cost-usage.ts";
+import type { GatewayDiscoverOpts } from "./discover.ts";
+import { gatewayStatusCommand } from "../../commands/gateway-status.ts";
+import { formatHealthChannelLines, type HealthSummary } from "../../commands/health.ts";
+import { loadConfig } from "../../config/config.ts";
+import { discoverGatewayBeacons } from "../../infra/bonjour-discovery.ts";
+import { resolveWideAreaDiscoveryDomain } from "../../infra/widearea-dns.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { colorize, isRich, theme } from "../../terminal/theme.ts";
+import { formatTokenCount, formatUsd } from "../../utils/usage-format.ts";
+import { runCommandWithRuntime } from "../cli-utils.ts";
 import {
   runDaemonInstall,
   runDaemonRestart,
@@ -18,17 +18,17 @@ import {
   runDaemonStatus,
   runDaemonStop,
   runDaemonUninstall,
-} from "../daemon-cli.js";
-import { withProgress } from "../progress.js";
-import { callGatewayCli, gatewayCallOpts } from "./call.js";
+} from "../daemon-cli.ts";
+import { withProgress } from "../progress.ts";
+import { callGatewayCli, gatewayCallOpts } from "./call.ts";
 import {
   dedupeBeacons,
   parseDiscoverTimeoutMs,
   pickBeaconHost,
   pickGatewayPort,
   renderBeaconLines,
-} from "./discover.js";
-import { addGatewayRunCommand } from "./run.js";
+} from "./discover.ts";
+import { addGatewayRunCommand } from "./run.ts";
 
 function styleHealthChannelLine(line: string, rich: boolean): string {
   if (!rich) {
@@ -126,7 +126,7 @@ export function registerGatewayCli(program: Command) {
       .addHelpText(
         "after",
         () =>
-          `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/gateway", "docs.openclaw.ai/cli/gateway")}\n`,
+          `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/gateway", "docs.cml-hive-assist.ai/cli/gateway")}\n`,
       ),
   );
 

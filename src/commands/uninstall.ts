@@ -1,17 +1,17 @@
 import { cancel, confirm, isCancel, multiselect } from "@clack/prompts";
 import path from "node:path";
-import type { RuntimeEnv } from "../runtime.js";
+import type { RuntimeEnv } from "../runtime.ts";
 import {
   isNixMode,
   loadConfig,
   resolveConfigPath,
   resolveOAuthDir,
   resolveStateDir,
-} from "../config/config.js";
-import { resolveGatewayService } from "../daemon/service.js";
-import { stylePromptHint, stylePromptMessage, stylePromptTitle } from "../terminal/prompt-style.js";
-import { resolveHomeDir } from "../utils.js";
-import { collectWorkspaceDirs, isPathWithin, removePath } from "./cleanup-utils.js";
+} from "../config/config.ts";
+import { resolveGatewayService } from "../daemon/service.ts";
+import { stylePromptHint, stylePromptMessage, stylePromptTitle } from "../terminal/prompt-style.ts";
+import { resolveHomeDir } from "../utils.ts";
+import { collectWorkspaceDirs, isPathWithin, removePath } from "./cleanup-utils.ts";
 
 type UninstallScope = "service" | "state" | "workspace" | "app";
 
@@ -91,9 +91,9 @@ async function removeMacApp(runtime: RuntimeEnv, dryRun?: boolean) {
   if (process.platform !== "darwin") {
     return;
   }
-  await removePath("/Applications/OpenClaw.app", runtime, {
+  await removePath("/Applications/CmlHiveAssist.app", runtime, {
     dryRun,
-    label: "/Applications/OpenClaw.app",
+    label: "/Applications/CmlHiveAssist.app",
   });
 }
 
@@ -120,12 +120,12 @@ export async function uninstallCommand(runtime: RuntimeEnv, opts: UninstallOptio
           label: "Gateway service",
           hint: "launchd / systemd / schtasks",
         },
-        { value: "state", label: "State + config", hint: "~/.openclaw" },
+        { value: "state", label: "State + config", hint: "~/.cml-hive-assist" },
         { value: "workspace", label: "Workspace", hint: "agent files" },
         {
           value: "app",
           label: "macOS app",
-          hint: "/Applications/OpenClaw.app",
+          hint: "/Applications/CmlHiveAssist.app",
         },
       ],
       initialValues: ["service", "state", "workspace"],

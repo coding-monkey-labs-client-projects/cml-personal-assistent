@@ -1,6 +1,6 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.js";
-import { formatCliCommand } from "../../../cli/command-format.js";
-import { asString, isRecord } from "./shared.js";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.ts";
+import { formatCliCommand } from "../../../cli/command-format.ts";
+import { asString, isRecord } from "./shared.ts";
 
 type WhatsAppAccountStatus = {
   accountId?: unknown;
@@ -54,7 +54,7 @@ export function collectWhatsAppStatusIssues(
         accountId,
         kind: "auth",
         message: "Not linked (no WhatsApp Web session).",
-        fix: `Run: ${formatCliCommand("openclaw channels login")} (scan QR on the gateway host).`,
+        fix: `Run: ${formatCliCommand("cml-hive-assist channels login")} (scan QR on the gateway host).`,
       });
       continue;
     }
@@ -65,7 +65,7 @@ export function collectWhatsAppStatusIssues(
         accountId,
         kind: "runtime",
         message: `Linked but disconnected${reconnectAttempts != null ? ` (reconnectAttempts=${reconnectAttempts})` : ""}${lastError ? `: ${lastError}` : "."}`,
-        fix: `Run: ${formatCliCommand("openclaw doctor")} (or restart the gateway). If it persists, relink via channels login and check logs.`,
+        fix: `Run: ${formatCliCommand("cml-hive-assist doctor")} (or restart the gateway). If it persists, relink via channels login and check logs.`,
       });
     }
   }

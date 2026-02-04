@@ -1,4 +1,4 @@
-import type { SlackSlashCommandConfig } from "../../config/config.js";
+import type { SlackSlashCommandConfig } from "../../config/config.ts";
 
 export function normalizeSlackSlashCommandName(raw: string) {
   return raw.replace(/^\/+/, "");
@@ -7,8 +7,8 @@ export function normalizeSlackSlashCommandName(raw: string) {
 export function resolveSlackSlashCommandConfig(
   raw?: SlackSlashCommandConfig,
 ): Required<SlackSlashCommandConfig> {
-  const normalizedName = normalizeSlackSlashCommandName(raw?.name?.trim() || "openclaw");
-  const name = normalizedName || "openclaw";
+  const normalizedName = normalizeSlackSlashCommandName(raw?.name?.trim() || "cml-hive-assist");
+  const name = normalizedName || "cml-hive-assist";
   return {
     enabled: raw?.enabled === true,
     name,

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import fs from "node:fs";
 import path from "node:path";
-import { resolveConfigDir } from "../utils.js";
+import { resolveConfigDir } from "../utils.ts";
 
 export function loadDotEnv(opts?: { quiet?: boolean }) {
   const quiet = opts?.quiet ?? true;
@@ -9,7 +9,7 @@ export function loadDotEnv(opts?: { quiet?: boolean }) {
   // Load from process CWD first (dotenv default).
   dotenv.config({ quiet });
 
-  // Then load global fallback: ~/.openclaw/.env (or OPENCLAW_STATE_DIR/.env),
+  // Then load global fallback: ~/.cml-hive-assist/.env (or CML_HIVE_ASSIST_STATE_DIR/.env),
   // without overriding any env vars already present.
   const globalEnvPath = path.join(resolveConfigDir(process.env), ".env");
   if (!fs.existsSync(globalEnvPath)) {

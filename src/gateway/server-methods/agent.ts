@@ -1,33 +1,33 @@
 import { randomUUID } from "node:crypto";
-import type { GatewayRequestHandlers } from "./types.js";
-import { listAgentIds } from "../../agents/agent-scope.js";
-import { agentCommand } from "../../commands/agent.js";
-import { loadConfig } from "../../config/config.js";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { listAgentIds } from "../../agents/agent-scope.ts";
+import { agentCommand } from "../../commands/agent.ts";
+import { loadConfig } from "../../config/config.ts";
 import {
   resolveAgentIdFromSessionKey,
   resolveExplicitAgentSessionKey,
   resolveAgentMainSessionKey,
   type SessionEntry,
   updateSessionStore,
-} from "../../config/sessions.js";
-import { registerAgentRunContext } from "../../infra/agent-events.js";
+} from "../../config/sessions.ts";
+import { registerAgentRunContext } from "../../infra/agent-events.ts";
 import {
   resolveAgentDeliveryPlan,
   resolveAgentOutboundTarget,
-} from "../../infra/outbound/agent-delivery.js";
-import { normalizeAgentId } from "../../routing/session-key.js";
-import { defaultRuntime } from "../../runtime.js";
-import { resolveSendPolicy } from "../../sessions/send-policy.js";
-import { normalizeSessionDeliveryFields } from "../../utils/delivery-context.js";
+} from "../../infra/outbound/agent-delivery.ts";
+import { normalizeAgentId } from "../../routing/session-key.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { resolveSendPolicy } from "../../sessions/send-policy.ts";
+import { normalizeSessionDeliveryFields } from "../../utils/delivery-context.ts";
 import {
   INTERNAL_MESSAGE_CHANNEL,
   isDeliverableMessageChannel,
   isGatewayMessageChannel,
   normalizeMessageChannel,
-} from "../../utils/message-channel.js";
-import { resolveAssistantIdentity } from "../assistant-identity.js";
-import { parseMessageWithAttachments } from "../chat-attachments.js";
-import { resolveAssistantAvatarUrl } from "../control-ui-shared.js";
+} from "../../utils/message-channel.ts";
+import { resolveAssistantIdentity } from "../assistant-identity.ts";
+import { parseMessageWithAttachments } from "../chat-attachments.ts";
+import { resolveAssistantAvatarUrl } from "../control-ui-shared.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -35,11 +35,11 @@ import {
   validateAgentIdentityParams,
   validateAgentParams,
   validateAgentWaitParams,
-} from "../protocol/index.js";
-import { loadSessionEntry } from "../session-utils.js";
-import { formatForLog } from "../ws-log.js";
-import { waitForAgentJob } from "./agent-job.js";
-import { injectTimestamp, timestampOptsFromConfig } from "./agent-timestamp.js";
+} from "../protocol/index.ts";
+import { loadSessionEntry } from "../session-utils.ts";
+import { formatForLog } from "../ws-log.ts";
+import { waitForAgentJob } from "./agent-job.ts";
+import { injectTimestamp, timestampOptsFromConfig } from "./agent-timestamp.ts";
 
 export const agentHandlers: GatewayRequestHandlers = {
   agent: async ({ params, respond, context }) => {

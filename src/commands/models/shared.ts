@@ -1,18 +1,18 @@
-import { listAgentIds } from "../../agents/agent-scope.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.js";
+import { listAgentIds } from "../../agents/agent-scope.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.ts";
 import {
   buildModelAliasIndex,
   modelKey,
   parseModelRef,
   resolveModelRefFromString,
-} from "../../agents/model-selection.js";
-import { formatCliCommand } from "../../cli/command-format.js";
+} from "../../agents/model-selection.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
 import {
-  type OpenClawConfig,
+  type CmlHiveAssistConfig,
   readConfigFileSnapshot,
   writeConfigFile,
-} from "../../config/config.js";
-import { normalizeAgentId } from "../../routing/session-key.js";
+} from "../../config/config.ts";
+import { normalizeAgentId } from "../../routing/session-key.ts";
 
 export const ensureFlagCompatibility = (opts: { json?: boolean; plain?: boolean }) => {
   if (opts.json && opts.plain) {
@@ -44,8 +44,8 @@ export const formatMs = (value?: number | null) => {
 };
 
 export async function updateConfig(
-  mutator: (cfg: OpenClawConfig) => OpenClawConfig,
-): Promise<OpenClawConfig> {
+  mutator: (cfg: CmlHiveAssistConfig) => CmlHiveAssistConfig,
+): Promise<CmlHiveAssistConfig> {
   const snapshot = await readConfigFileSnapshot();
   if (!snapshot.valid) {
     const issues = snapshot.issues.map((issue) => `- ${issue.path}: ${issue.message}`).join("\n");
@@ -56,7 +56,7 @@ export async function updateConfig(
   return next;
 }
 
-export function resolveModelTarget(params: { raw: string; cfg: OpenClawConfig }): {
+export function resolveModelTarget(params: { raw: string; cfg: CmlHiveAssistConfig }): {
   provider: string;
   model: string;
 } {
@@ -75,7 +75,7 @@ export function resolveModelTarget(params: { raw: string; cfg: OpenClawConfig })
   return resolved.ref;
 }
 
-export function buildAllowlistSet(cfg: OpenClawConfig): Set<string> {
+export function buildAllowlistSet(cfg: CmlHiveAssistConfig): Set<string> {
   const allowed = new Set<string>();
   const models = cfg.agents?.defaults?.models ?? {};
   for (const raw of Object.keys(models)) {
@@ -100,7 +100,7 @@ export function normalizeAlias(alias: string): string {
 }
 
 export function resolveKnownAgentId(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   rawAgentId?: string | null;
 }): string | undefined {
   const raw = params.rawAgentId?.trim();
@@ -111,7 +111,7 @@ export function resolveKnownAgentId(params: {
   const knownAgents = listAgentIds(params.cfg);
   if (!knownAgents.includes(agentId)) {
     throw new Error(
-      `Unknown agent id "${raw}". Use "${formatCliCommand("openclaw agents list")}" to see configured agents.`,
+      `Unknown agent id "${raw}". Use "${formatCliCommand("cml-hive-assist agents list")}" to see configured agents.`,
     );
   }
   return agentId;

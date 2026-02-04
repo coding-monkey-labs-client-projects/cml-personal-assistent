@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { RuntimeEnv } from "../../../runtime.js";
-import type { OnboardOptions } from "../../onboard-types.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { RuntimeEnv } from "../../../runtime.ts";
+import type { OnboardOptions } from "../../onboard-types.ts";
 
 export function applyNonInteractiveSkillsConfig(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: CmlHiveAssistConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
 }) {

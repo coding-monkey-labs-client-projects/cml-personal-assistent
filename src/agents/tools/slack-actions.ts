@@ -1,6 +1,6 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { OpenClawConfig } from "../../config/config.js";
-import { resolveSlackAccount } from "../../slack/accounts.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { resolveSlackAccount } from "../../slack/accounts.ts";
 import {
   deleteSlackMessage,
   editSlackMessage,
@@ -15,10 +15,10 @@ import {
   removeSlackReaction,
   sendSlackMessage,
   unpinSlackMessage,
-} from "../../slack/actions.js";
-import { parseSlackTarget, resolveSlackChannelId } from "../../slack/targets.js";
-import { withNormalizedTimestamp } from "../date-time.js";
-import { createActionGate, jsonResult, readReactionParams, readStringParam } from "./common.js";
+} from "../../slack/actions.ts";
+import { parseSlackTarget, resolveSlackChannelId } from "../../slack/targets.ts";
+import { withNormalizedTimestamp } from "../date-time.ts";
+import { createActionGate, jsonResult, readReactionParams, readStringParam } from "./common.ts";
 
 const messagingActions = new Set(["sendMessage", "editMessage", "deleteMessage", "readMessages"]);
 
@@ -80,7 +80,7 @@ function resolveThreadTsFromContext(
 
 export async function handleSlackAction(
   params: Record<string, unknown>,
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   context?: SlackActionContext,
 ): Promise<AgentToolResult<unknown>> {
   const resolveChannelId = () =>

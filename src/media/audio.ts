@@ -1,4 +1,4 @@
-import { getFileExtension } from "./mime.js";
+import { getFileExtension } from "./mime.ts";
 
 const VOICE_AUDIO_EXTENSIONS = new Set([".oga", ".ogg", ".opus"]);
 

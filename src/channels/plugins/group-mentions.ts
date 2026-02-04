@@ -1,18 +1,18 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { DiscordConfig } from "../../config/types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { DiscordConfig } from "../../config/types.ts";
 import type {
   GroupToolPolicyBySenderConfig,
   GroupToolPolicyConfig,
-} from "../../config/types.tools.js";
+} from "../../config/types.tools.ts";
 import {
   resolveChannelGroupRequireMention,
   resolveChannelGroupToolsPolicy,
   resolveToolsBySender,
-} from "../../config/group-policy.js";
-import { resolveSlackAccount } from "../../slack/accounts.js";
+} from "../../config/group-policy.ts";
+import { resolveSlackAccount } from "../../slack/accounts.ts";
 
 type GroupMentionParams = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   groupId?: string | null;
   groupChannel?: string | null;
   groupSpace?: string | null;
@@ -69,7 +69,7 @@ function parseTelegramGroupId(value?: string | null) {
 }
 
 function resolveTelegramRequireMention(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   chatId?: string;
   topicId?: string;
 }): boolean | undefined {

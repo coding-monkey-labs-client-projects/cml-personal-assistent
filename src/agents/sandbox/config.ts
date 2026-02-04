@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
 import type {
   SandboxBrowserConfig,
   SandboxConfig,
   SandboxDockerConfig,
   SandboxPruneConfig,
   SandboxScope,
-} from "./types.js";
-import { resolveAgentConfig } from "../agent-scope.js";
+} from "./types.ts";
+import { resolveAgentConfig } from "../agent-scope.ts";
 import {
   DEFAULT_SANDBOX_BROWSER_AUTOSTART_TIMEOUT_MS,
   DEFAULT_SANDBOX_BROWSER_CDP_PORT,
@@ -20,8 +20,8 @@ import {
   DEFAULT_SANDBOX_MAX_AGE_DAYS,
   DEFAULT_SANDBOX_WORKDIR,
   DEFAULT_SANDBOX_WORKSPACE_ROOT,
-} from "./constants.js";
-import { resolveSandboxToolPolicyForAgent } from "./tool-policy.js";
+} from "./constants.ts";
+import { resolveSandboxToolPolicyForAgent } from "./tool-policy.ts";
 
 export function resolveSandboxScope(params: {
   scope?: SandboxScope;
@@ -124,7 +124,7 @@ export function resolveSandboxPruneConfig(params: {
 }
 
 export function resolveSandboxConfigForAgent(
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   agentId?: string,
 ): SandboxConfig {
   const agent = cfg?.agents?.defaults?.sandbox;

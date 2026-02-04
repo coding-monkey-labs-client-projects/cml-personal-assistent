@@ -1,12 +1,12 @@
-import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
-import { resolveEnvApiKey } from "../agents/model-auth.js";
+import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.ts";
+import { resolveEnvApiKey } from "../agents/model-auth.ts";
 import {
   formatApiKeyPreview,
   normalizeApiKeyInput,
   validateApiKeyInput,
-} from "./auth-choice.api-key.js";
-import { applyAuthChoicePluginProvider } from "./auth-choice.apply.plugin-provider.js";
-import { applyDefaultModelChoice } from "./auth-choice.default-model.js";
+} from "./auth-choice.api-key.ts";
+import { applyAuthChoicePluginProvider } from "./auth-choice.apply.plugin-provider.ts";
+import { applyDefaultModelChoice } from "./auth-choice.default-model.ts";
 import {
   applyAuthProfileConfig,
   applyMinimaxApiConfig,
@@ -14,7 +14,7 @@ import {
   applyMinimaxConfig,
   applyMinimaxProviderConfig,
   setMinimaxApiKey,
-} from "./onboard-auth.js";
+} from "./onboard-auth.ts";
 
 export async function applyAuthChoiceMiniMax(
   params: ApplyAuthChoiceParams,

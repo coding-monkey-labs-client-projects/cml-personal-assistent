@@ -1,0 +1,5 @@
+import CmlHiveAssistKit
+import CmlHiveAssistProtocol
+
+typealias ProtoAnyCodable = CmlHiveAssistProtocol.AnyCodable
+typealias KitAnyCodable = CmlHiveAssistKit.AnyCodable

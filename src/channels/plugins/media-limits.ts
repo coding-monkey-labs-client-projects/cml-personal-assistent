@@ -1,13 +1,13 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import { normalizeAccountId } from "../../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { normalizeAccountId } from "../../routing/session-key.ts";
 
 const MB = 1024 * 1024;
 
 export function resolveChannelMediaMaxBytes(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   // Channel-specific config lives under different keys; keep this helper generic
   // so shared plugin helpers don't need channel-id branching.
-  resolveChannelLimitMb: (params: { cfg: OpenClawConfig; accountId: string }) => number | undefined;
+  resolveChannelLimitMb: (params: { cfg: CmlHiveAssistConfig; accountId: string }) => number | undefined;
   accountId?: string | null;
 }): number | undefined {
   const accountId = normalizeAccountId(params.accountId);

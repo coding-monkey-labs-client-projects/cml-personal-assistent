@@ -1,16 +1,16 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { GatewayRequestHandlers } from "./types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { GatewayRequestHandlers } from "./types.ts";
 import {
   listAgentIds,
   resolveAgentWorkspaceDir,
   resolveDefaultAgentId,
-} from "../../agents/agent-scope.js";
-import { installSkill } from "../../agents/skills-install.js";
-import { buildWorkspaceSkillStatus } from "../../agents/skills-status.js";
-import { loadWorkspaceSkillEntries, type SkillEntry } from "../../agents/skills.js";
-import { loadConfig, writeConfigFile } from "../../config/config.js";
-import { getRemoteSkillEligibility } from "../../infra/skills-remote.js";
-import { normalizeAgentId } from "../../routing/session-key.js";
+} from "../../agents/agent-scope.ts";
+import { installSkill } from "../../agents/skills-install.ts";
+import { buildWorkspaceSkillStatus } from "../../agents/skills-status.ts";
+import { loadWorkspaceSkillEntries, type SkillEntry } from "../../agents/skills.ts";
+import { loadConfig, writeConfigFile } from "../../config/config.ts";
+import { getRemoteSkillEligibility } from "../../infra/skills-remote.ts";
+import { normalizeAgentId } from "../../routing/session-key.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -19,9 +19,9 @@ import {
   validateSkillsInstallParams,
   validateSkillsStatusParams,
   validateSkillsUpdateParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 
-function listWorkspaceDirs(cfg: OpenClawConfig): string[] {
+function listWorkspaceDirs(cfg: CmlHiveAssistConfig): string[] {
   const dirs = new Set<string>();
   const list = cfg.agents?.list;
   if (Array.isArray(list)) {
@@ -206,7 +206,7 @@ export const skillsHandlers: GatewayRequestHandlers = {
     }
     entries[p.skillKey] = current;
     skills.entries = entries;
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: CmlHiveAssistConfig = {
       ...cfg,
       skills,
     };

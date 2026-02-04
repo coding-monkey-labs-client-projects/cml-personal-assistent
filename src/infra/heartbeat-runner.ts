@@ -1,30 +1,30 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { ReplyPayload } from "../auto-reply/types.js";
-import type { ChannelHeartbeatDeps } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { AgentDefaultsConfig } from "../config/types.agent-defaults.js";
-import type { OutboundSendDeps } from "./outbound/deliver.js";
+import type { ReplyPayload } from "../auto-reply/types.ts";
+import type { ChannelHeartbeatDeps } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { AgentDefaultsConfig } from "../config/types.agent-defaults.ts";
+import type { OutboundSendDeps } from "./outbound/deliver.ts";
 import {
   resolveAgentConfig,
   resolveAgentWorkspaceDir,
   resolveDefaultAgentId,
-} from "../agents/agent-scope.js";
-import { resolveUserTimezone } from "../agents/date-time.js";
-import { resolveEffectiveMessagesConfig } from "../agents/identity.js";
-import { DEFAULT_HEARTBEAT_FILENAME } from "../agents/workspace.js";
+} from "../agents/agent-scope.ts";
+import { resolveUserTimezone } from "../agents/date-time.ts";
+import { resolveEffectiveMessagesConfig } from "../agents/identity.ts";
+import { DEFAULT_HEARTBEAT_FILENAME } from "../agents/workspace.ts";
 import {
   DEFAULT_HEARTBEAT_ACK_MAX_CHARS,
   DEFAULT_HEARTBEAT_EVERY,
   isHeartbeatContentEffectivelyEmpty,
   resolveHeartbeatPrompt as resolveHeartbeatPromptText,
   stripHeartbeatToken,
-} from "../auto-reply/heartbeat.js";
-import { getReplyFromConfig } from "../auto-reply/reply.js";
-import { HEARTBEAT_TOKEN } from "../auto-reply/tokens.js";
-import { getChannelPlugin } from "../channels/plugins/index.js";
-import { parseDurationMs } from "../cli/parse-duration.js";
-import { loadConfig } from "../config/config.js";
+} from "../auto-reply/heartbeat.ts";
+import { getReplyFromConfig } from "../auto-reply/reply.ts";
+import { HEARTBEAT_TOKEN } from "../auto-reply/tokens.ts";
+import { getChannelPlugin } from "../channels/plugins/index.ts";
+import { parseDurationMs } from "../cli/parse-duration.ts";
+import { loadConfig } from "../config/config.ts";
 import {
   canonicalizeMainSessionAlias,
   loadSessionStore,
@@ -33,27 +33,27 @@ import {
   resolveStorePath,
   saveSessionStore,
   updateSessionStore,
-} from "../config/sessions.js";
-import { formatErrorMessage } from "../infra/errors.js";
-import { peekSystemEvents } from "../infra/system-events.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { getQueueSize } from "../process/command-queue.js";
-import { CommandLane } from "../process/lanes.js";
-import { normalizeAgentId, toAgentStoreSessionKey } from "../routing/session-key.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
-import { emitHeartbeatEvent, resolveIndicatorType } from "./heartbeat-events.js";
-import { resolveHeartbeatVisibility } from "./heartbeat-visibility.js";
+} from "../config/sessions.ts";
+import { formatErrorMessage } from "./errors.ts";
+import { peekSystemEvents } from "./system-events.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { getQueueSize } from "../process/command-queue.ts";
+import { CommandLane } from "../process/lanes.ts";
+import { normalizeAgentId, toAgentStoreSessionKey } from "../routing/session-key.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
+import { emitHeartbeatEvent, resolveIndicatorType } from "./heartbeat-events.ts";
+import { resolveHeartbeatVisibility } from "./heartbeat-visibility.ts";
 import {
   type HeartbeatRunResult,
   type HeartbeatWakeHandler,
   requestHeartbeatNow,
   setHeartbeatWakeHandler,
-} from "./heartbeat-wake.js";
-import { deliverOutboundPayloads } from "./outbound/deliver.js";
+} from "./heartbeat-wake.ts";
+import { deliverOutboundPayloads } from "./outbound/deliver.ts";
 import {
   resolveHeartbeatDeliveryTarget,
   resolveHeartbeatSenderContext,
-} from "./outbound/targets.js";
+} from "./outbound/targets.ts";
 
 type HeartbeatDeps = OutboundSendDeps &
   ChannelHeartbeatDeps & {
@@ -96,7 +96,7 @@ const EXEC_EVENT_PROMPT =
   "Please relay the command output to the user in a helpful way. If the command succeeded, share the relevant output. " +
   "If it failed, explain what went wrong.";
 
-function resolveActiveHoursTimezone(cfg: OpenClawConfig, raw?: string): string {
+function resolveActiveHoursTimezone(cfg: CmlHiveAssistConfig, raw?: string): string {
   const trimmed = raw?.trim();
   if (!trimmed || trimmed === "user") {
     return resolveUserTimezone(cfg.agents?.defaults?.userTimezone);
@@ -158,7 +158,7 @@ function resolveMinutesInTimeZone(nowMs: number, timeZone: string): number | nul
 }
 
 function isWithinActiveHours(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   heartbeat?: HeartbeatConfig,
   nowMs?: number,
 ): boolean {
@@ -198,15 +198,15 @@ type HeartbeatAgentState = {
 
 export type HeartbeatRunner = {
   stop: () => void;
-  updateConfig: (cfg: OpenClawConfig) => void;
+  updateConfig: (cfg: CmlHiveAssistConfig) => void;
 };
 
-function hasExplicitHeartbeatAgents(cfg: OpenClawConfig) {
+function hasExplicitHeartbeatAgents(cfg: CmlHiveAssistConfig) {
   const list = cfg.agents?.list ?? [];
   return list.some((entry) => Boolean(entry?.heartbeat));
 }
 
-export function isHeartbeatEnabledForAgent(cfg: OpenClawConfig, agentId?: string): boolean {
+export function isHeartbeatEnabledForAgent(cfg: CmlHiveAssistConfig, agentId?: string): boolean {
   const resolvedAgentId = normalizeAgentId(agentId ?? resolveDefaultAgentId(cfg));
   const list = cfg.agents?.list ?? [];
   const hasExplicit = hasExplicitHeartbeatAgents(cfg);
@@ -219,7 +219,7 @@ export function isHeartbeatEnabledForAgent(cfg: OpenClawConfig, agentId?: string
 }
 
 function resolveHeartbeatConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   agentId?: string,
 ): HeartbeatConfig | undefined {
   const defaults = cfg.agents?.defaults?.heartbeat;
@@ -234,7 +234,7 @@ function resolveHeartbeatConfig(
 }
 
 export function resolveHeartbeatSummaryForAgent(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   agentId?: string,
 ): HeartbeatSummary {
   const defaults = cfg.agents?.defaults?.heartbeat;
@@ -281,7 +281,7 @@ export function resolveHeartbeatSummaryForAgent(
   };
 }
 
-function resolveHeartbeatAgents(cfg: OpenClawConfig): HeartbeatAgent[] {
+function resolveHeartbeatAgents(cfg: CmlHiveAssistConfig): HeartbeatAgent[] {
   const list = cfg.agents?.list ?? [];
   if (hasExplicitHeartbeatAgents(cfg)) {
     return list
@@ -297,7 +297,7 @@ function resolveHeartbeatAgents(cfg: OpenClawConfig): HeartbeatAgent[] {
 }
 
 export function resolveHeartbeatIntervalMs(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   overrideEvery?: string,
   heartbeat?: HeartbeatConfig,
 ) {
@@ -325,11 +325,11 @@ export function resolveHeartbeatIntervalMs(
   return ms;
 }
 
-export function resolveHeartbeatPrompt(cfg: OpenClawConfig, heartbeat?: HeartbeatConfig) {
+export function resolveHeartbeatPrompt(cfg: CmlHiveAssistConfig, heartbeat?: HeartbeatConfig) {
   return resolveHeartbeatPromptText(heartbeat?.prompt ?? cfg.agents?.defaults?.heartbeat?.prompt);
 }
 
-function resolveHeartbeatAckMaxChars(cfg: OpenClawConfig, heartbeat?: HeartbeatConfig) {
+function resolveHeartbeatAckMaxChars(cfg: CmlHiveAssistConfig, heartbeat?: HeartbeatConfig) {
   return Math.max(
     0,
     heartbeat?.ackMaxChars ??
@@ -339,7 +339,7 @@ function resolveHeartbeatAckMaxChars(cfg: OpenClawConfig, heartbeat?: HeartbeatC
 }
 
 function resolveHeartbeatSession(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   agentId?: string,
   heartbeat?: HeartbeatConfig,
 ) {
@@ -474,7 +474,7 @@ function normalizeHeartbeatReply(
 }
 
 export async function runHeartbeatOnce(opts: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   agentId?: string;
   heartbeat?: HeartbeatConfig;
   reason?: string;
@@ -805,7 +805,7 @@ export async function runHeartbeatOnce(opts: {
 }
 
 export function startHeartbeatRunner(opts: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   runOnce?: typeof runHeartbeatOnce;
@@ -859,7 +859,7 @@ export function startHeartbeatRunner(opts: {
     state.timer.unref?.();
   };
 
-  const updateConfig = (cfg: OpenClawConfig) => {
+  const updateConfig = (cfg: CmlHiveAssistConfig) => {
     if (state.stopped) {
       return;
     }

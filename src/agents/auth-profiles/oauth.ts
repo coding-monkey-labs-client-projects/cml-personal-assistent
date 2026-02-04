@@ -5,15 +5,15 @@ import {
   type OAuthProvider,
 } from "@mariozechner/pi-ai";
 import lockfile from "proper-lockfile";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AuthProfileStore } from "./types.js";
-import { refreshQwenPortalCredentials } from "../../providers/qwen-portal-oauth.js";
-import { refreshChutesTokens } from "../chutes-oauth.js";
-import { AUTH_STORE_LOCK_OPTIONS, log } from "./constants.js";
-import { formatAuthDoctorHint } from "./doctor.js";
-import { ensureAuthStoreFile, resolveAuthStorePath } from "./paths.js";
-import { suggestOAuthProfileIdForLegacyDefault } from "./repair.js";
-import { ensureAuthProfileStore, saveAuthProfileStore } from "./store.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AuthProfileStore } from "./types.ts";
+import { refreshQwenPortalCredentials } from "../../providers/qwen-portal-oauth.ts";
+import { refreshChutesTokens } from "../chutes-oauth.ts";
+import { AUTH_STORE_LOCK_OPTIONS, log } from "./constants.ts";
+import { formatAuthDoctorHint } from "./doctor.ts";
+import { ensureAuthStoreFile, resolveAuthStorePath } from "./paths.ts";
+import { suggestOAuthProfileIdForLegacyDefault } from "./repair.ts";
+import { ensureAuthProfileStore, saveAuthProfileStore } from "./store.ts";
 
 const OAUTH_PROVIDER_IDS = new Set<string>(getOAuthProviders().map((provider) => provider.id));
 
@@ -106,7 +106,7 @@ async function refreshOAuthTokenWithLock(params: {
 }
 
 async function tryResolveOAuthProfile(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   store: AuthProfileStore;
   profileId: string;
   agentDir?: string;
@@ -147,7 +147,7 @@ async function tryResolveOAuthProfile(params: {
 }
 
 export async function resolveApiKeyForProfile(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   store: AuthProfileStore;
   profileId: string;
   agentDir?: string;

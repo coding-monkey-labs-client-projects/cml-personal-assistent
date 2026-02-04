@@ -6,7 +6,7 @@ import {
   resolvePinnedHostnameWithPolicy,
   type LookupFn,
   type SsrFPolicy,
-} from "./ssrf.js";
+} from "./ssrf.ts";
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 

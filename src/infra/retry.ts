@@ -1,4 +1,4 @@
-import { sleep } from "../utils.js";
+import { sleep } from "../utils.ts";
 
 export type RetryConfig = {
   attempts?: number;

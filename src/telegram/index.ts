@@ -1,4 +1,4 @@
-export { createTelegramBot, createTelegramWebhookCallback } from "./bot.js";
-export { monitorTelegramProvider } from "./monitor.js";
-export { reactMessageTelegram, sendMessageTelegram } from "./send.js";
-export { startTelegramWebhook } from "./webhook.js";
+export { createTelegramBot, createTelegramWebhookCallback } from "./bot.ts";
+export { monitorTelegramProvider } from "./monitor.ts";
+export { reactMessageTelegram, sendMessageTelegram } from "./send.ts";
+export { startTelegramWebhook } from "./webhook.ts";

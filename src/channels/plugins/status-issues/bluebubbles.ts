@@ -1,5 +1,5 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.js";
-import { asString, isRecord } from "./shared.js";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.ts";
+import { asString, isRecord } from "./shared.ts";
 
 type BlueBubblesAccountStatus = {
   accountId?: unknown;
@@ -72,7 +72,7 @@ export function collectBlueBubblesStatusIssues(
         accountId,
         kind: "config",
         message: "Not configured (missing serverUrl or password).",
-        fix: "Run: openclaw channels add bluebubbles --http-url <server-url> --password <password>",
+        fix: "Run: cml-hive-assist channels add bluebubbles --http-url <server-url> --password <password>",
       });
       continue;
     }

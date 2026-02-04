@@ -2,7 +2,7 @@
 read_when:
   - 遇到连接/认证问题并需要引导修复
   - 更新后想要进行安装完整性检查
-summary: "`openclaw doctor` 的 CLI 参考（健康检查 + 引导修复）"
+summary: "`cml-hive-assist doctor` 的 CLI 参考（健康检查 + 引导修复）"
 title: doctor
 x-i18n:
   generated_at: "2026-02-01T19:58:59Z"
@@ -13,7 +13,7 @@ x-i18n:
   workflow: 14
 ---
 
-# `openclaw doctor`
+# `cml-hive-assist doctor`
 
 Gateway网关和渠道的健康检查 + 快速修复。
 
@@ -25,15 +25,15 @@ Gateway网关和渠道的健康检查 + 快速修复。
 ## 示例
 
 ```bash
-openclaw doctor
-openclaw doctor --repair
-openclaw doctor --deep
+cml-hive-assist doctor
+cml-hive-assist doctor --repair
+cml-hive-assist doctor --deep
 ```
 
 备注：
 
 - 交互式提示（如钥匙串/OAuth 修复）仅在 stdin 为 TTY 且**未**设置 `--non-interactive` 时运行。无头运行（cron、Telegram、无终端）将跳过提示。
-- `--fix`（`--repair` 的别名）会将备份写入 `~/.openclaw/openclaw.json.bak`，并删除未知的配置键，同时列出每个删除项。
+- `--fix`（`--repair` 的别名）会将备份写入 `~/.cml-hive-assist/cml-hive-assist.json.bak`，并删除未知的配置键，同时列出每个删除项。
 
 ## macOS：`launchctl` 环境变量覆盖
 

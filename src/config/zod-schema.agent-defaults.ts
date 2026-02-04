@@ -5,13 +5,13 @@ import {
   SandboxBrowserSchema,
   SandboxDockerSchema,
   SandboxPruneSchema,
-} from "./zod-schema.agent-runtime.js";
+} from "./zod-schema.agent-runtime.ts";
 import {
   BlockStreamingChunkSchema,
   BlockStreamingCoalesceSchema,
   CliBackendSchema,
   HumanDelaySchema,
-} from "./zod-schema.core.js";
+} from "./zod-schema.core.ts";
 
 export const AgentDefaultsSchema = z
   .object({

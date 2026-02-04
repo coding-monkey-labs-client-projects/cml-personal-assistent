@@ -1,12 +1,12 @@
-import type { ChannelAccountSnapshot } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { createSubsystemLogger } from "../logging/subsystem.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { type ChannelId, getChannelPlugin, listChannelPlugins } from "../channels/plugins/index.js";
-import { formatErrorMessage } from "../infra/errors.js";
-import { resetDirectoryCache } from "../infra/outbound/target-resolver.js";
-import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
+import type { ChannelAccountSnapshot } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { createSubsystemLogger } from "../logging/subsystem.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { type ChannelId, getChannelPlugin, listChannelPlugins } from "../channels/plugins/index.ts";
+import { formatErrorMessage } from "../infra/errors.ts";
+import { resetDirectoryCache } from "../infra/outbound/target-resolver.ts";
+import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.ts";
 
 export type ChannelRuntimeSnapshot = {
   channels: Partial<Record<ChannelId, ChannelAccountSnapshot>>;
@@ -47,7 +47,7 @@ function cloneDefaultRuntime(channelId: ChannelId, accountId: string): ChannelAc
 }
 
 type ChannelManagerOptions = {
-  loadConfig: () => OpenClawConfig;
+  loadConfig: () => CmlHiveAssistConfig;
   channelLogs: Record<ChannelId, SubsystemLogger>;
   channelRuntimeEnvs: Record<ChannelId, RuntimeEnv>;
 };

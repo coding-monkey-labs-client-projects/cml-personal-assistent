@@ -1,25 +1,25 @@
-import type { MessagingToolSend } from "../../agents/pi-embedded-messaging.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AgentDefaultsConfig } from "../../config/types.js";
-import type { CronJob } from "../types.js";
+import type { MessagingToolSend } from "../../agents/pi-embedded-messaging.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AgentDefaultsConfig } from "../../config/types.ts";
+import type { CronJob } from "../types.ts";
 import {
   resolveAgentConfig,
   resolveAgentDir,
   resolveAgentModelFallbacksOverride,
   resolveAgentWorkspaceDir,
   resolveDefaultAgentId,
-} from "../../agents/agent-scope.js";
-import { runCliAgent } from "../../agents/cli-runner.js";
-import { getCliSessionId, setCliSessionId } from "../../agents/cli-session.js";
-import { lookupContextTokens } from "../../agents/context.js";
+} from "../../agents/agent-scope.ts";
+import { runCliAgent } from "../../agents/cli-runner.ts";
+import { getCliSessionId, setCliSessionId } from "../../agents/cli-session.ts";
+import { lookupContextTokens } from "../../agents/context.ts";
 import {
   formatUserTime,
   resolveUserTimeFormat,
   resolveUserTimezone,
-} from "../../agents/date-time.js";
-import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.js";
-import { loadModelCatalog } from "../../agents/model-catalog.js";
-import { runWithModelFallback } from "../../agents/model-fallback.js";
+} from "../../agents/date-time.ts";
+import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.ts";
+import { loadModelCatalog } from "../../agents/model-catalog.ts";
+import { runWithModelFallback } from "../../agents/model-fallback.ts";
 import {
   getModelRefStatus,
   isCliProvider,
@@ -27,41 +27,41 @@ import {
   resolveConfiguredModelRef,
   resolveHooksGmailModel,
   resolveThinkingDefault,
-} from "../../agents/model-selection.js";
-import { runEmbeddedPiAgent } from "../../agents/pi-embedded.js";
-import { buildWorkspaceSkillSnapshot } from "../../agents/skills.js";
-import { getSkillsSnapshotVersion } from "../../agents/skills/refresh.js";
-import { resolveAgentTimeoutMs } from "../../agents/timeout.js";
-import { hasNonzeroUsage } from "../../agents/usage.js";
-import { ensureAgentWorkspace } from "../../agents/workspace.js";
+} from "../../agents/model-selection.ts";
+import { runEmbeddedPiAgent } from "../../agents/pi-embedded.ts";
+import { buildWorkspaceSkillSnapshot } from "../../agents/skills.ts";
+import { getSkillsSnapshotVersion } from "../../agents/skills/refresh.ts";
+import { resolveAgentTimeoutMs } from "../../agents/timeout.ts";
+import { hasNonzeroUsage } from "../../agents/usage.ts";
+import { ensureAgentWorkspace } from "../../agents/workspace.ts";
 import {
   formatXHighModelHint,
   normalizeThinkLevel,
   normalizeVerboseLevel,
   supportsXHighThinking,
-} from "../../auto-reply/thinking.js";
-import { createOutboundSendDeps, type CliDeps } from "../../cli/outbound-send-deps.js";
-import { resolveSessionTranscriptPath, updateSessionStore } from "../../config/sessions.js";
-import { registerAgentRunContext } from "../../infra/agent-events.js";
-import { deliverOutboundPayloads } from "../../infra/outbound/deliver.js";
-import { getRemoteSkillEligibility } from "../../infra/skills-remote.js";
-import { logWarn } from "../../logger.js";
-import { buildAgentMainSessionKey, normalizeAgentId } from "../../routing/session-key.js";
+} from "../../auto-reply/thinking.ts";
+import { createOutboundSendDeps, type CliDeps } from "../../cli/outbound-send-deps.ts";
+import { resolveSessionTranscriptPath, updateSessionStore } from "../../config/sessions.ts";
+import { registerAgentRunContext } from "../../infra/agent-events.ts";
+import { deliverOutboundPayloads } from "../../infra/outbound/deliver.ts";
+import { getRemoteSkillEligibility } from "../../infra/skills-remote.ts";
+import { logWarn } from "../../logger.ts";
+import { buildAgentMainSessionKey, normalizeAgentId } from "../../routing/session-key.ts";
 import {
   buildSafeExternalPrompt,
   detectSuspiciousPatterns,
   getHookType,
   isExternalHookSession,
-} from "../../security/external-content.js";
-import { resolveDeliveryTarget } from "./delivery-target.js";
+} from "../../security/external-content.ts";
+import { resolveDeliveryTarget } from "./delivery-target.ts";
 import {
   isHeartbeatOnlyResponse,
   pickLastNonEmptyTextFromPayloads,
   pickSummaryFromOutput,
   pickSummaryFromPayloads,
   resolveHeartbeatAckMaxChars,
-} from "./helpers.js";
-import { resolveCronSession } from "./session.js";
+} from "./helpers.ts";
+import { resolveCronSession } from "./session.ts";
 
 function matchesMessagingToolDeliveryTarget(
   target: MessagingToolSend,
@@ -90,7 +90,7 @@ export type RunCronAgentTurnResult = {
 };
 
 export async function runCronIsolatedAgentTurn(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   deps: CliDeps;
   job: CronJob;
   message: string;
@@ -121,7 +121,7 @@ export async function runCronIsolatedAgentTurn(params: {
   } else if (overrideModel) {
     agentCfg.model = overrideModel;
   }
-  const cfgWithAgentDefaults: OpenClawConfig = {
+  const cfgWithAgentDefaults: CmlHiveAssistConfig = {
     ...params.cfg,
     agents: Object.assign({}, params.cfg.agents, { defaults: agentCfg }),
   };

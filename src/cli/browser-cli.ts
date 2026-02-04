@@ -1,25 +1,25 @@
 import type { Command } from "commander";
-import type { BrowserParentOpts } from "./browser-cli-shared.js";
-import { danger } from "../globals.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { registerBrowserActionInputCommands } from "./browser-cli-actions-input.js";
-import { registerBrowserActionObserveCommands } from "./browser-cli-actions-observe.js";
-import { registerBrowserDebugCommands } from "./browser-cli-debug.js";
-import { browserActionExamples, browserCoreExamples } from "./browser-cli-examples.js";
-import { registerBrowserExtensionCommands } from "./browser-cli-extension.js";
-import { registerBrowserInspectCommands } from "./browser-cli-inspect.js";
-import { registerBrowserManageCommands } from "./browser-cli-manage.js";
-import { registerBrowserStateCommands } from "./browser-cli-state.js";
-import { formatCliCommand } from "./command-format.js";
-import { addGatewayClientOptions } from "./gateway-rpc.js";
-import { formatHelpExamples } from "./help-format.js";
+import type { BrowserParentOpts } from "./browser-cli-shared.ts";
+import { danger } from "../globals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { registerBrowserActionInputCommands } from "./browser-cli-actions-input.ts";
+import { registerBrowserActionObserveCommands } from "./browser-cli-actions-observe.ts";
+import { registerBrowserDebugCommands } from "./browser-cli-debug.ts";
+import { browserActionExamples, browserCoreExamples } from "./browser-cli-examples.ts";
+import { registerBrowserExtensionCommands } from "./browser-cli-extension.ts";
+import { registerBrowserInspectCommands } from "./browser-cli-inspect.ts";
+import { registerBrowserManageCommands } from "./browser-cli-manage.ts";
+import { registerBrowserStateCommands } from "./browser-cli-state.ts";
+import { formatCliCommand } from "./command-format.ts";
+import { addGatewayClientOptions } from "./gateway-rpc.ts";
+import { formatHelpExamples } from "./help-format.ts";
 
 export function registerBrowserCli(program: Command) {
   const browser = program
     .command("browser")
-    .description("Manage OpenClaw's dedicated browser (Chrome/Chromium)")
+    .description("Manage CmlHiveAssist's dedicated browser (Chrome/Chromium)")
     .option("--browser-profile <name>", "Browser profile name (default from config)")
     .option("--json", "Output machine-readable JSON", false)
     .addHelpText(
@@ -30,13 +30,13 @@ export function registerBrowserCli(program: Command) {
           true,
         )}\n\n${theme.muted("Docs:")} ${formatDocsLink(
           "/cli/browser",
-          "docs.openclaw.ai/cli/browser",
+          "docs.cml-hive-assist.ai/cli/browser",
         )}\n`,
     )
     .action(() => {
       browser.outputHelp();
       defaultRuntime.error(
-        danger(`Missing subcommand. Try: "${formatCliCommand("openclaw browser status")}"`),
+        danger(`Missing subcommand. Try: "${formatCliCommand("cml-hive-assist browser status")}"`),
       );
       defaultRuntime.exit(1);
     });

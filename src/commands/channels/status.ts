@@ -1,16 +1,16 @@
-import type { ChannelAccountSnapshot } from "../../channels/plugins/types.js";
-import { listChannelPlugins } from "../../channels/plugins/index.js";
-import { buildChannelAccountSnapshot } from "../../channels/plugins/status.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { withProgress } from "../../cli/progress.js";
-import { type OpenClawConfig, readConfigFileSnapshot } from "../../config/config.js";
-import { callGateway } from "../../gateway/call.js";
-import { formatAge } from "../../infra/channel-summary.js";
-import { collectChannelStatusIssues } from "../../infra/channels-status-issues.js";
-import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { type ChatChannel, formatChannelAccountLabel, requireValidConfig } from "./shared.js";
+import type { ChannelAccountSnapshot } from "../../channels/plugins/types.ts";
+import { listChannelPlugins } from "../../channels/plugins/index.ts";
+import { buildChannelAccountSnapshot } from "../../channels/plugins/status.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { withProgress } from "../../cli/progress.ts";
+import { type CmlHiveAssistConfig, readConfigFileSnapshot } from "../../config/config.ts";
+import { callGateway } from "../../gateway/call.ts";
+import { formatAge } from "../../infra/channel-summary.ts";
+import { collectChannelStatusIssues } from "../../infra/channels-status-issues.ts";
+import { defaultRuntime, type RuntimeEnv } from "../../runtime.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { type ChatChannel, formatChannelAccountLabel, requireValidConfig } from "./shared.ts";
 
 export type ChannelsStatusOptions = {
   json?: boolean;
@@ -151,7 +151,7 @@ export function formatGatewayChannelsStatusLines(payload: Record<string, unknown
         `- ${issue.channel} ${issue.accountId}: ${issue.message}${issue.fix ? ` (${issue.fix})` : ""}`,
       );
     }
-    lines.push(`- Run: ${formatCliCommand("openclaw doctor")}`);
+    lines.push(`- Run: ${formatCliCommand("cml-hive-assist doctor")}`);
     lines.push("");
   }
   lines.push(
@@ -161,7 +161,7 @@ export function formatGatewayChannelsStatusLines(payload: Record<string, unknown
 }
 
 async function formatConfigChannelsStatusLines(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   meta: { path?: string; mode?: "local" | "remote" },
 ): Promise<string[]> {
   const lines: string[] = [];

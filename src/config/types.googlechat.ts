@@ -3,8 +3,8 @@ import type {
   DmPolicy,
   GroupPolicy,
   ReplyToMode,
-} from "./types.base.js";
-import type { DmConfig } from "./types.messages.js";
+} from "./types.base.ts";
+import type { DmConfig } from "./types.messages.ts";
 
 export type GoogleChatDmConfig = {
   /** If false, ignore all incoming Google Chat DMs. Default: true. */

@@ -1,4 +1,4 @@
-import type { GatewayService, GatewayServiceInstallArgs } from "./service.js";
+import type { GatewayService, GatewayServiceInstallArgs } from "./service.ts";
 import {
   NODE_SERVICE_KIND,
   NODE_SERVICE_MARKER,
@@ -6,21 +6,21 @@ import {
   resolveNodeLaunchAgentLabel,
   resolveNodeSystemdServiceName,
   resolveNodeWindowsTaskName,
-} from "./constants.js";
-import { resolveGatewayService } from "./service.js";
+} from "./constants.ts";
+import { resolveGatewayService } from "./service.ts";
 
 function withNodeServiceEnv(
   env: Record<string, string | undefined>,
 ): Record<string, string | undefined> {
   return {
     ...env,
-    OPENCLAW_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-    OPENCLAW_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-    OPENCLAW_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-    OPENCLAW_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-    OPENCLAW_LOG_PREFIX: "node",
-    OPENCLAW_SERVICE_MARKER: NODE_SERVICE_MARKER,
-    OPENCLAW_SERVICE_KIND: NODE_SERVICE_KIND,
+    CML_HIVE_ASSIST_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+    CML_HIVE_ASSIST_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+    CML_HIVE_ASSIST_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+    CML_HIVE_ASSIST_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+    CML_HIVE_ASSIST_LOG_PREFIX: "node",
+    CML_HIVE_ASSIST_SERVICE_MARKER: NODE_SERVICE_MARKER,
+    CML_HIVE_ASSIST_SERVICE_KIND: NODE_SERVICE_KIND,
   };
 }
 
@@ -30,13 +30,13 @@ function withNodeInstallEnv(args: GatewayServiceInstallArgs): GatewayServiceInst
     env: withNodeServiceEnv(args.env),
     environment: {
       ...args.environment,
-      OPENCLAW_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-      OPENCLAW_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-      OPENCLAW_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-      OPENCLAW_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-      OPENCLAW_LOG_PREFIX: "node",
-      OPENCLAW_SERVICE_MARKER: NODE_SERVICE_MARKER,
-      OPENCLAW_SERVICE_KIND: NODE_SERVICE_KIND,
+      CML_HIVE_ASSIST_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+      CML_HIVE_ASSIST_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+      CML_HIVE_ASSIST_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+      CML_HIVE_ASSIST_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+      CML_HIVE_ASSIST_LOG_PREFIX: "node",
+      CML_HIVE_ASSIST_SERVICE_MARKER: NODE_SERVICE_MARKER,
+      CML_HIVE_ASSIST_SERVICE_KIND: NODE_SERVICE_KIND,
     },
   };
 }

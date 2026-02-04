@@ -1,13 +1,13 @@
 import type { TUI } from "@mariozechner/pi-tui";
-import type { ChatLog } from "./components/chat-log.js";
-import type { GatewayAgentsList, GatewayChatClient } from "./gateway-chat.js";
-import type { TuiOptions, TuiStateAccess } from "./tui-types.js";
+import type { ChatLog } from "./components/chat-log.ts";
+import type { GatewayAgentsList, GatewayChatClient } from "./gateway-chat.ts";
+import type { TuiOptions, TuiStateAccess } from "./tui-types.ts";
 import {
   normalizeAgentId,
   normalizeMainKey,
   parseAgentSessionKey,
-} from "../routing/session-key.js";
-import { asString, extractTextFromMessage, isCommandMessage } from "./tui-formatters.js";
+} from "../routing/session-key.ts";
+import { asString, extractTextFromMessage, isCommandMessage } from "./tui-formatters.ts";
 
 type SessionActionContext = {
   client: GatewayChatClient;

@@ -1,11 +1,11 @@
-import type { SkillEligibilityContext, SkillEntry } from "../agents/skills.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { NodeRegistry } from "../gateway/node-registry.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { loadWorkspaceSkillEntries } from "../agents/skills.js";
-import { bumpSkillsSnapshotVersion } from "../agents/skills/refresh.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { listNodePairing, updatePairedNodeMetadata } from "./node-pairing.js";
+import type { SkillEligibilityContext, SkillEntry } from "../agents/skills.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { NodeRegistry } from "../gateway/node-registry.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { loadWorkspaceSkillEntries } from "../agents/skills.ts";
+import { bumpSkillsSnapshotVersion } from "../agents/skills/refresh.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { listNodePairing, updatePairedNodeMetadata } from "./node-pairing.ts";
 
 type RemoteNodeRecord = {
   nodeId: string;
@@ -168,7 +168,7 @@ export function recordRemoteNodeBins(nodeId: string, bins: string[]) {
   upsertNode({ nodeId, bins });
 }
 
-function listWorkspaceDirs(cfg: OpenClawConfig): string[] {
+function listWorkspaceDirs(cfg: CmlHiveAssistConfig): string[] {
   const dirs = new Set<string>();
   const list = cfg.agents?.list;
   if (Array.isArray(list)) {
@@ -253,7 +253,7 @@ export async function refreshRemoteNodeBins(params: {
   platform?: string;
   deviceFamily?: string;
   commands?: string[];
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   timeoutMs?: number;
 }) {
   if (!remoteRegistry) {
@@ -344,7 +344,7 @@ export function getRemoteSkillEligibility(): SkillEligibilityContext["remote"] |
   };
 }
 
-export async function refreshRemoteBinsForConnectedNodes(cfg: OpenClawConfig) {
+export async function refreshRemoteBinsForConnectedNodes(cfg: CmlHiveAssistConfig) {
   if (!remoteRegistry) {
     return;
   }

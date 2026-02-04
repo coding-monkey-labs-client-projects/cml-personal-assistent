@@ -1,6 +1,6 @@
 import WebSocket from "ws";
-import { rawDataToString } from "../infra/ws.js";
-import { getChromeExtensionRelayAuthHeaders } from "./extension-relay.js";
+import { rawDataToString } from "../infra/ws.ts";
+import { getChromeExtensionRelayAuthHeaders } from "./extension-relay.ts";
 
 type CdpResponse = {
   id: number;

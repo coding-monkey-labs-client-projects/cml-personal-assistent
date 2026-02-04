@@ -4,9 +4,9 @@ import { request } from "node:https";
 import os from "node:os";
 import path from "node:path";
 import { pipeline } from "node:stream/promises";
-import type { RuntimeEnv } from "../runtime.js";
-import { runCommandWithTimeout } from "../process/exec.js";
-import { CONFIG_DIR } from "../utils.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { runCommandWithTimeout } from "../process/exec.ts";
+import { CONFIG_DIR } from "../utils.ts";
 
 type ReleaseAsset = {
   name?: string;
@@ -121,7 +121,7 @@ export async function installSignalCli(runtime: RuntimeEnv): Promise<SignalInsta
   const apiUrl = "https://api.github.com/repos/AsamK/signal-cli/releases/latest";
   const response = await fetch(apiUrl, {
     headers: {
-      "User-Agent": "openclaw",
+      "User-Agent": "cml-hive-assist",
       Accept: "application/vnd.github+json",
     },
   });
@@ -147,7 +147,7 @@ export async function installSignalCli(runtime: RuntimeEnv): Promise<SignalInsta
     };
   }
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-signal-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-signal-"));
   const archivePath = path.join(tmpDir, assetName);
 
   runtime.log(`Downloading signal-cli ${version} (${assetName})…`);

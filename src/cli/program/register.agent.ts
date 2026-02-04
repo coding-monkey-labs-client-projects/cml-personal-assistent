@@ -1,21 +1,21 @@
 import type { Command } from "commander";
-import { DEFAULT_CHAT_CHANNEL } from "../../channels/registry.js";
-import { agentCliCommand } from "../../commands/agent-via-gateway.js";
+import { DEFAULT_CHAT_CHANNEL } from "../../channels/registry.ts";
+import { agentCliCommand } from "../../commands/agent-via-gateway.ts";
 import {
   agentsAddCommand,
   agentsDeleteCommand,
   agentsListCommand,
   agentsSetIdentityCommand,
-} from "../../commands/agents.js";
-import { setVerbose } from "../../globals.js";
-import { defaultRuntime } from "../../runtime.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { runCommandWithRuntime } from "../cli-utils.js";
-import { hasExplicitOptions } from "../command-options.js";
-import { createDefaultDeps } from "../deps.js";
-import { formatHelpExamples } from "../help-format.js";
-import { collectOption } from "./helpers.js";
+} from "../../commands/agents.ts";
+import { setVerbose } from "../../globals.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { runCommandWithRuntime } from "../cli-utils.ts";
+import { hasExplicitOptions } from "../command-options.ts";
+import { createDefaultDeps } from "../deps.ts";
+import { formatHelpExamples } from "../help-format.ts";
+import { collectOption } from "./helpers.ts";
 
 export function registerAgentCommands(program: Command, args: { agentChannelOptions: string }) {
   program
@@ -51,24 +51,24 @@ export function registerAgentCommands(program: Command, args: { agentChannelOpti
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['openclaw agent --to +15555550123 --message "status update"', "Start a new session."],
-  ['openclaw agent --agent ops --message "Summarize logs"', "Use a specific agent."],
+  ['cml-hive-assist agent --to +15555550123 --message "status update"', "Start a new session."],
+  ['cml-hive-assist agent --agent ops --message "Summarize logs"', "Use a specific agent."],
   [
-    'openclaw agent --session-id 1234 --message "Summarize inbox" --thinking medium',
+    'cml-hive-assist agent --session-id 1234 --message "Summarize inbox" --thinking medium',
     "Target a session with explicit thinking level.",
   ],
   [
-    'openclaw agent --to +15555550123 --message "Trace logs" --verbose on --json',
+    'cml-hive-assist agent --to +15555550123 --message "Trace logs" --verbose on --json',
     "Enable verbose logging and JSON output.",
   ],
-  ['openclaw agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
+  ['cml-hive-assist agent --to +15555550123 --message "Summon reply" --deliver', "Deliver reply."],
   [
-    'openclaw agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
+    'cml-hive-assist agent --agent ops --message "Generate report" --deliver --reply-channel slack --reply-to "#reports"',
     "Send reply to a different channel/target.",
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.openclaw.ai/cli/agent")}`,
+${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.cml-hive-assist.ai/cli/agent")}`,
     )
     .action(async (opts) => {
       const verboseLevel = typeof opts.verbose === "string" ? opts.verbose.toLowerCase() : "";
@@ -86,7 +86,7 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.openclaw.ai/cli/age
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.openclaw.ai/cli/agents")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/agents", "docs.cml-hive-assist.ai/cli/agents")}\n`,
     );
 
   agents
@@ -155,14 +155,20 @@ ${theme.muted("Docs:")} ${formatDocsLink("/cli/agent", "docs.openclaw.ai/cli/age
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['openclaw agents set-identity --agent main --name "OpenClaw" --emoji "🦞"', "Set name + emoji."],
-  ["openclaw agents set-identity --agent main --avatar avatars/openclaw.png", "Set avatar path."],
   [
-    "openclaw agents set-identity --workspace ~/.openclaw/workspace --from-identity",
+    'cml-hive-assist agents set-identity --agent main --name "CmlHiveAssist" --emoji "🦞"',
+    "Set name + emoji.",
+  ],
+  [
+    "cml-hive-assist agents set-identity --agent main --avatar avatars/cml-hive-assist.png",
+    "Set avatar path.",
+  ],
+  [
+    "cml-hive-assist agents set-identity --workspace ~/.cml-hive-assist/workspace --from-identity",
     "Load from IDENTITY.md.",
   ],
   [
-    "openclaw agents set-identity --identity-file ~/.openclaw/workspace/IDENTITY.md --agent main",
+    "cml-hive-assist agents set-identity --identity-file ~/.cml-hive-assist/workspace/IDENTITY.md --agent main",
     "Use a specific IDENTITY.md.",
   ],
 ])}

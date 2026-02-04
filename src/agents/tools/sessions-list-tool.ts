@@ -1,10 +1,10 @@
 import { Type } from "@sinclair/typebox";
 import path from "node:path";
-import type { AnyAgentTool } from "./common.js";
-import { loadConfig } from "../../config/config.js";
-import { callGateway } from "../../gateway/call.js";
-import { isSubagentSessionKey, resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
-import { jsonResult, readStringArrayParam } from "./common.js";
+import type { AnyAgentTool } from "./common.ts";
+import { loadConfig } from "../../config/config.ts";
+import { callGateway } from "../../gateway/call.ts";
+import { isSubagentSessionKey, resolveAgentIdFromSessionKey } from "../../routing/session-key.ts";
+import { jsonResult, readStringArrayParam } from "./common.ts";
 import {
   createAgentToAgentPolicy,
   classifySessionKind,
@@ -14,7 +14,7 @@ import {
   resolveMainSessionAlias,
   type SessionListRow,
   stripToolMessages,
-} from "./sessions-helpers.js";
+} from "./sessions-helpers.ts";
 
 const SessionsListToolSchema = Type.Object({
   kinds: Type.Optional(Type.Array(Type.String())),

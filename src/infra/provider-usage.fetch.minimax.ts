@@ -1,6 +1,6 @@
-import type { ProviderUsageSnapshot, UsageWindow } from "./provider-usage.types.js";
-import { fetchJson } from "./provider-usage.fetch.shared.js";
-import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.js";
+import type { ProviderUsageSnapshot, UsageWindow } from "./provider-usage.types.ts";
+import { fetchJson } from "./provider-usage.fetch.shared.ts";
+import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.ts";
 
 type MinimaxBaseResp = {
   status_code?: number;
@@ -319,7 +319,7 @@ export async function fetchMinimaxUsage(
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "MM-API-Source": "OpenClaw",
+        "MM-API-Source": "CmlHiveAssist",
       },
     },
     timeoutMs,

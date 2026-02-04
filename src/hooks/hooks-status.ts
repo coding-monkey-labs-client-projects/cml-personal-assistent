@@ -1,9 +1,9 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { HookEligibilityContext, HookEntry, HookInstallSpec } from "./types.js";
-import { CONFIG_DIR } from "../utils.js";
-import { hasBinary, isConfigPathTruthy, resolveConfigPath, resolveHookConfig } from "./config.js";
-import { loadWorkspaceHookEntries } from "./workspace.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { HookEligibilityContext, HookEntry, HookInstallSpec } from "./types.ts";
+import { CONFIG_DIR } from "../utils.ts";
+import { hasBinary, isConfigPathTruthy, resolveConfigPath, resolveHookConfig } from "./config.ts";
+import { loadWorkspaceHookEntries } from "./workspace.ts";
 
 export type HookStatusConfigCheck = {
   path: string;
@@ -76,7 +76,7 @@ function normalizeInstallOptions(entry: HookEntry): HookInstallOption[] {
 
     if (!label) {
       if (spec.kind === "bundled") {
-        label = "Bundled with OpenClaw";
+        label = "Bundled with CmlHiveAssist";
       } else if (spec.kind === "npm" && spec.package) {
         label = `Install ${spec.package} (npm)`;
       } else if (spec.kind === "git" && spec.repository) {
@@ -92,12 +92,12 @@ function normalizeInstallOptions(entry: HookEntry): HookInstallOption[] {
 
 function buildHookStatus(
   entry: HookEntry,
-  config?: OpenClawConfig,
+  config?: CmlHiveAssistConfig,
   eligibility?: HookEligibilityContext,
 ): HookStatusEntry {
   const hookKey = resolveHookKey(entry);
   const hookConfig = resolveHookConfig(config, hookKey);
-  const managedByPlugin = entry.hook.source === "openclaw-plugin";
+  const managedByPlugin = entry.hook.source === "cml-hive-assist-plugin";
   const disabled = managedByPlugin ? false : hookConfig?.enabled === false;
   const always = entry.metadata?.always === true;
   const emoji = entry.metadata?.emoji ?? entry.frontmatter.emoji;
@@ -211,7 +211,7 @@ function buildHookStatus(
 export function buildWorkspaceHookStatus(
   workspaceDir: string,
   opts?: {
-    config?: OpenClawConfig;
+    config?: CmlHiveAssistConfig;
     managedHooksDir?: string;
     entries?: HookEntry[];
     eligibility?: HookEligibilityContext;

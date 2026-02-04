@@ -1,18 +1,18 @@
 import path from "node:path";
-import type { OpenClawConfig, ConfigValidationIssue } from "./types.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { CHANNEL_IDS, normalizeChatChannelId } from "../channels/registry.js";
+import type { CmlHiveAssistConfig, ConfigValidationIssue } from "./types.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { CHANNEL_IDS, normalizeChatChannelId } from "../channels/registry.ts";
 import {
   normalizePluginsConfig,
   resolveEnableState,
   resolveMemorySlotDecision,
-} from "../plugins/config-state.js";
-import { loadPluginManifestRegistry } from "../plugins/manifest-registry.js";
-import { validateJsonSchemaValue } from "../plugins/schema-validator.js";
-import { findDuplicateAgentDirs, formatDuplicateAgentDirError } from "./agent-dirs.js";
-import { applyAgentDefaults, applyModelDefaults, applySessionDefaults } from "./defaults.js";
-import { findLegacyConfigIssues } from "./legacy.js";
-import { OpenClawSchema } from "./zod-schema.js";
+} from "../plugins/config-state.ts";
+import { loadPluginManifestRegistry } from "../plugins/manifest-registry.ts";
+import { validateJsonSchemaValue } from "../plugins/schema-validator.ts";
+import { findDuplicateAgentDirs, formatDuplicateAgentDirError } from "./agent-dirs.ts";
+import { applyAgentDefaults, applyModelDefaults, applySessionDefaults } from "./defaults.ts";
+import { findLegacyConfigIssues } from "./legacy.ts";
+import { CmlHiveAssistSchema } from "./zod-schema.ts";
 
 const AVATAR_SCHEME_RE = /^[a-z][a-z0-9+.-]*:/i;
 const AVATAR_DATA_RE = /^data:/i;
@@ -32,7 +32,7 @@ function isWorkspaceAvatarPath(value: string, workspaceDir: string): boolean {
   return !path.isAbsolute(relative);
 }
 
-function validateIdentityAvatar(config: OpenClawConfig): ConfigValidationIssue[] {
+function validateIdentityAvatar(config: CmlHiveAssistConfig): ConfigValidationIssue[] {
   const agents = config.agents?.list;
   if (!Array.isArray(agents) || agents.length === 0) {
     return [];
@@ -84,7 +84,7 @@ function validateIdentityAvatar(config: OpenClawConfig): ConfigValidationIssue[]
 
 export function validateConfigObject(
   raw: unknown,
-): { ok: true; config: OpenClawConfig } | { ok: false; issues: ConfigValidationIssue[] } {
+): { ok: true; config: CmlHiveAssistConfig } | { ok: false; issues: ConfigValidationIssue[] } {
   const legacyIssues = findLegacyConfigIssues(raw);
   if (legacyIssues.length > 0) {
     return {
@@ -95,7 +95,7 @@ export function validateConfigObject(
       })),
     };
   }
-  const validated = OpenClawSchema.safeParse(raw);
+  const validated = CmlHiveAssistSchema.safeParse(raw);
   if (!validated.success) {
     return {
       ok: false,
@@ -105,7 +105,7 @@ export function validateConfigObject(
       })),
     };
   }
-  const duplicates = findDuplicateAgentDirs(validated.data as OpenClawConfig);
+  const duplicates = findDuplicateAgentDirs(validated.data as CmlHiveAssistConfig);
   if (duplicates.length > 0) {
     return {
       ok: false,
@@ -117,14 +117,14 @@ export function validateConfigObject(
       ],
     };
   }
-  const avatarIssues = validateIdentityAvatar(validated.data as OpenClawConfig);
+  const avatarIssues = validateIdentityAvatar(validated.data as CmlHiveAssistConfig);
   if (avatarIssues.length > 0) {
     return { ok: false, issues: avatarIssues };
   }
   return {
     ok: true,
     config: applyModelDefaults(
-      applyAgentDefaults(applySessionDefaults(validated.data as OpenClawConfig)),
+      applyAgentDefaults(applySessionDefaults(validated.data as CmlHiveAssistConfig)),
     ),
   };
 }
@@ -136,7 +136,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export function validateConfigObjectWithPlugins(raw: unknown):
   | {
       ok: true;
-      config: OpenClawConfig;
+      config: CmlHiveAssistConfig;
       warnings: ConfigValidationIssue[];
     }
   | {

@@ -2,25 +2,25 @@ import type {
   CommandHandler,
   CommandHandlerResult,
   HandleCommandsParams,
-} from "./commands-types.js";
-import { logVerbose } from "../../globals.js";
-import { createInternalHookEvent, triggerInternalHook } from "../../hooks/internal-hooks.js";
-import { resolveSendPolicy } from "../../sessions/send-policy.js";
-import { shouldHandleTextCommands } from "../commands-registry.js";
-import { handleAllowlistCommand } from "./commands-allowlist.js";
-import { handleApproveCommand } from "./commands-approve.js";
-import { handleBashCommand } from "./commands-bash.js";
-import { handleCompactCommand } from "./commands-compact.js";
-import { handleConfigCommand, handleDebugCommand } from "./commands-config.js";
+} from "./commands-types.ts";
+import { logVerbose } from "../../globals.ts";
+import { createInternalHookEvent, triggerInternalHook } from "../../hooks/internal-hooks.ts";
+import { resolveSendPolicy } from "../../sessions/send-policy.ts";
+import { shouldHandleTextCommands } from "../commands-registry.ts";
+import { handleAllowlistCommand } from "./commands-allowlist.ts";
+import { handleApproveCommand } from "./commands-approve.ts";
+import { handleBashCommand } from "./commands-bash.ts";
+import { handleCompactCommand } from "./commands-compact.ts";
+import { handleConfigCommand, handleDebugCommand } from "./commands-config.ts";
 import {
   handleCommandsListCommand,
   handleContextCommand,
   handleHelpCommand,
   handleStatusCommand,
   handleWhoamiCommand,
-} from "./commands-info.js";
-import { handleModelsCommand } from "./commands-models.js";
-import { handlePluginCommand } from "./commands-plugin.js";
+} from "./commands-info.ts";
+import { handleModelsCommand } from "./commands-models.ts";
+import { handlePluginCommand } from "./commands-plugin.ts";
 import {
   handleAbortTrigger,
   handleActivationCommand,
@@ -28,10 +28,10 @@ import {
   handleSendPolicyCommand,
   handleStopCommand,
   handleUsageCommand,
-} from "./commands-session.js";
-import { handleSubagentsCommand } from "./commands-subagents.js";
-import { handleTtsCommands } from "./commands-tts.js";
-import { routeReply } from "./route-reply.js";
+} from "./commands-session.ts";
+import { handleSubagentsCommand } from "./commands-subagents.ts";
+import { handleTtsCommands } from "./commands-tts.ts";
+import { routeReply } from "./route-reply.ts";
 
 let HANDLERS: CommandHandler[] | null = null;
 

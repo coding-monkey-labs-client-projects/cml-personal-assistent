@@ -2,7 +2,7 @@ import {
   diagnosticLogger as diag,
   logMessageQueued,
   logSessionStateChange,
-} from "../../logging/diagnostic.js";
+} from "../../logging/diagnostic.ts";
 
 type EmbeddedPiQueueHandle = {
   queueMessage: (text: string) => Promise<void>;

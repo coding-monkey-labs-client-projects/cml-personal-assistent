@@ -1,21 +1,21 @@
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { DmPolicy } from "../../../config/types.js";
-import type { WizardPrompter } from "../../../wizard/prompts.js";
-import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
-import { detectBinary } from "../../../commands/onboard-helpers.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { DmPolicy } from "../../../config/types.ts";
+import type { WizardPrompter } from "../../../wizard/prompts.ts";
+import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.ts";
+import { detectBinary } from "../../../commands/onboard-helpers.ts";
 import {
   listIMessageAccountIds,
   resolveDefaultIMessageAccountId,
   resolveIMessageAccount,
-} from "../../../imessage/accounts.js";
-import { normalizeIMessageHandle } from "../../../imessage/targets.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.js";
-import { formatDocsLink } from "../../../terminal/links.js";
-import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
+} from "../../../imessage/accounts.ts";
+import { normalizeIMessageHandle } from "../../../imessage/targets.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.ts";
+import { formatDocsLink } from "../../../terminal/links.ts";
+import { addWildcardAllowFrom, promptAccountId } from "./helpers.ts";
 
 const channel = "imessage" as const;
 
-function setIMessageDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
+function setIMessageDmPolicy(cfg: CmlHiveAssistConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.imessage?.allowFrom) : undefined;
   return {
@@ -32,10 +32,10 @@ function setIMessageDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
 }
 
 function setIMessageAllowFrom(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   accountId: string,
   allowFrom: string[],
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -74,10 +74,10 @@ function parseIMessageAllowFromInput(raw: string): string[] {
 }
 
 async function promptIMessageAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<CmlHiveAssistConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)
@@ -252,7 +252,7 @@ export const imessageOnboardingAdapter: ChannelOnboardingAdapter = {
     await prompter.note(
       [
         "This is still a work in progress.",
-        "Ensure OpenClaw has Full Disk Access to Messages DB.",
+        "Ensure CmlHiveAssist has Full Disk Access to Messages DB.",
         "Grant Automation permission for Messages when prompted.",
         "List chats with: imsg chats --limit 20",
         `Docs: ${formatDocsLink("/imessage", "imessage")}`,

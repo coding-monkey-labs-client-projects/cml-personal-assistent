@@ -1,4 +1,4 @@
-import { createSlackWebClient } from "./client.js";
+import { createSlackWebClient } from "./client.ts";
 
 export type SlackProbe = {
   ok: boolean;

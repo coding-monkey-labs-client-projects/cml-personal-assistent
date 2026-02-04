@@ -1,14 +1,14 @@
-import type { OpenClawConfig } from "../../config/types.js";
-import type { ChannelDirectoryEntry } from "./types.js";
-import { resolveDiscordAccount } from "../../discord/accounts.js";
-import { resolveSlackAccount } from "../../slack/accounts.js";
-import { resolveTelegramAccount } from "../../telegram/accounts.js";
-import { resolveWhatsAppAccount } from "../../web/accounts.js";
-import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.js";
-import { normalizeSlackMessagingTarget } from "./normalize/slack.js";
+import type { CmlHiveAssistConfig } from "../../config/types.ts";
+import type { ChannelDirectoryEntry } from "./types.ts";
+import { resolveDiscordAccount } from "../../discord/accounts.ts";
+import { resolveSlackAccount } from "../../slack/accounts.ts";
+import { resolveTelegramAccount } from "../../telegram/accounts.ts";
+import { resolveWhatsAppAccount } from "../../web/accounts.ts";
+import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/normalize.ts";
+import { normalizeSlackMessagingTarget } from "./normalize/slack.ts";
 
 export type DirectoryConfigParams = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   query?: string | null;
   limit?: number | null;

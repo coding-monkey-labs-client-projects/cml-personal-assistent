@@ -1,13 +1,13 @@
 import { Type } from "@sinclair/typebox";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
-import { writeBase64ToFile } from "../../cli/nodes-camera.js";
-import { canvasSnapshotTempPath, parseCanvasSnapshotPayload } from "../../cli/nodes-canvas.js";
-import { imageMimeFromFormat } from "../../media/mime.js";
-import { optionalStringEnum, stringEnum } from "../schema/typebox.js";
-import { type AnyAgentTool, imageResult, jsonResult, readStringParam } from "./common.js";
-import { callGatewayTool, type GatewayCallOptions } from "./gateway.js";
-import { resolveNodeId } from "./nodes-utils.js";
+import { writeBase64ToFile } from "../../cli/nodes-camera.ts";
+import { canvasSnapshotTempPath, parseCanvasSnapshotPayload } from "../../cli/nodes-canvas.ts";
+import { imageMimeFromFormat } from "../../media/mime.ts";
+import { optionalStringEnum, stringEnum } from "../schema/typebox.ts";
+import { type AnyAgentTool, imageResult, jsonResult, readStringParam } from "./common.ts";
+import { callGatewayTool, type GatewayCallOptions } from "./gateway.ts";
+import { resolveNodeId } from "./nodes-utils.ts";
 
 const CANVAS_ACTIONS = [
   "present",

@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { CommandHandler } from "./commands-types.js";
-import { callGateway, randomIdempotencyKey } from "../../gateway/call.js";
-import { logVerbose } from "../../globals.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { CommandHandler } from "./commands-types.ts";
+import { callGateway, randomIdempotencyKey } from "../../gateway/call.ts";
+import { logVerbose } from "../../globals.ts";
 
 type NodeSummary = {
   nodeId: string;
@@ -38,7 +38,7 @@ function isIOSNode(node: NodeSummary): boolean {
   );
 }
 
-async function loadNodes(cfg: OpenClawConfig): Promise<NodeSummary[]> {
+async function loadNodes(cfg: CmlHiveAssistConfig): Promise<NodeSummary[]> {
   try {
     const res = await callGateway<{ nodes?: NodeSummary[] }>({
       method: "node.list",

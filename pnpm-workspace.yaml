@@ -1,6 +1,7 @@
 packages:
   - .
   - ui
+  - cml-hive-assist-ui
   - packages/*
   - extensions/*
 

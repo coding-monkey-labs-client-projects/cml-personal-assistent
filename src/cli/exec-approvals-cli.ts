@@ -1,20 +1,20 @@
 import type { Command } from "commander";
 import JSON5 from "json5";
 import fs from "node:fs/promises";
-import type { NodesRpcOpts } from "./nodes-cli/types.js";
+import type { NodesRpcOpts } from "./nodes-cli/types.ts";
 import {
   readExecApprovalsSnapshot,
   saveExecApprovals,
   type ExecApprovalsAgent,
   type ExecApprovalsFile,
-} from "../infra/exec-approvals.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { renderTable } from "../terminal/table.js";
-import { isRich, theme } from "../terminal/theme.js";
-import { describeUnknownError } from "./gateway-cli/shared.js";
-import { callGatewayFromCli } from "./gateway-rpc.js";
-import { nodesCallOpts, resolveNodeId } from "./nodes-cli/rpc.js";
+} from "../infra/exec-approvals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { renderTable } from "../terminal/table.ts";
+import { isRich, theme } from "../terminal/theme.ts";
+import { describeUnknownError } from "./gateway-cli/shared.ts";
+import { callGatewayFromCli } from "./gateway-rpc.ts";
+import { nodesCallOpts, resolveNodeId } from "./nodes-cli/rpc.ts";
 
 type ExecApprovalsSnapshot = {
   path: string;
@@ -244,7 +244,7 @@ export function registerExecApprovalsCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/approvals", "docs.openclaw.ai/cli/approvals")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/approvals", "docs.cml-hive-assist.ai/cli/approvals")}\n`,
     );
 
   const getCmd = approvals
@@ -337,18 +337,18 @@ export function registerExecApprovalsCli(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatExample(
-          'openclaw approvals allowlist add "~/Projects/**/bin/rg"',
+          'cml-hive-assist approvals allowlist add "~/Projects/**/bin/rg"',
           "Allowlist a local binary pattern for the main agent.",
         )}\n${formatExample(
-          'openclaw approvals allowlist add --agent main --node <id|name|ip> "/usr/bin/uptime"',
+          'cml-hive-assist approvals allowlist add --agent main --node <id|name|ip> "/usr/bin/uptime"',
           "Allowlist on a specific node/agent.",
         )}\n${formatExample(
-          'openclaw approvals allowlist add --agent "*" "/usr/bin/uname"',
+          'cml-hive-assist approvals allowlist add --agent "*" "/usr/bin/uname"',
           "Allowlist for all agents (wildcard).",
         )}\n${formatExample(
-          'openclaw approvals allowlist remove "~/Projects/**/bin/rg"',
+          'cml-hive-assist approvals allowlist remove "~/Projects/**/bin/rg"',
           "Remove an allowlist pattern.",
-        )}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/approvals", "docs.openclaw.ai/cli/approvals")}\n`,
+        )}\n\n${theme.muted("Docs:")} ${formatDocsLink("/cli/approvals", "docs.cml-hive-assist.ai/cli/approvals")}\n`,
     );
 
   const allowlistAdd = allowlist

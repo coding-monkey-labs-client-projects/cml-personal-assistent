@@ -1,7 +1,7 @@
-import type { ChannelAccountSnapshot, ChannelPlugin } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { listChannelPlugins } from "../channels/plugins/index.js";
+import type { ChannelAccountSnapshot, ChannelPlugin } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { listChannelPlugins } from "../channels/plugins/index.ts";
 
 export type LinkChannelContext = {
   linked: boolean;
@@ -12,7 +12,7 @@ export type LinkChannelContext = {
 };
 
 export async function resolveLinkChannelContext(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
 ): Promise<LinkChannelContext | null> {
   for (const plugin of listChannelPlugins()) {
     const accountIds = plugin.config.listAccountIds(cfg);

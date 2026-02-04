@@ -1,7 +1,7 @@
-import type { GatewayStatusSummary } from "./tui-types.js";
-import { formatAge } from "../infra/channel-summary.js";
-import { formatTokenCount } from "../utils/usage-format.js";
-import { formatContextUsageLine } from "./tui-formatters.js";
+import type { GatewayStatusSummary } from "./tui-types.ts";
+import { formatAge } from "../infra/channel-summary.ts";
+import { formatTokenCount } from "../utils/usage-format.ts";
+import { formatContextUsageLine } from "./tui-formatters.ts";
 
 export function formatStatusSummary(summary: GatewayStatusSummary) {
   const lines: string[] = [];

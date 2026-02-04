@@ -1,9 +1,9 @@
 import type { Command } from "commander";
-import type { BrowserParentOpts } from "../browser-cli-shared.js";
-import { registerBrowserElementCommands } from "./register.element.js";
-import { registerBrowserFilesAndDownloadsCommands } from "./register.files-downloads.js";
-import { registerBrowserFormWaitEvalCommands } from "./register.form-wait-eval.js";
-import { registerBrowserNavigationCommands } from "./register.navigation.js";
+import type { BrowserParentOpts } from "../browser-cli-shared.ts";
+import { registerBrowserElementCommands } from "./register.element.ts";
+import { registerBrowserFilesAndDownloadsCommands } from "./register.files-downloads.ts";
+import { registerBrowserFormWaitEvalCommands } from "./register.form-wait-eval.ts";
+import { registerBrowserNavigationCommands } from "./register.navigation.ts";
 
 export function registerBrowserActionInputCommands(
   browser: Command,

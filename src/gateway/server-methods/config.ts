@@ -1,6 +1,6 @@
-import type { GatewayRequestHandlers, RespondFn } from "./types.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.js";
-import { listChannelPlugins } from "../../channels/plugins/index.js";
+import type { GatewayRequestHandlers, RespondFn } from "./types.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.ts";
+import { listChannelPlugins } from "../../channels/plugins/index.ts";
 import {
   CONFIG_PATH,
   loadConfig,
@@ -9,17 +9,17 @@ import {
   resolveConfigSnapshotHash,
   validateConfigObjectWithPlugins,
   writeConfigFile,
-} from "../../config/config.js";
-import { applyLegacyMigrations } from "../../config/legacy.js";
-import { applyMergePatch } from "../../config/merge-patch.js";
-import { buildConfigSchema } from "../../config/schema.js";
+} from "../../config/config.ts";
+import { applyLegacyMigrations } from "../../config/legacy.ts";
+import { applyMergePatch } from "../../config/merge-patch.ts";
+import { buildConfigSchema } from "../../config/schema.ts";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,
   writeRestartSentinel,
-} from "../../infra/restart-sentinel.js";
-import { scheduleGatewaySigusr1Restart } from "../../infra/restart.js";
-import { loadOpenClawPlugins } from "../../plugins/loader.js";
+} from "../../infra/restart-sentinel.ts";
+import { scheduleGatewaySigusr1Restart } from "../../infra/restart.ts";
+import { loadCmlHiveAssistPlugins } from "../../plugins/loader.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -29,7 +29,7 @@ import {
   validateConfigPatchParams,
   validateConfigSchemaParams,
   validateConfigSetParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 
 function resolveBaseHash(params: unknown): string | null {
   const raw = (params as { baseHash?: unknown })?.baseHash;
@@ -116,7 +116,7 @@ export const configHandlers: GatewayRequestHandlers = {
     }
     const cfg = loadConfig();
     const workspaceDir = resolveAgentWorkspaceDir(cfg, resolveDefaultAgentId(cfg));
-    const pluginRegistry = loadOpenClawPlugins({
+    const pluginRegistry = loadCmlHiveAssistPlugins({
       config: cfg,
       workspaceDir,
       logger: {

@@ -1,28 +1,28 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveAgentConfig } from "../agents/agent-scope.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveAgentConfig } from "../agents/agent-scope.ts";
 import {
   resolveSandboxConfigForAgent,
   resolveSandboxToolPolicyForAgent,
-} from "../agents/sandbox.js";
-import { normalizeAnyChannelId } from "../channels/registry.js";
-import { loadConfig } from "../config/config.js";
+} from "../agents/sandbox.ts";
+import { normalizeAnyChannelId } from "../channels/registry.ts";
+import { loadConfig } from "../config/config.ts";
 import {
   loadSessionStore,
   resolveAgentMainSessionKey,
   resolveMainSessionKey,
   resolveStorePath,
-} from "../config/sessions.js";
+} from "../config/sessions.ts";
 import {
   buildAgentMainSessionKey,
   normalizeAgentId,
   normalizeMainKey,
   parseAgentSessionKey,
   resolveAgentIdFromSessionKey,
-} from "../routing/session-key.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { colorize, isRich, theme } from "../terminal/theme.js";
-import { INTERNAL_MESSAGE_CHANNEL } from "../utils/message-channel.js";
+} from "../routing/session-key.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { colorize, isRich, theme } from "../terminal/theme.ts";
+import { INTERNAL_MESSAGE_CHANNEL } from "../utils/message-channel.ts";
 
 type SandboxExplainOptions = {
   session?: string;
@@ -30,10 +30,10 @@ type SandboxExplainOptions = {
   json: boolean;
 };
 
-const SANDBOX_DOCS_URL = "https://docs.openclaw.ai/sandbox";
+const SANDBOX_DOCS_URL = "https://docs.cml-hive-assist.ai/sandbox";
 
 function normalizeExplainSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   session?: string;
 }): string {
@@ -57,7 +57,7 @@ function normalizeExplainSessionKey(params: {
 }
 
 function inferProviderFromSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   sessionKey: string;
 }): string | undefined {
   const parsed = parseAgentSessionKey(params.sessionKey);
@@ -87,7 +87,7 @@ function inferProviderFromSessionKey(params: {
 }
 
 function resolveActiveChannel(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   sessionKey: string;
 }): string | undefined {
@@ -331,7 +331,7 @@ export async function sandboxExplainCommand(
     lines.push(`  - ${key}`);
   }
   lines.push("");
-  lines.push(`${key("Docs:")} ${formatDocsLink("/sandbox", "docs.openclaw.ai/sandbox")}`);
+  lines.push(`${key("Docs:")} ${formatDocsLink("/sandbox", "docs.cml-hive-assist.ai/sandbox")}`);
 
   runtime.log(`${lines.join("\n")}\n`);
 }

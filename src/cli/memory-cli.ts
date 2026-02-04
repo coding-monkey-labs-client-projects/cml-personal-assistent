@@ -3,19 +3,19 @@ import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { loadConfig } from "../config/config.js";
-import { resolveStateDir } from "../config/paths.js";
-import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.js";
-import { setVerbose } from "../globals.js";
-import { getMemorySearchManager, type MemorySearchManagerResult } from "../memory/index.js";
-import { listMemoryFiles, normalizeExtraMemoryPaths } from "../memory/internal.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { colorize, isRich, theme } from "../terminal/theme.js";
-import { shortenHomeInString, shortenHomePath } from "../utils.js";
-import { formatErrorMessage, withManager } from "./cli-utils.js";
-import { withProgress, withProgressTotals } from "./progress.js";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { loadConfig } from "../config/config.ts";
+import { resolveStateDir } from "../config/paths.ts";
+import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.ts";
+import { setVerbose } from "../globals.ts";
+import { getMemorySearchManager, type MemorySearchManagerResult } from "../memory/index.ts";
+import { listMemoryFiles, normalizeExtraMemoryPaths } from "../memory/internal.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { colorize, isRich, theme } from "../terminal/theme.ts";
+import { shortenHomeInString, shortenHomePath } from "../utils.ts";
+import { formatErrorMessage, withManager } from "./cli-utils.ts";
+import { withProgress, withProgressTotals } from "./progress.ts";
 
 type MemoryCommandOptions = {
   agent?: string;
@@ -490,7 +490,7 @@ export function registerMemoryCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/memory", "docs.openclaw.ai/cli/memory")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/memory", "docs.cml-hive-assist.ai/cli/memory")}\n`,
     );
 
   memory

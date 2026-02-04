@@ -1,8 +1,8 @@
 export {
   SYNTHETIC_DEFAULT_MODEL_ID,
   SYNTHETIC_DEFAULT_MODEL_REF,
-} from "../agents/synthetic-models.js";
-export { VENICE_DEFAULT_MODEL_ID, VENICE_DEFAULT_MODEL_REF } from "../agents/venice-models.js";
+} from "../agents/synthetic-models.ts";
+export { VENICE_DEFAULT_MODEL_ID, VENICE_DEFAULT_MODEL_REF } from "../agents/venice-models.ts";
 export {
   applyAuthProfileConfig,
   applyKimiCodeConfig,
@@ -20,7 +20,7 @@ export {
   applyXiaomiConfig,
   applyXiaomiProviderConfig,
   applyZaiConfig,
-} from "./onboard-auth.config-core.js";
+} from "./onboard-auth.config-core.ts";
 export {
   applyMinimaxApiConfig,
   applyMinimaxApiProviderConfig,
@@ -28,12 +28,12 @@ export {
   applyMinimaxHostedConfig,
   applyMinimaxHostedProviderConfig,
   applyMinimaxProviderConfig,
-} from "./onboard-auth.config-minimax.js";
+} from "./onboard-auth.config-minimax.ts";
 
 export {
   applyOpencodeZenConfig,
   applyOpencodeZenProviderConfig,
-} from "./onboard-auth.config-opencode.js";
+} from "./onboard-auth.config-opencode.ts";
 export {
   OPENROUTER_DEFAULT_MODEL_REF,
   setAnthropicApiKey,
@@ -52,7 +52,7 @@ export {
   VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF,
   XIAOMI_DEFAULT_MODEL_REF,
   ZAI_DEFAULT_MODEL_REF,
-} from "./onboard-auth.credentials.js";
+} from "./onboard-auth.credentials.ts";
 export {
   buildMinimaxApiModelDefinition,
   buildMinimaxModelDefinition,
@@ -66,4 +66,4 @@ export {
   MOONSHOT_BASE_URL,
   MOONSHOT_DEFAULT_MODEL_ID,
   MOONSHOT_DEFAULT_MODEL_REF,
-} from "./onboard-auth.models.js";
+} from "./onboard-auth.models.ts";

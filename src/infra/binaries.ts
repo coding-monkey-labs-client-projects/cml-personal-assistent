@@ -1,5 +1,5 @@
-import { runExec } from "../process/exec.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
+import { runExec } from "../process/exec.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
 
 export async function ensureBinary(
   name: string,

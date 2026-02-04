@@ -1,9 +1,9 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AnyAgentTool } from "./common.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { wrapWebContent } from "../../security/external-content.js";
-import { jsonResult, readNumberParam, readStringParam } from "./common.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AnyAgentTool } from "./common.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { wrapWebContent } from "../../security/external-content.ts";
+import { jsonResult, readNumberParam, readStringParam } from "./common.ts";
 import {
   CacheEntry,
   DEFAULT_CACHE_TTL_MINUTES,
@@ -15,7 +15,7 @@ import {
   resolveTimeoutSeconds,
   withTimeout,
   writeCache,
-} from "./web-shared.js";
+} from "./web-shared.ts";
 
 const SEARCH_PROVIDERS = ["brave", "perplexity"] as const;
 const DEFAULT_SEARCH_COUNT = 5;
@@ -65,7 +65,7 @@ const WebSearchSchema = Type.Object({
   ),
 });
 
-type WebSearchConfig = NonNullable<OpenClawConfig["tools"]>["web"] extends infer Web
+type WebSearchConfig = NonNullable<CmlHiveAssistConfig["tools"]>["web"] extends infer Web
   ? Web extends { search?: infer Search }
     ? Search
     : undefined
@@ -103,7 +103,7 @@ type PerplexitySearchResponse = {
 
 type PerplexityBaseUrlHint = "direct" | "openrouter";
 
-function resolveSearchConfig(cfg?: OpenClawConfig): WebSearchConfig {
+function resolveSearchConfig(cfg?: CmlHiveAssistConfig): WebSearchConfig {
   const search = cfg?.tools?.web?.search;
   if (!search || typeof search !== "object") {
     return undefined;
@@ -134,13 +134,13 @@ function missingSearchKeyPayload(provider: (typeof SEARCH_PROVIDERS)[number]) {
       error: "missing_perplexity_api_key",
       message:
         "web_search (perplexity) needs an API key. Set PERPLEXITY_API_KEY or OPENROUTER_API_KEY in the Gateway environment, or configure tools.web.search.perplexity.apiKey.",
-      docs: "https://docs.openclaw.ai/tools/web",
+      docs: "https://docs.cml-hive-assist.ai/tools/web",
     };
   }
   return {
     error: "missing_brave_api_key",
-    message: `web_search needs a Brave Search API key. Run \`${formatCliCommand("openclaw configure --section web")}\` to store it, or set BRAVE_API_KEY in the Gateway environment.`,
-    docs: "https://docs.openclaw.ai/tools/web",
+    message: `web_search needs a Brave Search API key. Run \`${formatCliCommand("cml-hive-assist configure --section web")}\` to store it, or set BRAVE_API_KEY in the Gateway environment.`,
+    docs: "https://docs.cml-hive-assist.ai/tools/web",
   };
 }
 
@@ -323,8 +323,8 @@ async function runPerplexitySearch(params: {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${params.apiKey}`,
-      "HTTP-Referer": "https://openclaw.ai",
-      "X-Title": "OpenClaw Web Search",
+      "HTTP-Referer": "https://cml-hive-assist.ai",
+      "X-Title": "CmlHiveAssist Web Search",
     },
     body: JSON.stringify({
       model: params.model,
@@ -459,7 +459,7 @@ async function runWebSearch(params: {
 }
 
 export function createWebSearchTool(options?: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   sandboxed?: boolean;
 }): AnyAgentTool | null {
   const search = resolveSearchConfig(options?.config);
@@ -501,7 +501,7 @@ export function createWebSearchTool(options?: {
         return jsonResult({
           error: "unsupported_freshness",
           message: "freshness is only supported by the Brave web_search provider.",
-          docs: "https://docs.openclaw.ai/tools/web",
+          docs: "https://docs.cml-hive-assist.ai/tools/web",
         });
       }
       const freshness = rawFreshness ? normalizeFreshness(rawFreshness) : undefined;
@@ -510,7 +510,7 @@ export function createWebSearchTool(options?: {
           error: "invalid_freshness",
           message:
             "freshness must be one of pd, pw, pm, py, or a range like YYYY-MM-DDtoYYYY-MM-DD.",
-          docs: "https://docs.openclaw.ai/tools/web",
+          docs: "https://docs.cml-hive-assist.ai/tools/web",
         });
       }
       const result = await runWebSearch({

@@ -1,17 +1,17 @@
 import type { Command } from "commander";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
 import {
   buildWorkspaceSkillStatus,
   type SkillStatusEntry,
   type SkillStatusReport,
-} from "../agents/skills-status.js";
-import { loadConfig } from "../config/config.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { renderTable } from "../terminal/table.js";
-import { theme } from "../terminal/theme.js";
-import { shortenHomePath } from "../utils.js";
-import { formatCliCommand } from "./command-format.js";
+} from "../agents/skills-status.ts";
+import { loadConfig } from "../config/config.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { renderTable } from "../terminal/table.ts";
+import { theme } from "../terminal/theme.ts";
+import { shortenHomePath } from "../utils.ts";
+import { formatCliCommand } from "./command-format.ts";
 
 export type SkillsListOptions = {
   json?: boolean;
@@ -100,7 +100,7 @@ export function formatSkillsList(report: SkillStatusReport, opts: SkillsListOpti
 
   if (skills.length === 0) {
     const message = opts.eligible
-      ? `No eligible skills found. Run \`${formatCliCommand("openclaw skills list")}\` to see all skills.`
+      ? `No eligible skills found. Run \`${formatCliCommand("cml-hive-assist skills list")}\` to see all skills.`
       : "No skills found.";
     return appendClawHubHint(message, opts.json);
   }
@@ -158,7 +158,7 @@ export function formatSkillInfo(
       return JSON.stringify({ error: "not found", skill: skillName }, null, 2);
     }
     return appendClawHubHint(
-      `Skill "${skillName}" not found. Run \`${formatCliCommand("openclaw skills list")}\` to see available skills.`,
+      `Skill "${skillName}" not found. Run \`${formatCliCommand("cml-hive-assist skills list")}\` to see available skills.`,
       opts.json,
     );
   }
@@ -345,7 +345,7 @@ export function registerSkillsCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/skills", "docs.openclaw.ai/cli/skills")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/skills", "docs.cml-hive-assist.ai/cli/skills")}\n`,
     );
 
   skills

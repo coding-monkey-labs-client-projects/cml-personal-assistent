@@ -1,16 +1,16 @@
-import type { OpenClawConfig, GatewayAuthConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { WizardPrompter } from "../wizard/prompts.js";
-import { ensureAuthProfileStore } from "../agents/auth-profiles.js";
-import { promptAuthChoiceGrouped } from "./auth-choice-prompt.js";
-import { applyAuthChoice, resolvePreferredProviderForAuthChoice } from "./auth-choice.js";
+import type { CmlHiveAssistConfig, GatewayAuthConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { WizardPrompter } from "../wizard/prompts.ts";
+import { ensureAuthProfileStore } from "../agents/auth-profiles.ts";
+import { promptAuthChoiceGrouped } from "./auth-choice-prompt.ts";
+import { applyAuthChoice, resolvePreferredProviderForAuthChoice } from "./auth-choice.ts";
 import {
   applyModelAllowlist,
   applyModelFallbacksFromSelection,
   applyPrimaryModel,
   promptDefaultModel,
   promptModelAllowlist,
-} from "./model-picker.js";
+} from "./model-picker.ts";
 
 type GatewayAuthChoice = "token" | "password";
 
@@ -39,10 +39,10 @@ export function buildGatewayAuthConfig(params: {
 }
 
 export async function promptAuthConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   const authChoice = await promptAuthChoiceGrouped({
     prompter,
     store: ensureAuthProfileStore(undefined, {

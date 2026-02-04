@@ -1,4 +1,4 @@
-import type { PluginRegistry } from "../../../plugins/registry.js";
+import type { PluginRegistry } from "../../../plugins/registry.ts";
 
 export const createTestRegistry = (overrides: Partial<PluginRegistry> = {}): PluginRegistry => {
   const base: PluginRegistry = {

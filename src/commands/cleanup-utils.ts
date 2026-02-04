@@ -1,16 +1,16 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace.js";
-import { resolveHomeDir, resolveUserPath, shortenHomeInString } from "../utils.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace.ts";
+import { resolveHomeDir, resolveUserPath, shortenHomeInString } from "../utils.ts";
 
 export type RemovalResult = {
   ok: boolean;
   skipped?: boolean;
 };
 
-export function collectWorkspaceDirs(cfg: OpenClawConfig | undefined): string[] {
+export function collectWorkspaceDirs(cfg: CmlHiveAssistConfig | undefined): string[] {
   const dirs = new Set<string>();
   const defaults = cfg?.agents?.defaults;
   if (typeof defaults?.workspace === "string" && defaults.workspace.trim()) {

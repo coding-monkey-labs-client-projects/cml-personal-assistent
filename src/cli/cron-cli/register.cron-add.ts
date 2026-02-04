@@ -1,18 +1,18 @@
 import type { Command } from "commander";
-import type { CronJob } from "../../cron/types.js";
-import type { GatewayRpcOpts } from "../gateway-rpc.js";
-import { danger } from "../../globals.js";
-import { sanitizeAgentId } from "../../routing/session-key.js";
-import { defaultRuntime } from "../../runtime.js";
-import { addGatewayClientOptions, callGatewayFromCli } from "../gateway-rpc.js";
-import { parsePositiveIntOrUndefined } from "../program/helpers.js";
+import type { CronJob } from "../../cron/types.ts";
+import type { GatewayRpcOpts } from "../gateway-rpc.ts";
+import { danger } from "../../globals.ts";
+import { sanitizeAgentId } from "../../routing/session-key.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { addGatewayClientOptions, callGatewayFromCli } from "../gateway-rpc.ts";
+import { parsePositiveIntOrUndefined } from "../program/helpers.ts";
 import {
   getCronChannelOptions,
   parseAtMs,
   parseDurationMs,
   printCronList,
   warnIfCronSchedulerDisabled,
-} from "./shared.js";
+} from "./shared.ts";
 
 export function registerCronStatusCommand(cron: Command) {
   addGatewayClientOptions(

@@ -1,20 +1,20 @@
-import type { CliDeps } from "../cli/deps.js";
-import type { loadConfig } from "../config/config.js";
-import type { HeartbeatRunner } from "../infra/heartbeat-runner.js";
-import type { ChannelKind, GatewayReloadPlan } from "./config-reload.js";
-import { resolveAgentMaxConcurrent, resolveSubagentMaxConcurrent } from "../config/agent-limits.js";
-import { startGmailWatcher, stopGmailWatcher } from "../hooks/gmail-watcher.js";
-import { isTruthyEnvValue } from "../infra/env.js";
-import { resetDirectoryCache } from "../infra/outbound/target-resolver.js";
+import type { CliDeps } from "../cli/deps.ts";
+import type { loadConfig } from "../config/config.ts";
+import type { HeartbeatRunner } from "../infra/heartbeat-runner.ts";
+import type { ChannelKind, GatewayReloadPlan } from "./config-reload.ts";
+import { resolveAgentMaxConcurrent, resolveSubagentMaxConcurrent } from "../config/agent-limits.ts";
+import { startGmailWatcher, stopGmailWatcher } from "../hooks/gmail-watcher.ts";
+import { isTruthyEnvValue } from "../infra/env.ts";
+import { resetDirectoryCache } from "../infra/outbound/target-resolver.ts";
 import {
   authorizeGatewaySigusr1Restart,
   setGatewaySigusr1RestartPolicy,
-} from "../infra/restart.js";
-import { setCommandLaneConcurrency } from "../process/command-queue.js";
-import { CommandLane } from "../process/lanes.js";
-import { resolveHooksConfig } from "./hooks.js";
-import { startBrowserControlServerIfEnabled } from "./server-browser.js";
-import { buildGatewayCronService, type GatewayCronState } from "./server-cron.js";
+} from "../infra/restart.ts";
+import { setCommandLaneConcurrency } from "../process/command-queue.ts";
+import { CommandLane } from "../process/lanes.ts";
+import { resolveHooksConfig } from "./hooks.ts";
+import { startBrowserControlServerIfEnabled } from "./server-browser.ts";
+import { buildGatewayCronService, type GatewayCronState } from "./server-cron.ts";
 
 type GatewayHotReloadState = {
   hooksConfig: ReturnType<typeof resolveHooksConfig>;
@@ -87,7 +87,7 @@ export function createGatewayReloadHandlers(params: {
 
     if (plan.restartGmailWatcher) {
       await stopGmailWatcher().catch(() => {});
-      if (!isTruthyEnvValue(process.env.OPENCLAW_SKIP_GMAIL_WATCHER)) {
+      if (!isTruthyEnvValue(process.env.CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER)) {
         try {
           const gmailResult = await startGmailWatcher(nextConfig);
           if (gmailResult.started) {
@@ -103,17 +103,17 @@ export function createGatewayReloadHandlers(params: {
           params.logHooks.error(`gmail watcher failed to start: ${String(err)}`);
         }
       } else {
-        params.logHooks.info("skipping gmail watcher restart (OPENCLAW_SKIP_GMAIL_WATCHER=1)");
+        params.logHooks.info("skipping gmail watcher restart (CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER=1)");
       }
     }
 
     if (plan.restartChannels.size > 0) {
       if (
-        isTruthyEnvValue(process.env.OPENCLAW_SKIP_CHANNELS) ||
-        isTruthyEnvValue(process.env.OPENCLAW_SKIP_PROVIDERS)
+        isTruthyEnvValue(process.env.CML_HIVE_ASSIST_SKIP_CHANNELS) ||
+        isTruthyEnvValue(process.env.CML_HIVE_ASSIST_SKIP_PROVIDERS)
       ) {
         params.logChannels.info(
-          "skipping channel reload (OPENCLAW_SKIP_CHANNELS=1 or OPENCLAW_SKIP_PROVIDERS=1)",
+          "skipping channel reload (CML_HIVE_ASSIST_SKIP_CHANNELS=1 or CML_HIVE_ASSIST_SKIP_PROVIDERS=1)",
         );
       } else {
         const restartChannel = async (name: ChannelKind) => {

@@ -1,27 +1,27 @@
 import { Type } from "@sinclair/typebox";
 import crypto from "node:crypto";
-import type { GatewayMessageChannel } from "../../utils/message-channel.js";
-import type { AnyAgentTool } from "./common.js";
-import { formatThinkingLevels, normalizeThinkLevel } from "../../auto-reply/thinking.js";
-import { loadConfig } from "../../config/config.js";
-import { callGateway } from "../../gateway/call.js";
+import type { GatewayMessageChannel } from "../../utils/message-channel.ts";
+import type { AnyAgentTool } from "./common.ts";
+import { formatThinkingLevels, normalizeThinkLevel } from "../../auto-reply/thinking.ts";
+import { loadConfig } from "../../config/config.ts";
+import { callGateway } from "../../gateway/call.ts";
 import {
   isSubagentSessionKey,
   normalizeAgentId,
   parseAgentSessionKey,
-} from "../../routing/session-key.js";
-import { normalizeDeliveryContext } from "../../utils/delivery-context.js";
-import { resolveAgentConfig } from "../agent-scope.js";
-import { AGENT_LANE_SUBAGENT } from "../lanes.js";
-import { optionalStringEnum } from "../schema/typebox.js";
-import { buildSubagentSystemPrompt } from "../subagent-announce.js";
-import { registerSubagentRun } from "../subagent-registry.js";
-import { jsonResult, readStringParam } from "./common.js";
+} from "../../routing/session-key.ts";
+import { normalizeDeliveryContext } from "../../utils/delivery-context.ts";
+import { resolveAgentConfig } from "../agent-scope.ts";
+import { AGENT_LANE_SUBAGENT } from "../lanes.ts";
+import { optionalStringEnum } from "../schema/typebox.ts";
+import { buildSubagentSystemPrompt } from "../subagent-announce.ts";
+import { registerSubagentRun } from "../subagent-registry.ts";
+import { jsonResult, readStringParam } from "./common.ts";
 import {
   resolveDisplaySessionKey,
   resolveInternalSessionKey,
   resolveMainSessionAlias,
-} from "./sessions-helpers.js";
+} from "./sessions-helpers.ts";
 
 const SessionsSpawnToolSchema = Type.Object({
   task: Type.String(),

@@ -1,5 +1,5 @@
-import type { GatewayRequestHandlers } from "./types.js";
-import { loadConfig } from "../../config/config.js";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { loadConfig } from "../../config/config.ts";
 import {
   OPENAI_TTS_MODELS,
   OPENAI_TTS_VOICES,
@@ -14,9 +14,9 @@ import {
   setTtsEnabled,
   setTtsProvider,
   textToSpeech,
-} from "../../tts/tts.js";
-import { ErrorCodes, errorShape } from "../protocol/index.js";
-import { formatForLog } from "../ws-log.js";
+} from "../../tts/tts.ts";
+import { ErrorCodes, errorShape } from "../protocol/index.ts";
+import { formatForLog } from "../ws-log.ts";
 
 export const ttsHandlers: GatewayRequestHandlers = {
   "tts.status": async ({ respond }) => {

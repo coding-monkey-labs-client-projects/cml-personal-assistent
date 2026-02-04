@@ -2,17 +2,17 @@ import JSON5 from "json5";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import type { MsgContext } from "../../auto-reply/templating.js";
+import type { MsgContext } from "../../auto-reply/templating.ts";
 import {
   deliveryContextFromSession,
   mergeDeliveryContext,
   normalizeDeliveryContext,
   normalizeSessionDeliveryFields,
   type DeliveryContext,
-} from "../../utils/delivery-context.js";
-import { getFileMtimeMs, isCacheEnabled, resolveCacheTtlMs } from "../cache-utils.js";
-import { deriveSessionMetaPatch } from "./metadata.js";
-import { mergeSessionEntry, type SessionEntry } from "./types.js";
+} from "../../utils/delivery-context.ts";
+import { getFileMtimeMs, isCacheEnabled, resolveCacheTtlMs } from "../cache-utils.ts";
+import { deriveSessionMetaPatch } from "./metadata.ts";
+import { mergeSessionEntry, type SessionEntry } from "./types.ts";
 
 // ============================================================================
 // Session Store Cache with TTL Support
@@ -34,7 +34,7 @@ function isSessionStoreRecord(value: unknown): value is Record<string, SessionEn
 
 function getSessionStoreTtl(): number {
   return resolveCacheTtlMs({
-    envValue: process.env.OPENCLAW_SESSION_CACHE_TTL_MS,
+    envValue: process.env.CML_HIVE_ASSIST_SESSION_CACHE_TTL_MS,
     defaultTtlMs: DEFAULT_SESSION_STORE_TTL_MS,
   });
 }
@@ -381,7 +381,7 @@ export async function recordSessionMetaFromInbound(params: {
   storePath: string;
   sessionKey: string;
   ctx: MsgContext;
-  groupResolution?: import("./types.js").GroupKeyResolution | null;
+  groupResolution?: import("./types.ts").GroupKeyResolution | null;
   createIfMissing?: boolean;
 }): Promise<SessionEntry | null> {
   const { storePath, sessionKey, ctx } = params;
@@ -415,7 +415,7 @@ export async function updateLastRoute(params: {
   threadId?: string | number;
   deliveryContext?: DeliveryContext;
   ctx?: MsgContext;
-  groupResolution?: import("./types.js").GroupKeyResolution | null;
+  groupResolution?: import("./types.ts").GroupKeyResolution | null;
 }) {
   const { storePath, sessionKey, channel, to, accountId, threadId, ctx } = params;
   return await withSessionStoreLock(storePath, async () => {

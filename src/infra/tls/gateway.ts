@@ -4,9 +4,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import tls from "node:tls";
 import { promisify } from "node:util";
-import type { GatewayTlsConfig } from "../../config/types.gateway.js";
-import { CONFIG_DIR, ensureDir, resolveUserPath, shortenHomeInString } from "../../utils.js";
-import { normalizeFingerprint } from "./fingerprint.js";
+import type { GatewayTlsConfig } from "../../config/types.gateway.ts";
+import { CONFIG_DIR, ensureDir, resolveUserPath, shortenHomeInString } from "../../utils.ts";
+import { normalizeFingerprint } from "./fingerprint.ts";
 
 const execFileAsync = promisify(execFile);
 
@@ -55,7 +55,7 @@ async function generateSelfSignedCert(params: {
     "-out",
     params.certPath,
     "-subj",
-    "/CN=openclaw-gateway",
+    "/CN=cml-hive-assist-gateway",
   ]);
   await fs.chmod(params.keyPath, 0o600).catch(() => {});
   await fs.chmod(params.certPath, 0o600).catch(() => {});

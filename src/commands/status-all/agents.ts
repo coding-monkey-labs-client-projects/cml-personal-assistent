@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../../config/config.js";
-import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
-import { loadSessionStore, resolveStorePath } from "../../config/sessions.js";
-import { listAgentsForGateway } from "../../gateway/session-utils.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.ts";
+import { loadSessionStore, resolveStorePath } from "../../config/sessions.ts";
+import { listAgentsForGateway } from "../../gateway/session-utils.ts";
 
 async function fileExists(p: string): Promise<boolean> {
   try {
@@ -14,7 +14,7 @@ async function fileExists(p: string): Promise<boolean> {
   }
 }
 
-export async function getAgentLocalStatuses(cfg: OpenClawConfig) {
+export async function getAgentLocalStatuses(cfg: CmlHiveAssistConfig) {
   const agentList = listAgentsForGateway(cfg);
   const now = Date.now();
 

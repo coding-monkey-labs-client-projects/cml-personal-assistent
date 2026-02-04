@@ -1,24 +1,24 @@
 import { type RunOptions, run } from "@grammyjs/runner";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveAgentMaxConcurrent } from "../config/agent-limits.js";
-import { loadConfig } from "../config/config.js";
-import { computeBackoff, sleepWithAbort } from "../infra/backoff.js";
-import { formatErrorMessage } from "../infra/errors.js";
-import { formatDurationMs } from "../infra/format-duration.js";
-import { registerUnhandledRejectionHandler } from "../infra/unhandled-rejections.js";
-import { resolveTelegramAccount } from "./accounts.js";
-import { resolveTelegramAllowedUpdates } from "./allowed-updates.js";
-import { createTelegramBot } from "./bot.js";
-import { isRecoverableTelegramNetworkError } from "./network-errors.js";
-import { makeProxyFetch } from "./proxy.js";
-import { readTelegramUpdateOffset, writeTelegramUpdateOffset } from "./update-offset-store.js";
-import { startTelegramWebhook } from "./webhook.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveAgentMaxConcurrent } from "../config/agent-limits.ts";
+import { loadConfig } from "../config/config.ts";
+import { computeBackoff, sleepWithAbort } from "../infra/backoff.ts";
+import { formatErrorMessage } from "../infra/errors.ts";
+import { formatDurationMs } from "../infra/format-duration.ts";
+import { registerUnhandledRejectionHandler } from "../infra/unhandled-rejections.ts";
+import { resolveTelegramAccount } from "./accounts.ts";
+import { resolveTelegramAllowedUpdates } from "./allowed-updates.ts";
+import { createTelegramBot } from "./bot.ts";
+import { isRecoverableTelegramNetworkError } from "./network-errors.ts";
+import { makeProxyFetch } from "./proxy.ts";
+import { readTelegramUpdateOffset, writeTelegramUpdateOffset } from "./update-offset-store.ts";
+import { startTelegramWebhook } from "./webhook.ts";
 
 export type MonitorTelegramOpts = {
   token?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   useWebhook?: boolean;
@@ -29,7 +29,7 @@ export type MonitorTelegramOpts = {
   webhookUrl?: string;
 };
 
-export function createTelegramRunnerOptions(cfg: OpenClawConfig): RunOptions<unknown> {
+export function createTelegramRunnerOptions(cfg: CmlHiveAssistConfig): RunOptions<unknown> {
   return {
     sink: {
       concurrency: resolveAgentMaxConcurrent(cfg),

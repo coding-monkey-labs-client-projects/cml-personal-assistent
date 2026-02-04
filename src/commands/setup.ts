@@ -1,22 +1,22 @@
 import JSON5 from "json5";
 import fs from "node:fs/promises";
-import type { RuntimeEnv } from "../runtime.js";
-import { DEFAULT_AGENT_WORKSPACE_DIR, ensureAgentWorkspace } from "../agents/workspace.js";
-import { type OpenClawConfig, createConfigIO, writeConfigFile } from "../config/config.js";
-import { formatConfigPath, logConfigUpdated } from "../config/logging.js";
-import { resolveSessionTranscriptsDir } from "../config/sessions.js";
-import { defaultRuntime } from "../runtime.js";
-import { shortenHomePath } from "../utils.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { DEFAULT_AGENT_WORKSPACE_DIR, ensureAgentWorkspace } from "../agents/workspace.ts";
+import { type CmlHiveAssistConfig, createConfigIO, writeConfigFile } from "../config/config.ts";
+import { formatConfigPath, logConfigUpdated } from "../config/logging.ts";
+import { resolveSessionTranscriptsDir } from "../config/sessions.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { shortenHomePath } from "../utils.ts";
 
 async function readConfigFileRaw(configPath: string): Promise<{
   exists: boolean;
-  parsed: OpenClawConfig;
+  parsed: CmlHiveAssistConfig;
 }> {
   try {
     const raw = await fs.readFile(configPath, "utf-8");
     const parsed = JSON5.parse(raw);
     if (parsed && typeof parsed === "object") {
-      return { exists: true, parsed: parsed as OpenClawConfig };
+      return { exists: true, parsed: parsed as CmlHiveAssistConfig };
     }
     return { exists: true, parsed: {} };
   } catch {
@@ -41,7 +41,7 @@ export async function setupCommand(
 
   const workspace = desiredWorkspace ?? defaults.workspace ?? DEFAULT_AGENT_WORKSPACE_DIR;
 
-  const next: OpenClawConfig = {
+  const next: CmlHiveAssistConfig = {
     ...cfg,
     agents: {
       ...cfg.agents,

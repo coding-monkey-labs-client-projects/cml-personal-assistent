@@ -1,4 +1,4 @@
-export { configureCommand, configureCommandWithSections } from "./configure.commands.js";
-export { buildGatewayAuthConfig } from "./configure.gateway-auth.js";
-export { CONFIGURE_WIZARD_SECTIONS, type WizardSection } from "./configure.shared.js";
-export { runConfigureWizard } from "./configure.wizard.js";
+export { configureCommand, configureCommandWithSections } from "./configure.commands.ts";
+export { buildGatewayAuthConfig } from "./configure.gateway-auth.ts";
+export { CONFIGURE_WIZARD_SECTIONS, type WizardSection } from "./configure.shared.ts";
+export { runConfigureWizard } from "./configure.wizard.ts";

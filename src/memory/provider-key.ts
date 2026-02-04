@@ -1,5 +1,5 @@
-import { fingerprintHeaderNames } from "./headers-fingerprint.js";
-import { hashText } from "./internal.js";
+import { fingerprintHeaderNames } from "./headers-fingerprint.ts";
+import { hashText } from "./internal.ts";
 
 export function computeEmbeddingProviderKey(params: {
   providerId: string;

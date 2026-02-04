@@ -1,8 +1,8 @@
 import type { Command } from "commander";
-import { danger } from "../../globals.js";
-import { defaultRuntime } from "../../runtime.js";
-import { callBrowserRequest, type BrowserParentOpts } from "../browser-cli-shared.js";
-import { requireRef, resolveBrowserActionContext } from "./shared.js";
+import { danger } from "../../globals.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { callBrowserRequest, type BrowserParentOpts } from "../browser-cli-shared.ts";
+import { requireRef, resolveBrowserActionContext } from "./shared.ts";
 
 export function registerBrowserNavigationCommands(
   browser: Command,

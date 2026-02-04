@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
-import type { OpenClawConfig } from "../config/config.js";
-import type { BackoffPolicy } from "../infra/backoff.js";
-import { computeBackoff, sleepWithAbort } from "../infra/backoff.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { BackoffPolicy } from "../infra/backoff.ts";
+import { computeBackoff, sleepWithAbort } from "../infra/backoff.ts";
 
 export type ReconnectPolicy = BackoffPolicy & {
   maxAttempts: number;
@@ -18,7 +18,7 @@ export const DEFAULT_RECONNECT_POLICY: ReconnectPolicy = {
 
 const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
 
-export function resolveHeartbeatSeconds(cfg: OpenClawConfig, overrideSeconds?: number): number {
+export function resolveHeartbeatSeconds(cfg: CmlHiveAssistConfig, overrideSeconds?: number): number {
   const candidate = overrideSeconds ?? cfg.web?.heartbeatSeconds;
   if (typeof candidate === "number" && candidate > 0) {
     return candidate;
@@ -27,7 +27,7 @@ export function resolveHeartbeatSeconds(cfg: OpenClawConfig, overrideSeconds?: n
 }
 
 export function resolveReconnectPolicy(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   overrides?: Partial<ReconnectPolicy>,
 ): ReconnectPolicy {
   const reconnectOverrides = cfg.web?.reconnect ?? {};

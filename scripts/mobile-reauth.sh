@@ -32,7 +32,7 @@ case "$AUTH_STATUS" in
         "$SCRIPT_DIR/claude-auth-status.sh" full
         exit 0
         ;;
-    CLAUDE_EXPIRING|OPENCLAW_EXPIRING|CLAWDBOT_EXPIRING)
+    CLAUDE_EXPIRING|CML_HIVE_ASSIST_EXPIRING|CLAWDBOT_EXPIRING)
         echo -e "${YELLOW}Auth is expiring soon.${NC}"
         echo ""
         ;;
@@ -69,11 +69,11 @@ if claude setup-token; then
     echo ""
     "$SCRIPT_DIR/claude-auth-status.sh" full
 
-    # Restart openclaw service if running
-    if systemctl --user is-active openclaw >/dev/null 2>&1; then
+    # Restart cml-hive-assist service if running
+    if systemctl --user is-active cml-hive-assist >/dev/null 2>&1; then
         echo ""
-        echo "Restarting openclaw service..."
-        systemctl --user restart openclaw
+        echo "Restarting cml-hive-assist service..."
+        systemctl --user restart cml-hive-assist
         echo -e "${GREEN}Service restarted.${NC}"
     fi
 else

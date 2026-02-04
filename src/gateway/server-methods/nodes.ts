@@ -1,6 +1,6 @@
-import type { GatewayRequestHandlers } from "./types.js";
-import { loadConfig } from "../../config/config.js";
-import { listDevicePairing } from "../../infra/device-pairing.js";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { loadConfig } from "../../config/config.ts";
+import { listDevicePairing } from "../../infra/device-pairing.ts";
 import {
   approveNodePairing,
   listNodePairing,
@@ -8,8 +8,8 @@ import {
   renamePairedNode,
   requestNodePairing,
   verifyNodeToken,
-} from "../../infra/node-pairing.js";
-import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.js";
+} from "../../infra/node-pairing.ts";
+import { isNodeCommandAllowed, resolveNodeCommandAllowlist } from "../node-command-policy.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -24,13 +24,13 @@ import {
   validateNodePairRequestParams,
   validateNodePairVerifyParams,
   validateNodeRenameParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 import {
   respondInvalidParams,
   respondUnavailableOnThrow,
   safeParseJson,
   uniqueSortedStrings,
-} from "./nodes.helpers.js";
+} from "./nodes.helpers.ts";
 
 function isNodeEntry(entry: { role?: string; roles?: string[] }) {
   if (entry.role === "node") {
@@ -505,7 +505,7 @@ export const nodeHandlers: GatewayRequestHandlers = {
           ? JSON.stringify(p.payload)
           : null;
     await respondUnavailableOnThrow(respond, async () => {
-      const { handleNodeEvent } = await import("../server-node-events.js");
+      const { handleNodeEvent } = await import("../server-node-events.ts");
       const nodeId = client?.connect?.device?.id ?? client?.connect?.client?.id ?? "node";
       const nodeContext = {
         deps: context.deps,

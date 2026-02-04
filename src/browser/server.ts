@@ -1,12 +1,12 @@
 import type { Server } from "node:http";
 import express from "express";
-import type { BrowserRouteRegistrar } from "./routes/types.js";
-import { loadConfig } from "../config/config.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveBrowserConfig, resolveProfile } from "./config.js";
-import { ensureChromeExtensionRelayServer } from "./extension-relay.js";
-import { registerBrowserRoutes } from "./routes/index.js";
-import { type BrowserServerState, createBrowserRouteContext } from "./server-context.js";
+import type { BrowserRouteRegistrar } from "./routes/types.ts";
+import { loadConfig } from "../config/config.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveBrowserConfig, resolveProfile } from "./config.ts";
+import { ensureChromeExtensionRelayServer } from "./extension-relay.ts";
+import { registerBrowserRoutes } from "./routes/index.ts";
+import { type BrowserServerState, createBrowserRouteContext } from "./server-context.ts";
 
 let state: BrowserServerState | null = null;
 const log = createSubsystemLogger("browser");
@@ -36,7 +36,9 @@ export async function startBrowserControlServerFromConfig(): Promise<BrowserServ
     const s = app.listen(port, "127.0.0.1", () => resolve(s));
     s.once("error", reject);
   }).catch((err) => {
-    logServer.error(`openclaw browser server failed to bind 127.0.0.1:${port}: ${String(err)}`);
+    logServer.error(
+      `cml-hive-assist browser server failed to bind 127.0.0.1:${port}: ${String(err)}`,
+    );
     return null;
   });
 
@@ -89,7 +91,7 @@ export async function stopBrowserControlServer(): Promise<void> {
       }
     }
   } catch (err) {
-    logServer.warn(`openclaw browser stop failed: ${String(err)}`);
+    logServer.warn(`cml-hive-assist browser stop failed: ${String(err)}`);
   }
 
   if (current.server) {
@@ -101,7 +103,7 @@ export async function stopBrowserControlServer(): Promise<void> {
 
   // Optional: Playwright is not always available (e.g. embedded gateway builds).
   try {
-    const mod = await import("./pw-ai.js");
+    const mod = await import("./pw-ai.ts");
     await mod.closePlaywrightBrowserConnection();
   } catch {
     // ignore

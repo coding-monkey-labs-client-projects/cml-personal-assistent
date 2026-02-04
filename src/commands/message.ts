@@ -1,15 +1,15 @@
-import type { OutboundSendDeps } from "../infra/outbound/deliver.js";
-import type { RuntimeEnv } from "../runtime.js";
+import type { OutboundSendDeps } from "../infra/outbound/deliver.ts";
+import type { RuntimeEnv } from "../runtime.ts";
 import {
   CHANNEL_MESSAGE_ACTION_NAMES,
   type ChannelMessageActionName,
-} from "../channels/plugins/types.js";
-import { createOutboundSendDeps, type CliDeps } from "../cli/outbound-send-deps.js";
-import { withProgress } from "../cli/progress.js";
-import { loadConfig } from "../config/config.js";
-import { runMessageAction } from "../infra/outbound/message-action-runner.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
-import { buildMessageCliJson, formatMessageCliText } from "./message-format.js";
+} from "../channels/plugins/types.ts";
+import { createOutboundSendDeps, type CliDeps } from "../cli/outbound-send-deps.ts";
+import { withProgress } from "../cli/progress.ts";
+import { loadConfig } from "../config/config.ts";
+import { runMessageAction } from "../infra/outbound/message-action-runner.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.ts";
+import { buildMessageCliJson, formatMessageCliText } from "./message-format.ts";
 
 export async function messageCommand(
   opts: Record<string, unknown>,

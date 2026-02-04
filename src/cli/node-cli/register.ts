@@ -1,16 +1,16 @@
 import type { Command } from "commander";
-import { loadNodeHostConfig } from "../../node-host/config.js";
-import { runNodeHost } from "../../node-host/runner.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { parsePort } from "../daemon-cli/shared.js";
+import { loadNodeHostConfig } from "../../node-host/config.ts";
+import { runNodeHost } from "../../node-host/runner.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { parsePort } from "../daemon-cli/shared.ts";
 import {
   runNodeDaemonInstall,
   runNodeDaemonRestart,
   runNodeDaemonStatus,
   runNodeDaemonStop,
   runNodeDaemonUninstall,
-} from "./daemon.js";
+} from "./daemon.ts";
 
 function parsePortWithFallback(value: unknown, fallback: number): number {
   const parsed = parsePort(value);
@@ -24,7 +24,7 @@ export function registerNodeCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/node", "docs.openclaw.ai/cli/node")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/node", "docs.cml-hive-assist.ai/cli/node")}\n`,
     );
 
   node

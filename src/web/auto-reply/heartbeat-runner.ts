@@ -1,29 +1,29 @@
-import type { ReplyPayload } from "../../auto-reply/types.js";
+import type { ReplyPayload } from "../../auto-reply/types.ts";
 import {
   DEFAULT_HEARTBEAT_ACK_MAX_CHARS,
   resolveHeartbeatPrompt,
   stripHeartbeatToken,
-} from "../../auto-reply/heartbeat.js";
-import { getReplyFromConfig } from "../../auto-reply/reply.js";
-import { HEARTBEAT_TOKEN } from "../../auto-reply/tokens.js";
-import { resolveWhatsAppHeartbeatRecipients } from "../../channels/plugins/whatsapp-heartbeat.js";
-import { loadConfig } from "../../config/config.js";
+} from "../../auto-reply/heartbeat.ts";
+import { getReplyFromConfig } from "../../auto-reply/reply.ts";
+import { HEARTBEAT_TOKEN } from "../../auto-reply/tokens.ts";
+import { resolveWhatsAppHeartbeatRecipients } from "../../channels/plugins/whatsapp-heartbeat.ts";
+import { loadConfig } from "../../config/config.ts";
 import {
   loadSessionStore,
   resolveSessionKey,
   resolveStorePath,
   updateSessionStore,
-} from "../../config/sessions.js";
-import { emitHeartbeatEvent, resolveIndicatorType } from "../../infra/heartbeat-events.js";
-import { resolveHeartbeatVisibility } from "../../infra/heartbeat-visibility.js";
-import { getChildLogger } from "../../logging.js";
-import { normalizeMainKey } from "../../routing/session-key.js";
-import { sendMessageWhatsApp } from "../outbound.js";
-import { newConnectionId } from "../reconnect.js";
-import { formatError } from "../session.js";
-import { whatsappHeartbeatLog } from "./loggers.js";
-import { getSessionSnapshot } from "./session-snapshot.js";
-import { elide } from "./util.js";
+} from "../../config/sessions.ts";
+import { emitHeartbeatEvent, resolveIndicatorType } from "../../infra/heartbeat-events.ts";
+import { resolveHeartbeatVisibility } from "../../infra/heartbeat-visibility.ts";
+import { getChildLogger } from "../../logging.ts";
+import { normalizeMainKey } from "../../routing/session-key.ts";
+import { sendMessageWhatsApp } from "../outbound.ts";
+import { newConnectionId } from "../reconnect.ts";
+import { formatError } from "../session.ts";
+import { whatsappHeartbeatLog } from "./loggers.ts";
+import { getSessionSnapshot } from "./session-snapshot.ts";
+import { elide } from "./util.ts";
 
 function resolveHeartbeatReplyPayload(
   replyResult: ReplyPayload | ReplyPayload[] | undefined,

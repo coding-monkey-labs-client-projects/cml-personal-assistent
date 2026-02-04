@@ -1,13 +1,13 @@
-import type { CanvasHostServer } from "../canvas-host/server.js";
-import type { PluginServicesHandle } from "../plugins/services.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { startBrowserControlServerIfEnabled } from "./server-browser.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { registerSkillsChangeListener } from "../agents/skills/refresh.js";
-import { initSubagentRegistry } from "../agents/subagent-registry.js";
-import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { createDefaultDeps } from "../cli/deps.js";
+import type { CanvasHostServer } from "../canvas-host/server.ts";
+import type { PluginServicesHandle } from "../plugins/services.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { startBrowserControlServerIfEnabled } from "./server-browser.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { registerSkillsChangeListener } from "../agents/skills/refresh.ts";
+import { initSubagentRegistry } from "../agents/subagent-registry.ts";
+import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { createDefaultDeps } from "../cli/deps.ts";
 import {
   CONFIG_PATH,
   isNixMode,
@@ -15,65 +15,65 @@ import {
   migrateLegacyConfig,
   readConfigFileSnapshot,
   writeConfigFile,
-} from "../config/config.js";
-import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
-import { clearAgentRunContext, onAgentEvent } from "../infra/agent-events.js";
-import { isDiagnosticsEnabled } from "../infra/diagnostic-events.js";
-import { logAcceptedEnvOption } from "../infra/env.js";
-import { createExecApprovalForwarder } from "../infra/exec-approval-forwarder.js";
-import { onHeartbeatEvent } from "../infra/heartbeat-events.js";
-import { startHeartbeatRunner } from "../infra/heartbeat-runner.js";
-import { getMachineDisplayName } from "../infra/machine-name.js";
-import { ensureOpenClawCliOnPath } from "../infra/path-env.js";
-import { setGatewaySigusr1RestartPolicy } from "../infra/restart.js";
+} from "../config/config.ts";
+import { applyPluginAutoEnable } from "../config/plugin-auto-enable.ts";
+import { clearAgentRunContext, onAgentEvent } from "../infra/agent-events.ts";
+import { isDiagnosticsEnabled } from "../infra/diagnostic-events.ts";
+import { logAcceptedEnvOption } from "../infra/env.ts";
+import { createExecApprovalForwarder } from "../infra/exec-approval-forwarder.ts";
+import { onHeartbeatEvent } from "../infra/heartbeat-events.ts";
+import { startHeartbeatRunner } from "../infra/heartbeat-runner.ts";
+import { getMachineDisplayName } from "../infra/machine-name.ts";
+import { ensureCmlHiveAssistCliOnPath } from "../infra/path-env.ts";
+import { setGatewaySigusr1RestartPolicy } from "../infra/restart.ts";
 import {
   primeRemoteSkillsCache,
   refreshRemoteBinsForConnectedNodes,
   setSkillsRemoteRegistry,
-} from "../infra/skills-remote.js";
-import { scheduleGatewayUpdateCheck } from "../infra/update-startup.js";
-import { startDiagnosticHeartbeat, stopDiagnosticHeartbeat } from "../logging/diagnostic.js";
-import { createSubsystemLogger, runtimeForLogger } from "../logging/subsystem.js";
-import { runOnboardingWizard } from "../wizard/onboarding.js";
-import { startGatewayConfigReloader } from "./config-reload.js";
-import { ExecApprovalManager } from "./exec-approval-manager.js";
-import { NodeRegistry } from "./node-registry.js";
-import { createChannelManager } from "./server-channels.js";
-import { createAgentEventHandler } from "./server-chat.js";
-import { createGatewayCloseHandler } from "./server-close.js";
-import { buildGatewayCronService } from "./server-cron.js";
-import { startGatewayDiscovery } from "./server-discovery-runtime.js";
-import { applyGatewayLaneConcurrency } from "./server-lanes.js";
-import { startGatewayMaintenanceTimers } from "./server-maintenance.js";
-import { GATEWAY_EVENTS, listGatewayMethods } from "./server-methods-list.js";
-import { coreGatewayHandlers } from "./server-methods.js";
-import { createExecApprovalHandlers } from "./server-methods/exec-approval.js";
-import { safeParseJson } from "./server-methods/nodes.helpers.js";
-import { hasConnectedMobileNode } from "./server-mobile-nodes.js";
-import { loadGatewayModelCatalog } from "./server-model-catalog.js";
-import { createNodeSubscriptionManager } from "./server-node-subscriptions.js";
-import { loadGatewayPlugins } from "./server-plugins.js";
-import { createGatewayReloadHandlers } from "./server-reload-handlers.js";
-import { resolveGatewayRuntimeConfig } from "./server-runtime-config.js";
-import { createGatewayRuntimeState } from "./server-runtime-state.js";
-import { resolveSessionKeyForRun } from "./server-session-key.js";
-import { logGatewayStartup } from "./server-startup-log.js";
-import { startGatewaySidecars } from "./server-startup.js";
-import { startGatewayTailscaleExposure } from "./server-tailscale.js";
-import { createWizardSessionTracker } from "./server-wizard-sessions.js";
-import { attachGatewayWsHandlers } from "./server-ws-runtime.js";
+} from "../infra/skills-remote.ts";
+import { scheduleGatewayUpdateCheck } from "../infra/update-startup.ts";
+import { startDiagnosticHeartbeat, stopDiagnosticHeartbeat } from "../logging/diagnostic.ts";
+import { createSubsystemLogger, runtimeForLogger } from "../logging/subsystem.ts";
+import { runOnboardingWizard } from "../wizard/onboarding.ts";
+import { startGatewayConfigReloader } from "./config-reload.ts";
+import { ExecApprovalManager } from "./exec-approval-manager.ts";
+import { NodeRegistry } from "./node-registry.ts";
+import { createChannelManager } from "./server-channels.ts";
+import { createAgentEventHandler } from "./server-chat.ts";
+import { createGatewayCloseHandler } from "./server-close.ts";
+import { buildGatewayCronService } from "./server-cron.ts";
+import { startGatewayDiscovery } from "./server-discovery-runtime.ts";
+import { applyGatewayLaneConcurrency } from "./server-lanes.ts";
+import { startGatewayMaintenanceTimers } from "./server-maintenance.ts";
+import { GATEWAY_EVENTS, listGatewayMethods } from "./server-methods-list.ts";
+import { coreGatewayHandlers } from "./server-methods.ts";
+import { createExecApprovalHandlers } from "./server-methods/exec-approval.ts";
+import { safeParseJson } from "./server-methods/nodes.helpers.ts";
+import { hasConnectedMobileNode } from "./server-mobile-nodes.ts";
+import { loadGatewayModelCatalog } from "./server-model-catalog.ts";
+import { createNodeSubscriptionManager } from "./server-node-subscriptions.ts";
+import { loadGatewayPlugins } from "./server-plugins.ts";
+import { createGatewayReloadHandlers } from "./server-reload-handlers.ts";
+import { resolveGatewayRuntimeConfig } from "./server-runtime-config.ts";
+import { createGatewayRuntimeState } from "./server-runtime-state.ts";
+import { resolveSessionKeyForRun } from "./server-session-key.ts";
+import { logGatewayStartup } from "./server-startup-log.ts";
+import { startGatewaySidecars } from "./server-startup.ts";
+import { startGatewayTailscaleExposure } from "./server-tailscale.ts";
+import { createWizardSessionTracker } from "./server-wizard-sessions.ts";
+import { attachGatewayWsHandlers } from "./server-ws-runtime.ts";
 import {
   getHealthCache,
   getHealthVersion,
   getPresenceVersion,
   incrementPresenceVersion,
   refreshGatewayHealthSnapshot,
-} from "./server/health-state.js";
-import { loadGatewayTlsRuntime } from "./server/tls.js";
+} from "./server/health-state.ts";
+import { loadGatewayTlsRuntime } from "./server/tls.ts";
 
-export { __resetModelCatalogCacheForTest } from "./server-model-catalog.js";
+export { __resetModelCatalogCacheForTest } from "./server-model-catalog.ts";
 
-ensureOpenClawCliOnPath();
+ensureCmlHiveAssistCliOnPath();
 
 const log = createSubsystemLogger("gateway");
 const logCanvas = log.child("canvas");
@@ -101,7 +101,7 @@ export type GatewayServerOptions = {
    * - tailnet: bind only to the Tailscale IPv4 address (100.64.0.0/10)
    * - auto: prefer loopback, else LAN
    */
-  bind?: import("../config/config.js").GatewayBindMode;
+  bind?: import("../config/config.ts").GatewayBindMode;
   /**
    * Advanced override for the bind host, bypassing bind resolution.
    * Prefer `bind` unless you really need a specific address.
@@ -125,11 +125,11 @@ export type GatewayServerOptions = {
   /**
    * Override gateway auth configuration (merges with config).
    */
-  auth?: import("../config/config.js").GatewayAuthConfig;
+  auth?: import("../config/config.ts").GatewayAuthConfig;
   /**
    * Override gateway Tailscale exposure configuration (merges with config).
    */
-  tailscale?: import("../config/config.js").GatewayTailscaleConfig;
+  tailscale?: import("../config/config.ts").GatewayTailscaleConfig;
   /**
    * Test-only: allow canvas host startup even when NODE_ENV/VITEST would disable it.
    */
@@ -138,9 +138,9 @@ export type GatewayServerOptions = {
    * Test-only: override the onboarding wizard runner.
    */
   wizardRunner?: (
-    opts: import("../commands/onboard-types.js").OnboardOptions,
-    runtime: import("../runtime.js").RuntimeEnv,
-    prompter: import("../wizard/prompts.js").WizardPrompter,
+    opts: import("../commands/onboard-types.ts").OnboardOptions,
+    runtime: import("../runtime.ts").RuntimeEnv,
+    prompter: import("../wizard/prompts.ts").WizardPrompter,
   ) => Promise<void>;
 };
 
@@ -149,13 +149,13 @@ export async function startGatewayServer(
   opts: GatewayServerOptions = {},
 ): Promise<GatewayServer> {
   // Ensure all default port derivations (browser/canvas) see the actual runtime port.
-  process.env.OPENCLAW_GATEWAY_PORT = String(port);
+  process.env.CML_HIVE_ASSIST_GATEWAY_PORT = String(port);
   logAcceptedEnvOption({
-    key: "OPENCLAW_RAW_STREAM",
+    key: "CML_HIVE_ASSIST_RAW_STREAM",
     description: "raw stream logging enabled",
   });
   logAcceptedEnvOption({
-    key: "OPENCLAW_RAW_STREAM_PATH",
+    key: "CML_HIVE_ASSIST_RAW_STREAM_PATH",
     description: "raw stream log path override",
   });
 
@@ -169,7 +169,7 @@ export async function startGatewayServer(
     const { config: migrated, changes } = migrateLegacyConfig(configSnapshot.parsed);
     if (!migrated) {
       throw new Error(
-        `Legacy config entries detected but auto-migration failed. Run "${formatCliCommand("openclaw doctor")}" to migrate.`,
+        `Legacy config entries detected but auto-migration failed. Run "${formatCliCommand("cml-hive-assist doctor")}" to migrate.`,
       );
     }
     await writeConfigFile(migrated);
@@ -191,7 +191,7 @@ export async function startGatewayServer(
             .join("\n")
         : "Unknown validation issue.";
     throw new Error(
-      `Invalid config at ${configSnapshot.path}.\n${issues}\nRun "${formatCliCommand("openclaw doctor")}" to repair, then retry.`,
+      `Invalid config at ${configSnapshot.path}.\n${issues}\nRun "${formatCliCommand("cml-hive-assist doctor")}" to repair, then retry.`,
     );
   }
 

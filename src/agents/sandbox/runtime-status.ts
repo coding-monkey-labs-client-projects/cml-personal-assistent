@@ -1,11 +1,11 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SandboxConfig, SandboxToolPolicyResolved } from "./types.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { canonicalizeMainSessionAlias, resolveAgentMainSessionKey } from "../../config/sessions.js";
-import { resolveSessionAgentId } from "../agent-scope.js";
-import { expandToolGroups } from "../tool-policy.js";
-import { resolveSandboxConfigForAgent } from "./config.js";
-import { resolveSandboxToolPolicyForAgent } from "./tool-policy.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SandboxConfig, SandboxToolPolicyResolved } from "./types.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { canonicalizeMainSessionAlias, resolveAgentMainSessionKey } from "../../config/sessions.ts";
+import { resolveSessionAgentId } from "../agent-scope.ts";
+import { expandToolGroups } from "../tool-policy.ts";
+import { resolveSandboxConfigForAgent } from "./config.ts";
+import { resolveSandboxToolPolicyForAgent } from "./tool-policy.ts";
 
 function shouldSandboxSession(cfg: SandboxConfig, sessionKey: string, mainSessionKey: string) {
   if (cfg.mode === "off") {
@@ -18,7 +18,7 @@ function shouldSandboxSession(cfg: SandboxConfig, sessionKey: string, mainSessio
 }
 
 function resolveMainSessionKeyForSandbox(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   agentId: string;
 }): string {
   if (params.cfg?.session?.scope === "global") {
@@ -31,7 +31,7 @@ function resolveMainSessionKeyForSandbox(params: {
 }
 
 function resolveComparableSessionKeyForSandbox(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   agentId: string;
   sessionKey: string;
 }): string {
@@ -43,7 +43,7 @@ function resolveComparableSessionKeyForSandbox(params: {
 }
 
 export function resolveSandboxRuntimeStatus(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   sessionKey?: string;
 }): {
   agentId: string;
@@ -79,7 +79,7 @@ export function resolveSandboxRuntimeStatus(params: {
 }
 
 export function formatSandboxToolPolicyBlockedMessage(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   sessionKey?: string;
   toolName: string;
 }): string | undefined {
@@ -131,7 +131,7 @@ export function formatSandboxToolPolicyBlockedMessage(params: {
     lines.push(`- Use main session key (direct): ${runtime.mainSessionKey}`);
   }
   lines.push(
-    `- See: ${formatCliCommand(`openclaw sandbox explain --session ${runtime.sessionKey}`)}`,
+    `- See: ${formatCliCommand(`cml-hive-assist sandbox explain --session ${runtime.sessionKey}`)}`,
   );
 
   return lines.join("\n");

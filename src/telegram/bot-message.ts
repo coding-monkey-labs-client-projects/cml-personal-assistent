@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { buildTelegramMessageContext } from "./bot-message-context.js";
-import { dispatchTelegramMessage } from "./bot-message-dispatch.js";
+import { buildTelegramMessageContext } from "./bot-message-context.ts";
+import { dispatchTelegramMessage } from "./bot-message-dispatch.ts";
 
 export const createTelegramMessageProcessor = (deps) => {
   const {

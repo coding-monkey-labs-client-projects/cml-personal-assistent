@@ -1,5 +1,5 @@
-import type { NormalizedChatType } from "../channels/chat-type.js";
-import type { AgentElevatedAllowFromConfig, SessionSendPolicyAction } from "./types.base.js";
+import type { NormalizedChatType } from "../channels/chat-type.ts";
+import type { AgentElevatedAllowFromConfig, SessionSendPolicyAction } from "./types.base.ts";
 
 export type MediaUnderstandingScopeMatch = {
   channel?: string;

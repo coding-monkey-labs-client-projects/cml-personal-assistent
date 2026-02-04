@@ -1,9 +1,9 @@
-import { normalizeVerboseLevel } from "../auto-reply/thinking.js";
-import { loadConfig } from "../config/config.js";
-import { type AgentEventPayload, getAgentRunContext } from "../infra/agent-events.js";
-import { resolveHeartbeatVisibility } from "../infra/heartbeat-visibility.js";
-import { loadSessionEntry } from "./session-utils.js";
-import { formatForLog } from "./ws-log.js";
+import { normalizeVerboseLevel } from "../auto-reply/thinking.ts";
+import { loadConfig } from "../config/config.ts";
+import { type AgentEventPayload, getAgentRunContext } from "../infra/agent-events.ts";
+import { resolveHeartbeatVisibility } from "../infra/heartbeat-visibility.ts";
+import { loadSessionEntry } from "./session-utils.ts";
+import { formatForLog } from "./ws-log.ts";
 
 /**
  * Check if webchat broadcasts should be suppressed for heartbeat runs.

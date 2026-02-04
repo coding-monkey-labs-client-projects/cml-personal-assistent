@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { ResolvedQmdConfig } from "./backend-config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ResolvedQmdConfig } from "./backend-config.ts";
 import type {
   MemoryEmbeddingProbeResult,
   MemorySearchManager,
   MemorySyncProgressUpdate,
-} from "./types.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveMemoryBackendConfig } from "./backend-config.js";
+} from "./types.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveMemoryBackendConfig } from "./backend-config.ts";
 
 const log = createSubsystemLogger("memory");
 const QMD_MANAGER_CACHE = new Map<string, MemorySearchManager>();
@@ -17,7 +17,7 @@ export type MemorySearchManagerResult = {
 };
 
 export async function getMemorySearchManager(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
 }): Promise<MemorySearchManagerResult> {
   const resolved = resolveMemoryBackendConfig(params);
@@ -28,7 +28,7 @@ export async function getMemorySearchManager(params: {
       return { manager: cached };
     }
     try {
-      const { QmdMemoryManager } = await import("./qmd-manager.js");
+      const { QmdMemoryManager } = await import("./qmd-manager.ts");
       const primary = await QmdMemoryManager.create({
         cfg: params.cfg,
         agentId: params.agentId,
@@ -39,7 +39,7 @@ export async function getMemorySearchManager(params: {
           {
             primary,
             fallbackFactory: async () => {
-              const { MemoryIndexManager } = await import("./manager.js");
+              const { MemoryIndexManager } = await import("./manager.ts");
               return await MemoryIndexManager.get(params);
             },
           },
@@ -55,7 +55,7 @@ export async function getMemorySearchManager(params: {
   }
 
   try {
-    const { MemoryIndexManager } = await import("./manager.js");
+    const { MemoryIndexManager } = await import("./manager.ts");
     const manager = await MemoryIndexManager.get(params);
     return { manager };
   } catch (err) {

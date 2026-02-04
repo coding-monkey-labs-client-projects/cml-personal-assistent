@@ -1,5 +1,5 @@
-import type { AuthProfileStore } from "../agents/auth-profiles.js";
-import type { AuthChoice } from "./onboard-types.js";
+import type { AuthProfileStore } from "../agents/auth-profiles.ts";
+import type { AuthChoice } from "./onboard-types.ts";
 
 export type AuthChoiceOption = {
   value: AuthChoice;

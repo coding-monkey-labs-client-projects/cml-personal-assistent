@@ -1,8 +1,8 @@
 import { Container, Spacer, Text } from "@mariozechner/pi-tui";
-import { theme } from "../theme/theme.js";
-import { AssistantMessageComponent } from "./assistant-message.js";
-import { ToolExecutionComponent } from "./tool-execution.js";
-import { UserMessageComponent } from "./user-message.js";
+import { theme } from "../theme/theme.ts";
+import { AssistantMessageComponent } from "./assistant-message.ts";
+import { ToolExecutionComponent } from "./tool-execution.ts";
+import { UserMessageComponent } from "./user-message.ts";
 
 export class ChatLog extends Container {
   private toolById = new Map<string, ToolExecutionComponent>();

@@ -6,12 +6,12 @@ import type {
   BrowserStatus,
   BrowserTab,
   ProfileStatus,
-} from "../browser/client.js";
-import { danger, info } from "../globals.js";
-import { defaultRuntime } from "../runtime.js";
-import { shortenHomePath } from "../utils.js";
-import { callBrowserRequest, type BrowserParentOpts } from "./browser-cli-shared.js";
-import { runCommandWithRuntime } from "./cli-utils.js";
+} from "../browser/client.ts";
+import { danger, info } from "../globals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { shortenHomePath } from "../utils.ts";
+import { callBrowserRequest, type BrowserParentOpts } from "./browser-cli-shared.ts";
+import { runCommandWithRuntime } from "./cli-utils.ts";
 
 function runBrowserCommand(action: () => Promise<void>) {
   return runCommandWithRuntime(defaultRuntime, action, (err) => {
@@ -49,7 +49,7 @@ export function registerBrowserManageCommands(
         const detectedDisplay = detectedPath ? shortenHomePath(detectedPath) : "auto";
         defaultRuntime.log(
           [
-            `profile: ${status.profile ?? "openclaw"}`,
+            `profile: ${status.profile ?? "cml-hive-assist"}`,
             `enabled: ${status.enabled}`,
             `running: ${status.running}`,
             `cdpPort: ${status.cdpPort}`,
@@ -93,7 +93,7 @@ export function registerBrowserManageCommands(
           defaultRuntime.log(JSON.stringify(status, null, 2));
           return;
         }
-        const name = status.profile ?? "openclaw";
+        const name = status.profile ?? "cml-hive-assist";
         defaultRuntime.log(info(`🦞 browser [${name}] running: ${status.running}`));
       });
     });
@@ -127,7 +127,7 @@ export function registerBrowserManageCommands(
           defaultRuntime.log(JSON.stringify(status, null, 2));
           return;
         }
-        const name = status.profile ?? "openclaw";
+        const name = status.profile ?? "cml-hive-assist";
         defaultRuntime.log(info(`🦞 browser [${name}] running: ${status.running}`));
       });
     });
@@ -458,7 +458,10 @@ export function registerBrowserManageCommands(
     .requiredOption("--name <name>", "Profile name (lowercase, numbers, hyphens)")
     .option("--color <hex>", "Profile color (hex format, e.g. #0066CC)")
     .option("--cdp-url <url>", "CDP URL for remote Chrome (http/https)")
-    .option("--driver <driver>", "Profile driver (openclaw|extension). Default: openclaw")
+    .option(
+      "--driver <driver>",
+      "Profile driver (cml-hive-assist|extension). Default: cml-hive-assist",
+    )
     .action(
       async (opts: { name: string; color?: string; cdpUrl?: string; driver?: string }, cmd) => {
         const parent = parentOpts(cmd);

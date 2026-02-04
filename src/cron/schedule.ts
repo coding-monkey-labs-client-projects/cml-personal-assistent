@@ -1,5 +1,5 @@
 import { Cron } from "croner";
-import type { CronSchedule } from "./types.js";
+import type { CronSchedule } from "./types.ts";
 
 export function computeNextRunAtMs(schedule: CronSchedule, nowMs: number): number | undefined {
   if (schedule.kind === "at") {

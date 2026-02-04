@@ -5,44 +5,44 @@ import {
   createWriteTool,
   readTool,
 } from "@mariozechner/pi-coding-agent";
-import type { OpenClawConfig } from "../config/config.js";
-import type { ModelAuthMode } from "./model-auth.js";
-import type { AnyAgentTool } from "./pi-tools.types.js";
-import type { SandboxContext } from "./sandbox.js";
-import { logWarn } from "../logger.js";
-import { getPluginToolMeta } from "../plugins/tools.js";
-import { isSubagentSessionKey } from "../routing/session-key.js";
-import { resolveGatewayMessageChannel } from "../utils/message-channel.js";
-import { createApplyPatchTool } from "./apply-patch.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ModelAuthMode } from "./model-auth.ts";
+import type { AnyAgentTool } from "./pi-tools.types.ts";
+import type { SandboxContext } from "./sandbox.ts";
+import { logWarn } from "../logger.ts";
+import { getPluginToolMeta } from "../plugins/tools.ts";
+import { isSubagentSessionKey } from "../routing/session-key.ts";
+import { resolveGatewayMessageChannel } from "../utils/message-channel.ts";
+import { createApplyPatchTool } from "./apply-patch.ts";
 import {
   createExecTool,
   createProcessTool,
   type ExecToolDefaults,
   type ProcessToolDefaults,
-} from "./bash-tools.js";
-import { listChannelAgentTools } from "./channel-tools.js";
-import { createOpenClawTools } from "./openclaw-tools.js";
-import { wrapToolWithAbortSignal } from "./pi-tools.abort.js";
-import { wrapToolWithBeforeToolCallHook } from "./pi-tools.before-tool-call.js";
+} from "./bash-tools.ts";
+import { listChannelAgentTools } from "./channel-tools.ts";
+import { createCmlHiveAssistTools } from "./cml-hive-assist-tools.ts";
+import { wrapToolWithAbortSignal } from "./pi-tools.abort.ts";
+import { wrapToolWithBeforeToolCallHook } from "./pi-tools.before-tool-call.ts";
 import {
   filterToolsByPolicy,
   isToolAllowedByPolicies,
   resolveEffectiveToolPolicy,
   resolveGroupToolPolicy,
   resolveSubagentToolPolicy,
-} from "./pi-tools.policy.js";
+} from "./pi-tools.policy.ts";
 import {
   assertRequiredParams,
   CLAUDE_PARAM_GROUPS,
-  createOpenClawReadTool,
+  createCmlHiveAssistReadTool,
   createSandboxedEditTool,
   createSandboxedReadTool,
   createSandboxedWriteTool,
   normalizeToolParams,
   patchToolSchemaForClaudeCompatibility,
   wrapToolParamNormalization,
-} from "./pi-tools.read.js";
-import { cleanToolSchemaForGemini, normalizeToolParameters } from "./pi-tools.schema.js";
+} from "./pi-tools.read.ts";
+import { cleanToolSchemaForGemini, normalizeToolParameters } from "./pi-tools.schema.ts";
 import {
   buildPluginToolGroups,
   collectExplicitAllowlist,
@@ -50,7 +50,7 @@ import {
   normalizeToolName,
   resolveToolProfilePolicy,
   stripPluginOnlyAllowlist,
-} from "./tool-policy.js";
+} from "./tool-policy.ts";
 
 function isOpenAIProvider(provider?: string) {
   const normalized = provider?.trim().toLowerCase();
@@ -85,7 +85,7 @@ function isApplyPatchAllowedForModel(params: {
   });
 }
 
-function resolveExecConfig(cfg: OpenClawConfig | undefined) {
+function resolveExecConfig(cfg: CmlHiveAssistConfig | undefined) {
   const globalExec = cfg?.tools?.exec;
   return {
     host: globalExec?.host,
@@ -111,7 +111,7 @@ export const __testing = {
   assertRequiredParams,
 } as const;
 
-export function createOpenClawCodingTools(options?: {
+export function createCmlHiveAssistCodingTools(options?: {
   exec?: ExecToolDefaults & ProcessToolDefaults;
   messageProvider?: string;
   agentAccountId?: string;
@@ -121,7 +121,7 @@ export function createOpenClawCodingTools(options?: {
   sessionKey?: string;
   agentDir?: string;
   workspaceDir?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   abortSignal?: AbortSignal;
   /**
    * Provider of the currently selected model (used for provider-specific tool quirks).
@@ -241,7 +241,7 @@ export function createOpenClawCodingTools(options?: {
         return [createSandboxedReadTool(sandboxRoot)];
       }
       const freshReadTool = createReadTool(workspaceRoot);
-      return [createOpenClawReadTool(freshReadTool)];
+      return [createCmlHiveAssistReadTool(freshReadTool)];
     }
     if (tool.name === "bash" || tool.name === execToolName) {
       return [];
@@ -316,7 +316,7 @@ export function createOpenClawCodingTools(options?: {
     processTool as unknown as AnyAgentTool,
     // Channel docking: include channel-defined agent tools (login, etc.).
     ...listChannelAgentTools({ cfg: options?.config }),
-    ...createOpenClawTools({
+    ...createCmlHiveAssistTools({
       sandboxBrowserBridgeUrl: sandbox?.browser?.bridgeUrl,
       allowHostBrowserControl: sandbox ? sandbox.browserAllowHostControl : true,
       agentSessionKey: options?.sessionKey,

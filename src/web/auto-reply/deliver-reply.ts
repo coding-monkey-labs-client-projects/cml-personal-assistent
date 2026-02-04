@@ -1,15 +1,15 @@
-import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { MarkdownTableMode } from "../../config/types.base.js";
-import type { WebInboundMsg } from "./types.js";
-import { chunkMarkdownTextWithMode, type ChunkMode } from "../../auto-reply/chunk.js";
-import { logVerbose, shouldLogVerbose } from "../../globals.js";
-import { convertMarkdownTables } from "../../markdown/tables.js";
-import { sleep } from "../../utils.js";
-import { loadWebMedia } from "../media.js";
-import { newConnectionId } from "../reconnect.js";
-import { formatError } from "../session.js";
-import { whatsappOutboundLog } from "./loggers.js";
-import { elide } from "./util.js";
+import type { ReplyPayload } from "../../auto-reply/types.ts";
+import type { MarkdownTableMode } from "../../config/types.base.ts";
+import type { WebInboundMsg } from "./types.ts";
+import { chunkMarkdownTextWithMode, type ChunkMode } from "../../auto-reply/chunk.ts";
+import { logVerbose, shouldLogVerbose } from "../../globals.ts";
+import { convertMarkdownTables } from "../../markdown/tables.ts";
+import { sleep } from "../../utils.ts";
+import { loadWebMedia } from "../media.ts";
+import { newConnectionId } from "../reconnect.ts";
+import { formatError } from "../session.ts";
+import { whatsappOutboundLog } from "./loggers.ts";
+import { elide } from "./util.ts";
 
 export async function deliverWebReply(params: {
   replyResult: ReplyPayload;

@@ -1,14 +1,14 @@
 import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { WebChannel } from "../utils.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { resolveOAuthDir } from "../config/paths.js";
-import { info, success } from "../globals.js";
-import { getChildLogger } from "../logging.js";
-import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
-import { jidToE164, resolveUserPath } from "../utils.js";
+import type { WebChannel } from "../utils.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { resolveOAuthDir } from "../config/paths.ts";
+import { info, success } from "../globals.ts";
+import { getChildLogger } from "../logging.ts";
+import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
+import { jidToE164, resolveUserPath } from "../utils.ts";
 
 export function resolveDefaultWebAuthDir(): string {
   return path.join(resolveOAuthDir(), "whatsapp", DEFAULT_ACCOUNT_ID);
@@ -194,7 +194,7 @@ export async function pickWebChannel(
   const hasWeb = await webAuthExists(authDir);
   if (!hasWeb) {
     throw new Error(
-      `No WhatsApp Web session found. Run \`${formatCliCommand("openclaw channels login --channel whatsapp --verbose")}\` to link.`,
+      `No WhatsApp Web session found. Run \`${formatCliCommand("cml-hive-assist channels login --channel whatsapp --verbose")}\` to link.`,
     );
   }
   return choice;

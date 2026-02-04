@@ -1,16 +1,16 @@
-import type { ChannelId } from "../channels/plugins/types.js";
-import type { OpenClawConfig, GatewayBindMode } from "../config/config.js";
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { listChannelPlugins } from "../channels/plugins/index.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { resolveGatewayAuth } from "../gateway/auth.js";
-import { isLoopbackHost, resolveGatewayBindHost } from "../gateway/net.js";
-import { readChannelAllowFromStore } from "../pairing/pairing-store.js";
-import { note } from "../terminal/note.js";
+import type { ChannelId } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig, GatewayBindMode } from "../config/config.ts";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { listChannelPlugins } from "../channels/plugins/index.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { resolveGatewayAuth } from "../gateway/auth.ts";
+import { isLoopbackHost, resolveGatewayBindHost } from "../gateway/net.ts";
+import { readChannelAllowFromStore } from "../pairing/pairing-store.ts";
+import { note } from "../terminal/note.ts";
 
-export async function noteSecurityWarnings(cfg: OpenClawConfig) {
+export async function noteSecurityWarnings(cfg: CmlHiveAssistConfig) {
   const warnings: string[] = [];
-  const auditHint = `- Run: ${formatCliCommand("openclaw security audit --deep")}`;
+  const auditHint = `- Run: ${formatCliCommand("cml-hive-assist security audit --deep")}`;
 
   // ===========================================
   // GATEWAY NETWORK EXPOSURE CHECK
@@ -48,19 +48,19 @@ export async function noteSecurityWarnings(cfg: OpenClawConfig) {
       const authFixLines =
         resolvedAuth.mode === "password"
           ? [
-              `  Fix: ${formatCliCommand("openclaw configure")} to set a password`,
-              `  Or switch to token: ${formatCliCommand("openclaw config set gateway.auth.mode token")}`,
+              `  Fix: ${formatCliCommand("cml-hive-assist configure")} to set a password`,
+              `  Or switch to token: ${formatCliCommand("cml-hive-assist config set gateway.auth.mode token")}`,
             ]
           : [
-              `  Fix: ${formatCliCommand("openclaw doctor --fix")} to generate a token`,
+              `  Fix: ${formatCliCommand("cml-hive-assist doctor --fix")} to generate a token`,
               `  Or set token directly: ${formatCliCommand(
-                "openclaw config set gateway.auth.mode token",
+                "cml-hive-assist config set gateway.auth.mode token",
               )}`,
             ];
       warnings.push(
         `- CRITICAL: Gateway bound to ${bindDescriptor} without authentication.`,
         `  Anyone on your network (or internet if port-forwarded) can fully control your agent.`,
-        `  Fix: ${formatCliCommand("openclaw config set gateway.bind loopback")}`,
+        `  Fix: ${formatCliCommand("cml-hive-assist config set gateway.bind loopback")}`,
         ...authFixLines,
       );
     } else {

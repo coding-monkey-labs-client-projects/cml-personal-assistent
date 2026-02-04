@@ -2,35 +2,35 @@ import { createJiti } from "jiti";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { OpenClawConfig } from "../config/config.js";
-import type { GatewayRequestHandler } from "../gateway/server-methods/types.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { GatewayRequestHandler } from "../gateway/server-methods/types.ts";
 import type {
-  OpenClawPluginDefinition,
-  OpenClawPluginModule,
+  CmlHiveAssistPluginDefinition,
+  CmlHiveAssistPluginModule,
   PluginDiagnostic,
   PluginLogger,
-} from "./types.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveUserPath } from "../utils.js";
-import { clearPluginCommands } from "./commands.js";
+} from "./types.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveUserPath } from "../utils.ts";
+import { clearPluginCommands } from "./commands.ts";
 import {
   normalizePluginsConfig,
   resolveEnableState,
   resolveMemorySlotDecision,
   type NormalizedPluginsConfig,
-} from "./config-state.js";
-import { discoverOpenClawPlugins } from "./discovery.js";
-import { initializeGlobalHookRunner } from "./hook-runner-global.js";
-import { loadPluginManifestRegistry } from "./manifest-registry.js";
-import { createPluginRegistry, type PluginRecord, type PluginRegistry } from "./registry.js";
-import { setActivePluginRegistry } from "./runtime.js";
-import { createPluginRuntime } from "./runtime/index.js";
-import { validateJsonSchemaValue } from "./schema-validator.js";
+} from "./config-state.ts";
+import { discoverCmlHiveAssistPlugins } from "./discovery.ts";
+import { initializeGlobalHookRunner } from "./hook-runner-global.ts";
+import { loadPluginManifestRegistry } from "./manifest-registry.ts";
+import { createPluginRegistry, type PluginRecord, type PluginRegistry } from "./registry.ts";
+import { setActivePluginRegistry } from "./runtime.ts";
+import { createPluginRuntime } from "./runtime/index.ts";
+import { validateJsonSchemaValue } from "./schema-validator.ts";
 
 export type PluginLoadResult = PluginRegistry;
 
 export type PluginLoadOptions = {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   workspaceDir?: string;
   logger?: PluginLogger;
   coreGatewayHandlers?: Record<string, GatewayRequestHandler>;
@@ -103,8 +103,8 @@ function validatePluginConfig(params: {
 }
 
 function resolvePluginModuleExport(moduleExport: unknown): {
-  definition?: OpenClawPluginDefinition;
-  register?: OpenClawPluginDefinition["register"];
+  definition?: CmlHiveAssistPluginDefinition;
+  register?: CmlHiveAssistPluginDefinition["register"];
 } {
   const resolved =
     moduleExport &&
@@ -114,11 +114,11 @@ function resolvePluginModuleExport(moduleExport: unknown): {
       : moduleExport;
   if (typeof resolved === "function") {
     return {
-      register: resolved as OpenClawPluginDefinition["register"],
+      register: resolved as CmlHiveAssistPluginDefinition["register"],
     };
   }
   if (resolved && typeof resolved === "object") {
-    const def = resolved as OpenClawPluginDefinition;
+    const def = resolved as CmlHiveAssistPluginDefinition;
     const register = def.register ?? def.activate;
     return { definition: def, register };
   }
@@ -166,7 +166,7 @@ function pushDiagnostics(diagnostics: PluginDiagnostic[], append: PluginDiagnost
   diagnostics.push(...append);
 }
 
-export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegistry {
+export function loadCmlHiveAssistPlugins(options: PluginLoadOptions = {}): PluginRegistry {
   const cfg = options.config ?? {};
   const logger = options.logger ?? defaultLogger();
   const validateOnly = options.mode === "validate";
@@ -194,7 +194,7 @@ export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegi
     coreGatewayHandlers: options.coreGatewayHandlers as Record<string, GatewayRequestHandler>,
   });
 
-  const discovery = discoverOpenClawPlugins({
+  const discovery = discoverCmlHiveAssistPlugins({
     workspaceDir: options.workspaceDir,
     extraPaths: normalized.loadPaths,
   });
@@ -213,7 +213,7 @@ export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegi
     extensions: [".ts", ".tsx", ".mts", ".cts", ".mtsx", ".ctsx", ".js", ".mjs", ".cjs", ".json"],
     ...(pluginSdkAlias
       ? {
-          alias: { "openclaw/plugin-sdk": pluginSdkAlias },
+          alias: { "cml-hive-assist/plugin-sdk": pluginSdkAlias },
         }
       : {}),
   });
@@ -291,9 +291,9 @@ export function loadOpenClawPlugins(options: PluginLoadOptions = {}): PluginRegi
       continue;
     }
 
-    let mod: OpenClawPluginModule | null = null;
+    let mod: CmlHiveAssistPluginModule | null = null;
     try {
-      mod = jiti(candidate.source) as OpenClawPluginModule;
+      mod = jiti(candidate.source) as CmlHiveAssistPluginModule;
     } catch (err) {
       logger.error(`[plugins] ${record.id} failed to load from ${record.source}: ${String(err)}`);
       record.status = "error";

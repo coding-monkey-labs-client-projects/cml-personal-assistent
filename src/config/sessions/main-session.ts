@@ -1,12 +1,12 @@
-import type { SessionScope } from "./types.js";
+import type { SessionScope } from "./types.ts";
 import {
   buildAgentMainSessionKey,
   DEFAULT_AGENT_ID,
   normalizeAgentId,
   normalizeMainKey,
   resolveAgentIdFromSessionKey,
-} from "../../routing/session-key.js";
-import { loadConfig } from "../config.js";
+} from "../../routing/session-key.ts";
+import { loadConfig } from "../config.ts";
 
 export function resolveMainSessionKey(cfg?: {
   session?: { scope?: SessionScope; mainKey?: string };

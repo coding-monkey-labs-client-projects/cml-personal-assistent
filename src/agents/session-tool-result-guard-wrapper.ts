@@ -1,6 +1,6 @@
 import type { SessionManager } from "@mariozechner/pi-coding-agent";
-import { getGlobalHookRunner } from "../plugins/hook-runner-global.js";
-import { installSessionToolResultGuard } from "./session-tool-result-guard.js";
+import { getGlobalHookRunner } from "../plugins/hook-runner-global.ts";
+import { installSessionToolResultGuard } from "./session-tool-result-guard.ts";
 
 export type GuardedSessionManager = SessionManager & {
   /** Flush any synthetic tool results for pending tool calls. Idempotent. */

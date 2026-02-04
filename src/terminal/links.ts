@@ -1,6 +1,6 @@
-import { formatTerminalLink } from "../utils.js";
+import { formatTerminalLink } from "../utils.ts";
 
-export const DOCS_ROOT = "https://docs.openclaw.ai";
+export const DOCS_ROOT = "https://docs.cml-hive-assist.ai";
 
 export function formatDocsLink(
   path: string,

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import process from "node:process";
 
-declare const __OPENCLAW_VERSION__: string | undefined;
+declare const __CML_HIVE_ASSIST_VERSION__: string | undefined;
 
 const BUNDLED_VERSION =
-  (typeof __OPENCLAW_VERSION__ === "string" && __OPENCLAW_VERSION__) ||
-  process.env.OPENCLAW_BUNDLED_VERSION ||
+  (typeof __CML_HIVE_ASSIST_VERSION__ === "string" && __CML_HIVE_ASSIST_VERSION__) ||
+  process.env.CML_HIVE_ASSIST_BUNDLED_VERSION ||
   "0.0.0";
 
 function hasFlag(args: string[], flag: string): boolean {
@@ -32,7 +32,7 @@ async function main() {
     process.exit(0);
   }
 
-  const { parseRelaySmokeTest, runRelaySmokeTest } = await import("./relay-smoke.js");
+  const { parseRelaySmokeTest, runRelaySmokeTest } = await import("./relay-smoke.ts");
   const smokeTest = parseRelaySmokeTest(args, process.env);
   if (smokeTest) {
     try {
@@ -46,27 +46,27 @@ async function main() {
 
   await patchBunLongForProtobuf();
 
-  const { loadDotEnv } = await import("../infra/dotenv.js");
+  const { loadDotEnv } = await import("../infra/dotenv.ts");
   loadDotEnv({ quiet: true });
 
-  const { ensureOpenClawCliOnPath } = await import("../infra/path-env.js");
-  ensureOpenClawCliOnPath();
+  const { ensureCmlHiveAssistCliOnPath } = await import("../infra/path-env.ts");
+  ensureCmlHiveAssistCliOnPath();
 
-  const { enableConsoleCapture } = await import("../logging.js");
+  const { enableConsoleCapture } = await import("../logging.ts");
   enableConsoleCapture();
 
-  const { assertSupportedRuntime } = await import("../infra/runtime-guard.js");
+  const { assertSupportedRuntime } = await import("../infra/runtime-guard.ts");
   assertSupportedRuntime();
-  const { formatUncaughtError } = await import("../infra/errors.js");
-  const { installUnhandledRejectionHandler } = await import("../infra/unhandled-rejections.js");
+  const { formatUncaughtError } = await import("../infra/errors.ts");
+  const { installUnhandledRejectionHandler } = await import("../infra/unhandled-rejections.ts");
 
-  const { buildProgram } = await import("../cli/program.js");
+  const { buildProgram } = await import("../cli/program.ts");
   const program = buildProgram();
 
   installUnhandledRejectionHandler();
 
   process.on("uncaughtException", (error) => {
-    console.error("[openclaw] Uncaught exception:", formatUncaughtError(error));
+    console.error("[cml-hive-assist] Uncaught exception:", formatUncaughtError(error));
     process.exit(1);
   });
 
@@ -75,7 +75,7 @@ async function main() {
 
 void main().catch((err) => {
   console.error(
-    "[openclaw] Relay failed:",
+    "[cml-hive-assist] Relay failed:",
     err instanceof Error ? (err.stack ?? err.message) : err,
   );
   process.exit(1);

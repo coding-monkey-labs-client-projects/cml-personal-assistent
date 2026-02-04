@@ -1,20 +1,20 @@
-import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { MsgContext } from "../auto-reply/templating.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   MediaUnderstandingConfig,
   MediaUnderstandingModelConfig,
   MediaUnderstandingScopeConfig,
-} from "../config/types.tools.js";
-import type { MediaUnderstandingCapability } from "./types.js";
-import { logVerbose, shouldLogVerbose } from "../globals.js";
+} from "../config/types.tools.ts";
+import type { MediaUnderstandingCapability } from "./types.ts";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
 import {
   DEFAULT_MAX_BYTES,
   DEFAULT_MAX_CHARS_BY_CAPABILITY,
   DEFAULT_MEDIA_CONCURRENCY,
   DEFAULT_PROMPT,
-} from "./defaults.js";
-import { normalizeMediaProviderId } from "./providers/index.js";
-import { normalizeMediaUnderstandingChatType, resolveMediaUnderstandingScope } from "./scope.js";
+} from "./defaults.ts";
+import { normalizeMediaProviderId } from "./providers/index.ts";
+import { normalizeMediaUnderstandingChatType, resolveMediaUnderstandingScope } from "./scope.ts";
 
 export function resolveTimeoutMs(seconds: number | undefined, fallbackSeconds: number): number {
   const value = typeof seconds === "number" && Number.isFinite(seconds) ? seconds : fallbackSeconds;
@@ -36,7 +36,7 @@ export function resolvePrompt(
 export function resolveMaxChars(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   config?: MediaUnderstandingConfig;
 }): number | undefined {
   const { capability, entry, cfg } = params;
@@ -51,7 +51,7 @@ export function resolveMaxChars(params: {
 export function resolveMaxBytes(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   config?: MediaUnderstandingConfig;
 }): number {
   const configured =
@@ -65,7 +65,7 @@ export function resolveMaxBytes(params: {
 }
 
 export function resolveCapabilityConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   capability: MediaUnderstandingCapability,
 ): MediaUnderstandingConfig | undefined {
   return cfg.tools?.media?.[capability];
@@ -99,7 +99,7 @@ function resolveEntryCapabilities(params: {
 }
 
 export function resolveModelEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   capability: MediaUnderstandingCapability;
   config?: MediaUnderstandingConfig;
   providerRegistry: Map<string, { capabilities?: MediaUnderstandingCapability[] }>;
@@ -138,7 +138,7 @@ export function resolveModelEntries(params: {
     .map(({ entry }) => entry);
 }
 
-export function resolveConcurrency(cfg: OpenClawConfig): number {
+export function resolveConcurrency(cfg: CmlHiveAssistConfig): number {
   const configured = cfg.tools?.media?.concurrency;
   if (typeof configured === "number" && Number.isFinite(configured) && configured > 0) {
     return Math.floor(configured);
@@ -147,7 +147,7 @@ export function resolveConcurrency(cfg: OpenClawConfig): number {
 }
 
 export function resolveEntriesWithActiveFallback(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   capability: MediaUnderstandingCapability;
   config?: MediaUnderstandingConfig;
   providerRegistry: Map<string, { capabilities?: MediaUnderstandingCapability[] }>;

@@ -1,20 +1,20 @@
-import type { MemoryProviderStatus } from "../memory/types.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { withProgress } from "../cli/progress.js";
-import { loadConfig } from "../config/config.js";
-import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
-import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.js";
-import { probeGateway } from "../gateway/probe.js";
-import { collectChannelStatusIssues } from "../infra/channels-status-issues.js";
-import { resolveOsSummary } from "../infra/os-summary.js";
-import { getTailnetHostname } from "../infra/tailscale.js";
-import { getMemorySearchManager } from "../memory/index.js";
-import { runExec } from "../process/exec.js";
-import { buildChannelsTable } from "./status-all/channels.js";
-import { getAgentLocalStatuses } from "./status.agent-local.js";
-import { pickGatewaySelfPresence, resolveGatewayProbeAuth } from "./status.gateway-probe.js";
-import { getStatusSummary } from "./status.summary.js";
-import { getUpdateCheckResult } from "./status.update.js";
+import type { MemoryProviderStatus } from "../memory/types.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { withProgress } from "../cli/progress.ts";
+import { loadConfig } from "../config/config.ts";
+import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.ts";
+import { normalizeControlUiBasePath } from "../gateway/control-ui-shared.ts";
+import { probeGateway } from "../gateway/probe.ts";
+import { collectChannelStatusIssues } from "../infra/channels-status-issues.ts";
+import { resolveOsSummary } from "../infra/os-summary.ts";
+import { getTailnetHostname } from "../infra/tailscale.ts";
+import { getMemorySearchManager } from "../memory/index.ts";
+import { runExec } from "../process/exec.ts";
+import { buildChannelsTable } from "./status-all/channels.ts";
+import { getAgentLocalStatuses } from "./status.agent-local.ts";
+import { pickGatewaySelfPresence, resolveGatewayProbeAuth } from "./status.gateway-probe.ts";
+import { getStatusSummary } from "./status.summary.ts";
+import { getUpdateCheckResult } from "./status.update.ts";
 
 type MemoryStatusSnapshot = MemoryProviderStatus & {
   agentId: string;

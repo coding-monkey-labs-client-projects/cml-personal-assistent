@@ -1,26 +1,26 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { BrowserProfileConfig, OpenClawConfig } from "../config/config.js";
-import type { BrowserRouteContext, ProfileStatus } from "./server-context.js";
-import { loadConfig, writeConfigFile } from "../config/config.js";
-import { deriveDefaultBrowserCdpPortRange } from "../config/port-defaults.js";
-import { resolveOpenClawUserDataDir } from "./chrome.js";
-import { parseHttpUrl, resolveProfile } from "./config.js";
-import { DEFAULT_BROWSER_DEFAULT_PROFILE_NAME } from "./constants.js";
+import type { BrowserProfileConfig, CmlHiveAssistConfig } from "../config/config.ts";
+import type { BrowserRouteContext, ProfileStatus } from "./server-context.ts";
+import { loadConfig, writeConfigFile } from "../config/config.ts";
+import { deriveDefaultBrowserCdpPortRange } from "../config/port-defaults.ts";
+import { resolveCmlHiveAssistUserDataDir } from "./chrome.ts";
+import { parseHttpUrl, resolveProfile } from "./config.ts";
+import { DEFAULT_BROWSER_DEFAULT_PROFILE_NAME } from "./constants.ts";
 import {
   allocateCdpPort,
   allocateColor,
   getUsedColors,
   getUsedPorts,
   isValidProfileName,
-} from "./profiles.js";
-import { movePathToTrash } from "./trash.js";
+} from "./profiles.ts";
+import { movePathToTrash } from "./trash.ts";
 
 export type CreateProfileParams = {
   name: string;
   color?: string;
   cdpUrl?: string;
-  driver?: "openclaw" | "extension";
+  driver?: "cml-hive-assist" | "extension";
 };
 
 export type CreateProfileResult = {
@@ -92,7 +92,7 @@ export function createBrowserProfilesService(ctx: BrowserRouteContext) {
       };
     }
 
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: CmlHiveAssistConfig = {
       ...cfg,
       browser: {
         ...cfg.browser,
@@ -154,7 +154,7 @@ export function createBrowserProfilesService(ctx: BrowserRouteContext) {
         // ignore
       }
 
-      const userDataDir = resolveOpenClawUserDataDir(name);
+      const userDataDir = resolveCmlHiveAssistUserDataDir(name);
       const profileDir = path.dirname(userDataDir);
       if (fs.existsSync(profileDir)) {
         await movePathToTrash(profileDir);
@@ -163,7 +163,7 @@ export function createBrowserProfilesService(ctx: BrowserRouteContext) {
     }
 
     const { [name]: _removed, ...remainingProfiles } = profiles;
-    const nextConfig: OpenClawConfig = {
+    const nextConfig: CmlHiveAssistConfig = {
       ...cfg,
       browser: {
         ...cfg.browser,

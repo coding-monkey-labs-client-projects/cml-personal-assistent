@@ -1,12 +1,12 @@
-import type { AgentDefaultsConfig } from "./types.agent-defaults.js";
-import type { HumanDelayConfig, IdentityConfig } from "./types.base.js";
-import type { GroupChatConfig } from "./types.messages.js";
+import type { AgentDefaultsConfig } from "./types.agent-defaults.ts";
+import type { HumanDelayConfig, IdentityConfig } from "./types.base.ts";
+import type { GroupChatConfig } from "./types.messages.ts";
 import type {
   SandboxBrowserSettings,
   SandboxDockerSettings,
   SandboxPruneSettings,
-} from "./types.sandbox.js";
-import type { AgentToolsConfig, MemorySearchConfig } from "./types.tools.js";
+} from "./types.sandbox.ts";
+import type { AgentToolsConfig, MemorySearchConfig } from "./types.tools.ts";
 
 export type AgentModelConfig =
   | string

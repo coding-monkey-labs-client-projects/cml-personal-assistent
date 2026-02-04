@@ -1,17 +1,17 @@
-import type { PreparedSlackMessage } from "./types.js";
-import { resolveHumanDelayConfig } from "../../../agents/identity.js";
-import { dispatchInboundMessage } from "../../../auto-reply/dispatch.js";
-import { clearHistoryEntriesIfEnabled } from "../../../auto-reply/reply/history.js";
-import { createReplyDispatcherWithTyping } from "../../../auto-reply/reply/reply-dispatcher.js";
-import { removeAckReactionAfterReply } from "../../../channels/ack-reactions.js";
-import { logAckFailure, logTypingFailure } from "../../../channels/logging.js";
-import { createReplyPrefixContext } from "../../../channels/reply-prefix.js";
-import { createTypingCallbacks } from "../../../channels/typing.js";
-import { resolveStorePath, updateLastRoute } from "../../../config/sessions.js";
-import { danger, logVerbose, shouldLogVerbose } from "../../../globals.js";
-import { removeSlackReaction } from "../../actions.js";
-import { resolveSlackThreadTargets } from "../../threading.js";
-import { createSlackReplyDeliveryPlan, deliverReplies } from "../replies.js";
+import type { PreparedSlackMessage } from "./types.ts";
+import { resolveHumanDelayConfig } from "../../../agents/identity.ts";
+import { dispatchInboundMessage } from "../../../auto-reply/dispatch.ts";
+import { clearHistoryEntriesIfEnabled } from "../../../auto-reply/reply/history.ts";
+import { createReplyDispatcherWithTyping } from "../../../auto-reply/reply/reply-dispatcher.ts";
+import { removeAckReactionAfterReply } from "../../../channels/ack-reactions.ts";
+import { logAckFailure, logTypingFailure } from "../../../channels/logging.ts";
+import { createReplyPrefixContext } from "../../../channels/reply-prefix.ts";
+import { createTypingCallbacks } from "../../../channels/typing.ts";
+import { resolveStorePath, updateLastRoute } from "../../../config/sessions.ts";
+import { danger, logVerbose, shouldLogVerbose } from "../../../globals.ts";
+import { removeSlackReaction } from "../../actions.ts";
+import { resolveSlackThreadTargets } from "../../threading.ts";
+import { createSlackReplyDeliveryPlan, deliverReplies } from "../replies.ts";
 
 export async function dispatchPreparedSlackMessage(prepared: PreparedSlackMessage) {
   const { ctx, account, message, route } = prepared;

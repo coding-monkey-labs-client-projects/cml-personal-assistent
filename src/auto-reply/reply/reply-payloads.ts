@@ -1,11 +1,11 @@
-import type { MessagingToolSend } from "../../agents/pi-embedded-runner.js";
-import type { ReplyToMode } from "../../config/types.js";
-import type { OriginatingChannelType } from "../templating.js";
-import type { ReplyPayload } from "../types.js";
-import { isMessagingToolDuplicate } from "../../agents/pi-embedded-helpers.js";
-import { normalizeTargetForProvider } from "../../infra/outbound/target-normalization.js";
-import { extractReplyToTag } from "./reply-tags.js";
-import { createReplyToModeFilterForChannel } from "./reply-threading.js";
+import type { MessagingToolSend } from "../../agents/pi-embedded-runner.ts";
+import type { ReplyToMode } from "../../config/types.ts";
+import type { OriginatingChannelType } from "../templating.ts";
+import type { ReplyPayload } from "../types.ts";
+import { isMessagingToolDuplicate } from "../../agents/pi-embedded-helpers.ts";
+import { normalizeTargetForProvider } from "../../infra/outbound/target-normalization.ts";
+import { extractReplyToTag } from "./reply-tags.ts";
+import { createReplyToModeFilterForChannel } from "./reply-threading.ts";
 
 export function applyReplyTagsToPayload(
   payload: ReplyPayload,

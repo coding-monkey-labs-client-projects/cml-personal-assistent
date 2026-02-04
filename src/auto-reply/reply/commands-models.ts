@@ -1,15 +1,15 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ReplyPayload } from "../types.js";
-import type { CommandHandler } from "./commands-types.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.js";
-import { loadModelCatalog } from "../../agents/model-catalog.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ReplyPayload } from "../types.ts";
+import type { CommandHandler } from "./commands-types.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.ts";
+import { loadModelCatalog } from "../../agents/model-catalog.ts";
 import {
   buildAllowedModelSet,
   buildModelAliasIndex,
   normalizeProviderId,
   resolveConfiguredModelRef,
   resolveModelRefFromString,
-} from "../../agents/model-selection.js";
+} from "../../agents/model-selection.ts";
 
 const PAGE_SIZE_DEFAULT = 20;
 const PAGE_SIZE_MAX = 100;
@@ -76,7 +76,7 @@ function parseModelsArgs(raw: string): {
 }
 
 export async function resolveModelsCommandReply(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   commandBodyNormalized: string;
 }): Promise<ReplyPayload | null> {
   const body = params.commandBodyNormalized.trim();

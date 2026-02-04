@@ -1,5 +1,5 @@
-import { formatToolSummary, resolveToolDisplay } from "../agents/tool-display.js";
-import { shortenHomeInString, shortenHomePath } from "../utils.js";
+import { formatToolSummary, resolveToolDisplay } from "../agents/tool-display.ts";
+import { shortenHomeInString, shortenHomePath } from "../utils.ts";
 
 type ToolAggregateOptions = {
   markdown?: boolean;

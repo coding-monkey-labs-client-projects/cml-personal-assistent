@@ -79,22 +79,22 @@ describe("gateway SIGTERM", () => {
   });
 
   it("exits 0 on SIGTERM", { timeout: 180_000 }, async () => {
-    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-gateway-test-"));
+    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "cml-hive-assist-gateway-test-"));
     const out: string[] = [];
     const err: string[] = [];
 
     const nodeBin = process.execPath;
     const env = {
       ...process.env,
-      OPENCLAW_NO_RESPAWN: "1",
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_SKIP_CHANNELS: "1",
-      OPENCLAW_SKIP_GMAIL_WATCHER: "1",
-      OPENCLAW_SKIP_CRON: "1",
-      OPENCLAW_SKIP_BROWSER_CONTROL_SERVER: "1",
-      OPENCLAW_SKIP_CANVAS_HOST: "1",
+      CML_HIVE_ASSIST_NO_RESPAWN: "1",
+      CML_HIVE_ASSIST_STATE_DIR: stateDir,
+      CML_HIVE_ASSIST_SKIP_CHANNELS: "1",
+      CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER: "1",
+      CML_HIVE_ASSIST_SKIP_CRON: "1",
+      CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER: "1",
+      CML_HIVE_ASSIST_SKIP_CANVAS_HOST: "1",
     };
-    const bootstrapPath = path.join(stateDir, "openclaw-entry-bootstrap.mjs");
+    const bootstrapPath = path.join(stateDir, "cml-hive-assist-entry-bootstrap.mjs");
     const runLoopPath = path.resolve("src/cli/gateway-cli/run-loop.ts");
     const runtimePath = path.resolve("src/runtime.ts");
     fs.writeFileSync(

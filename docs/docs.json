@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "name": "OpenClaw",
+  "name": "CmlHiveAssist",
   "theme": "mint",
   "logo": {
     "light": "/assets/pixel-lobster.svg",
@@ -17,11 +17,11 @@
     },
     {
       "name": "GitHub",
-      "url": "https://github.com/openclaw/openclaw"
+      "url": "https://github.com/cml-hive-assist/cml-hive-assist"
     },
     {
       "name": "Releases",
-      "url": "https://github.com/openclaw/openclaw/releases"
+      "url": "https://github.com/cml-hive-assist/cml-hive-assist/releases"
     }
   ],
   "redirects": [
@@ -363,15 +363,15 @@
     },
     {
       "source": "/clawd",
-      "destination": "/start/openclaw"
+      "destination": "/start/cml-hive-assist"
     },
     {
       "source": "/start/clawd",
-      "destination": "/start/openclaw"
+      "destination": "/start/cml-hive-assist"
     },
     {
       "source": "/start/clawd/",
-      "destination": "/start/openclaw"
+      "destination": "/start/cml-hive-assist"
     },
     {
       "source": "/clawhub",
@@ -856,7 +856,7 @@
               "start/wizard",
               "start/setup",
               "start/pairing",
-              "start/openclaw",
+              "start/cml-hive-assist",
               "start/showcase",
               "start/hubs",
               "start/onboarding",
@@ -1167,7 +1167,7 @@
               "zh-CN/start/wizard",
               "zh-CN/start/setup",
               "zh-CN/start/pairing",
-              "zh-CN/start/openclaw",
+              "zh-CN/start/cml-hive-assist",
               "zh-CN/start/showcase",
               "zh-CN/start/hubs",
               "zh-CN/start/onboarding",

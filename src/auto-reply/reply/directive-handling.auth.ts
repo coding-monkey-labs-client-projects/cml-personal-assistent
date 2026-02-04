@@ -1,17 +1,17 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
 import {
   isProfileInCooldown,
   resolveAuthProfileDisplayLabel,
   resolveAuthStorePathForDisplay,
-} from "../../agents/auth-profiles.js";
+} from "../../agents/auth-profiles.ts";
 import {
   ensureAuthProfileStore,
   getCustomProviderApiKey,
   resolveAuthProfileOrder,
   resolveEnvApiKey,
-} from "../../agents/model-auth.js";
-import { normalizeProviderId } from "../../agents/model-selection.js";
-import { shortenHomePath } from "../../utils.js";
+} from "../../agents/model-auth.ts";
+import { normalizeProviderId } from "../../agents/model-selection.ts";
+import { shortenHomePath } from "../../utils.ts";
 
 export type ModelAuthDetailMode = "compact" | "verbose";
 
@@ -28,7 +28,7 @@ const maskApiKey = (value: string): string => {
 
 export const resolveAuthLabel = async (
   provider: string,
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   modelsPath: string,
   agentDir?: string,
   mode: ModelAuthDetailMode = "compact",
@@ -223,7 +223,7 @@ export const formatAuthLabel = (auth: { label: string; source: string }) => {
 export const resolveProfileOverride = (params: {
   rawProfile?: string;
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
 }): { profileId?: string; error?: string } => {
   const raw = params.rawProfile?.trim();

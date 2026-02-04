@@ -1,9 +1,9 @@
-import type { RuntimeEnv } from "../../runtime.js";
-import { loadAndMaybeMigrateDoctorConfig } from "../../commands/doctor-config-flow.js";
-import { readConfigFileSnapshot } from "../../config/config.js";
-import { colorize, isRich, theme } from "../../terminal/theme.js";
-import { shortenHomePath } from "../../utils.js";
-import { formatCliCommand } from "../command-format.js";
+import type { RuntimeEnv } from "../../runtime.ts";
+import { loadAndMaybeMigrateDoctorConfig } from "../../commands/doctor-config-flow.ts";
+import { readConfigFileSnapshot } from "../../config/config.ts";
+import { colorize, isRich, theme } from "../../terminal/theme.ts";
+import { shortenHomePath } from "../../utils.ts";
+import { formatCliCommand } from "../command-format.ts";
 
 const ALLOWED_INVALID_COMMANDS = new Set(["doctor", "logs", "health", "help", "status"]);
 const ALLOWED_INVALID_GATEWAY_SUBCOMMANDS = new Set([
@@ -74,7 +74,7 @@ export async function ensureConfigReady(params: {
   }
   params.runtime.error("");
   params.runtime.error(
-    `${muted("Run:")} ${commandText(formatCliCommand("openclaw doctor --fix"))}`,
+    `${muted("Run:")} ${commandText(formatCliCommand("cml-hive-assist doctor --fix"))}`,
   );
   if (!allowInvalid) {
     params.runtime.exit(1);

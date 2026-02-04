@@ -1,4 +1,4 @@
-import { defaultVoiceWakeTriggers } from "../infra/voicewake.js";
+import { defaultVoiceWakeTriggers } from "../infra/voicewake.ts";
 
 export function normalizeVoiceWakeTriggers(input: unknown): string[] {
   const raw = Array.isArray(input) ? input : [];

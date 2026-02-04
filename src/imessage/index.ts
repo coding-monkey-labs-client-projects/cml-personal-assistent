@@ -1,3 +1,5 @@
-export { monitorIMessageProvider } from "./monitor.js";
-export { probeIMessage } from "./probe.js";
-export { sendMessageIMessage } from "./send.js";
+// Stub file - iMessage channel removed
+
+export * from "./accounts.ts";
+export * from "./send.ts";
+export * from "./targets.ts";

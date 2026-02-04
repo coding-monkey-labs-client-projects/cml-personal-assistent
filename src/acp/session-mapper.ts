@@ -1,6 +1,6 @@
-import type { GatewayClient } from "../gateway/client.js";
-import type { AcpServerOptions } from "./types.js";
-import { readBool, readString } from "./meta.js";
+import type { GatewayClient } from "../gateway/client.ts";
+import type { AcpServerOptions } from "./types.ts";
+import { readBool, readString } from "./meta.ts";
 
 export type AcpSessionMeta = {
   sessionKey?: string;

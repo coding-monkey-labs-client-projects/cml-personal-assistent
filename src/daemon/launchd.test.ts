@@ -16,10 +16,10 @@ async function withLaunchctlStub(
   run: (context: { env: Record<string, string | undefined>; logPath: string }) => Promise<void>,
 ) {
   const originalPath = process.env.PATH;
-  const originalLogPath = process.env.OPENCLAW_TEST_LAUNCHCTL_LOG;
-  const originalListOutput = process.env.OPENCLAW_TEST_LAUNCHCTL_LIST_OUTPUT;
+  const originalLogPath = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;
+  const originalListOutput = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LIST_OUTPUT;
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-launchctl-test-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-launchctl-test-"));
   try {
     const binDir = path.join(tmpDir, "bin");
     const homeDir = path.join(tmpDir, "home");
@@ -33,12 +33,12 @@ async function withLaunchctlStub(
       [
         'import fs from "node:fs";',
         "const args = process.argv.slice(2);",
-        "const logPath = process.env.OPENCLAW_TEST_LAUNCHCTL_LOG;",
+        "const logPath = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;",
         "if (logPath) {",
         '  fs.appendFileSync(logPath, JSON.stringify(args) + "\\n", "utf8");',
         "}",
         'if (args[0] === "list") {',
-        '  const output = process.env.OPENCLAW_TEST_LAUNCHCTL_LIST_OUTPUT || "";',
+        '  const output = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LIST_OUTPUT || "";',
         "  process.stdout.write(output);",
         "}",
         "process.exit(0);",
@@ -59,28 +59,28 @@ async function withLaunchctlStub(
       await fs.chmod(shPath, 0o755);
     }
 
-    process.env.OPENCLAW_TEST_LAUNCHCTL_LOG = logPath;
-    process.env.OPENCLAW_TEST_LAUNCHCTL_LIST_OUTPUT = options.listOutput ?? "";
+    process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG = logPath;
+    process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LIST_OUTPUT = options.listOutput ?? "";
     process.env.PATH = `${binDir}${path.delimiter}${originalPath ?? ""}`;
 
     await run({
       env: {
         HOME: homeDir,
-        OPENCLAW_PROFILE: "default",
+        CML_HIVE_ASSIST_PROFILE: "default",
       },
       logPath,
     });
   } finally {
     process.env.PATH = originalPath;
     if (originalLogPath === undefined) {
-      delete process.env.OPENCLAW_TEST_LAUNCHCTL_LOG;
+      delete process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;
     } else {
-      process.env.OPENCLAW_TEST_LAUNCHCTL_LOG = originalLogPath;
+      process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG = originalLogPath;
     }
     if (originalListOutput === undefined) {
-      delete process.env.OPENCLAW_TEST_LAUNCHCTL_LIST_OUTPUT;
+      delete process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LIST_OUTPUT;
     } else {
-      process.env.OPENCLAW_TEST_LAUNCHCTL_LIST_OUTPUT = originalListOutput;
+      process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LIST_OUTPUT = originalListOutput;
     }
     await fs.rm(tmpDir, { recursive: true, force: true });
   }
@@ -105,10 +105,13 @@ describe("launchd runtime parsing", () => {
 
 describe("launchctl list detection", () => {
   it("detects the resolved label in launchctl list", async () => {
-    await withLaunchctlStub({ listOutput: "123 0 ai.openclaw.gateway\n" }, async ({ env }) => {
-      const listed = await isLaunchAgentListed({ env });
-      expect(listed).toBe(true);
-    });
+    await withLaunchctlStub(
+      { listOutput: "123 0 ai.cml-hive-assist.gateway\n" },
+      async ({ env }) => {
+        const listed = await isLaunchAgentListed({ env });
+        expect(listed).toBe(true);
+      },
+    );
   });
 
   it("returns false when the label is missing", async () => {
@@ -131,7 +134,7 @@ describe("launchd bootstrap repair", () => {
         .map((line) => JSON.parse(line) as string[]);
 
       const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-      const label = "ai.openclaw.gateway";
+      const label = "ai.cml-hive-assist.gateway";
       const plistPath = resolveLaunchAgentPlistPath(env);
 
       expect(calls).toContainEqual(["bootstrap", domain, plistPath]);
@@ -143,9 +146,9 @@ describe("launchd bootstrap repair", () => {
 describe("launchd install", () => {
   it("enables service before bootstrap (clears persisted disabled state)", async () => {
     const originalPath = process.env.PATH;
-    const originalLogPath = process.env.OPENCLAW_TEST_LAUNCHCTL_LOG;
+    const originalLogPath = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;
 
-    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-launchctl-test-"));
+    const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-launchctl-test-"));
     try {
       const binDir = path.join(tmpDir, "bin");
       const homeDir = path.join(tmpDir, "home");
@@ -158,7 +161,7 @@ describe("launchd install", () => {
         stubJsPath,
         [
           'import fs from "node:fs";',
-          "const logPath = process.env.OPENCLAW_TEST_LAUNCHCTL_LOG;",
+          "const logPath = process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;",
           "if (logPath) {",
           '  fs.appendFileSync(logPath, JSON.stringify(process.argv.slice(2)) + "\\n", "utf8");',
           "}",
@@ -180,12 +183,12 @@ describe("launchd install", () => {
         await fs.chmod(shPath, 0o755);
       }
 
-      process.env.OPENCLAW_TEST_LAUNCHCTL_LOG = logPath;
+      process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG = logPath;
       process.env.PATH = `${binDir}${path.delimiter}${originalPath ?? ""}`;
 
       const env: Record<string, string | undefined> = {
         HOME: homeDir,
-        OPENCLAW_PROFILE: "default",
+        CML_HIVE_ASSIST_PROFILE: "default",
       };
       await installLaunchAgent({
         env,
@@ -199,7 +202,7 @@ describe("launchd install", () => {
         .map((line) => JSON.parse(line) as string[]);
 
       const domain = typeof process.getuid === "function" ? `gui/${process.getuid()}` : "gui/501";
-      const label = "ai.openclaw.gateway";
+      const label = "ai.cml-hive-assist.gateway";
       const plistPath = resolveLaunchAgentPlistPath(env);
       const serviceId = `${domain}/${label}`;
 
@@ -216,9 +219,9 @@ describe("launchd install", () => {
     } finally {
       process.env.PATH = originalPath;
       if (originalLogPath === undefined) {
-        delete process.env.OPENCLAW_TEST_LAUNCHCTL_LOG;
+        delete process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG;
       } else {
-        process.env.OPENCLAW_TEST_LAUNCHCTL_LOG = originalLogPath;
+        process.env.CML_HIVE_ASSIST_TEST_LAUNCHCTL_LOG = originalLogPath;
       }
       await fs.rm(tmpDir, { recursive: true, force: true });
     }
@@ -226,77 +229,77 @@ describe("launchd install", () => {
 });
 
 describe("resolveLaunchAgentPlistPath", () => {
-  it("uses default label when OPENCLAW_PROFILE is default", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "default" };
+  it("uses default label when CML_HIVE_ASSIST_PROFILE is default", () => {
+    const env = { HOME: "/Users/test", CML_HIVE_ASSIST_PROFILE: "default" };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
-      "/Users/test/Library/LaunchAgents/ai.openclaw.gateway.plist",
+      "/Users/test/Library/LaunchAgents/ai.cml-hive-assist.gateway.plist",
     );
   });
 
-  it("uses default label when OPENCLAW_PROFILE is unset", () => {
+  it("uses default label when CML_HIVE_ASSIST_PROFILE is unset", () => {
     const env = { HOME: "/Users/test" };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
-      "/Users/test/Library/LaunchAgents/ai.openclaw.gateway.plist",
+      "/Users/test/Library/LaunchAgents/ai.cml-hive-assist.gateway.plist",
     );
   });
 
-  it("uses profile-specific label when OPENCLAW_PROFILE is set to a custom value", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "jbphoenix" };
+  it("uses profile-specific label when CML_HIVE_ASSIST_PROFILE is set to a custom value", () => {
+    const env = { HOME: "/Users/test", CML_HIVE_ASSIST_PROFILE: "jbphoenix" };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
-      "/Users/test/Library/LaunchAgents/ai.openclaw.jbphoenix.plist",
+      "/Users/test/Library/LaunchAgents/ai.cml-hive-assist.jbphoenix.plist",
     );
   });
 
-  it("prefers OPENCLAW_LAUNCHD_LABEL over OPENCLAW_PROFILE", () => {
+  it("prefers CML_HIVE_ASSIST_LAUNCHD_LABEL over CML_HIVE_ASSIST_PROFILE", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_PROFILE: "jbphoenix",
-      OPENCLAW_LAUNCHD_LABEL: "com.custom.label",
+      CML_HIVE_ASSIST_PROFILE: "jbphoenix",
+      CML_HIVE_ASSIST_LAUNCHD_LABEL: "com.custom.label",
     };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
       "/Users/test/Library/LaunchAgents/com.custom.label.plist",
     );
   });
 
-  it("trims whitespace from OPENCLAW_LAUNCHD_LABEL", () => {
+  it("trims whitespace from CML_HIVE_ASSIST_LAUNCHD_LABEL", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_LAUNCHD_LABEL: "  com.custom.label  ",
+      CML_HIVE_ASSIST_LAUNCHD_LABEL: "  com.custom.label  ",
     };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
       "/Users/test/Library/LaunchAgents/com.custom.label.plist",
     );
   });
 
-  it("ignores empty OPENCLAW_LAUNCHD_LABEL and falls back to profile", () => {
+  it("ignores empty CML_HIVE_ASSIST_LAUNCHD_LABEL and falls back to profile", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_PROFILE: "myprofile",
-      OPENCLAW_LAUNCHD_LABEL: "   ",
+      CML_HIVE_ASSIST_PROFILE: "myprofile",
+      CML_HIVE_ASSIST_LAUNCHD_LABEL: "   ",
     };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
-      "/Users/test/Library/LaunchAgents/ai.openclaw.myprofile.plist",
+      "/Users/test/Library/LaunchAgents/ai.cml-hive-assist.myprofile.plist",
     );
   });
 
   it("handles case-insensitive 'Default' profile", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "Default" };
+    const env = { HOME: "/Users/test", CML_HIVE_ASSIST_PROFILE: "Default" };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
-      "/Users/test/Library/LaunchAgents/ai.openclaw.gateway.plist",
+      "/Users/test/Library/LaunchAgents/ai.cml-hive-assist.gateway.plist",
     );
   });
 
   it("handles case-insensitive 'DEFAULT' profile", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "DEFAULT" };
+    const env = { HOME: "/Users/test", CML_HIVE_ASSIST_PROFILE: "DEFAULT" };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
-      "/Users/test/Library/LaunchAgents/ai.openclaw.gateway.plist",
+      "/Users/test/Library/LaunchAgents/ai.cml-hive-assist.gateway.plist",
     );
   });
 
-  it("trims whitespace from OPENCLAW_PROFILE", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "  myprofile  " };
+  it("trims whitespace from CML_HIVE_ASSIST_PROFILE", () => {
+    const env = { HOME: "/Users/test", CML_HIVE_ASSIST_PROFILE: "  myprofile  " };
     expect(resolveLaunchAgentPlistPath(env)).toBe(
-      "/Users/test/Library/LaunchAgents/ai.openclaw.myprofile.plist",
+      "/Users/test/Library/LaunchAgents/ai.cml-hive-assist.myprofile.plist",
     );
   });
 });

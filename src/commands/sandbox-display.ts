@@ -2,15 +2,15 @@
  * Display utilities for sandbox CLI
  */
 
-import type { SandboxBrowserInfo, SandboxContainerInfo } from "../agents/sandbox.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { formatCliCommand } from "../cli/command-format.js";
+import type { SandboxBrowserInfo, SandboxContainerInfo } from "../agents/sandbox.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
 import {
   formatAge,
   formatImageMatch,
   formatSimpleStatus,
   formatStatus,
-} from "./sandbox-formatters.js";
+} from "./sandbox-formatters.ts";
 
 type DisplayConfig<T> = {
   emptyMessage: string;
@@ -90,7 +90,7 @@ export function displaySummary(
   if (mismatchCount > 0) {
     runtime.log(`\n⚠️  ${mismatchCount} container(s) with image mismatch detected.`);
     runtime.log(
-      `   Run '${formatCliCommand("openclaw sandbox recreate --all")}' to update all containers.`,
+      `   Run '${formatCliCommand("cml-hive-assist sandbox recreate --all")}' to update all containers.`,
     );
   }
 }

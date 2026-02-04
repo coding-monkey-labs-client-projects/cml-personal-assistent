@@ -3,8 +3,8 @@ import { Type } from "@sinclair/typebox";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { applyUpdateHunk } from "./apply-patch-update.js";
-import { assertSandboxPath } from "./sandbox-paths.js";
+import { applyUpdateHunk } from "./apply-patch-update.ts";
+import { assertSandboxPath } from "./sandbox-paths.ts";
 
 const BEGIN_PATCH_MARKER = "*** Begin Patch";
 const END_PATCH_MARKER = "*** End Patch";

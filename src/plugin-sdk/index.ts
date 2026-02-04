@@ -1,9 +1,9 @@
-export { CHANNEL_MESSAGE_ACTION_NAMES } from "../channels/plugins/message-action-names.js";
+export { CHANNEL_MESSAGE_ACTION_NAMES } from "../channels/plugins/message-action-names.ts";
 export {
   BLUEBUBBLES_ACTIONS,
   BLUEBUBBLES_ACTION_NAMES,
   BLUEBUBBLES_GROUP_ACTIONS,
-} from "../channels/plugins/bluebubbles-actions.js";
+} from "../channels/plugins/bluebubbles-actions.ts";
 export type {
   ChannelAccountSnapshot,
   ChannelAccountState,
@@ -56,25 +56,25 @@ export type {
   ChannelThreadingContext,
   ChannelThreadingToolContext,
   ChannelToolSend,
-} from "../channels/plugins/types.js";
-export type { ChannelConfigSchema, ChannelPlugin } from "../channels/plugins/types.plugin.js";
+} from "../channels/plugins/types.ts";
+export type { ChannelConfigSchema, ChannelPlugin } from "../channels/plugins/types.plugin.ts";
 export type {
-  OpenClawPluginApi,
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
-} from "../plugins/types.js";
+  CmlHiveAssistPluginApi,
+  CmlHiveAssistPluginService,
+  CmlHiveAssistPluginServiceContext,
+} from "../plugins/types.ts";
 export type {
   GatewayRequestHandler,
   GatewayRequestHandlerOptions,
   RespondFn,
-} from "../gateway/server-methods/types.js";
-export type { PluginRuntime } from "../plugins/runtime/types.js";
-export { normalizePluginHttpPath } from "../plugins/http-path.js";
-export { registerPluginHttpRoute } from "../plugins/http-registry.js";
-export { emptyPluginConfigSchema } from "../plugins/config-schema.js";
-export type { OpenClawConfig } from "../config/config.js";
-export type { ChannelDock } from "../channels/dock.js";
-export { getChatChannelMeta } from "../channels/registry.js";
+} from "../gateway/server-methods/types.ts";
+export type { PluginRuntime } from "../plugins/runtime/types.ts";
+export { normalizePluginHttpPath } from "../plugins/http-path.ts";
+export { registerPluginHttpRoute } from "../plugins/http-registry.ts";
+export { emptyPluginConfigSchema } from "../plugins/config-schema.ts";
+export type { CmlHiveAssistConfig } from "../config/config.ts";
+export type { ChannelDock } from "../channels/dock.ts";
+export { getChatChannelMeta } from "../channels/registry.ts";
 export type {
   BlockStreamingCoalesceConfig,
   DmPolicy,
@@ -93,7 +93,7 @@ export type {
   MSTeamsConfig,
   MSTeamsReplyStyle,
   MSTeamsTeamConfig,
-} from "../config/types.js";
+} from "../config/types.ts";
 export {
   DiscordConfigSchema,
   GoogleChatConfigSchema,
@@ -102,8 +102,8 @@ export {
   SignalConfigSchema,
   SlackConfigSchema,
   TelegramConfigSchema,
-} from "../config/zod-schema.providers-core.js";
-export { WhatsAppConfigSchema } from "../config/zod-schema.providers-whatsapp.js";
+} from "../config/zod-schema.providers-core.ts";
+export { WhatsAppConfigSchema } from "../config/zod-schema.providers-whatsapp.ts";
 export {
   BlockStreamingCoalesceSchema,
   DmConfigSchema,
@@ -113,16 +113,16 @@ export {
   MarkdownTableModeSchema,
   normalizeAllowFrom,
   requireOpenAllowFrom,
-} from "../config/zod-schema.core.js";
-export { ToolPolicySchema } from "../config/zod-schema.agent-runtime.js";
-export type { RuntimeEnv } from "../runtime.js";
-export type { WizardPrompter } from "../wizard/prompts.js";
-export { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
-export { resolveAckReaction } from "../agents/identity.js";
-export type { ReplyPayload } from "../auto-reply/types.js";
-export type { ChunkMode } from "../auto-reply/chunk.js";
-export { SILENT_REPLY_TOKEN, isSilentReplyText } from "../auto-reply/tokens.js";
-export { resolveToolsBySender } from "../config/group-policy.js";
+} from "../config/zod-schema.core.ts";
+export { ToolPolicySchema } from "../config/zod-schema.agent-runtime.ts";
+export type { RuntimeEnv } from "../runtime.ts";
+export type { WizardPrompter } from "../wizard/prompts.ts";
+export { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.ts";
+export { resolveAckReaction } from "../agents/identity.ts";
+export type { ReplyPayload } from "../auto-reply/types.ts";
+export type { ChunkMode } from "../auto-reply/chunk.ts";
+export { SILENT_REPLY_TOKEN, isSilentReplyText } from "../auto-reply/tokens.ts";
+export { resolveToolsBySender } from "../config/group-policy.ts";
 export {
   buildPendingHistoryContextFromMap,
   clearHistoryEntries,
@@ -130,30 +130,30 @@ export {
   DEFAULT_GROUP_HISTORY_LIMIT,
   recordPendingHistoryEntry,
   recordPendingHistoryEntryIfEnabled,
-} from "../auto-reply/reply/history.js";
-export type { HistoryEntry } from "../auto-reply/reply/history.js";
-export { mergeAllowlist, summarizeMapping } from "../channels/allowlists/resolve-utils.js";
+} from "../auto-reply/reply/history.ts";
+export type { HistoryEntry } from "../auto-reply/reply/history.ts";
+export { mergeAllowlist, summarizeMapping } from "../channels/allowlists/resolve-utils.ts";
 export {
   resolveMentionGating,
   resolveMentionGatingWithBypass,
-} from "../channels/mention-gating.js";
+} from "../channels/mention-gating.ts";
 export type {
   AckReactionGateParams,
   AckReactionScope,
   WhatsAppAckReactionMode,
-} from "../channels/ack-reactions.js";
+} from "../channels/ack-reactions.ts";
 export {
   removeAckReactionAfterReply,
   shouldAckReaction,
   shouldAckReactionForWhatsApp,
-} from "../channels/ack-reactions.js";
-export { createTypingCallbacks } from "../channels/typing.js";
-export { createReplyPrefixContext } from "../channels/reply-prefix.js";
-export { logAckFailure, logInboundDrop, logTypingFailure } from "../channels/logging.js";
-export { resolveChannelMediaMaxBytes } from "../channels/plugins/media-limits.js";
-export type { NormalizedLocation } from "../channels/location.js";
-export { formatLocationText, toLocationContext } from "../channels/location.js";
-export { resolveControlCommandGate } from "../channels/command-gating.js";
+} from "../channels/ack-reactions.ts";
+export { createTypingCallbacks } from "../channels/typing.ts";
+export { createReplyPrefixContext } from "../channels/reply-prefix.ts";
+export { logAckFailure, logInboundDrop, logTypingFailure } from "../channels/logging.ts";
+export { resolveChannelMediaMaxBytes } from "../channels/plugins/media-limits.ts";
+export type { NormalizedLocation } from "../channels/location.ts";
+export { formatLocationText, toLocationContext } from "../channels/location.ts";
+export { resolveControlCommandGate } from "../channels/command-gating.ts";
 export {
   resolveBlueBubblesGroupRequireMention,
   resolveDiscordGroupRequireMention,
@@ -169,15 +169,15 @@ export {
   resolveSlackGroupToolPolicy,
   resolveTelegramGroupToolPolicy,
   resolveWhatsAppGroupToolPolicy,
-} from "../channels/plugins/group-mentions.js";
-export { recordInboundSession } from "../channels/session.js";
+} from "../channels/plugins/group-mentions.ts";
+export { recordInboundSession } from "../channels/session.ts";
 export {
   buildChannelKeyCandidates,
   normalizeChannelSlug,
   resolveChannelEntryMatch,
   resolveChannelEntryMatchWithFallback,
   resolveNestedAllowlistDecision,
-} from "../channels/plugins/channel-config.js";
+} from "../channels/plugins/channel-config.ts";
 export {
   listDiscordDirectoryGroupsFromConfig,
   listDiscordDirectoryPeersFromConfig,
@@ -187,30 +187,30 @@ export {
   listTelegramDirectoryPeersFromConfig,
   listWhatsAppDirectoryGroupsFromConfig,
   listWhatsAppDirectoryPeersFromConfig,
-} from "../channels/plugins/directory-config.js";
-export type { AllowlistMatch } from "../channels/plugins/allowlist-match.js";
-export { formatAllowlistMatchMeta } from "../channels/plugins/allowlist-match.js";
-export { optionalStringEnum, stringEnum } from "../agents/schema/typebox.js";
-export type { PollInput } from "../polls.js";
+} from "../channels/plugins/directory-config.ts";
+export type { AllowlistMatch } from "../channels/plugins/allowlist-match.ts";
+export { formatAllowlistMatchMeta } from "../channels/plugins/allowlist-match.ts";
+export { optionalStringEnum, stringEnum } from "../agents/schema/typebox.ts";
+export type { PollInput } from "../polls.ts";
 
-export { buildChannelConfigSchema } from "../channels/plugins/config-schema.js";
+export { buildChannelConfigSchema } from "../channels/plugins/config-schema.ts";
 export {
   deleteAccountFromConfigSection,
   setAccountEnabledInConfigSection,
-} from "../channels/plugins/config-helpers.js";
+} from "../channels/plugins/config-helpers.ts";
 export {
   applyAccountNameToChannelSection,
   migrateBaseNameToDefaultAccount,
-} from "../channels/plugins/setup-helpers.js";
-export { formatPairingApproveHint } from "../channels/plugins/helpers.js";
-export { PAIRING_APPROVED_MESSAGE } from "../channels/plugins/pairing-message.js";
+} from "../channels/plugins/setup-helpers.ts";
+export { formatPairingApproveHint } from "../channels/plugins/helpers.ts";
+export { PAIRING_APPROVED_MESSAGE } from "../channels/plugins/pairing-message.ts";
 
 export type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-} from "../channels/plugins/onboarding-types.js";
-export { addWildcardAllowFrom, promptAccountId } from "../channels/plugins/onboarding/helpers.js";
-export { promptChannelAccessConfig } from "../channels/plugins/onboarding/channel-access.js";
+} from "../channels/plugins/onboarding-types.ts";
+export { addWildcardAllowFrom, promptAccountId } from "../channels/plugins/onboarding/helpers.ts";
+export { promptChannelAccessConfig } from "../channels/plugins/onboarding/channel-access.ts";
 
 export {
   createActionGate,
@@ -218,18 +218,18 @@ export {
   readNumberParam,
   readReactionParams,
   readStringParam,
-} from "../agents/tools/common.js";
-export { formatDocsLink } from "../terminal/links.js";
-export type { HookEntry } from "../hooks/types.js";
-export { normalizeE164 } from "../utils.js";
-export { missingTargetError } from "../infra/outbound/target-errors.js";
-export { registerLogTransport } from "../logging/logger.js";
-export type { LogTransport, LogTransportRecord } from "../logging/logger.js";
+} from "../agents/tools/common.ts";
+export { formatDocsLink } from "../terminal/links.ts";
+export type { HookEntry } from "../hooks/types.ts";
+export { normalizeE164 } from "../utils.ts";
+export { missingTargetError } from "../infra/outbound/target-errors.ts";
+export { registerLogTransport } from "../logging/logger.ts";
+export type { LogTransport, LogTransportRecord } from "../logging/logger.ts";
 export {
   emitDiagnosticEvent,
   isDiagnosticsEnabled,
   onDiagnosticEvent,
-} from "../infra/diagnostic-events.js";
+} from "../infra/diagnostic-events.ts";
 export type {
   DiagnosticEventPayload,
   DiagnosticHeartbeatEvent,
@@ -245,9 +245,9 @@ export type {
   DiagnosticWebhookErrorEvent,
   DiagnosticWebhookProcessedEvent,
   DiagnosticWebhookReceivedEvent,
-} from "../infra/diagnostic-events.js";
-export { detectMime, extensionForMime, getFileExtension } from "../media/mime.js";
-export { extractOriginalFilename } from "../media/store.js";
+} from "../infra/diagnostic-events.ts";
+export { detectMime, extensionForMime, getFileExtension } from "../media/mime.ts";
+export { extractOriginalFilename } from "../media/store.ts";
 
 // Channel: Discord
 export {
@@ -255,14 +255,14 @@ export {
   resolveDefaultDiscordAccountId,
   resolveDiscordAccount,
   type ResolvedDiscordAccount,
-} from "../discord/accounts.js";
-export { collectDiscordAuditChannelIds } from "../discord/audit.js";
-export { discordOnboardingAdapter } from "../channels/plugins/onboarding/discord.js";
+} from "../discord/accounts.ts";
+export { collectDiscordAuditChannelIds } from "../discord/audit.ts";
+export { discordOnboardingAdapter } from "../channels/plugins/onboarding/discord.ts";
 export {
   looksLikeDiscordTargetId,
   normalizeDiscordMessagingTarget,
-} from "../channels/plugins/normalize/discord.js";
-export { collectDiscordStatusIssues } from "../channels/plugins/status-issues/discord.js";
+} from "../channels/plugins/normalize/discord.ts";
+export { collectDiscordStatusIssues } from "../channels/plugins/status-issues/discord.ts";
 
 // Channel: iMessage
 export {
@@ -270,12 +270,12 @@ export {
   resolveDefaultIMessageAccountId,
   resolveIMessageAccount,
   type ResolvedIMessageAccount,
-} from "../imessage/accounts.js";
-export { imessageOnboardingAdapter } from "../channels/plugins/onboarding/imessage.js";
+} from "../imessage/accounts.ts";
+export { imessageOnboardingAdapter } from "../channels/plugins/onboarding/imessage.ts";
 export {
   looksLikeIMessageTargetId,
   normalizeIMessageMessagingTarget,
-} from "../channels/plugins/normalize/imessage.js";
+} from "../channels/plugins/normalize/imessage.ts";
 
 // Channel: Slack
 export {
@@ -285,13 +285,13 @@ export {
   resolveSlackAccount,
   resolveSlackReplyToMode,
   type ResolvedSlackAccount,
-} from "../slack/accounts.js";
-export { slackOnboardingAdapter } from "../channels/plugins/onboarding/slack.js";
+} from "../slack/accounts.ts";
+export { slackOnboardingAdapter } from "../channels/plugins/onboarding/slack.ts";
 export {
   looksLikeSlackTargetId,
   normalizeSlackMessagingTarget,
-} from "../channels/plugins/normalize/slack.js";
-export { buildSlackThreadingToolContext } from "../slack/threading-tool-context.js";
+} from "../channels/plugins/normalize/slack.ts";
+export { buildSlackThreadingToolContext } from "../slack/threading-tool-context.ts";
 
 // Channel: Telegram
 export {
@@ -299,13 +299,13 @@ export {
   resolveDefaultTelegramAccountId,
   resolveTelegramAccount,
   type ResolvedTelegramAccount,
-} from "../telegram/accounts.js";
-export { telegramOnboardingAdapter } from "../channels/plugins/onboarding/telegram.js";
+} from "../telegram/accounts.ts";
+export { telegramOnboardingAdapter } from "../channels/plugins/onboarding/telegram.ts";
 export {
   looksLikeTelegramTargetId,
   normalizeTelegramMessagingTarget,
-} from "../channels/plugins/normalize/telegram.js";
-export { collectTelegramStatusIssues } from "../channels/plugins/status-issues/telegram.js";
+} from "../channels/plugins/normalize/telegram.ts";
+export { collectTelegramStatusIssues } from "../channels/plugins/status-issues/telegram.ts";
 
 // Channel: Signal
 export {
@@ -313,12 +313,12 @@ export {
   resolveDefaultSignalAccountId,
   resolveSignalAccount,
   type ResolvedSignalAccount,
-} from "../signal/accounts.js";
-export { signalOnboardingAdapter } from "../channels/plugins/onboarding/signal.js";
+} from "../signal/accounts.ts";
+export { signalOnboardingAdapter } from "../channels/plugins/onboarding/signal.ts";
 export {
   looksLikeSignalTargetId,
   normalizeSignalMessagingTarget,
-} from "../channels/plugins/normalize/signal.js";
+} from "../channels/plugins/normalize/signal.ts";
 
 // Channel: WhatsApp
 export {
@@ -326,18 +326,18 @@ export {
   resolveDefaultWhatsAppAccountId,
   resolveWhatsAppAccount,
   type ResolvedWhatsAppAccount,
-} from "../web/accounts.js";
-export { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../whatsapp/normalize.js";
-export { whatsappOnboardingAdapter } from "../channels/plugins/onboarding/whatsapp.js";
-export { resolveWhatsAppHeartbeatRecipients } from "../channels/plugins/whatsapp-heartbeat.js";
+} from "../web/accounts.ts";
+export { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../whatsapp/normalize.ts";
+export { whatsappOnboardingAdapter } from "../channels/plugins/onboarding/whatsapp.ts";
+export { resolveWhatsAppHeartbeatRecipients } from "../channels/plugins/whatsapp-heartbeat.ts";
 export {
   looksLikeWhatsAppTargetId,
   normalizeWhatsAppMessagingTarget,
-} from "../channels/plugins/normalize/whatsapp.js";
-export { collectWhatsAppStatusIssues } from "../channels/plugins/status-issues/whatsapp.js";
+} from "../channels/plugins/normalize/whatsapp.ts";
+export { collectWhatsAppStatusIssues } from "../channels/plugins/status-issues/whatsapp.ts";
 
 // Channel: BlueBubbles
-export { collectBlueBubblesStatusIssues } from "../channels/plugins/status-issues/bluebubbles.js";
+export { collectBlueBubblesStatusIssues } from "../channels/plugins/status-issues/bluebubbles.ts";
 
 // Channel: LINE
 export {
@@ -345,14 +345,14 @@ export {
   normalizeAccountId as normalizeLineAccountId,
   resolveDefaultLineAccountId,
   resolveLineAccount,
-} from "../line/accounts.js";
-export { LineConfigSchema } from "../line/config-schema.js";
+} from "../line/accounts.ts";
+export { LineConfigSchema } from "../line/config-schema.ts";
 export type {
   LineConfig,
   LineAccountConfig,
   ResolvedLineAccount,
   LineChannelData,
-} from "../line/types.js";
+} from "../line/types.ts";
 export {
   createInfoCard,
   createListCard,
@@ -361,13 +361,13 @@ export {
   createReceiptCard,
   type CardAction,
   type ListItem,
-} from "../line/flex-templates.js";
+} from "../line/flex-templates.ts";
 export {
   processLineMessage,
   hasMarkdownToConvert,
   stripMarkdown,
-} from "../line/markdown-to-line.js";
-export type { ProcessedLineMessage } from "../line/markdown-to-line.js";
+} from "../line/markdown-to-line.ts";
+export type { ProcessedLineMessage } from "../line/markdown-to-line.ts";
 
 // Media utilities
-export { loadWebMedia, type WebMediaResult } from "../web/media.js";
+export { loadWebMedia, type WebMediaResult } from "../web/media.ts";

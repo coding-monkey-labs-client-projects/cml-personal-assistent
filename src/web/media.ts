@@ -1,18 +1,18 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { SsrFPolicy } from "../infra/net/ssrf.js";
-import { logVerbose, shouldLogVerbose } from "../globals.js";
-import { type MediaKind, maxBytesForKind, mediaKindFromMime } from "../media/constants.js";
-import { fetchRemoteMedia } from "../media/fetch.js";
+import type { SsrFPolicy } from "../infra/net/ssrf.ts";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
+import { type MediaKind, maxBytesForKind, mediaKindFromMime } from "../media/constants.ts";
+import { fetchRemoteMedia } from "../media/fetch.ts";
 import {
   convertHeicToJpeg,
   hasAlphaChannel,
   optimizeImageToPng,
   resizeToJpeg,
-} from "../media/image-ops.js";
-import { detectMime, extensionForMime } from "../media/mime.js";
-import { resolveUserPath } from "../utils.js";
+} from "../media/image-ops.ts";
+import { detectMime, extensionForMime } from "../media/mime.ts";
+import { resolveUserPath } from "../utils.ts";
 
 export type WebMediaResult = {
   buffer: Buffer;

@@ -1,6 +1,6 @@
-import type { RuntimeEnv } from "../runtime.js";
-import { danger } from "../globals.js";
-import { sleepWithAbort } from "./backoff.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import { danger } from "../globals.ts";
+import { sleepWithAbort } from "./backoff.ts";
 
 export type TransportReadyResult = {
   ok: boolean;

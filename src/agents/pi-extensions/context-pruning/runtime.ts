@@ -1,4 +1,4 @@
-import type { EffectiveContextPruningSettings } from "./settings.js";
+import type { EffectiveContextPruningSettings } from "./settings.ts";
 
 export type ContextPruningRuntimeValue = {
   settings: EffectiveContextPruningSettings;

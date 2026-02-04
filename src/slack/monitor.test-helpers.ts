@@ -72,7 +72,7 @@ export function resetSlackTestState(config: Record<string, unknown> = defaultSla
 }
 
 vi.mock("../config/config.js", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("../config/config.js")>();
+  const actual = await importOriginal<typeof import("../config/config.ts")>();
   return {
     ...actual,
     loadConfig: () => slackTestState.config,
@@ -104,7 +104,7 @@ vi.mock("../pairing/pairing-store.js", () => ({
 }));
 
 vi.mock("../config/sessions.js", () => ({
-  resolveStorePath: vi.fn(() => "/tmp/openclaw-sessions.json"),
+  resolveStorePath: vi.fn(() => "/tmp/cml-hive-assist-sessions.json"),
   updateLastRoute: (...args: unknown[]) => slackTestState.updateLastRouteMock(...args),
   resolveSessionKey: vi.fn(),
   readSessionUpdatedAt: vi.fn(() => undefined),

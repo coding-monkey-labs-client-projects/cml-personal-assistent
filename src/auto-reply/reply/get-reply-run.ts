@@ -1,31 +1,31 @@
 import crypto from "node:crypto";
-import type { ExecToolDefaults } from "../../agents/bash-tools.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { MsgContext, TemplateContext } from "../templating.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
-import type { buildCommandContext } from "./commands.js";
-import type { InlineDirectives } from "./directive-handling.js";
-import type { createModelSelectionState } from "./model-selection.js";
-import type { TypingController } from "./typing.js";
-import { resolveSessionAuthProfileOverride } from "../../agents/auth-profiles/session-override.js";
+import type { ExecToolDefaults } from "../../agents/bash-tools.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { MsgContext, TemplateContext } from "../templating.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
+import type { buildCommandContext } from "./commands.ts";
+import type { InlineDirectives } from "./directive-handling.ts";
+import type { createModelSelectionState } from "./model-selection.ts";
+import type { TypingController } from "./typing.ts";
+import { resolveSessionAuthProfileOverride } from "../../agents/auth-profiles/session-override.ts";
 import {
   abortEmbeddedPiRun,
   isEmbeddedPiRunActive,
   isEmbeddedPiRunStreaming,
   resolveEmbeddedSessionLane,
-} from "../../agents/pi-embedded.js";
+} from "../../agents/pi-embedded.ts";
 import {
   resolveGroupSessionKey,
   resolveSessionFilePath,
   type SessionEntry,
   updateSessionStore,
-} from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
-import { clearCommandLane, getQueueSize } from "../../process/command-queue.js";
-import { normalizeMainKey } from "../../routing/session-key.js";
-import { isReasoningTagProvider } from "../../utils/provider-utils.js";
-import { hasControlCommand } from "../command-detection.js";
-import { buildInboundMediaNote } from "../media-note.js";
+} from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
+import { clearCommandLane, getQueueSize } from "../../process/command-queue.ts";
+import { normalizeMainKey } from "../../routing/session-key.ts";
+import { isReasoningTagProvider } from "../../utils/provider-utils.ts";
+import { hasControlCommand } from "../command-detection.ts";
+import { buildInboundMediaNote } from "../media-note.ts";
 import {
   type ElevatedLevel,
   formatXHighModelHint,
@@ -34,17 +34,17 @@ import {
   supportsXHighThinking,
   type ThinkLevel,
   type VerboseLevel,
-} from "../thinking.js";
-import { SILENT_REPLY_TOKEN } from "../tokens.js";
-import { runReplyAgent } from "./agent-runner.js";
-import { applySessionHints } from "./body.js";
-import { buildGroupIntro } from "./groups.js";
-import { resolveQueueSettings } from "./queue.js";
-import { routeReply } from "./route-reply.js";
-import { ensureSkillSnapshot, prependSystemEvents } from "./session-updates.js";
-import { resolveTypingMode } from "./typing-mode.js";
+} from "../thinking.ts";
+import { SILENT_REPLY_TOKEN } from "../tokens.ts";
+import { runReplyAgent } from "./agent-runner.ts";
+import { applySessionHints } from "./body.ts";
+import { buildGroupIntro } from "./groups.ts";
+import { resolveQueueSettings } from "./queue.ts";
+import { routeReply } from "./route-reply.ts";
+import { ensureSkillSnapshot, prependSystemEvents } from "./session-updates.ts";
+import { resolveTypingMode } from "./typing-mode.ts";
 
-type AgentDefaults = NonNullable<OpenClawConfig["agents"]>["defaults"];
+type AgentDefaults = NonNullable<CmlHiveAssistConfig["agents"]>["defaults"];
 type ExecOverrides = Pick<ExecToolDefaults, "host" | "security" | "ask" | "node">;
 
 const BARE_SESSION_RESET_PROMPT =
@@ -53,11 +53,11 @@ const BARE_SESSION_RESET_PROMPT =
 type RunPreparedReplyParams = {
   ctx: MsgContext;
   sessionCtx: TemplateContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   agentDir: string;
   agentCfg: AgentDefaults;
-  sessionCfg: OpenClawConfig["session"];
+  sessionCfg: CmlHiveAssistConfig["session"];
   commandAuthorized: boolean;
   command: ReturnType<typeof buildCommandContext>;
   commandSource: string;

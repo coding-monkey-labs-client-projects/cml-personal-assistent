@@ -1,15 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
-import type { NormalizedUsage, UsageLike } from "../agents/usage.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { SessionEntry } from "../config/sessions/types.js";
-import { normalizeUsage } from "../agents/usage.js";
+import type { NormalizedUsage, UsageLike } from "../agents/usage.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { SessionEntry } from "../config/sessions/types.ts";
+import { normalizeUsage } from "../agents/usage.ts";
 import {
   resolveSessionFilePath,
   resolveSessionTranscriptsDirForAgent,
-} from "../config/sessions/paths.js";
-import { estimateUsageCost, resolveModelCostConfig } from "../utils/usage-format.js";
+} from "../config/sessions/paths.ts";
+import { estimateUsageCost, resolveModelCostConfig } from "../utils/usage-format.ts";
 
 type ParsedUsageEntry = {
   usage: NormalizedUsage;
@@ -155,7 +155,7 @@ const applyCostTotal = (totals: CostUsageTotals, costTotal: number | undefined) 
 
 async function scanUsageFile(params: {
   filePath: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   onEntry: (entry: ParsedUsageEntry) => void;
 }): Promise<void> {
   const fileStream = fs.createReadStream(params.filePath, { encoding: "utf-8" });
@@ -191,7 +191,7 @@ async function scanUsageFile(params: {
 
 export async function loadCostUsageSummary(params?: {
   days?: number;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   agentId?: string;
 }): Promise<CostUsageSummary> {
   const days = Math.max(1, Math.floor(params?.days ?? 30));
@@ -260,7 +260,7 @@ export async function loadSessionCostSummary(params: {
   sessionId?: string;
   sessionEntry?: SessionEntry;
   sessionFile?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
 }): Promise<SessionCostSummary | null> {
   const sessionFile =
     params.sessionFile ??

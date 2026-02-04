@@ -1,20 +1,20 @@
-import type { ChannelId } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { OutboundChannel } from "../../infra/outbound/targets.js";
-import { DEFAULT_CHAT_CHANNEL } from "../../channels/registry.js";
+import type { ChannelId } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { OutboundChannel } from "../../infra/outbound/targets.ts";
+import { DEFAULT_CHAT_CHANNEL } from "../../channels/registry.ts";
 import {
   loadSessionStore,
   resolveAgentMainSessionKey,
   resolveStorePath,
-} from "../../config/sessions.js";
-import { resolveMessageChannelSelection } from "../../infra/outbound/channel-selection.js";
+} from "../../config/sessions.ts";
+import { resolveMessageChannelSelection } from "../../infra/outbound/channel-selection.ts";
 import {
   resolveOutboundTarget,
   resolveSessionDeliveryTarget,
-} from "../../infra/outbound/targets.js";
+} from "../../infra/outbound/targets.ts";
 
 export async function resolveDeliveryTarget(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   agentId: string,
   jobPayload: {
     channel?: "last" | ChannelId;

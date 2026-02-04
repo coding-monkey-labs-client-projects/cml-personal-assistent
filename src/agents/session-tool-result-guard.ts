@@ -1,7 +1,7 @@
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import type { SessionManager } from "@mariozechner/pi-coding-agent";
-import { emitSessionTranscriptUpdate } from "../sessions/transcript-events.js";
-import { makeMissingToolResult, sanitizeToolCallInputs } from "./session-transcript-repair.js";
+import { emitSessionTranscriptUpdate } from "../sessions/transcript-events.ts";
+import { makeMissingToolResult, sanitizeToolCallInputs } from "./session-transcript-repair.ts";
 
 type ToolCall = { id: string; name?: string };
 

@@ -1,15 +1,15 @@
 import JSON5 from "json5";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { createConfigIO } from "../config/config.js";
-import { INCLUDE_KEY, MAX_INCLUDE_DEPTH } from "../config/includes.js";
-import { resolveConfigPath, resolveOAuthDir, resolveStateDir } from "../config/paths.js";
-import { readChannelAllowFromStore } from "../pairing/pairing-store.js";
-import { runExec } from "../process/exec.js";
-import { normalizeAgentId } from "../routing/session-key.js";
-import { createIcaclsResetCommand, formatIcaclsResetCommand, type ExecFn } from "./windows-acl.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { createConfigIO } from "../config/config.ts";
+import { INCLUDE_KEY, MAX_INCLUDE_DEPTH } from "../config/includes.ts";
+import { resolveConfigPath, resolveOAuthDir, resolveStateDir } from "../config/paths.ts";
+import { readChannelAllowFromStore } from "../pairing/pairing-store.ts";
+import { runExec } from "../process/exec.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
+import { createIcaclsResetCommand, formatIcaclsResetCommand, type ExecFn } from "./windows-acl.ts";
 
 export type SecurityFixChmodAction = {
   kind: "chmod";
@@ -185,7 +185,7 @@ async function safeAclReset(params: {
 }
 
 function setGroupPolicyAllowlist(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: string;
   changes: string[];
   policyFlips: Set<string>;
@@ -193,7 +193,7 @@ function setGroupPolicyAllowlist(params: {
   if (!params.cfg.channels) {
     return;
   }
-  const section = params.cfg.channels[params.channel as keyof OpenClawConfig["channels"]] as
+  const section = params.cfg.channels[params.channel as keyof CmlHiveAssistConfig["channels"]] as
     | Record<string, unknown>
     | undefined;
   if (!section || typeof section !== "object") {
@@ -230,7 +230,7 @@ function setGroupPolicyAllowlist(params: {
 }
 
 function setWhatsAppGroupAllowFromFromStore(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   storeAllowFrom: string[];
   changes: string[];
   policyFlips: Set<string>;
@@ -274,8 +274,8 @@ function setWhatsAppGroupAllowFromFromStore(params: {
   }
 }
 
-function applyConfigFixes(params: { cfg: OpenClawConfig; env: NodeJS.ProcessEnv }): {
-  cfg: OpenClawConfig;
+function applyConfigFixes(params: { cfg: CmlHiveAssistConfig; env: NodeJS.ProcessEnv }): {
+  cfg: CmlHiveAssistConfig;
   changes: string[];
   policyFlips: Set<string>;
 } {
@@ -388,7 +388,7 @@ async function collectIncludePathsRecursive(params: {
 async function chmodCredentialsAndAgentState(params: {
   env: NodeJS.ProcessEnv;
   stateDir: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   actions: SecurityFixAction[];
   applyPerms: (params: {
     path: string;

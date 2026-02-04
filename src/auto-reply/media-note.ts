@@ -1,4 +1,4 @@
-import type { MsgContext } from "./templating.js";
+import type { MsgContext } from "./templating.ts";
 
 function formatMediaAttachedLine(params: {
   path: string;

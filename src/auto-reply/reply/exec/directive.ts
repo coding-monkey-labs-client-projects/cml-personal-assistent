@@ -1,4 +1,4 @@
-import type { ExecAsk, ExecHost, ExecSecurity } from "../../../infra/exec-approvals.js";
+import type { ExecAsk, ExecHost, ExecSecurity } from "../../../infra/exec-approvals.ts";
 
 type ExecDirectiveParse = {
   cleaned: string;

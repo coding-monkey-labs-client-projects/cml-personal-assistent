@@ -1,11 +1,11 @@
-import { setCliSessionId } from "../../agents/cli-session.js";
-import { hasNonzeroUsage, type NormalizedUsage } from "../../agents/usage.js";
+import { setCliSessionId } from "../../agents/cli-session.ts";
+import { hasNonzeroUsage, type NormalizedUsage } from "../../agents/usage.ts";
 import {
   type SessionSystemPromptReport,
   type SessionEntry,
   updateSessionStoreEntry,
-} from "../../config/sessions.js";
-import { logVerbose } from "../../globals.js";
+} from "../../config/sessions.ts";
+import { logVerbose } from "../../globals.ts";
 
 export async function persistSessionUsageUpdate(params: {
   storePath?: string;

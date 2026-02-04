@@ -3,7 +3,7 @@ import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import { Type } from "@sinclair/typebox";
 import crypto from "node:crypto";
 import path from "node:path";
-import type { BashSandboxConfig } from "./bash-tools.shared.js";
+import type { BashSandboxConfig } from "./bash-tools.shared.ts";
 import {
   type ExecAsk,
   type ExecHost,
@@ -18,17 +18,17 @@ import {
   recordAllowlistUse,
   resolveExecApprovals,
   resolveExecApprovalsFromFile,
-} from "../infra/exec-approvals.js";
-import { requestHeartbeatNow } from "../infra/heartbeat-wake.js";
-import { buildNodeShellCommand } from "../infra/node-shell.js";
+} from "../infra/exec-approvals.ts";
+import { requestHeartbeatNow } from "../infra/heartbeat-wake.ts";
+import { buildNodeShellCommand } from "../infra/node-shell.ts";
 import {
   getShellPathFromLoginShell,
   resolveShellEnvFallbackTimeoutMs,
-} from "../infra/shell-env.js";
-import { enqueueSystemEvent } from "../infra/system-events.js";
-import { logInfo, logWarn } from "../logger.js";
-import { formatSpawnError, spawnWithFallback } from "../process/spawn-utils.js";
-import { parseAgentSessionKey, resolveAgentIdFromSessionKey } from "../routing/session-key.js";
+} from "../infra/shell-env.ts";
+import { enqueueSystemEvent } from "../infra/system-events.ts";
+import { logInfo, logWarn } from "../logger.ts";
+import { formatSpawnError, spawnWithFallback } from "../process/spawn-utils.ts";
+import { parseAgentSessionKey, resolveAgentIdFromSessionKey } from "../routing/session-key.ts";
 import {
   type ProcessSession,
   type SessionStdin,
@@ -38,7 +38,7 @@ import {
   markBackgrounded,
   markExited,
   tail,
-} from "./bash-process-registry.js";
+} from "./bash-process-registry.ts";
 import {
   buildDockerExecArgs,
   buildSandboxEnv,
@@ -50,11 +50,11 @@ import {
   resolveSandboxWorkdir,
   resolveWorkdir,
   truncateMiddle,
-} from "./bash-tools.shared.js";
-import { buildCursorPositionResponse, stripDsrRequests } from "./pty-dsr.js";
-import { getShellConfig, sanitizeBinaryOutput } from "./shell-utils.js";
-import { callGatewayTool } from "./tools/gateway.js";
-import { listNodes, resolveNodeIdFromList } from "./tools/nodes-utils.js";
+} from "./bash-tools.shared.ts";
+import { buildCursorPositionResponse, stripDsrRequests } from "./pty-dsr.ts";
+import { getShellConfig, sanitizeBinaryOutput } from "./shell-utils.ts";
+import { callGatewayTool } from "./tools/gateway.ts";
+import { listNodes, resolveNodeIdFromList } from "./tools/nodes-utils.ts";
 
 // Security: Blocklist of environment variables that could alter execution flow
 // or inject code when running on non-sandboxed hosts (Gateway/Node).
@@ -112,7 +112,7 @@ const DEFAULT_MAX_OUTPUT = clampNumber(
   200_000,
 );
 const DEFAULT_PENDING_MAX_OUTPUT = clampNumber(
-  readEnvInt("OPENCLAW_BASH_PENDING_MAX_OUTPUT_CHARS"),
+  readEnvInt("CML_HIVE_ASSIST_BASH_PENDING_MAX_OUTPUT_CHARS"),
   200_000,
   1_000,
   200_000,
@@ -184,7 +184,7 @@ export type ExecToolDefaults = {
   cwd?: string;
 };
 
-export type { BashSandboxConfig } from "./bash-tools.shared.js";
+export type { BashSandboxConfig } from "./bash-tools.shared.ts";
 
 export type ExecElevatedDefaults = {
   enabled: boolean;

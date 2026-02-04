@@ -1,35 +1,35 @@
-import type { WebChannelStatus, WebInboundMsg, WebMonitorTuning } from "./types.js";
-import { hasControlCommand } from "../../auto-reply/command-detection.js";
-import { resolveInboundDebounceMs } from "../../auto-reply/inbound-debounce.js";
-import { getReplyFromConfig } from "../../auto-reply/reply.js";
-import { DEFAULT_GROUP_HISTORY_LIMIT } from "../../auto-reply/reply/history.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { waitForever } from "../../cli/wait.js";
-import { loadConfig } from "../../config/config.js";
-import { logVerbose } from "../../globals.js";
-import { formatDurationMs } from "../../infra/format-duration.js";
-import { enqueueSystemEvent } from "../../infra/system-events.js";
-import { registerUnhandledRejectionHandler } from "../../infra/unhandled-rejections.js";
-import { getChildLogger } from "../../logging.js";
-import { resolveAgentRoute } from "../../routing/resolve-route.js";
-import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
-import { resolveWhatsAppAccount } from "../accounts.js";
-import { setActiveWebListener } from "../active-listener.js";
-import { monitorWebInbox } from "../inbound.js";
+import type { WebChannelStatus, WebInboundMsg, WebMonitorTuning } from "./types.ts";
+import { hasControlCommand } from "../../auto-reply/command-detection.ts";
+import { resolveInboundDebounceMs } from "../../auto-reply/inbound-debounce.ts";
+import { getReplyFromConfig } from "../../auto-reply/reply.ts";
+import { DEFAULT_GROUP_HISTORY_LIMIT } from "../../auto-reply/reply/history.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { waitForever } from "../../cli/wait.ts";
+import { loadConfig } from "../../config/config.ts";
+import { logVerbose } from "../../globals.ts";
+import { formatDurationMs } from "../../infra/format-duration.ts";
+import { enqueueSystemEvent } from "../../infra/system-events.ts";
+import { registerUnhandledRejectionHandler } from "../../infra/unhandled-rejections.ts";
+import { getChildLogger } from "../../logging.ts";
+import { resolveAgentRoute } from "../../routing/resolve-route.ts";
+import { defaultRuntime, type RuntimeEnv } from "../../runtime.ts";
+import { resolveWhatsAppAccount } from "../accounts.ts";
+import { setActiveWebListener } from "../active-listener.ts";
+import { monitorWebInbox } from "../inbound.ts";
 import {
   computeBackoff,
   newConnectionId,
   resolveHeartbeatSeconds,
   resolveReconnectPolicy,
   sleepWithAbort,
-} from "../reconnect.js";
-import { formatError, getWebAuthAgeMs, readWebSelfId } from "../session.js";
-import { DEFAULT_WEB_MEDIA_BYTES } from "./constants.js";
-import { whatsappHeartbeatLog, whatsappLog } from "./loggers.js";
-import { buildMentionConfig } from "./mentions.js";
-import { createEchoTracker } from "./monitor/echo.js";
-import { createWebOnMessageHandler } from "./monitor/on-message.js";
-import { isLikelyWhatsAppCryptoError } from "./util.js";
+} from "../reconnect.ts";
+import { formatError, getWebAuthAgeMs, readWebSelfId } from "../session.ts";
+import { DEFAULT_WEB_MEDIA_BYTES } from "./constants.ts";
+import { whatsappHeartbeatLog, whatsappLog } from "./loggers.ts";
+import { buildMentionConfig } from "./mentions.ts";
+import { createEchoTracker } from "./monitor/echo.ts";
+import { createWebOnMessageHandler } from "./monitor/on-message.ts";
+import { isLikelyWhatsAppCryptoError } from "./util.ts";
 
 export async function monitorWebChannel(
   verbose: boolean,
@@ -394,7 +394,7 @@ export async function monitorWebChannel(
 
     if (loggedOut) {
       runtime.error(
-        `WhatsApp session logged out. Run \`${formatCliCommand("openclaw channels login --channel web")}\` to relink.`,
+        `WhatsApp session logged out. Run \`${formatCliCommand("cml-hive-assist channels login --channel web")}\` to relink.`,
       );
       await closeListener();
       break;

@@ -1,27 +1,27 @@
-import type { ChannelAccountSnapshot, ChannelPlugin } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { GatewayRequestContext, GatewayRequestHandlers } from "./types.js";
-import { buildChannelUiCatalog } from "../../channels/plugins/catalog.js";
-import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.js";
+import type { ChannelAccountSnapshot, ChannelPlugin } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { GatewayRequestContext, GatewayRequestHandlers } from "./types.ts";
+import { buildChannelUiCatalog } from "../../channels/plugins/catalog.ts";
+import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.ts";
 import {
   type ChannelId,
   getChannelPlugin,
   listChannelPlugins,
   normalizeChannelId,
-} from "../../channels/plugins/index.js";
-import { buildChannelAccountSnapshot } from "../../channels/plugins/status.js";
-import { loadConfig, readConfigFileSnapshot } from "../../config/config.js";
-import { getChannelActivity } from "../../infra/channel-activity.js";
-import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
-import { defaultRuntime } from "../../runtime.js";
+} from "../../channels/plugins/index.ts";
+import { buildChannelAccountSnapshot } from "../../channels/plugins/status.ts";
+import { loadConfig, readConfigFileSnapshot } from "../../config/config.ts";
+import { getChannelActivity } from "../../infra/channel-activity.ts";
+import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.ts";
+import { defaultRuntime } from "../../runtime.ts";
 import {
   ErrorCodes,
   errorShape,
   formatValidationErrors,
   validateChannelsLogoutParams,
   validateChannelsStatusParams,
-} from "../protocol/index.js";
-import { formatForLog } from "../ws-log.js";
+} from "../protocol/index.ts";
+import { formatForLog } from "../ws-log.ts";
 
 type ChannelLogoutPayload = {
   channel: ChannelId;
@@ -33,7 +33,7 @@ type ChannelLogoutPayload = {
 export async function logoutChannelAccount(params: {
   channelId: ChannelId;
   accountId?: string | null;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   context: GatewayRequestContext;
   plugin: ChannelPlugin;
 }): Promise<ChannelLogoutPayload> {

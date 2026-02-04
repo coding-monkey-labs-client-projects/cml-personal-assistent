@@ -1,10 +1,10 @@
 import type { Command } from "commander";
-import type { GatewayRpcOpts } from "./gateway-rpc.js";
-import { danger } from "../globals.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { addGatewayClientOptions, callGatewayFromCli } from "./gateway-rpc.js";
+import type { GatewayRpcOpts } from "./gateway-rpc.ts";
+import { danger } from "../globals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { addGatewayClientOptions, callGatewayFromCli } from "./gateway-rpc.ts";
 
 type SystemEventOpts = GatewayRpcOpts & { text?: string; mode?: string; json?: boolean };
 
@@ -26,7 +26,7 @@ export function registerSystemCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/system", "docs.openclaw.ai/cli/system")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/system", "docs.cml-hive-assist.ai/cli/system")}\n`,
     );
 
   addGatewayClientOptions(

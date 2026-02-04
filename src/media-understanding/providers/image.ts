@@ -1,16 +1,16 @@
 import type { Api, Context, Model } from "@mariozechner/pi-ai";
 import { complete } from "@mariozechner/pi-ai";
-import type { ImageDescriptionRequest, ImageDescriptionResult } from "../types.js";
-import { minimaxUnderstandImage } from "../../agents/minimax-vlm.js";
-import { getApiKeyForModel, requireApiKey } from "../../agents/model-auth.js";
-import { ensureOpenClawModelsJson } from "../../agents/models-config.js";
-import { discoverAuthStorage, discoverModels } from "../../agents/pi-model-discovery.js";
-import { coerceImageAssistantText } from "../../agents/tools/image-tool.helpers.js";
+import type { ImageDescriptionRequest, ImageDescriptionResult } from "../types.ts";
+import { minimaxUnderstandImage } from "../../agents/minimax-vlm.ts";
+import { getApiKeyForModel, requireApiKey } from "../../agents/model-auth.ts";
+import { ensureCmlHiveAssistModelsJson } from "../../agents/models-config.ts";
+import { discoverAuthStorage, discoverModels } from "../../agents/pi-model-discovery.ts";
+import { coerceImageAssistantText } from "../../agents/tools/image-tool.helpers.ts";
 
 export async function describeImageWithModel(
   params: ImageDescriptionRequest,
 ): Promise<ImageDescriptionResult> {
-  await ensureOpenClawModelsJson(params.cfg, params.agentDir);
+  await ensureCmlHiveAssistModelsJson(params.cfg, params.agentDir);
   const authStorage = discoverAuthStorage(params.agentDir);
   const modelRegistry = discoverModels(authStorage, params.agentDir);
   const model = modelRegistry.find(params.provider, params.model) as Model<Api> | null;

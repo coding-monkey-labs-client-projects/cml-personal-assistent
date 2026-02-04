@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ReplyToMode } from "../../config/types.js";
-import type { OriginatingChannelType } from "../templating.js";
-import type { ReplyPayload } from "../types.js";
-import { getChannelDock } from "../../channels/dock.js";
-import { normalizeChannelId } from "../../channels/plugins/index.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ReplyToMode } from "../../config/types.ts";
+import type { OriginatingChannelType } from "../templating.ts";
+import type { ReplyPayload } from "../types.ts";
+import { getChannelDock } from "../../channels/dock.ts";
+import { normalizeChannelId } from "../../channels/plugins/index.ts";
 
 export function resolveReplyToMode(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   channel?: OriginatingChannelType,
   accountId?: string | null,
   chatType?: string | null,

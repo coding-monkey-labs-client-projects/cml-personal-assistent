@@ -18,7 +18,7 @@ Status: the macOS/iOS SwiftUI chat UI talks directly to the Gateway WebSocket.
 ## Quick start
 
 1. Start the gateway.
-2. Open the WebChat UI (macOS/iOS app) or the Control UI chat tab.
+2. Open the WebChat UI (macOS/iOS app) or the Control UI chat tab (either [original or V2](/web/control-ui)).
 3. Ensure gateway auth is configured (required by default, even on loopback).
 
 ## How it works (behavior)

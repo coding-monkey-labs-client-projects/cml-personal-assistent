@@ -1,16 +1,16 @@
 import type { Bot, Context } from "grammy";
-import type { CommandArgs } from "../auto-reply/commands-registry.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { ChannelGroupPolicy } from "../config/group-policy.js";
+import type { CommandArgs } from "../auto-reply/commands-registry.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ChannelGroupPolicy } from "../config/group-policy.ts";
 import type {
   ReplyToMode,
   TelegramAccountConfig,
   TelegramGroupConfig,
   TelegramTopicConfig,
-} from "../config/types.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveEffectiveMessagesConfig } from "../agents/identity.js";
-import { resolveChunkMode } from "../auto-reply/chunk.js";
+} from "../config/types.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveEffectiveMessagesConfig } from "../agents/identity.ts";
+import { resolveChunkMode } from "../auto-reply/chunk.ts";
 import {
   buildCommandTextFromArgs,
   findCommandByNativeName,
@@ -18,32 +18,32 @@ import {
   listNativeCommandSpecsForConfig,
   parseCommandArgs,
   resolveCommandArgMenu,
-} from "../auto-reply/commands-registry.js";
-import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.js";
-import { dispatchReplyWithBufferedBlockDispatcher } from "../auto-reply/reply/provider-dispatcher.js";
-import { listSkillCommandsForAgents } from "../auto-reply/skill-commands.js";
-import { resolveCommandAuthorizedFromAuthorizers } from "../channels/command-gating.js";
-import { resolveMarkdownTableMode } from "../config/markdown-tables.js";
-import { resolveTelegramCustomCommands } from "../config/telegram-custom-commands.js";
+} from "../auto-reply/commands-registry.ts";
+import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.ts";
+import { dispatchReplyWithBufferedBlockDispatcher } from "../auto-reply/reply/provider-dispatcher.ts";
+import { listSkillCommandsForAgents } from "../auto-reply/skill-commands.ts";
+import { resolveCommandAuthorizedFromAuthorizers } from "../channels/command-gating.ts";
+import { resolveMarkdownTableMode } from "../config/markdown-tables.ts";
+import { resolveTelegramCustomCommands } from "../config/telegram-custom-commands.ts";
 import {
   normalizeTelegramCommandName,
   TELEGRAM_COMMAND_NAME_PATTERN,
-} from "../config/telegram-custom-commands.js";
-import { danger, logVerbose } from "../globals.js";
-import { getChildLogger } from "../logging.js";
-import { readChannelAllowFromStore } from "../pairing/pairing-store.js";
+} from "../config/telegram-custom-commands.ts";
+import { danger, logVerbose } from "../globals.ts";
+import { getChildLogger } from "../logging.ts";
+import { readChannelAllowFromStore } from "../pairing/pairing-store.ts";
 import {
   executePluginCommand,
   getPluginCommandSpecs,
   matchPluginCommand,
-} from "../plugins/commands.js";
-import { resolveAgentRoute } from "../routing/resolve-route.js";
-import { resolveThreadSessionKeys } from "../routing/session-key.js";
-import { withTelegramApiErrorLogging } from "./api-logging.js";
-import { firstDefined, isSenderAllowed, normalizeAllowFromWithStore } from "./bot-access.js";
-import { TelegramUpdateKeyContext } from "./bot-updates.js";
-import { TelegramBotOptions } from "./bot.js";
-import { deliverReplies } from "./bot/delivery.js";
+} from "../plugins/commands.ts";
+import { resolveAgentRoute } from "../routing/resolve-route.ts";
+import { resolveThreadSessionKeys } from "../routing/session-key.ts";
+import { withTelegramApiErrorLogging } from "./api-logging.ts";
+import { firstDefined, isSenderAllowed, normalizeAllowFromWithStore } from "./bot-access.ts";
+import { TelegramUpdateKeyContext } from "./bot-updates.ts";
+import { TelegramBotOptions } from "./bot.ts";
+import { deliverReplies } from "./bot/delivery.ts";
 import {
   buildTelegramThreadParams,
   buildSenderName,
@@ -51,8 +51,8 @@ import {
   buildTelegramGroupPeerId,
   resolveTelegramForumThreadId,
   resolveTelegramThreadSpec,
-} from "./bot/helpers.js";
-import { buildInlineKeyboard } from "./send.js";
+} from "./bot/helpers.ts";
+import { buildInlineKeyboard } from "./send.ts";
 
 const EMPTY_RESPONSE_FALLBACK = "No response generated. Please try again.";
 
@@ -71,7 +71,7 @@ type TelegramCommandAuthResult = {
 };
 
 export type RegisterTelegramHandlerParams = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId: string;
   bot: Bot;
   mediaMaxBytes: number;
@@ -99,7 +99,7 @@ export type RegisterTelegramHandlerParams = {
 
 type RegisterTelegramNativeCommandsParams = {
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   runtime: RuntimeEnv;
   accountId: string;
   telegramCfg: TelegramAccountConfig;
@@ -123,7 +123,7 @@ type RegisterTelegramNativeCommandsParams = {
 async function resolveTelegramCommandAuth(params: {
   msg: NonNullable<TelegramNativeCommandContext["message"]>;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   telegramCfg: TelegramAccountConfig;
   allowFrom?: Array<string | number>;
   groupAllowFrom?: Array<string | number>;

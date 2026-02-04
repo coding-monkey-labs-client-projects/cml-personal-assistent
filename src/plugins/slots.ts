@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { PluginSlotsConfig } from "../config/types.plugins.js";
-import type { PluginKind } from "./types.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { PluginSlotsConfig } from "../config/types.plugins.ts";
+import type { PluginKind } from "./types.ts";
 
 export type PluginSlotKey = keyof PluginSlotsConfig;
 
@@ -29,13 +29,13 @@ export function defaultSlotIdForKey(slotKey: PluginSlotKey): string {
 }
 
 export type SlotSelectionResult = {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   warnings: string[];
   changed: boolean;
 };
 
 export function applyExclusiveSlotSelection(params: {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   selectedId: string;
   selectedKind?: PluginKind;
   registry?: { plugins: SlotPluginRecord[] };

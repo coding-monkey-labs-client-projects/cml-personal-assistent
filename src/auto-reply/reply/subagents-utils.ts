@@ -1,5 +1,5 @@
-import type { SubagentRunRecord } from "../../agents/subagent-registry.js";
-import { truncateUtf16Safe } from "../../utils.js";
+import type { SubagentRunRecord } from "../../agents/subagent-registry.ts";
+import { truncateUtf16Safe } from "../../utils.ts";
 
 export function formatDurationShort(valueMs?: number) {
   if (!valueMs || !Number.isFinite(valueMs) || valueMs <= 0) {

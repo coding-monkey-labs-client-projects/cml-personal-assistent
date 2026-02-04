@@ -1,9 +1,9 @@
-import type { HumanDelayConfig } from "../../config/types.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
-import type { ResponsePrefixContext } from "./response-prefix-template.js";
-import type { TypingController } from "./typing.js";
-import { sleep } from "../../utils.js";
-import { normalizeReplyPayload, type NormalizeReplySkipReason } from "./normalize-reply.js";
+import type { HumanDelayConfig } from "../../config/types.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
+import type { ResponsePrefixContext } from "./response-prefix-template.ts";
+import type { TypingController } from "./typing.ts";
+import { sleep } from "../../utils.ts";
+import { normalizeReplyPayload, type NormalizeReplySkipReason } from "./normalize-reply.ts";
 
 export type ReplyDispatchKind = "tool" | "block" | "final";
 

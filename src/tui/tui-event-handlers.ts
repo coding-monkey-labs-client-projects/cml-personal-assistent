@@ -1,8 +1,8 @@
 import type { TUI } from "@mariozechner/pi-tui";
-import type { ChatLog } from "./components/chat-log.js";
-import type { AgentEvent, ChatEvent, TuiStateAccess } from "./tui-types.js";
-import { asString, extractTextFromMessage, isCommandMessage } from "./tui-formatters.js";
-import { TuiStreamAssembler } from "./tui-stream-assembler.js";
+import type { ChatLog } from "./components/chat-log.ts";
+import type { AgentEvent, ChatEvent, TuiStateAccess } from "./tui-types.ts";
+import { asString, extractTextFromMessage, isCommandMessage } from "./tui-formatters.ts";
+import { TuiStreamAssembler } from "./tui-stream-assembler.ts";
 
 type EventHandlerContext = {
   chatLog: ChatLog;

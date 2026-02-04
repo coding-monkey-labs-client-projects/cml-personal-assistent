@@ -1,12 +1,12 @@
 import type {
   ChannelThreadingContext,
   ChannelThreadingToolContext,
-} from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveSlackAccount, resolveSlackReplyToMode } from "./accounts.js";
+} from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveSlackAccount, resolveSlackReplyToMode } from "./accounts.ts";
 
 export function buildSlackThreadingToolContext(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   context: ChannelThreadingContext;
   hasRepliedRef?: { value: boolean };

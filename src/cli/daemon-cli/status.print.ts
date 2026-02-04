@@ -1,31 +1,31 @@
-import { resolveControlUiLinks } from "../../commands/onboard-helpers.js";
+import { resolveControlUiLinks } from "../../commands/onboard-helpers.ts";
 import {
   resolveGatewayLaunchAgentLabel,
   resolveGatewaySystemdServiceName,
-} from "../../daemon/constants.js";
-import { renderGatewayServiceCleanupHints } from "../../daemon/inspect.js";
-import { resolveGatewayLogPaths } from "../../daemon/launchd.js";
+} from "../../daemon/constants.ts";
+import { renderGatewayServiceCleanupHints } from "../../daemon/inspect.ts";
+import { resolveGatewayLogPaths } from "../../daemon/launchd.ts";
 import {
   isSystemdUnavailableDetail,
   renderSystemdUnavailableHints,
-} from "../../daemon/systemd-hints.js";
-import { isWSLEnv } from "../../infra/wsl.js";
-import { getResolvedLoggerSettings } from "../../logging.js";
-import { defaultRuntime } from "../../runtime.js";
-import { colorize, isRich, theme } from "../../terminal/theme.js";
-import { shortenHomePath } from "../../utils.js";
-import { formatCliCommand } from "../command-format.js";
+} from "../../daemon/systemd-hints.ts";
+import { isWSLEnv } from "../../infra/wsl.ts";
+import { getResolvedLoggerSettings } from "../../logging.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { colorize, isRich, theme } from "../../terminal/theme.ts";
+import { shortenHomePath } from "../../utils.ts";
+import { formatCliCommand } from "../command-format.ts";
 import {
   filterDaemonEnv,
   formatRuntimeStatus,
   renderRuntimeHints,
   safeDaemonEnv,
-} from "./shared.js";
+} from "./shared.ts";
 import {
   type DaemonStatus,
   renderPortDiagnosticsForCli,
   resolvePortListeningAddresses,
-} from "./status.gather.js";
+} from "./status.gather.ts";
 
 function sanitizeDaemonStatusForJson(status: DaemonStatus): DaemonStatus {
   const command = status.service.command;
@@ -102,7 +102,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
     }
     defaultRuntime.error(
       warnText(
-        `Recommendation: run "${formatCliCommand("openclaw doctor")}" (or "${formatCliCommand("openclaw doctor --repair")}").`,
+        `Recommendation: run "${formatCliCommand("cml-hive-assist doctor")}" (or "${formatCliCommand("cml-hive-assist doctor --repair")}").`,
       ),
     );
   }
@@ -136,7 +136,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
       );
       defaultRuntime.error(
         errorText(
-          `Fix: rerun \`${formatCliCommand("openclaw gateway install --force")}\` from the same --profile / OPENCLAW_STATE_DIR you expect.`,
+          `Fix: rerun \`${formatCliCommand("cml-hive-assist gateway install --force")}\` from the same --profile / CML_HIVE_ASSIST_STATE_DIR you expect.`,
         ),
       );
     }
@@ -234,14 +234,14 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
 
   if (service.runtime?.cachedLabel) {
     const env = (service.command?.environment ?? process.env) as NodeJS.ProcessEnv;
-    const labelValue = resolveGatewayLaunchAgentLabel(env.OPENCLAW_PROFILE);
+    const labelValue = resolveGatewayLaunchAgentLabel(env.CML_HIVE_ASSIST_PROFILE);
     defaultRuntime.error(
       errorText(
         `LaunchAgent label cached but plist missing. Clear with: launchctl bootout gui/$UID/${labelValue}`,
       ),
     );
     defaultRuntime.error(
-      errorText(`Then reinstall: ${formatCliCommand("openclaw gateway install")}`),
+      errorText(`Then reinstall: ${formatCliCommand("cml-hive-assist gateway install")}`),
     );
     spacer();
   }
@@ -277,7 +277,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
     }
     if (process.platform === "linux") {
       const env = (service.command?.environment ?? process.env) as NodeJS.ProcessEnv;
-      const unit = resolveGatewaySystemdServiceName(env.OPENCLAW_PROFILE);
+      const unit = resolveGatewaySystemdServiceName(env.CML_HIVE_ASSIST_PROFILE);
       defaultRuntime.error(
         errorText(`Logs: journalctl --user -u ${unit}.service -n 200 --no-pager`),
       );
@@ -316,6 +316,8 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
     spacer();
   }
 
-  defaultRuntime.log(`${label("Troubles:")} run ${formatCliCommand("openclaw status")}`);
-  defaultRuntime.log(`${label("Troubleshooting:")} https://docs.openclaw.ai/troubleshooting`);
+  defaultRuntime.log(`${label("Troubles:")} run ${formatCliCommand("cml-hive-assist status")}`);
+  defaultRuntime.log(
+    `${label("Troubleshooting:")} https://docs.cml-hive-assist.ai/troubleshooting`,
+  );
 }

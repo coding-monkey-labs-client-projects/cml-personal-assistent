@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { WizardCancelledError, type WizardProgress, type WizardPrompter } from "./prompts.js";
+import { WizardCancelledError, type WizardProgress, type WizardPrompter } from "./prompts.ts";
 
 export type WizardStepOption = {
   value: unknown;

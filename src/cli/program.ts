@@ -1,2 +1,2 @@
-export { forceFreePort } from "./ports.js";
-export { buildProgram } from "./program/build-program.js";
+export { forceFreePort } from "./ports.ts";
+export { buildProgram } from "./program/build-program.ts";

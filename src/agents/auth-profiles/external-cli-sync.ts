@@ -1,15 +1,15 @@
-import type { AuthProfileCredential, AuthProfileStore, OAuthCredential } from "./types.js";
+import type { AuthProfileCredential, AuthProfileStore, OAuthCredential } from "./types.ts";
 import {
   readQwenCliCredentialsCached,
   readMiniMaxCliCredentialsCached,
-} from "../cli-credentials.js";
+} from "../cli-credentials.ts";
 import {
   EXTERNAL_CLI_NEAR_EXPIRY_MS,
   EXTERNAL_CLI_SYNC_TTL_MS,
   QWEN_CLI_PROFILE_ID,
   MINIMAX_CLI_PROFILE_ID,
   log,
-} from "./constants.js";
+} from "./constants.ts";
 
 function shallowEqualOAuthCredentials(a: OAuthCredential | undefined, b: OAuthCredential): boolean {
   if (!a) {

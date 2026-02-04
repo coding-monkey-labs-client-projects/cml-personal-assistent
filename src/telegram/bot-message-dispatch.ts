@@ -1,30 +1,30 @@
-import { resolveAgentDir } from "../agents/agent-scope.js";
+import { resolveAgentDir } from "../agents/agent-scope.ts";
 // @ts-nocheck
 import {
   findModelInCatalog,
   loadModelCatalog,
   modelSupportsVision,
-} from "../agents/model-catalog.js";
-import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
-import { EmbeddedBlockChunker } from "../agents/pi-embedded-block-chunker.js";
-import { resolveChunkMode } from "../auto-reply/chunk.js";
-import { clearHistoryEntriesIfEnabled } from "../auto-reply/reply/history.js";
-import { dispatchReplyWithBufferedBlockDispatcher } from "../auto-reply/reply/provider-dispatcher.js";
-import { removeAckReactionAfterReply } from "../channels/ack-reactions.js";
-import { logAckFailure, logTypingFailure } from "../channels/logging.js";
-import { createReplyPrefixContext } from "../channels/reply-prefix.js";
-import { createTypingCallbacks } from "../channels/typing.js";
-import { OpenClawConfig } from "../config/config.js";
-import { resolveMarkdownTableMode } from "../config/markdown-tables.js";
-import { danger, logVerbose } from "../globals.js";
-import { deliverReplies } from "./bot/delivery.js";
-import { resolveTelegramDraftStreamingChunking } from "./draft-chunking.js";
-import { createTelegramDraftStream } from "./draft-stream.js";
-import { cacheSticker, describeStickerImage } from "./sticker-cache.js";
+} from "../agents/model-catalog.ts";
+import { resolveDefaultModelForAgent } from "../agents/model-selection.ts";
+import { EmbeddedBlockChunker } from "../agents/pi-embedded-block-chunker.ts";
+import { resolveChunkMode } from "../auto-reply/chunk.ts";
+import { clearHistoryEntriesIfEnabled } from "../auto-reply/reply/history.ts";
+import { dispatchReplyWithBufferedBlockDispatcher } from "../auto-reply/reply/provider-dispatcher.ts";
+import { removeAckReactionAfterReply } from "../channels/ack-reactions.ts";
+import { logAckFailure, logTypingFailure } from "../channels/logging.ts";
+import { createReplyPrefixContext } from "../channels/reply-prefix.ts";
+import { createTypingCallbacks } from "../channels/typing.ts";
+import { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveMarkdownTableMode } from "../config/markdown-tables.ts";
+import { danger, logVerbose } from "../globals.ts";
+import { deliverReplies } from "./bot/delivery.ts";
+import { resolveTelegramDraftStreamingChunking } from "./draft-chunking.ts";
+import { createTelegramDraftStream } from "./draft-stream.ts";
+import { cacheSticker, describeStickerImage } from "./sticker-cache.ts";
 
 const EMPTY_RESPONSE_FALLBACK = "No response generated. Please try again.";
 
-async function resolveStickerVisionSupport(cfg: OpenClawConfig, agentId: string) {
+async function resolveStickerVisionSupport(cfg: CmlHiveAssistConfig, agentId: string) {
   try {
     const catalog = await loadModelCatalog({ config: cfg });
     const defaultModel = resolveDefaultModelForAgent({ cfg, agentId });

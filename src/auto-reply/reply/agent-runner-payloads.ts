@@ -1,18 +1,18 @@
-import type { ReplyToMode } from "../../config/types.js";
-import type { OriginatingChannelType } from "../templating.js";
-import type { ReplyPayload } from "../types.js";
-import { logVerbose } from "../../globals.js";
-import { stripHeartbeatToken } from "../heartbeat.js";
-import { SILENT_REPLY_TOKEN } from "../tokens.js";
-import { formatBunFetchSocketError, isBunFetchSocketError } from "./agent-runner-utils.js";
-import { createBlockReplyPayloadKey, type BlockReplyPipeline } from "./block-reply-pipeline.js";
-import { parseReplyDirectives } from "./reply-directives.js";
+import type { ReplyToMode } from "../../config/types.ts";
+import type { OriginatingChannelType } from "../templating.ts";
+import type { ReplyPayload } from "../types.ts";
+import { logVerbose } from "../../globals.ts";
+import { stripHeartbeatToken } from "../heartbeat.ts";
+import { SILENT_REPLY_TOKEN } from "../tokens.ts";
+import { formatBunFetchSocketError, isBunFetchSocketError } from "./agent-runner-utils.ts";
+import { createBlockReplyPayloadKey, type BlockReplyPipeline } from "./block-reply-pipeline.ts";
+import { parseReplyDirectives } from "./reply-directives.ts";
 import {
   applyReplyThreading,
   filterMessagingToolDuplicates,
   isRenderablePayload,
   shouldSuppressMessagingToolReplies,
-} from "./reply-payloads.js";
+} from "./reply-payloads.ts";
 
 export function buildReplyPayloads(params: {
   payloads: ReplyPayload[];

@@ -1,14 +1,14 @@
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveStateDir } from "../config/paths.js";
+import { resolveStateDir } from "../config/paths.ts";
 
 export type VoiceWakeConfig = {
   triggers: string[];
   updatedAtMs: number;
 };
 
-const DEFAULT_TRIGGERS = ["openclaw", "claude", "computer"];
+const DEFAULT_TRIGGERS = ["cml-hive-assist", "claude", "computer"];
 
 function resolvePath(baseDir?: string) {
   const root = baseDir ?? resolveStateDir();

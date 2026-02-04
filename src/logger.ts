@@ -1,7 +1,7 @@
-import { danger, info, logVerboseConsole, success, warn } from "./globals.js";
-import { getLogger } from "./logging/logger.js";
-import { createSubsystemLogger } from "./logging/subsystem.js";
-import { defaultRuntime, type RuntimeEnv } from "./runtime.js";
+import { danger, info, logVerboseConsole, success, warn } from "./globals.ts";
+import { getLogger } from "./logging/logger.ts";
+import { createSubsystemLogger } from "./logging/subsystem.ts";
+import { defaultRuntime, type RuntimeEnv } from "./runtime.ts";
 
 const subsystemPrefixRe = /^([a-z][a-z0-9-]{1,20}):\s+(.*)$/i;
 

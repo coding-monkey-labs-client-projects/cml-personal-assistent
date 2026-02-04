@@ -1,18 +1,18 @@
-import type { GatewayRequestHandlers } from "./types.js";
-import { resolveOpenClawPackageRoot } from "../../infra/openclaw-root.js";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../../infra/cml-hive-assist-root.ts";
 import {
   formatDoctorNonInteractiveHint,
   type RestartSentinelPayload,
   writeRestartSentinel,
-} from "../../infra/restart-sentinel.js";
-import { scheduleGatewaySigusr1Restart } from "../../infra/restart.js";
-import { runGatewayUpdate } from "../../infra/update-runner.js";
+} from "../../infra/restart-sentinel.ts";
+import { scheduleGatewaySigusr1Restart } from "../../infra/restart.ts";
+import { runGatewayUpdate } from "../../infra/update-runner.ts";
 import {
   ErrorCodes,
   errorShape,
   formatValidationErrors,
   validateUpdateRunParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 
 export const updateHandlers: GatewayRequestHandlers = {
   "update.run": async ({ params, respond }) => {
@@ -49,7 +49,7 @@ export const updateHandlers: GatewayRequestHandlers = {
     let result: Awaited<ReturnType<typeof runGatewayUpdate>>;
     try {
       const root =
-        (await resolveOpenClawPackageRoot({
+        (await resolveCmlHiveAssistPackageRoot({
           moduleUrl: import.meta.url,
           argv1: process.argv[1],
           cwd: process.cwd(),

@@ -1,17 +1,17 @@
-import { isTruthyEnvValue } from "../infra/env.js";
+import { isTruthyEnvValue } from "../infra/env.ts";
 
 export type BrowserControlServer = {
   stop: () => Promise<void>;
 };
 
 export async function startBrowserControlServerIfEnabled(): Promise<BrowserControlServer | null> {
-  if (isTruthyEnvValue(process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER)) {
     return null;
   }
   // Lazy import: keeps startup fast, but still bundles for the embedded
   // gateway (bun --compile) via the static specifier path.
-  const override = process.env.OPENCLAW_BROWSER_CONTROL_MODULE?.trim();
-  const mod = override ? await import(override) : await import("../browser/control-service.js");
+  const override = process.env.CML_HIVE_ASSIST_BROWSER_CONTROL_MODULE?.trim();
+  const mod = override ? await import(override) : await import("../browser/control-service.ts");
   const start =
     typeof (mod as { startBrowserControlServiceFromConfig?: unknown })
       .startBrowserControlServiceFromConfig === "function"

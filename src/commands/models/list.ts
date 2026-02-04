@@ -1,2 +1,2 @@
-export * from "./list.list-command.js";
-export * from "./list.status-command.js";
+export * from "./list.list-command.ts";
+export * from "./list.status-command.ts";

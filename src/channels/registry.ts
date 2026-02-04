@@ -1,18 +1,11 @@
-import type { ChannelMeta } from "./plugins/types.js";
-import type { ChannelId } from "./plugins/types.js";
-import { requireActivePluginRegistry } from "../plugins/runtime.js";
+import type { ChannelMeta } from "./plugins/types.ts";
+import type { ChannelId } from "./plugins/types.ts";
+import { requireActivePluginRegistry } from "../plugins/runtime.ts";
 
 // Channel docking: add new core channels here (order + meta + aliases), then
 // register the plugin in its extension entrypoint and keep protocol IDs in sync.
-export const CHAT_CHANNEL_ORDER = [
-  "telegram",
-  "whatsapp",
-  "discord",
-  "googlechat",
-  "slack",
-  "signal",
-  "imessage",
-] as const;
+// Enterprise + Core channels only: Telegram, WhatsApp, Slack (+ msteams via extension)
+export const CHAT_CHANNEL_ORDER = ["telegram", "whatsapp", "slack"] as const;
 
 export type ChatChannelId = (typeof CHAT_CHANNEL_ORDER)[number];
 
@@ -22,7 +15,7 @@ export const DEFAULT_CHAT_CHANNEL: ChatChannelId = "whatsapp";
 
 export type ChatChannelMeta = ChannelMeta;
 
-const WEBSITE_URL = "https://openclaw.ai";
+const WEBSITE_URL = "https://cml-hive-assist.ai";
 
 const CHAT_CHANNEL_META: Record<ChatChannelId, ChannelMeta> = {
   telegram: {
@@ -48,26 +41,6 @@ const CHAT_CHANNEL_META: Record<ChatChannelId, ChannelMeta> = {
     blurb: "works with your own number; recommend a separate phone + eSIM.",
     systemImage: "message",
   },
-  discord: {
-    id: "discord",
-    label: "Discord",
-    selectionLabel: "Discord (Bot API)",
-    detailLabel: "Discord Bot",
-    docsPath: "/channels/discord",
-    docsLabel: "discord",
-    blurb: "very well supported right now.",
-    systemImage: "bubble.left.and.bubble.right",
-  },
-  googlechat: {
-    id: "googlechat",
-    label: "Google Chat",
-    selectionLabel: "Google Chat (Chat API)",
-    detailLabel: "Google Chat",
-    docsPath: "/channels/googlechat",
-    docsLabel: "googlechat",
-    blurb: "Google Workspace Chat app with HTTP webhook.",
-    systemImage: "message.badge",
-  },
   slack: {
     id: "slack",
     label: "Slack",
@@ -78,32 +51,10 @@ const CHAT_CHANNEL_META: Record<ChatChannelId, ChannelMeta> = {
     blurb: "supported (Socket Mode).",
     systemImage: "number",
   },
-  signal: {
-    id: "signal",
-    label: "Signal",
-    selectionLabel: "Signal (signal-cli)",
-    detailLabel: "Signal REST",
-    docsPath: "/channels/signal",
-    docsLabel: "signal",
-    blurb: 'signal-cli linked device; more setup (David Reagans: "Hop on Discord.").',
-    systemImage: "antenna.radiowaves.left.and.right",
-  },
-  imessage: {
-    id: "imessage",
-    label: "iMessage",
-    selectionLabel: "iMessage (imsg)",
-    detailLabel: "iMessage",
-    docsPath: "/channels/imessage",
-    docsLabel: "imessage",
-    blurb: "this is still a work in progress.",
-    systemImage: "message.fill",
-  },
 };
 
 export const CHAT_CHANNEL_ALIASES: Record<string, ChatChannelId> = {
-  imsg: "imessage",
-  "google-chat": "googlechat",
-  gchat: "googlechat",
+  // No aliases needed for current channels
 };
 
 const normalizeChannelKey = (raw?: string | null): string | undefined => {

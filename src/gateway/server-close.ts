@@ -1,10 +1,10 @@
 import type { Server as HttpServer } from "node:http";
 import type { WebSocketServer } from "ws";
-import type { CanvasHostHandler, CanvasHostServer } from "../canvas-host/server.js";
-import type { HeartbeatRunner } from "../infra/heartbeat-runner.js";
-import type { PluginServicesHandle } from "../plugins/services.js";
-import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.js";
-import { stopGmailWatcher } from "../hooks/gmail-watcher.js";
+import type { CanvasHostHandler, CanvasHostServer } from "../canvas-host/server.ts";
+import type { HeartbeatRunner } from "../infra/heartbeat-runner.ts";
+import type { PluginServicesHandle } from "../plugins/services.ts";
+import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.ts";
+import { stopGmailWatcher } from "../hooks/gmail-watcher.ts";
 
 export function createGatewayCloseHandler(params: {
   bonjourStop: (() => Promise<void>) | null;

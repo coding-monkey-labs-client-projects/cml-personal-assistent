@@ -1,5 +1,5 @@
-import { clearActiveProgressLine } from "./terminal/progress-line.js";
-import { restoreTerminalState } from "./terminal/restore.js";
+import { clearActiveProgressLine } from "./terminal/progress-line.ts";
+import { restoreTerminalState } from "./terminal/restore.ts";
 
 export type RuntimeEnv = {
   log: typeof console.log;

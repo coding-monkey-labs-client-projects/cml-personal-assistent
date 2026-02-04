@@ -1,19 +1,19 @@
 services:
-  openclaw-gateway:
-    image: ${OPENCLAW_IMAGE:-openclaw:local}
+  cml-hive-assist-gateway:
+    image: ${CML_HIVE_ASSIST_IMAGE:-cml-hive-assist:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+      CML_HIVE_ASSIST_GATEWAY_TOKEN: ${CML_HIVE_ASSIST_GATEWAY_TOKEN}
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
-      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - ${CML_HIVE_ASSIST_CONFIG_DIR}:/home/node/.cml-hive-assist
+      - ${CML_HIVE_ASSIST_WORKSPACE_DIR}:/home/node/.cml-hive-assist/workspace
     ports:
-      - "${OPENCLAW_GATEWAY_PORT:-18789}:18789"
-      - "${OPENCLAW_BRIDGE_PORT:-18790}:18790"
+      - "${CML_HIVE_ASSIST_GATEWAY_PORT:-18789}:18789"
+      - "${CML_HIVE_ASSIST_BRIDGE_PORT:-18790}:18790"
     init: true
     restart: unless-stopped
     command:
@@ -22,24 +22,24 @@ services:
         "dist/index.js",
         "gateway",
         "--bind",
-        "${OPENCLAW_GATEWAY_BIND:-lan}",
+        "${CML_HIVE_ASSIST_GATEWAY_BIND:-lan}",
         "--port",
         "18789",
       ]
 
-  openclaw-cli:
-    image: ${OPENCLAW_IMAGE:-openclaw:local}
+  cml-hive-assist-cli:
+    image: ${CML_HIVE_ASSIST_IMAGE:-cml-hive-assist:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
-      OPENCLAW_GATEWAY_TOKEN: ${OPENCLAW_GATEWAY_TOKEN}
+      CML_HIVE_ASSIST_GATEWAY_TOKEN: ${CML_HIVE_ASSIST_GATEWAY_TOKEN}
       BROWSER: echo
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${OPENCLAW_CONFIG_DIR}:/home/node/.openclaw
-      - ${OPENCLAW_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - ${CML_HIVE_ASSIST_CONFIG_DIR}:/home/node/.cml-hive-assist
+      - ${CML_HIVE_ASSIST_WORKSPACE_DIR}:/home/node/.cml-hive-assist/workspace
     stdin_open: true
     tty: true
     init: true

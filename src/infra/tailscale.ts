@@ -1,11 +1,11 @@
 import { existsSync } from "node:fs";
-import { formatCliCommand } from "../cli/command-format.js";
-import { promptYesNo } from "../cli/prompt.js";
-import { danger, info, logVerbose, shouldLogVerbose, warn } from "../globals.js";
-import { runExec } from "../process/exec.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
-import { colorize, isRich, theme } from "../terminal/theme.js";
-import { ensureBinary } from "./binaries.js";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { promptYesNo } from "../cli/prompt.ts";
+import { danger, info, logVerbose, shouldLogVerbose, warn } from "../globals.ts";
+import { runExec } from "../process/exec.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
+import { colorize, isRich, theme } from "../terminal/theme.ts";
+import { ensureBinary } from "./binaries.ts";
 
 function parsePossiblyNoisyJsonObject(stdout: string): Record<string, unknown> {
   const trimmed = stdout.trim();
@@ -367,7 +367,7 @@ export async function ensureFunnel(
     runtime.error("Failed to enable Tailscale Funnel. Is it allowed on your tailnet?");
     runtime.error(
       info(
-        `Tip: Funnel is optional for OpenClaw. You can keep running the web gateway without it: \`${formatCliCommand("openclaw gateway")}\``,
+        `Tip: Funnel is optional for CmlHiveAssist. You can keep running the web gateway without it: \`${formatCliCommand("cml-hive-assist gateway")}\``,
       ),
     );
     if (shouldLogVerbose()) {

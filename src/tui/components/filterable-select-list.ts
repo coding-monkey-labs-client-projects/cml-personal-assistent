@@ -8,7 +8,7 @@ import {
   getEditorKeybindings,
 } from "@mariozechner/pi-tui";
 import chalk from "chalk";
-import { fuzzyFilterLower, prepareSearchItems } from "./fuzzy-filter.js";
+import { fuzzyFilterLower, prepareSearchItems } from "./fuzzy-filter.ts";
 
 export interface FilterableSelectItem extends SelectItem {
   /** Additional searchable fields beyond label */

@@ -1,10 +1,10 @@
 import type { Command } from "commander";
-import { callGateway } from "../gateway/call.js";
-import { defaultRuntime } from "../runtime.js";
-import { renderTable } from "../terminal/table.js";
-import { theme } from "../terminal/theme.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
-import { withProgress } from "./progress.js";
+import { callGateway } from "../gateway/call.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { renderTable } from "../terminal/table.ts";
+import { theme } from "../terminal/theme.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.ts";
+import { withProgress } from "./progress.ts";
 
 type DevicesRpcOpts = {
   url?: string;

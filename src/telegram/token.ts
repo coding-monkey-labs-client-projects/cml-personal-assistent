@@ -1,7 +1,7 @@
 import fs from "node:fs";
-import type { OpenClawConfig } from "../config/config.js";
-import type { TelegramAccountConfig } from "../config/types.telegram.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { TelegramAccountConfig } from "../config/types.telegram.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.ts";
 
 export type TelegramTokenSource = "env" | "tokenFile" | "config" | "none";
 
@@ -17,7 +17,7 @@ type ResolveTelegramTokenOpts = {
 };
 
 export function resolveTelegramToken(
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   opts: ResolveTelegramTokenOpts = {},
 ): TelegramTokenResolution {
   const accountId = normalizeAccountId(opts.accountId);

@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AuthProfileFailureReason, AuthProfileStore, ProfileUsageStats } from "./types.js";
-import { normalizeProviderId } from "../model-selection.js";
-import { saveAuthProfileStore, updateAuthProfileStoreWithLock } from "./store.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AuthProfileFailureReason, AuthProfileStore, ProfileUsageStats } from "./types.ts";
+import { normalizeProviderId } from "../model-selection.ts";
+import { saveAuthProfileStore, updateAuthProfileStoreWithLock } from "./store.ts";
 
 function resolveProfileUnusableUntil(stats: ProfileUsageStats): number | null {
   const values = [stats.cooldownUntil, stats.disabledUntil]
@@ -90,7 +90,7 @@ type ResolvedAuthCooldownConfig = {
 };
 
 function resolveAuthCooldownConfig(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   providerId: string;
 }): ResolvedAuthCooldownConfig {
   const defaults = {
@@ -206,7 +206,7 @@ export async function markAuthProfileFailure(params: {
   store: AuthProfileStore;
   profileId: string;
   reason: AuthProfileFailureReason;
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   agentDir?: string;
 }): Promise<void> {
   const { store, profileId, reason, agentDir, cfg } = params;

@@ -1,6 +1,6 @@
-import OpenClawKit
+import CmlHiveAssistKit
 import Testing
-@testable import OpenClaw
+@testable import CmlHiveAssist
 
 @Suite struct IOSGatewayChatTransportTests {
     @Test func requestsFailFastWhenGatewayNotConnected() async {

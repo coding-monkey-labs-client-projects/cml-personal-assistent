@@ -1,6 +1,6 @@
-import type { MsgContext } from "../../auto-reply/templating.js";
-import type { GroupKeyResolution } from "./types.js";
-import { listDeliverableMessageChannels } from "../../utils/message-channel.js";
+import type { MsgContext } from "../../auto-reply/templating.ts";
+import type { GroupKeyResolution } from "./types.ts";
+import { listDeliverableMessageChannels } from "../../utils/message-channel.ts";
 
 const getGroupSurfaces = () => new Set<string>([...listDeliverableMessageChannels(), "webchat"]);
 

@@ -7,8 +7,8 @@ import type {
   TelegramMessage,
   TelegramStreamMode,
   TelegramVenue,
-} from "./types.js";
-import { formatLocationText, type NormalizedLocation } from "../../channels/location.js";
+} from "./types.ts";
+import { formatLocationText, type NormalizedLocation } from "../../channels/location.ts";
 
 const TELEGRAM_GENERAL_TOPIC_ID = 1;
 

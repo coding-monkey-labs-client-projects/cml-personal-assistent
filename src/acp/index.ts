@@ -1,4 +1,4 @@
-export { serveAcpGateway } from "./server.js";
-export { createInMemorySessionStore } from "./session.js";
-export type { AcpSessionStore } from "./session.js";
-export type { AcpServerOptions } from "./types.js";
+export { serveAcpGateway } from "./server.ts";
+export { createInMemorySessionStore } from "./session.ts";
+export type { AcpSessionStore } from "./session.ts";
+export type { AcpServerOptions } from "./types.ts";

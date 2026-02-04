@@ -146,21 +146,23 @@ describe("commands registry", () => {
   });
 
   it("normalizes telegram-style command mentions for the current bot", () => {
-    expect(normalizeCommandBody("/help@openclaw", { botUsername: "openclaw" })).toBe("/help");
+    expect(normalizeCommandBody("/help@cml-hive-assist", { botUsername: "cml-hive-assist" })).toBe(
+      "/help",
+    );
     expect(
-      normalizeCommandBody("/help@openclaw args", {
-        botUsername: "openclaw",
+      normalizeCommandBody("/help@cml-hive-assist args", {
+        botUsername: "cml-hive-assist",
       }),
     ).toBe("/help args");
     expect(
-      normalizeCommandBody("/help@openclaw: args", {
-        botUsername: "openclaw",
+      normalizeCommandBody("/help@cml-hive-assist: args", {
+        botUsername: "cml-hive-assist",
       }),
     ).toBe("/help args");
   });
 
   it("keeps telegram-style command mentions for other bots", () => {
-    expect(normalizeCommandBody("/help@otherbot", { botUsername: "openclaw" })).toBe(
+    expect(normalizeCommandBody("/help@otherbot", { botUsername: "cml-hive-assist" })).toBe(
       "/help@otherbot",
     );
   });

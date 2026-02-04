@@ -1,27 +1,27 @@
-import type { ExecToolDefaults } from "../../agents/bash-tools.js";
-import type { ModelAliasIndex } from "../../agents/model-selection.js";
-import type { SkillCommandSpec } from "../../agents/skills.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { SessionEntry } from "../../config/sessions.js";
-import type { MsgContext, TemplateContext } from "../templating.js";
-import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.js";
-import type { GetReplyOptions, ReplyPayload } from "../types.js";
-import type { TypingController } from "./typing.js";
-import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.js";
-import { listChatCommands, shouldHandleTextCommands } from "../commands-registry.js";
-import { listSkillCommandsForWorkspace } from "../skill-commands.js";
-import { resolveBlockStreamingChunking } from "./block-streaming.js";
-import { buildCommandContext } from "./commands.js";
-import { type InlineDirectives, parseInlineDirectives } from "./directive-handling.js";
-import { applyInlineDirectiveOverrides } from "./get-reply-directives-apply.js";
-import { clearInlineDirectives } from "./get-reply-directives-utils.js";
-import { defaultGroupActivation, resolveGroupRequireMention } from "./groups.js";
-import { CURRENT_MESSAGE_MARKER, stripMentions, stripStructuralPrefixes } from "./mentions.js";
-import { createModelSelectionState, resolveContextTokens } from "./model-selection.js";
-import { formatElevatedUnavailableMessage, resolveElevatedPermissions } from "./reply-elevated.js";
-import { stripInlineStatus } from "./reply-inline.js";
+import type { ExecToolDefaults } from "../../agents/bash-tools.ts";
+import type { ModelAliasIndex } from "../../agents/model-selection.ts";
+import type { SkillCommandSpec } from "../../agents/skills.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { SessionEntry } from "../../config/sessions.ts";
+import type { MsgContext, TemplateContext } from "../templating.ts";
+import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.ts";
+import type { GetReplyOptions, ReplyPayload } from "../types.ts";
+import type { TypingController } from "./typing.ts";
+import { resolveSandboxRuntimeStatus } from "../../agents/sandbox.ts";
+import { listChatCommands, shouldHandleTextCommands } from "../commands-registry.ts";
+import { listSkillCommandsForWorkspace } from "../skill-commands.ts";
+import { resolveBlockStreamingChunking } from "./block-streaming.ts";
+import { buildCommandContext } from "./commands.ts";
+import { type InlineDirectives, parseInlineDirectives } from "./directive-handling.ts";
+import { applyInlineDirectiveOverrides } from "./get-reply-directives-apply.ts";
+import { clearInlineDirectives } from "./get-reply-directives-utils.ts";
+import { defaultGroupActivation, resolveGroupRequireMention } from "./groups.ts";
+import { CURRENT_MESSAGE_MARKER, stripMentions, stripStructuralPrefixes } from "./mentions.ts";
+import { createModelSelectionState, resolveContextTokens } from "./model-selection.ts";
+import { formatElevatedUnavailableMessage, resolveElevatedPermissions } from "./reply-elevated.ts";
+import { stripInlineStatus } from "./reply-inline.ts";
 
-type AgentDefaults = NonNullable<OpenClawConfig["agents"]>["defaults"];
+type AgentDefaults = NonNullable<CmlHiveAssistConfig["agents"]>["defaults"];
 type ExecOverrides = Pick<ExecToolDefaults, "host" | "security" | "ask" | "node">;
 
 export type ReplyDirectiveContinuation = {
@@ -86,7 +86,7 @@ export type ReplyDirectiveResult =
 
 export async function resolveReplyDirectives(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;

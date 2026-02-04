@@ -3,40 +3,40 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import WebSocket from "ws";
-import type { ResolvedBrowserConfig, ResolvedBrowserProfile } from "./config.js";
-import { ensurePortAvailable } from "../infra/ports.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { CONFIG_DIR } from "../utils.js";
-import { appendCdpPath } from "./cdp.helpers.js";
-import { getHeadersWithAuth, normalizeCdpWsUrl } from "./cdp.js";
+import type { ResolvedBrowserConfig, ResolvedBrowserProfile } from "./config.ts";
+import { ensurePortAvailable } from "../infra/ports.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { CONFIG_DIR } from "../utils.ts";
+import { appendCdpPath } from "./cdp.helpers.ts";
+import { getHeadersWithAuth, normalizeCdpWsUrl } from "./cdp.ts";
 import {
   type BrowserExecutable,
   resolveBrowserExecutableForPlatform,
-} from "./chrome.executables.js";
+} from "./chrome.executables.ts";
 import {
-  decorateOpenClawProfile,
+  decorateCmlHiveAssistProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
-} from "./chrome.profile-decoration.js";
+} from "./chrome.profile-decoration.ts";
 import {
-  DEFAULT_OPENCLAW_BROWSER_COLOR,
-  DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME,
-} from "./constants.js";
+  DEFAULT_CML_HIVE_ASSIST_BROWSER_COLOR,
+  DEFAULT_CML_HIVE_ASSIST_BROWSER_PROFILE_NAME,
+} from "./constants.ts";
 
 const log = createSubsystemLogger("browser").child("chrome");
 
-export type { BrowserExecutable } from "./chrome.executables.js";
+export type { BrowserExecutable } from "./chrome.executables.ts";
 export {
   findChromeExecutableLinux,
   findChromeExecutableMac,
   findChromeExecutableWindows,
   resolveBrowserExecutableForPlatform,
-} from "./chrome.executables.js";
+} from "./chrome.executables.ts";
 export {
-  decorateOpenClawProfile,
+  decorateCmlHiveAssistProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
-} from "./chrome.profile-decoration.js";
+} from "./chrome.profile-decoration.ts";
 
 function exists(filePath: string) {
   try {
@@ -59,7 +59,9 @@ function resolveBrowserExecutable(resolved: ResolvedBrowserConfig): BrowserExecu
   return resolveBrowserExecutableForPlatform(resolved, process.platform);
 }
 
-export function resolveOpenClawUserDataDir(profileName = DEFAULT_OPENCLAW_BROWSER_PROFILE_NAME) {
+export function resolveCmlHiveAssistUserDataDir(
+  profileName = DEFAULT_CML_HIVE_ASSIST_BROWSER_PROFILE_NAME,
+) {
   return path.join(CONFIG_DIR, "browser", profileName, "user-data");
 }
 
@@ -160,7 +162,7 @@ export async function isChromeCdpReady(
   return await canOpenWebSocket(wsUrl, handshakeTimeoutMs);
 }
 
-export async function launchOpenClawChrome(
+export async function launchCmlHiveAssistChrome(
   resolved: ResolvedBrowserConfig,
   profile: ResolvedBrowserProfile,
 ): Promise<RunningChrome> {
@@ -176,13 +178,13 @@ export async function launchOpenClawChrome(
     );
   }
 
-  const userDataDir = resolveOpenClawUserDataDir(profile.name);
+  const userDataDir = resolveCmlHiveAssistUserDataDir(profile.name);
   fs.mkdirSync(userDataDir, { recursive: true });
 
   const needsDecorate = !isProfileDecorated(
     userDataDir,
     profile.name,
-    (profile.color ?? DEFAULT_OPENCLAW_BROWSER_COLOR).toUpperCase(),
+    (profile.color ?? DEFAULT_CML_HIVE_ASSIST_BROWSER_COLOR).toUpperCase(),
   );
 
   // First launch to create preference files if missing, then decorate and relaunch.
@@ -260,20 +262,20 @@ export async function launchOpenClawChrome(
 
   if (needsDecorate) {
     try {
-      decorateOpenClawProfile(userDataDir, {
+      decorateCmlHiveAssistProfile(userDataDir, {
         name: profile.name,
         color: profile.color,
       });
-      log.info(`🦞 openclaw browser profile decorated (${profile.color})`);
+      log.info(`🦞 cml-hive-assist browser profile decorated (${profile.color})`);
     } catch (err) {
-      log.warn(`openclaw browser profile decoration failed: ${String(err)}`);
+      log.warn(`cml-hive-assist browser profile decoration failed: ${String(err)}`);
     }
   }
 
   try {
     ensureProfileCleanExit(userDataDir);
   } catch (err) {
-    log.warn(`openclaw browser clean-exit prefs failed: ${String(err)}`);
+    log.warn(`cml-hive-assist browser clean-exit prefs failed: ${String(err)}`);
   }
 
   const proc = spawnOnce();
@@ -299,7 +301,7 @@ export async function launchOpenClawChrome(
 
   const pid = proc.pid ?? -1;
   log.info(
-    `🦞 openclaw browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
+    `🦞 cml-hive-assist browser started (${exe.kind}) profile "${profile.name}" on 127.0.0.1:${profile.cdpPort} (pid ${pid})`,
   );
 
   return {
@@ -312,7 +314,7 @@ export async function launchOpenClawChrome(
   };
 }
 
-export async function stopOpenClawChrome(running: RunningChrome, timeoutMs = 2500) {
+export async function stopCmlHiveAssistChrome(running: RunningChrome, timeoutMs = 2500) {
   const proc = running.proc;
   if (proc.killed) {
     return;

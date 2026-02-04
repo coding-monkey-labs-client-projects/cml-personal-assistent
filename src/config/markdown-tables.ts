@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "./config.js";
-import type { MarkdownTableMode } from "./types.base.js";
-import { normalizeChannelId } from "../channels/plugins/index.js";
-import { normalizeAccountId } from "../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "./config.ts";
+import type { MarkdownTableMode } from "./types.base.ts";
+import { normalizeChannelId } from "../channels/plugins/index.ts";
+import { normalizeAccountId } from "../routing/session-key.ts";
 
 type MarkdownConfigEntry = {
   markdown?: {
@@ -50,7 +50,7 @@ function resolveMarkdownModeFromSection(
 }
 
 export function resolveMarkdownTableMode(params: {
-  cfg?: Partial<OpenClawConfig>;
+  cfg?: Partial<CmlHiveAssistConfig>;
   channel?: string | null;
   accountId?: string | null;
 }): MarkdownTableMode {

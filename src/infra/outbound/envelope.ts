@@ -1,6 +1,6 @@
-import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { OutboundDeliveryJson } from "./format.js";
-import { normalizeOutboundPayloadsForJson, type OutboundPayloadJson } from "./payloads.js";
+import type { ReplyPayload } from "../../auto-reply/types.ts";
+import type { OutboundDeliveryJson } from "./format.ts";
+import { normalizeOutboundPayloadsForJson, type OutboundPayloadJson } from "./payloads.ts";
 
 export type OutboundResultEnvelope = {
   payloads?: OutboundPayloadJson[];

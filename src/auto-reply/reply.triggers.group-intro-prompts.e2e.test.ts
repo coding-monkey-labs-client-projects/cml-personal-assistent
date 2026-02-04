@@ -64,12 +64,14 @@ vi.mock("../web/session.js", () => webMocks);
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   return withTempHomeBase(
     async (home) => {
-      await mkdir(join(home, ".openclaw", "agents", "main", "sessions"), { recursive: true });
+      await mkdir(join(home, ".cml-hive-assist", "agents", "main", "sessions"), {
+        recursive: true,
+      });
       vi.mocked(runEmbeddedPiAgent).mockClear();
       vi.mocked(abortEmbeddedPiRun).mockClear();
       return await fn(home);
     },
-    { prefix: "openclaw-triggers-" },
+    { prefix: "cml-hive-assist-triggers-" },
   );
 }
 
@@ -78,7 +80,7 @@ function makeCfg(home: string) {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: join(home, "openclaw"),
+        workspace: join(home, "cml-hive-assist"),
       },
     },
     channels: {

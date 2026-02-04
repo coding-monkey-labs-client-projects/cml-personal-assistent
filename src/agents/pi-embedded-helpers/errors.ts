@@ -1,7 +1,7 @@
 import type { AssistantMessage } from "@mariozechner/pi-ai";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { FailoverReason } from "./types.js";
-import { formatSandboxToolPolicyBlockedMessage } from "../sandbox.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { FailoverReason } from "./types.ts";
+import { formatSandboxToolPolicyBlockedMessage } from "../sandbox.ts";
 
 export function isContextOverflowError(errorMessage?: string): boolean {
   if (!errorMessage) {
@@ -307,7 +307,7 @@ export function formatRawAssistantErrorForUi(raw?: string): string {
 
 export function formatAssistantErrorText(
   msg: AssistantMessage,
-  opts?: { cfg?: OpenClawConfig; sessionKey?: string },
+  opts?: { cfg?: CmlHiveAssistConfig; sessionKey?: string },
 ): string | undefined {
   // Also format errors if errorMessage is present, even if stopReason isn't "error"
   const raw = (msg.errorMessage ?? "").trim();

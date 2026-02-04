@@ -1,18 +1,18 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { ModelCatalogEntry } from "../agents/model-catalog.js";
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveApiKeyForProvider } from "../agents/model-auth.js";
+import type { ModelCatalogEntry } from "../agents/model-catalog.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveApiKeyForProvider } from "../agents/model-auth.ts";
 import {
   findModelInCatalog,
   loadModelCatalog,
   modelSupportsVision,
-} from "../agents/model-catalog.js";
-import { resolveDefaultModelForAgent } from "../agents/model-selection.js";
-import { STATE_DIR } from "../config/paths.js";
-import { logVerbose } from "../globals.js";
-import { loadJsonFile, saveJsonFile } from "../infra/json-file.js";
-import { resolveAutoImageModel } from "../media-understanding/runner.js";
+} from "../agents/model-catalog.ts";
+import { resolveDefaultModelForAgent } from "../agents/model-selection.ts";
+import { STATE_DIR } from "../config/paths.ts";
+import { logVerbose } from "../globals.ts";
+import { loadJsonFile, saveJsonFile } from "../infra/json-file.ts";
+import { resolveAutoImageModel } from "../media-understanding/runner.ts";
 
 const CACHE_FILE = path.join(STATE_DIR, "telegram", "sticker-cache.json");
 const CACHE_VERSION = 1;
@@ -146,7 +146,7 @@ const VISION_PROVIDERS = ["openai", "anthropic", "google", "minimax"] as const;
 
 export interface DescribeStickerParams {
   imagePath: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
   agentId?: string;
 }
@@ -243,7 +243,7 @@ export async function describeStickerImage(params: DescribeStickerParams): Promi
   try {
     const buffer = await fs.readFile(imagePath);
     // Dynamic import to avoid circular dependency
-    const { describeImageWithModel } = await import("../media-understanding/providers/image.js");
+    const { describeImageWithModel } = await import("../media-understanding/providers/image.ts");
     const result = await describeImageWithModel({
       buffer,
       fileName: "sticker.webp",

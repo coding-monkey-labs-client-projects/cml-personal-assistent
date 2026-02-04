@@ -1,5 +1,8 @@
-export { monitorSignalProvider } from "./monitor.js";
-export { probeSignal } from "./probe.js";
-export { sendMessageSignal } from "./send.js";
-export { sendReactionSignal, removeReactionSignal } from "./send-reactions.js";
-export { resolveSignalReactionLevel } from "./reaction-level.js";
+// Stub file - Signal channel removed
+
+export function monitorSignalProvider(): void {
+  // Signal channel removed - no-op
+}
+
+export * from "./accounts.ts";
+export * from "./send.ts";

@@ -1,12 +1,12 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { ChannelId, ChannelThreadingToolContext } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { GatewayClientMode, GatewayClientName } from "../../utils/message-channel.js";
-import type { OutboundSendDeps } from "./deliver.js";
-import type { MessagePollResult, MessageSendResult } from "./message.js";
-import { dispatchChannelMessageAction } from "../../channels/plugins/message-actions.js";
-import { appendAssistantMessageToSessionTranscript } from "../../config/sessions.js";
-import { sendMessage, sendPoll } from "./message.js";
+import type { ChannelId, ChannelThreadingToolContext } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { GatewayClientMode, GatewayClientName } from "../../utils/message-channel.ts";
+import type { OutboundSendDeps } from "./deliver.ts";
+import type { MessagePollResult, MessageSendResult } from "./message.ts";
+import { dispatchChannelMessageAction } from "../../channels/plugins/message-actions.ts";
+import { appendAssistantMessageToSessionTranscript } from "../../config/sessions.ts";
+import { sendMessage, sendPoll } from "./message.ts";
 
 export type OutboundGatewayContext = {
   url?: string;
@@ -18,7 +18,7 @@ export type OutboundGatewayContext = {
 };
 
 export type OutboundSendContext = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChannelId;
   params: Record<string, unknown>;
   accountId?: string | null;

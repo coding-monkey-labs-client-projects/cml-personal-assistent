@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.js";
-import { redactSensitiveText } from "../logging/redact.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { hashText } from "./internal.js";
+import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.ts";
+import { redactSensitiveText } from "../logging/redact.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { hashText } from "./internal.ts";
 
 const log = createSubsystemLogger("memory");
 

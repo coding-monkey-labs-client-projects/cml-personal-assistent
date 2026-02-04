@@ -1,9 +1,9 @@
-import type { HeartbeatRunResult } from "../../infra/heartbeat-wake.js";
-import type { CronJob } from "../types.js";
-import type { CronEvent, CronServiceState } from "./state.js";
-import { computeJobNextRunAtMs, nextWakeAtMs, resolveJobPayloadTextForMain } from "./jobs.js";
-import { locked } from "./locked.js";
-import { ensureLoaded, persist } from "./store.js";
+import type { HeartbeatRunResult } from "../../infra/heartbeat-wake.ts";
+import type { CronJob } from "../types.ts";
+import type { CronEvent, CronServiceState } from "./state.ts";
+import { computeJobNextRunAtMs, nextWakeAtMs, resolveJobPayloadTextForMain } from "./jobs.ts";
+import { locked } from "./locked.ts";
+import { ensureLoaded, persist } from "./store.ts";
 
 const MAX_TIMEOUT_MS = 2 ** 31 - 1;
 

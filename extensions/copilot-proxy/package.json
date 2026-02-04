@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/copilot-proxy",
+  "name": "@cml-hive-assist/copilot-proxy",
   "version": "2026.2.1",
-  "description": "OpenClaw Copilot Proxy provider plugin",
+  "description": "CmlHiveAssist Copilot Proxy provider plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ]

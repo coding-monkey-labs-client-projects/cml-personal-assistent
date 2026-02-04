@@ -1,18 +1,18 @@
-import { formatCliCommand } from "../cli/command-format.js";
-import { resolveOpenClawPackageRoot } from "../infra/openclaw-root.js";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { resolveCmlHiveAssistPackageRoot } from "../infra/cml-hive-assist-root.ts";
 import {
   checkUpdateStatus,
   compareSemverStrings,
   type UpdateCheckResult,
-} from "../infra/update-check.js";
-import { VERSION } from "../version.js";
+} from "../infra/update-check.ts";
+import { VERSION } from "../version.ts";
 
 export async function getUpdateCheckResult(params: {
   timeoutMs: number;
   fetchGit: boolean;
   includeRegistry: boolean;
 }): Promise<UpdateCheckResult> {
-  const root = await resolveOpenClawPackageRoot({
+  const root = await resolveCmlHiveAssistPackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),
@@ -66,7 +66,7 @@ export function formatUpdateAvailableHint(update: UpdateCheckResult): string | n
     details.push(`npm ${availability.latestVersion}`);
   }
   const suffix = details.length > 0 ? ` (${details.join(" · ")})` : "";
-  return `Update available${suffix}. Run: ${formatCliCommand("openclaw update")}`;
+  return `Update available${suffix}. Run: ${formatCliCommand("cml-hive-assist update")}`;
 }
 
 export function formatUpdateOneLiner(update: UpdateCheckResult): string {

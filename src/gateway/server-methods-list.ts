@@ -1,4 +1,4 @@
-import { listChannelPlugins } from "../channels/plugins/index.js";
+import { listChannelPlugins } from "../channels/plugins/index.ts";
 
 const BASE_METHODS = [
   "health",

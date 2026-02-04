@@ -1,17 +1,17 @@
-import { type QueueDropPolicy, type QueueMode } from "../auto-reply/reply/queue.js";
-import { defaultRuntime } from "../runtime.js";
+import { type QueueDropPolicy, type QueueMode } from "../auto-reply/reply/queue.ts";
+import { defaultRuntime } from "../runtime.ts";
 import {
   type DeliveryContext,
   deliveryContextKey,
   normalizeDeliveryContext,
-} from "../utils/delivery-context.js";
+} from "../utils/delivery-context.ts";
 import {
   applyQueueDropPolicy,
   buildCollectPrompt,
   buildQueueSummaryPrompt,
   hasCrossChannelItems,
   waitForQueueDebounce,
-} from "../utils/queue-helpers.js";
+} from "../utils/queue-helpers.ts";
 
 export type AnnounceQueueItem = {
   prompt: string;

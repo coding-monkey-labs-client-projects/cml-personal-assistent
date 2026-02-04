@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { GatewayRequestHandlers } from "./types.js";
-import { listAgentIds, resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { listAgentIds, resolveAgentWorkspaceDir } from "../../agents/agent-scope.ts";
 import {
   DEFAULT_AGENTS_FILENAME,
   DEFAULT_BOOTSTRAP_FILENAME,
@@ -12,9 +12,9 @@ import {
   DEFAULT_SOUL_FILENAME,
   DEFAULT_TOOLS_FILENAME,
   DEFAULT_USER_FILENAME,
-} from "../../agents/workspace.js";
-import { loadConfig } from "../../config/config.js";
-import { normalizeAgentId } from "../../routing/session-key.js";
+} from "../../agents/workspace.ts";
+import { loadConfig } from "../../config/config.ts";
+import { normalizeAgentId } from "../../routing/session-key.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -23,8 +23,8 @@ import {
   validateAgentsFilesListParams,
   validateAgentsFilesSetParams,
   validateAgentsListParams,
-} from "../protocol/index.js";
-import { listAgentsForGateway } from "../session-utils.js";
+} from "../protocol/index.ts";
+import { listAgentsForGateway } from "../session-utils.ts";
 
 const BOOTSTRAP_FILE_NAMES = [
   DEFAULT_AGENTS_FILENAME,

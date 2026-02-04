@@ -12,30 +12,30 @@ import type {
   SessionScope,
   TuiOptions,
   TuiStateAccess,
-} from "./tui-types.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { loadConfig } from "../config/config.js";
+} from "./tui-types.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { loadConfig } from "../config/config.ts";
 import {
   buildAgentMainSessionKey,
   normalizeAgentId,
   normalizeMainKey,
   parseAgentSessionKey,
-} from "../routing/session-key.js";
-import { getSlashCommands } from "./commands.js";
-import { ChatLog } from "./components/chat-log.js";
-import { CustomEditor } from "./components/custom-editor.js";
-import { GatewayChatClient } from "./gateway-chat.js";
-import { editorTheme, theme } from "./theme/theme.js";
-import { createCommandHandlers } from "./tui-command-handlers.js";
-import { createEventHandlers } from "./tui-event-handlers.js";
-import { formatTokens } from "./tui-formatters.js";
-import { createLocalShellRunner } from "./tui-local-shell.js";
-import { createOverlayHandlers } from "./tui-overlays.js";
-import { createSessionActions } from "./tui-session-actions.js";
-import { buildWaitingStatusMessage, defaultWaitingPhrases } from "./tui-waiting.js";
+} from "../routing/session-key.ts";
+import { getSlashCommands } from "./commands.ts";
+import { ChatLog } from "./components/chat-log.ts";
+import { CustomEditor } from "./components/custom-editor.ts";
+import { GatewayChatClient } from "./gateway-chat.ts";
+import { editorTheme, theme } from "./theme/theme.ts";
+import { createCommandHandlers } from "./tui-command-handlers.ts";
+import { createEventHandlers } from "./tui-event-handlers.ts";
+import { formatTokens } from "./tui-formatters.ts";
+import { createLocalShellRunner } from "./tui-local-shell.ts";
+import { createOverlayHandlers } from "./tui-overlays.ts";
+import { createSessionActions } from "./tui-session-actions.ts";
+import { buildWaitingStatusMessage, defaultWaitingPhrases } from "./tui-waiting.ts";
 
-export { resolveFinalAssistantText } from "./tui-formatters.js";
-export type { TuiOptions } from "./tui-types.js";
+export { resolveFinalAssistantText } from "./tui-formatters.ts";
+export type { TuiOptions } from "./tui-types.ts";
 
 export function createEditorSubmitHandler(params: {
   editor: {
@@ -300,7 +300,7 @@ export async function runTui(opts: TuiOptions) {
     const agentLabel = formatAgentLabel(currentAgentId);
     header.setText(
       theme.header(
-        `openclaw tui - ${client.connection.url} - agent ${agentLabel} - session ${sessionLabel}`,
+        `cml-hive-assist tui - ${client.connection.url} - agent ${agentLabel} - session ${sessionLabel}`,
       ),
     );
   };

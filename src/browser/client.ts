@@ -1,4 +1,4 @@
-import { fetchBrowserJson } from "./client-fetch.js";
+import { fetchBrowserJson } from "./client-fetch.ts";
 
 export type BrowserStatus = {
   enabled: boolean;
@@ -163,7 +163,7 @@ export async function browserCreateProfile(
     name: string;
     color?: string;
     cdpUrl?: string;
-    driver?: "openclaw" | "extension";
+    driver?: "cml-hive-assist" | "extension";
   },
 ): Promise<BrowserCreateProfileResult> {
   return await fetchBrowserJson<BrowserCreateProfileResult>(

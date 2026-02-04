@@ -1,23 +1,23 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
 import type {
   ChannelsWizardMode,
   ConfigureWizardParams,
   WizardSection,
-} from "./configure.shared.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { readConfigFileSnapshot, resolveGatewayPort, writeConfigFile } from "../config/config.js";
-import { logConfigUpdated } from "../config/logging.js";
-import { ensureControlUiAssetsBuilt } from "../infra/control-ui-assets.js";
-import { defaultRuntime } from "../runtime.js";
-import { note } from "../terminal/note.js";
-import { resolveUserPath } from "../utils.js";
-import { createClackPrompter } from "../wizard/clack-prompter.js";
-import { WizardCancelledError } from "../wizard/prompts.js";
-import { removeChannelConfigWizard } from "./configure.channels.js";
-import { maybeInstallDaemon } from "./configure.daemon.js";
-import { promptAuthConfig } from "./configure.gateway-auth.js";
-import { promptGatewayConfig } from "./configure.gateway.js";
+} from "./configure.shared.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { readConfigFileSnapshot, resolveGatewayPort, writeConfigFile } from "../config/config.ts";
+import { logConfigUpdated } from "../config/logging.ts";
+import { ensureControlUiAssetsBuilt } from "../infra/control-ui-assets.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { note } from "../terminal/note.ts";
+import { resolveUserPath } from "../utils.ts";
+import { createClackPrompter } from "../wizard/clack-prompter.ts";
+import { WizardCancelledError } from "../wizard/prompts.ts";
+import { removeChannelConfigWizard } from "./configure.channels.ts";
+import { maybeInstallDaemon } from "./configure.daemon.ts";
+import { promptAuthConfig } from "./configure.gateway-auth.ts";
+import { promptGatewayConfig } from "./configure.gateway.ts";
 import {
   CONFIGURE_SECTION_OPTIONS,
   confirm,
@@ -25,10 +25,10 @@ import {
   outro,
   select,
   text,
-} from "./configure.shared.js";
-import { formatHealthCheckFailure } from "./health-format.js";
-import { healthCommand } from "./health.js";
-import { noteChannelStatus, setupChannels } from "./onboard-channels.js";
+} from "./configure.shared.ts";
+import { formatHealthCheckFailure } from "./health-format.ts";
+import { healthCommand } from "./health.ts";
+import { noteChannelStatus, setupChannels } from "./onboard-channels.ts";
 import {
   applyWizardMetadata,
   DEFAULT_WORKSPACE,
@@ -39,9 +39,9 @@ import {
   resolveControlUiLinks,
   summarizeExistingConfig,
   waitForGatewayReachable,
-} from "./onboard-helpers.js";
-import { promptRemoteGatewayConfig } from "./onboard-remote.js";
-import { setupSkills } from "./onboard-skills.js";
+} from "./onboard-helpers.ts";
+import { promptRemoteGatewayConfig } from "./onboard-remote.ts";
+import { setupSkills } from "./onboard-skills.ts";
 
 type ConfigureSectionChoice = WizardSection | "__continue";
 
@@ -79,7 +79,7 @@ async function promptChannelMode(runtime: RuntimeEnv): Promise<ChannelsWizardMod
         {
           value: "remove",
           label: "Remove channel config",
-          hint: "Delete channel tokens/settings from openclaw.json",
+          hint: "Delete channel tokens/settings from cml-hive-assist.json",
         },
       ],
       initialValue: "configure",
@@ -89,9 +89,9 @@ async function promptChannelMode(runtime: RuntimeEnv): Promise<ChannelsWizardMod
 }
 
 async function promptWebToolsConfig(
-  nextConfig: OpenClawConfig,
+  nextConfig: CmlHiveAssistConfig,
   runtime: RuntimeEnv,
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   const existingSearch = nextConfig.tools?.web?.search;
   const existingFetch = nextConfig.tools?.web?.fetch;
   const hasSearchKey = Boolean(existingSearch?.apiKey);
@@ -100,7 +100,7 @@ async function promptWebToolsConfig(
     [
       "Web search lets your agent look things up online using the `web_search` tool.",
       "It requires a Brave Search API key (you can store it in the config or set BRAVE_API_KEY in the Gateway environment).",
-      "Docs: https://docs.openclaw.ai/tools/web",
+      "Docs: https://docs.cml-hive-assist.ai/tools/web",
     ].join("\n"),
     "Web search",
   );
@@ -136,7 +136,7 @@ async function promptWebToolsConfig(
         [
           "No key stored yet, so web_search will stay unavailable.",
           "Store a key here or set BRAVE_API_KEY in the Gateway environment.",
-          "Docs: https://docs.openclaw.ai/tools/web",
+          "Docs: https://docs.cml-hive-assist.ai/tools/web",
         ].join("\n"),
         "Web search",
       );
@@ -175,11 +175,11 @@ export async function runConfigureWizard(
 ) {
   try {
     printWizardHeader(runtime);
-    intro(opts.command === "update" ? "OpenClaw update wizard" : "OpenClaw configure");
+    intro(opts.command === "update" ? "CmlHiveAssist update wizard" : "CmlHiveAssist configure");
     const prompter = createClackPrompter();
 
     const snapshot = await readConfigFileSnapshot();
-    const baseConfig: OpenClawConfig = snapshot.valid ? snapshot.config : {};
+    const baseConfig: CmlHiveAssistConfig = snapshot.valid ? snapshot.config : {};
 
     if (snapshot.exists) {
       const title = snapshot.valid ? "Existing config detected" : "Invalid config";
@@ -189,14 +189,14 @@ export async function runConfigureWizard(
           [
             ...snapshot.issues.map((iss) => `- ${iss.path}: ${iss.message}`),
             "",
-            "Docs: https://docs.openclaw.ai/gateway/configuration",
+            "Docs: https://docs.cml-hive-assist.ai/gateway/configuration",
           ].join("\n"),
           "Config issues",
         );
       }
       if (!snapshot.valid) {
         outro(
-          `Config invalid. Run \`${formatCliCommand("openclaw doctor")}\` to repair it, then re-run configure.`,
+          `Config invalid. Run \`${formatCliCommand("cml-hive-assist doctor")}\` to repair it, then re-run configure.`,
         );
         runtime.exit(1);
         return;
@@ -206,8 +206,8 @@ export async function runConfigureWizard(
     const localUrl = "ws://127.0.0.1:18789";
     const localProbe = await probeGatewayReachable({
       url: localUrl,
-      token: baseConfig.gateway?.auth?.token ?? process.env.OPENCLAW_GATEWAY_TOKEN,
-      password: baseConfig.gateway?.auth?.password ?? process.env.OPENCLAW_GATEWAY_PASSWORD,
+      token: baseConfig.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN,
+      password: baseConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD,
     });
     const remoteUrl = baseConfig.gateway?.remote?.url?.trim() ?? "";
     const remoteProbe = remoteUrl
@@ -274,7 +274,7 @@ export async function runConfigureWizard(
     let gatewayToken: string | undefined =
       nextConfig.gateway?.auth?.token ??
       baseConfig.gateway?.auth?.token ??
-      process.env.OPENCLAW_GATEWAY_TOKEN;
+      process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
 
     const persistConfig = async () => {
       nextConfig = applyWizardMetadata(nextConfig, {
@@ -377,9 +377,9 @@ export async function runConfigureWizard(
         const remoteUrl = nextConfig.gateway?.remote?.url?.trim();
         const wsUrl =
           nextConfig.gateway?.mode === "remote" && remoteUrl ? remoteUrl : localLinks.wsUrl;
-        const token = nextConfig.gateway?.auth?.token ?? process.env.OPENCLAW_GATEWAY_TOKEN;
+        const token = nextConfig.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
         const password =
-          nextConfig.gateway?.auth?.password ?? process.env.OPENCLAW_GATEWAY_PASSWORD;
+          nextConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
         await waitForGatewayReachable({
           url: wsUrl,
           token,
@@ -393,8 +393,8 @@ export async function runConfigureWizard(
           note(
             [
               "Docs:",
-              "https://docs.openclaw.ai/gateway/health",
-              "https://docs.openclaw.ai/gateway/troubleshooting",
+              "https://docs.cml-hive-assist.ai/gateway/health",
+              "https://docs.cml-hive-assist.ai/gateway/troubleshooting",
             ].join("\n"),
             "Health check help",
           );
@@ -504,9 +504,10 @@ export async function runConfigureWizard(
           const remoteUrl = nextConfig.gateway?.remote?.url?.trim();
           const wsUrl =
             nextConfig.gateway?.mode === "remote" && remoteUrl ? remoteUrl : localLinks.wsUrl;
-          const token = nextConfig.gateway?.auth?.token ?? process.env.OPENCLAW_GATEWAY_TOKEN;
+          const token =
+            nextConfig.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
           const password =
-            nextConfig.gateway?.auth?.password ?? process.env.OPENCLAW_GATEWAY_PASSWORD;
+            nextConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
           await waitForGatewayReachable({
             url: wsUrl,
             token,
@@ -520,8 +521,8 @@ export async function runConfigureWizard(
             note(
               [
                 "Docs:",
-                "https://docs.openclaw.ai/gateway/health",
-                "https://docs.openclaw.ai/gateway/troubleshooting",
+                "https://docs.cml-hive-assist.ai/gateway/health",
+                "https://docs.cml-hive-assist.ai/gateway/troubleshooting",
               ].join("\n"),
               "Health check help",
             );
@@ -553,9 +554,11 @@ export async function runConfigureWizard(
       basePath: nextConfig.gateway?.controlUi?.basePath,
     });
     // Try both new and old passwords since gateway may still have old config.
-    const newPassword = nextConfig.gateway?.auth?.password ?? process.env.OPENCLAW_GATEWAY_PASSWORD;
-    const oldPassword = baseConfig.gateway?.auth?.password ?? process.env.OPENCLAW_GATEWAY_PASSWORD;
-    const token = nextConfig.gateway?.auth?.token ?? process.env.OPENCLAW_GATEWAY_TOKEN;
+    const newPassword =
+      nextConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
+    const oldPassword =
+      baseConfig.gateway?.auth?.password ?? process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
+    const token = nextConfig.gateway?.auth?.token ?? process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
 
     let gatewayProbe = await probeGatewayReachable({
       url: links.wsUrl,
@@ -579,7 +582,7 @@ export async function runConfigureWizard(
         `Web UI: ${links.httpUrl}`,
         `Gateway WS: ${links.wsUrl}`,
         gatewayStatusLine,
-        "Docs: https://docs.openclaw.ai/web/control-ui",
+        "Docs: https://docs.cml-hive-assist.ai/web/control-ui",
       ].join("\n"),
       "Control UI",
     );

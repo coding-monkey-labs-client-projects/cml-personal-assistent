@@ -1,11 +1,11 @@
 import fs from "node:fs/promises";
-import type { OpenClawConfig } from "../config/config.js";
-import type { UpdateChannel } from "../infra/update-channels.js";
-import { resolveUserPath } from "../utils.js";
-import { discoverOpenClawPlugins } from "./discovery.js";
-import { installPluginFromNpmSpec, resolvePluginInstallDir } from "./install.js";
-import { recordPluginInstall } from "./installs.js";
-import { loadPluginManifest } from "./manifest.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { UpdateChannel } from "../infra/update-channels.ts";
+import { resolveUserPath } from "../utils.ts";
+import { discoverCmlHiveAssistPlugins } from "./discovery.ts";
+import { installPluginFromNpmSpec, resolvePluginInstallDir } from "./install.ts";
+import { recordPluginInstall } from "./installs.ts";
+import { loadPluginManifest } from "./manifest.ts";
 
 export type PluginUpdateLogger = {
   info?: (message: string) => void;
@@ -24,7 +24,7 @@ export type PluginUpdateOutcome = {
 };
 
 export type PluginUpdateSummary = {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   changed: boolean;
   outcomes: PluginUpdateOutcome[];
 };
@@ -37,7 +37,7 @@ export type PluginChannelSyncSummary = {
 };
 
 export type PluginChannelSyncResult = {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   changed: boolean;
   summary: PluginChannelSyncSummary;
 };
@@ -61,7 +61,7 @@ async function readInstalledPackageVersion(dir: string): Promise<string | undefi
 function resolveBundledPluginSources(params: {
   workspaceDir?: string;
 }): Map<string, BundledPluginSource> {
-  const discovery = discoverOpenClawPlugins({ workspaceDir: params.workspaceDir });
+  const discovery = discoverCmlHiveAssistPlugins({ workspaceDir: params.workspaceDir });
   const bundled = new Map<string, BundledPluginSource>();
 
   for (const candidate of discovery.candidates) {
@@ -138,7 +138,7 @@ function buildLoadPathHelpers(existing: string[]) {
 }
 
 export async function updateNpmInstalledPlugins(params: {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   logger?: PluginUpdateLogger;
   pluginIds?: string[];
   skipIds?: Set<string>;
@@ -311,7 +311,7 @@ export async function updateNpmInstalledPlugins(params: {
 }
 
 export async function syncPluginsForUpdateChannel(params: {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   channel: UpdateChannel;
   workspaceDir?: string;
   logger?: PluginUpdateLogger;

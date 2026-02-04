@@ -5,43 +5,43 @@ import type {
   ChannelId,
   ChannelMessageActionName,
   ChannelThreadingToolContext,
-} from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { OutboundSendDeps } from "./deliver.js";
-import type { MessagePollResult, MessageSendResult } from "./message.js";
-import { resolveSessionAgentId } from "../../agents/agent-scope.js";
+} from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { OutboundSendDeps } from "./deliver.ts";
+import type { MessagePollResult, MessageSendResult } from "./message.ts";
+import { resolveSessionAgentId } from "../../agents/agent-scope.ts";
 import {
   readNumberParam,
   readStringArrayParam,
   readStringParam,
-} from "../../agents/tools/common.js";
-import { parseReplyDirectives } from "../../auto-reply/reply/reply-directives.js";
-import { dispatchChannelMessageAction } from "../../channels/plugins/message-actions.js";
-import { extensionForMime } from "../../media/mime.js";
-import { parseSlackTarget } from "../../slack/targets.js";
+} from "../../agents/tools/common.ts";
+import { parseReplyDirectives } from "../../auto-reply/reply/reply-directives.ts";
+import { dispatchChannelMessageAction } from "../../channels/plugins/message-actions.ts";
+import { extensionForMime } from "../../media/mime.ts";
+import { parseSlackTarget } from "../../slack/targets.ts";
 import {
   isDeliverableMessageChannel,
   normalizeMessageChannel,
   type GatewayClientMode,
   type GatewayClientName,
-} from "../../utils/message-channel.js";
-import { loadWebMedia } from "../../web/media.js";
+} from "../../utils/message-channel.ts";
+import { loadWebMedia } from "../../web/media.ts";
 import {
   listConfiguredMessageChannels,
   resolveMessageChannelSelection,
-} from "./channel-selection.js";
-import { applyTargetToParams } from "./channel-target.js";
-import { actionHasTarget, actionRequiresTarget } from "./message-action-spec.js";
+} from "./channel-selection.ts";
+import { applyTargetToParams } from "./channel-target.ts";
+import { actionHasTarget, actionRequiresTarget } from "./message-action-spec.ts";
 import {
   applyCrossContextDecoration,
   buildCrossContextDecoration,
   type CrossContextDecoration,
   enforceCrossContextPolicy,
   shouldApplyCrossContextMarker,
-} from "./outbound-policy.js";
-import { executePollAction, executeSendAction } from "./outbound-send-service.js";
-import { ensureOutboundSessionEntry, resolveOutboundSessionRoute } from "./outbound-session.js";
-import { resolveChannelTarget, type ResolvedMessagingTarget } from "./target-resolver.js";
+} from "./outbound-policy.ts";
+import { executePollAction, executeSendAction } from "./outbound-send-service.ts";
+import { ensureOutboundSessionEntry, resolveOutboundSessionRoute } from "./outbound-session.ts";
+import { resolveChannelTarget, type ResolvedMessagingTarget } from "./target-resolver.ts";
 
 export type MessageActionRunnerGateway = {
   url?: string;
@@ -53,7 +53,7 @@ export type MessageActionRunnerGateway = {
 };
 
 export type RunMessageActionParams = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   action: ChannelMessageActionName;
   params: Record<string, unknown>;
   defaultAccountId?: string;
@@ -169,7 +169,7 @@ function applyCrossContextMessageDecoration({
 }
 
 async function maybeApplyCrossContextMarker(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChannelId;
   action: ChannelMessageActionName;
   target: string;
@@ -243,7 +243,7 @@ function resolveSlackAutoThreadId(params: {
 }
 
 function resolveAttachmentMaxBytes(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChannelId;
   accountId?: string | null;
 }): number | undefined {
@@ -327,7 +327,7 @@ function normalizeBase64Payload(params: { base64?: string; contentType?: string 
 }
 
 async function hydrateSetGroupIconParams(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChannelId;
   accountId?: string | null;
   args: Record<string, unknown>;
@@ -386,7 +386,7 @@ async function hydrateSetGroupIconParams(params: {
 }
 
 async function hydrateSendAttachmentParams(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChannelId;
   accountId?: string | null;
   args: Record<string, unknown>;
@@ -483,7 +483,7 @@ function parseCardParam(params: Record<string, unknown>): void {
   }
 }
 
-async function resolveChannel(cfg: OpenClawConfig, params: Record<string, unknown>) {
+async function resolveChannel(cfg: CmlHiveAssistConfig, params: Record<string, unknown>) {
   const channelHint = readStringParam(params, "channel");
   const selection = await resolveMessageChannelSelection({
     cfg,
@@ -493,7 +493,7 @@ async function resolveChannel(cfg: OpenClawConfig, params: Record<string, unknow
 }
 
 async function resolveActionTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: ChannelId;
   action: ChannelMessageActionName;
   args: Record<string, unknown>;
@@ -538,7 +538,7 @@ async function resolveActionTarget(params: {
 }
 
 type ResolvedActionContext = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   params: Record<string, unknown>;
   channel: ChannelId;
   accountId?: string | null;

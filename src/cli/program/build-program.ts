@@ -1,8 +1,8 @@
 import { Command } from "commander";
-import { registerProgramCommands } from "./command-registry.js";
-import { createProgramContext } from "./context.js";
-import { configureProgramHelp } from "./help.js";
-import { registerPreActionHooks } from "./preaction.js";
+import { registerProgramCommands } from "./command-registry.ts";
+import { createProgramContext } from "./context.ts";
+import { configureProgramHelp } from "./help.ts";
+import { registerPreActionHooks } from "./preaction.ts";
 
 export function buildProgram() {
   const program = new Command();

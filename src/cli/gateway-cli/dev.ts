@@ -1,12 +1,12 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { resolveWorkspaceTemplateDir } from "../../agents/workspace-templates.js";
-import { resolveDefaultAgentWorkspaceDir } from "../../agents/workspace.js";
-import { handleReset } from "../../commands/onboard-helpers.js";
-import { createConfigIO, writeConfigFile } from "../../config/config.js";
-import { defaultRuntime } from "../../runtime.js";
-import { resolveUserPath, shortenHomePath } from "../../utils.js";
+import { resolveWorkspaceTemplateDir } from "../../agents/workspace-templates.ts";
+import { resolveDefaultAgentWorkspaceDir } from "../../agents/workspace.ts";
+import { handleReset } from "../../commands/onboard-helpers.ts";
+import { createConfigIO, writeConfigFile } from "../../config/config.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { resolveUserPath, shortenHomePath } from "../../utils.ts";
 
 const DEV_IDENTITY_NAME = "C3-PO";
 const DEV_IDENTITY_THEME = "protocol droid";
@@ -32,7 +32,7 @@ async function loadDevTemplate(name: string, fallback: string): Promise<string> 
 
 const resolveDevWorkspaceDir = (env: NodeJS.ProcessEnv = process.env): string => {
   const baseDir = resolveDefaultAgentWorkspaceDir(env, os.homedir);
-  const profile = env.OPENCLAW_PROFILE?.trim().toLowerCase();
+  const profile = env.CML_HIVE_ASSIST_PROFILE?.trim().toLowerCase();
   if (profile === "dev") {
     return baseDir;
   }
@@ -60,7 +60,7 @@ async function ensureDevWorkspace(dir: string) {
   const [agents, soul, tools, identity, user] = await Promise.all([
     loadDevTemplate(
       "AGENTS.dev.md",
-      `# AGENTS.md - OpenClaw Dev Workspace\n\nDefault dev workspace for openclaw gateway --dev.\n`,
+      `# AGENTS.md - CmlHiveAssist Dev Workspace\n\nDefault dev workspace for cml-hive-assist gateway --dev.\n`,
     ),
     loadDevTemplate(
       "SOUL.dev.md",

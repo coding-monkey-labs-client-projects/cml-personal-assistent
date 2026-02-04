@@ -1,16 +1,16 @@
-import type { AgentIdentityFile } from "../agents/identity-file.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { AgentIdentityFile } from "../agents/identity-file.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import {
   resolveAgentDir,
   resolveAgentWorkspaceDir,
   resolveDefaultAgentId,
-} from "../agents/agent-scope.js";
+} from "../agents/agent-scope.ts";
 import {
   identityHasValues,
   loadAgentIdentityFromWorkspace,
   parseIdentityMarkdown as parseIdentityMarkdownFile,
-} from "../agents/identity-file.js";
-import { normalizeAgentId } from "../routing/session-key.js";
+} from "../agents/identity-file.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
 
 export type AgentSummary = {
   id: string;
@@ -28,11 +28,11 @@ export type AgentSummary = {
   isDefault: boolean;
 };
 
-type AgentEntry = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<CmlHiveAssistConfig["agents"]>["list"]>[number];
 
 export type AgentIdentity = AgentIdentityFile;
 
-export function listAgentEntries(cfg: OpenClawConfig): AgentEntry[] {
+export function listAgentEntries(cfg: CmlHiveAssistConfig): AgentEntry[] {
   const list = cfg.agents?.list;
   if (!Array.isArray(list)) {
     return [];
@@ -45,14 +45,14 @@ export function findAgentEntryIndex(list: AgentEntry[], agentId: string): number
   return list.findIndex((entry) => normalizeAgentId(entry.id) === id);
 }
 
-function resolveAgentName(cfg: OpenClawConfig, agentId: string) {
+function resolveAgentName(cfg: CmlHiveAssistConfig, agentId: string) {
   const entry = listAgentEntries(cfg).find(
     (agent) => normalizeAgentId(agent.id) === normalizeAgentId(agentId),
   );
   return entry?.name?.trim() || undefined;
 }
 
-function resolveAgentModel(cfg: OpenClawConfig, agentId: string) {
+function resolveAgentModel(cfg: CmlHiveAssistConfig, agentId: string) {
   const entry = listAgentEntries(cfg).find(
     (agent) => normalizeAgentId(agent.id) === normalizeAgentId(agentId),
   );
@@ -86,7 +86,7 @@ export function loadAgentIdentity(workspace: string): AgentIdentity | null {
   return identityHasValues(parsed) ? parsed : null;
 }
 
-export function buildAgentSummaries(cfg: OpenClawConfig): AgentSummary[] {
+export function buildAgentSummaries(cfg: CmlHiveAssistConfig): AgentSummary[] {
   const defaultAgentId = normalizeAgentId(resolveDefaultAgentId(cfg));
   const configuredAgents = listAgentEntries(cfg);
   const orderedIds =
@@ -130,7 +130,7 @@ export function buildAgentSummaries(cfg: OpenClawConfig): AgentSummary[] {
 }
 
 export function applyAgentConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   params: {
     agentId: string;
     name?: string;
@@ -138,7 +138,7 @@ export function applyAgentConfig(
     agentDir?: string;
     model?: string;
   },
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const agentId = normalizeAgentId(params.agentId);
   const name = params.name?.trim();
   const list = listAgentEntries(cfg);
@@ -170,10 +170,10 @@ export function applyAgentConfig(
 }
 
 export function pruneAgentConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   agentId: string,
 ): {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   removedBindings: number;
   removedAllow: number;
 } {

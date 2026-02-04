@@ -1,8 +1,8 @@
-import type { PluginLogger } from "../plugins/types.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { loadConfig } from "../config/config.js";
-import { createSubsystemLogger } from "../logging.js";
-import { loadOpenClawPlugins } from "../plugins/loader.js";
+import type { PluginLogger } from "../plugins/types.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { loadConfig } from "../config/config.ts";
+import { createSubsystemLogger } from "../logging.ts";
+import { loadCmlHiveAssistPlugins } from "../plugins/loader.ts";
 
 const log = createSubsystemLogger("plugins");
 let pluginRegistryLoaded = false;
@@ -19,7 +19,7 @@ export function ensurePluginRegistryLoaded(): void {
     error: (msg) => log.error(msg),
     debug: (msg) => log.debug(msg),
   };
-  loadOpenClawPlugins({
+  loadCmlHiveAssistPlugins({
     config,
     workspaceDir,
     logger,

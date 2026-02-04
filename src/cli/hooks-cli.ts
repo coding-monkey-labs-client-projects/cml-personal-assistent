@@ -2,30 +2,30 @@ import type { Command } from "commander";
 import fs from "node:fs";
 import fsp from "node:fs/promises";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { HookEntry } from "../hooks/types.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { loadConfig, writeConfigFile } from "../config/io.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { HookEntry } from "../hooks/types.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { loadConfig, writeConfigFile } from "../config/io.ts";
 import {
   buildWorkspaceHookStatus,
   type HookStatusEntry,
   type HookStatusReport,
-} from "../hooks/hooks-status.js";
+} from "../hooks/hooks-status.ts";
 import {
   installHooksFromNpmSpec,
   installHooksFromPath,
   resolveHookInstallDir,
-} from "../hooks/install.js";
-import { recordHookInstall } from "../hooks/installs.js";
-import { loadWorkspaceHookEntries } from "../hooks/workspace.js";
-import { resolveArchiveKind } from "../infra/archive.js";
-import { buildPluginStatusReport } from "../plugins/status.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { renderTable } from "../terminal/table.js";
-import { theme } from "../terminal/theme.js";
-import { resolveUserPath, shortenHomePath } from "../utils.js";
-import { formatCliCommand } from "./command-format.js";
+} from "../hooks/install.ts";
+import { recordHookInstall } from "../hooks/installs.ts";
+import { loadWorkspaceHookEntries } from "../hooks/workspace.ts";
+import { resolveArchiveKind } from "../infra/archive.ts";
+import { buildPluginStatusReport } from "../plugins/status.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { renderTable } from "../terminal/table.ts";
+import { theme } from "../terminal/theme.ts";
+import { resolveUserPath, shortenHomePath } from "../utils.ts";
+import { formatCliCommand } from "./command-format.ts";
 
 export type HooksListOptions = {
   json?: boolean;
@@ -57,7 +57,7 @@ function mergeHookEntries(pluginEntries: HookEntry[], workspaceEntries: HookEntr
   return Array.from(merged.values());
 }
 
-function buildHooksReport(config: OpenClawConfig): HookStatusReport {
+function buildHooksReport(config: CmlHiveAssistConfig): HookStatusReport {
   const workspaceDir = resolveAgentWorkspaceDir(config, resolveDefaultAgentId(config));
   const workspaceEntries = loadWorkspaceHookEntries(workspaceDir, { config });
   const pluginReport = buildPluginStatusReport({ config, workspaceDir });
@@ -147,7 +147,7 @@ export function formatHooksList(report: HookStatusReport, opts: HooksListOptions
 
   if (hooks.length === 0) {
     const message = opts.eligible
-      ? `No eligible hooks found. Run \`${formatCliCommand("openclaw hooks list")}\` to see all hooks.`
+      ? `No eligible hooks found. Run \`${formatCliCommand("cml-hive-assist hooks list")}\` to see all hooks.`
       : "No hooks found.";
     return message;
   }
@@ -203,7 +203,7 @@ export function formatHookInfo(
     if (opts.json) {
       return JSON.stringify({ error: "not found", hook: hookName }, null, 2);
     }
-    return `Hook "${hookName}" not found. Run \`${formatCliCommand("openclaw hooks list")}\` to see available hooks.`;
+    return `Hook "${hookName}" not found. Run \`${formatCliCommand("cml-hive-assist hooks list")}\` to see available hooks.`;
   }
 
   if (opts.json) {
@@ -441,7 +441,7 @@ export function registerHooksCli(program: Command): void {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/hooks", "docs.openclaw.ai/cli/hooks")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/hooks", "docs.cml-hive-assist.ai/cli/hooks")}\n`,
     );
 
   hooks
@@ -550,7 +550,7 @@ export function registerHooksCli(program: Command): void {
             process.exit(1);
           }
 
-          let next: OpenClawConfig = {
+          let next: CmlHiveAssistConfig = {
             ...cfg,
             hooks: {
               ...cfg.hooks,
@@ -611,7 +611,7 @@ export function registerHooksCli(program: Command): void {
           process.exit(1);
         }
 
-        let next: OpenClawConfig = {
+        let next: CmlHiveAssistConfig = {
           ...cfg,
           hooks: {
             ...cfg.hooks,
@@ -691,7 +691,7 @@ export function registerHooksCli(program: Command): void {
         process.exit(1);
       }
 
-      let next: OpenClawConfig = {
+      let next: CmlHiveAssistConfig = {
         ...cfg,
         hooks: {
           ...cfg.hooks,

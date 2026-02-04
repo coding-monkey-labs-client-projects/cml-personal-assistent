@@ -1,8 +1,8 @@
 import type { AgentMessage, AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { ToolCallIdMode } from "../tool-call-id.js";
-import { sanitizeToolCallIdsForCloudCodeAssist } from "../tool-call-id.js";
-import { sanitizeContentBlocksImages } from "../tool-images.js";
-import { stripThoughtSignatures } from "./bootstrap.js";
+import type { ToolCallIdMode } from "../tool-call-id.ts";
+import { sanitizeToolCallIdsForCloudCodeAssist } from "../tool-call-id.ts";
+import { sanitizeContentBlocksImages } from "../tool-images.ts";
+import { stripThoughtSignatures } from "./bootstrap.ts";
 
 type ContentBlock = AgentToolResult<unknown>["content"][number];
 

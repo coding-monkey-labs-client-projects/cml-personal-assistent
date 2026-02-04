@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import { callGateway } from "../../gateway/call.js";
-import { isAcpSessionKey, normalizeMainKey } from "../../routing/session-key.js";
-import { sanitizeUserFacingText } from "../pi-embedded-helpers.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { callGateway } from "../../gateway/call.ts";
+import { isAcpSessionKey, normalizeMainKey } from "../../routing/session-key.ts";
+import { sanitizeUserFacingText } from "../pi-embedded-helpers.ts";
 import {
   stripDowngradedToolCallText,
   stripMinimaxToolCallXml,
   stripThinkingTagsFromText,
-} from "../pi-embedded-utils.js";
+} from "../pi-embedded-utils.ts";
 
 export type SessionKind = "main" | "group" | "cron" | "hook" | "node" | "other";
 
@@ -45,7 +45,7 @@ function normalizeKey(value?: string) {
   return trimmed ? trimmed : undefined;
 }
 
-export function resolveMainSessionAlias(cfg: OpenClawConfig) {
+export function resolveMainSessionAlias(cfg: CmlHiveAssistConfig) {
   const mainKey = normalizeMainKey(cfg.session?.mainKey);
   const scope = cfg.session?.scope ?? "per-sender";
   const alias = scope === "global" ? "global" : mainKey;
@@ -75,7 +75,7 @@ export type AgentToAgentPolicy = {
   isAllowed: (requesterAgentId: string, targetAgentId: string) => boolean;
 };
 
-export function createAgentToAgentPolicy(cfg: OpenClawConfig): AgentToAgentPolicy {
+export function createAgentToAgentPolicy(cfg: CmlHiveAssistConfig): AgentToAgentPolicy {
   const routingA2A = cfg.tools?.agentToAgent;
   const enabled = routingA2A?.enabled === true;
   const allowPatterns = Array.isArray(routingA2A?.allow) ? routingA2A.allow : [];

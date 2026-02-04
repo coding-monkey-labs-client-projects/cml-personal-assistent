@@ -7,7 +7,7 @@ import {
   getPageForTargetId,
   refLocator,
   restoreRoleRefsForTarget,
-} from "./pw-session.js";
+} from "./pw-session.ts";
 import {
   bumpDialogArmId,
   bumpDownloadArmId,
@@ -15,12 +15,12 @@ import {
   normalizeTimeoutMs,
   requireRef,
   toAIFriendlyError,
-} from "./pw-tools-core.shared.js";
+} from "./pw-tools-core.shared.ts";
 
 function buildTempDownloadPath(fileName: string): string {
   const id = crypto.randomUUID();
   const safeName = fileName.trim() ? fileName.trim() : "download.bin";
-  return path.join("/tmp/openclaw/downloads", `${id}-${safeName}`);
+  return path.join("/tmp/cml-hive-assist/downloads", `${id}-${safeName}`);
 }
 
 function createPageDownloadWaiter(page: Page, timeoutMs: number) {

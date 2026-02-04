@@ -1,14 +1,14 @@
 import path from "node:path";
-import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { MsgContext } from "../auto-reply/templating.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   MediaUnderstandingCapability,
   MediaUnderstandingDecision,
   MediaUnderstandingOutput,
   MediaUnderstandingProvider,
-} from "./types.js";
-import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.js";
-import { logVerbose, shouldLogVerbose } from "../globals.js";
+} from "./types.ts";
+import { finalizeInboundContext } from "../auto-reply/reply/inbound-context.ts";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
 import {
   DEFAULT_INPUT_FILE_MAX_BYTES,
   DEFAULT_INPUT_FILE_MAX_CHARS,
@@ -21,22 +21,22 @@ import {
   extractFileContentFromSource,
   normalizeMimeList,
   normalizeMimeType,
-} from "../media/input-files.js";
-import { resolveAttachmentKind } from "./attachments.js";
-import { runWithConcurrency } from "./concurrency.js";
+} from "../media/input-files.ts";
+import { resolveAttachmentKind } from "./attachments.ts";
+import { runWithConcurrency } from "./concurrency.ts";
 import {
   extractMediaUserText,
   formatAudioTranscripts,
   formatMediaUnderstandingBody,
-} from "./format.js";
-import { resolveConcurrency } from "./resolve.js";
+} from "./format.ts";
+import { resolveConcurrency } from "./resolve.ts";
 import {
   type ActiveMediaModel,
   buildProviderRegistry,
   createMediaAttachmentCache,
   normalizeMediaAttachments,
   runCapability,
-} from "./runner.js";
+} from "./runner.ts";
 
 export type ApplyMediaUnderstandingResult = {
   outputs: MediaUnderstandingOutput[];
@@ -105,7 +105,7 @@ function sanitizeMimeType(value?: string): string | undefined {
   return match?.[1];
 }
 
-function resolveFileLimits(cfg: OpenClawConfig) {
+function resolveFileLimits(cfg: CmlHiveAssistConfig) {
   const files = cfg.gateway?.http?.endpoints?.responses?.files;
   const allowedMimesConfigured = Boolean(files?.allowedMimes && files.allowedMimes.length > 0);
   return {
@@ -453,7 +453,7 @@ async function extractFileBlocks(params: {
 
 export async function applyMediaUnderstanding(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
   providers?: Record<string, MediaUnderstandingProvider>;
   activeModel?: ActiveMediaModel;

@@ -1,5 +1,5 @@
-import { diagnosticLogger as diag, logLaneDequeue, logLaneEnqueue } from "../logging/diagnostic.js";
-import { CommandLane } from "./lanes.js";
+import { diagnosticLogger as diag, logLaneDequeue, logLaneEnqueue } from "../logging/diagnostic.ts";
+import { CommandLane } from "./lanes.ts";
 
 // Minimal in-process queue to serialize command executions.
 // Default lane ("main") preserves the existing behavior. Additional lanes allow

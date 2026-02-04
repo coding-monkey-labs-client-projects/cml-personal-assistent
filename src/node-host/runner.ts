@@ -3,16 +3,16 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import fsPromises from "node:fs/promises";
 import path from "node:path";
-import { resolveAgentConfig } from "../agents/agent-scope.js";
-import { resolveBrowserConfig } from "../browser/config.js";
+import { resolveAgentConfig } from "../agents/agent-scope.ts";
+import { resolveBrowserConfig } from "../browser/config.ts";
 import {
   createBrowserControlContext,
   startBrowserControlServiceFromConfig,
-} from "../browser/control-service.js";
-import { createBrowserRouteDispatcher } from "../browser/routes/dispatcher.js";
-import { loadConfig } from "../config/config.js";
-import { GatewayClient } from "../gateway/client.js";
-import { loadOrCreateDeviceIdentity } from "../infra/device-identity.js";
+} from "../browser/control-service.ts";
+import { createBrowserRouteDispatcher } from "../browser/routes/dispatcher.ts";
+import { loadConfig } from "../config/config.ts";
+import { GatewayClient } from "../gateway/client.ts";
+import { loadOrCreateDeviceIdentity } from "../infra/device-identity.ts";
 import {
   addAllowlistEntry,
   analyzeArgvCommand,
@@ -32,19 +32,19 @@ import {
   type ExecApprovalsFile,
   type ExecAllowlistEntry,
   type ExecCommandSegment,
-} from "../infra/exec-approvals.js";
+} from "../infra/exec-approvals.ts";
 import {
   requestExecHostViaSocket,
   type ExecHostRequest,
   type ExecHostResponse,
   type ExecHostRunResult,
-} from "../infra/exec-host.js";
-import { getMachineDisplayName } from "../infra/machine-name.js";
-import { ensureOpenClawCliOnPath } from "../infra/path-env.js";
-import { detectMime } from "../media/mime.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
-import { VERSION } from "../version.js";
-import { ensureNodeHostConfig, saveNodeHostConfig, type NodeHostGatewayConfig } from "./config.js";
+} from "../infra/exec-host.ts";
+import { getMachineDisplayName } from "../infra/machine-name.ts";
+import { ensureCmlHiveAssistCliOnPath } from "../infra/path-env.ts";
+import { detectMime } from "../media/mime.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.ts";
+import { VERSION } from "../version.ts";
+import { ensureNodeHostConfig, saveNodeHostConfig, type NodeHostGatewayConfig } from "./config.ts";
 
 type NodeHostRunOptions = {
   gatewayHost: string;
@@ -149,9 +149,9 @@ const OUTPUT_EVENT_TAIL = 20_000;
 const DEFAULT_NODE_PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
 const BROWSER_PROXY_MAX_FILE_BYTES = 10 * 1024 * 1024;
 
-const execHostEnforced = process.env.OPENCLAW_NODE_EXEC_HOST?.trim().toLowerCase() === "app";
+const execHostEnforced = process.env.CML_HIVE_ASSIST_NODE_EXEC_HOST?.trim().toLowerCase() === "app";
 const execHostFallbackAllowed =
-  process.env.OPENCLAW_NODE_EXEC_FALLBACK?.trim().toLowerCase() !== "0";
+  process.env.CML_HIVE_ASSIST_NODE_EXEC_FALLBACK?.trim().toLowerCase() !== "0";
 
 const blockedEnvKeys = new Set([
   "NODE_OPTIONS",
@@ -482,7 +482,7 @@ function resolveEnvPath(env?: Record<string, string>): string[] {
 }
 
 function ensureNodePathEnv(): string {
-  ensureOpenClawCliOnPath({ pathEnv: process.env.PATH ?? "" });
+  ensureCmlHiveAssistCliOnPath({ pathEnv: process.env.PATH ?? "" });
   const current = process.env.PATH ?? "";
   if (current.trim()) {
     return current;
@@ -572,10 +572,10 @@ export async function runNodeHost(opts: NodeHostRunOptions): Promise<void> {
   const browserProxyEnabled = browserProxy.enabled && resolvedBrowser.enabled;
   const isRemoteMode = cfg.gateway?.mode === "remote";
   const token =
-    process.env.OPENCLAW_GATEWAY_TOKEN?.trim() ||
+    process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN?.trim() ||
     (isRemoteMode ? cfg.gateway?.remote?.token : cfg.gateway?.auth?.token);
   const password =
-    process.env.OPENCLAW_GATEWAY_PASSWORD?.trim() ||
+    process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD?.trim() ||
     (isRemoteMode ? cfg.gateway?.remote?.password : cfg.gateway?.auth?.password);
 
   const host = gateway.host ?? "127.0.0.1";

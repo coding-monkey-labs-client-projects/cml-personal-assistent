@@ -1,10 +1,10 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { GatewayMessageChannel } from "../../utils/message-channel.js";
-import type { AnyAgentTool } from "./common.js";
-import { loadConfig } from "../../config/config.js";
-import { textToSpeech } from "../../tts/tts.js";
-import { readStringParam } from "./common.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { GatewayMessageChannel } from "../../utils/message-channel.ts";
+import type { AnyAgentTool } from "./common.ts";
+import { loadConfig } from "../../config/config.ts";
+import { textToSpeech } from "../../tts/tts.ts";
+import { readStringParam } from "./common.ts";
 
 const TtsToolSchema = Type.Object({
   text: Type.String({ description: "Text to convert to speech." }),
@@ -14,7 +14,7 @@ const TtsToolSchema = Type.Object({
 });
 
 export function createTtsTool(opts?: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   agentChannel?: GatewayMessageChannel;
 }): AnyAgentTool {
   return {

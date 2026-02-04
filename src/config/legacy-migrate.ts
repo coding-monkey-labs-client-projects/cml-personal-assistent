@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "./types.js";
-import { applyLegacyMigrations } from "./legacy.js";
-import { validateConfigObjectWithPlugins } from "./validation.js";
+import type { CmlHiveAssistConfig } from "./types.ts";
+import { applyLegacyMigrations } from "./legacy.ts";
+import { validateConfigObjectWithPlugins } from "./validation.ts";
 
 export function migrateLegacyConfig(raw: unknown): {
-  config: OpenClawConfig | null;
+  config: CmlHiveAssistConfig | null;
   changes: string[];
 } {
   const { next, changes } = applyLegacyMigrations(raw);

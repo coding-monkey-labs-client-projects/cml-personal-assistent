@@ -1,10 +1,10 @@
 import type { Command } from "commander";
-import { sandboxExplainCommand } from "../commands/sandbox-explain.js";
-import { sandboxListCommand, sandboxRecreateCommand } from "../commands/sandbox.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { theme } from "../terminal/theme.js";
-import { formatHelpExamples } from "./help-format.js";
+import { sandboxExplainCommand } from "../commands/sandbox-explain.ts";
+import { sandboxListCommand, sandboxRecreateCommand } from "../commands/sandbox.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { theme } from "../terminal/theme.ts";
+import { formatHelpExamples } from "./help-format.ts";
 
 // --- Types ---
 
@@ -14,30 +14,33 @@ type CommandOptions = Record<string, unknown>;
 
 const SANDBOX_EXAMPLES = {
   main: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate agent containers."],
-    ["openclaw sandbox explain", "Explain effective sandbox config."],
+    ["cml-hive-assist sandbox list", "List all sandbox containers."],
+    ["cml-hive-assist sandbox list --browser", "List only browser containers."],
+    ["cml-hive-assist sandbox recreate --all", "Recreate all containers."],
+    ["cml-hive-assist sandbox recreate --session main", "Recreate a specific session."],
+    ["cml-hive-assist sandbox recreate --agent mybot", "Recreate agent containers."],
+    ["cml-hive-assist sandbox explain", "Explain effective sandbox config."],
   ],
   list: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox list --json", "JSON output."],
+    ["cml-hive-assist sandbox list", "List all sandbox containers."],
+    ["cml-hive-assist sandbox list --browser", "List only browser containers."],
+    ["cml-hive-assist sandbox list --json", "JSON output."],
   ],
   recreate: [
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
-    ["openclaw sandbox recreate --browser --all", "Recreate only browser containers."],
-    ["openclaw sandbox recreate --all --force", "Skip confirmation."],
+    ["cml-hive-assist sandbox recreate --all", "Recreate all containers."],
+    ["cml-hive-assist sandbox recreate --session main", "Recreate a specific session."],
+    [
+      "cml-hive-assist sandbox recreate --agent mybot",
+      "Recreate a specific agent (includes sub-agents).",
+    ],
+    ["cml-hive-assist sandbox recreate --browser --all", "Recreate only browser containers."],
+    ["cml-hive-assist sandbox recreate --all --force", "Skip confirmation."],
   ],
   explain: [
-    ["openclaw sandbox explain", "Show effective sandbox config."],
-    ["openclaw sandbox explain --session agent:main:main", "Explain a specific session."],
-    ["openclaw sandbox explain --agent work", "Explain an agent sandbox."],
-    ["openclaw sandbox explain --json", "JSON output."],
+    ["cml-hive-assist sandbox explain", "Show effective sandbox config."],
+    ["cml-hive-assist sandbox explain --session agent:main:main", "Explain a specific session."],
+    ["cml-hive-assist sandbox explain --agent work", "Explain an agent sandbox."],
+    ["cml-hive-assist sandbox explain --json", "JSON output."],
   ],
 } as const;
 
@@ -67,7 +70,7 @@ export function registerSandboxCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.openclaw.ai/cli/sandbox")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.cml-hive-assist.ai/cli/sandbox")}\n`,
     )
     .action(() => {
       sandbox.help({ error: true });

@@ -1,7 +1,7 @@
-import type { CronJobCreate, CronJobPatch } from "../../cron/types.js";
-import type { GatewayRequestHandlers } from "./types.js";
-import { normalizeCronJobCreate, normalizeCronJobPatch } from "../../cron/normalize.js";
-import { readCronRunLogEntries, resolveCronRunLogPath } from "../../cron/run-log.js";
+import type { CronJobCreate, CronJobPatch } from "../../cron/types.ts";
+import type { GatewayRequestHandlers } from "./types.ts";
+import { normalizeCronJobCreate, normalizeCronJobPatch } from "../../cron/normalize.ts";
+import { readCronRunLogEntries, resolveCronRunLogPath } from "../../cron/run-log.ts";
 import {
   ErrorCodes,
   errorShape,
@@ -14,7 +14,7 @@ import {
   validateCronStatusParams,
   validateCronUpdateParams,
   validateWakeParams,
-} from "../protocol/index.js";
+} from "../protocol/index.ts";
 
 export const cronHandlers: GatewayRequestHandlers = {
   wake: ({ params, respond, context }) => {

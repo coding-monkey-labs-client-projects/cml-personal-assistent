@@ -1,25 +1,25 @@
 import { webhookCallback } from "grammy";
 import { createServer } from "node:http";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { isDiagnosticsEnabled } from "../infra/diagnostic-events.js";
-import { formatErrorMessage } from "../infra/errors.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { isDiagnosticsEnabled } from "../infra/diagnostic-events.ts";
+import { formatErrorMessage } from "../infra/errors.ts";
 import {
   logWebhookError,
   logWebhookProcessed,
   logWebhookReceived,
   startDiagnosticHeartbeat,
   stopDiagnosticHeartbeat,
-} from "../logging/diagnostic.js";
-import { defaultRuntime } from "../runtime.js";
-import { resolveTelegramAllowedUpdates } from "./allowed-updates.js";
-import { withTelegramApiErrorLogging } from "./api-logging.js";
-import { createTelegramBot } from "./bot.js";
+} from "../logging/diagnostic.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { resolveTelegramAllowedUpdates } from "./allowed-updates.ts";
+import { withTelegramApiErrorLogging } from "./api-logging.ts";
+import { createTelegramBot } from "./bot.ts";
 
 export async function startTelegramWebhook(opts: {
   token: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   path?: string;
   port?: number;
   host?: string;

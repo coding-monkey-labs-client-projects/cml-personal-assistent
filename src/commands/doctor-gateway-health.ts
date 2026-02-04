@@ -1,14 +1,14 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
-import { collectChannelStatusIssues } from "../infra/channels-status-issues.js";
-import { note } from "../terminal/note.js";
-import { formatHealthCheckFailure } from "./health-format.js";
-import { healthCommand } from "./health.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.ts";
+import { collectChannelStatusIssues } from "../infra/channels-status-issues.ts";
+import { note } from "../terminal/note.ts";
+import { formatHealthCheckFailure } from "./health-format.ts";
+import { healthCommand } from "./health.ts";
 
 export async function checkGatewayHealth(params: {
   runtime: RuntimeEnv;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   timeoutMs?: number;
 }) {
   const gatewayDetails = buildGatewayConnectionDetails({ config: params.cfg });

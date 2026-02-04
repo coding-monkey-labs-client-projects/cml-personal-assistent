@@ -1,4 +1,4 @@
-import { isVoiceCompatibleAudio } from "../media/audio.js";
+import { isVoiceCompatibleAudio } from "../media/audio.ts";
 
 export function isTelegramVoiceCompatible(opts: {
   contentType?: string | null;

@@ -1,19 +1,19 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
 import {
   resolveTelegramInlineButtonsScope,
   resolveTelegramTargetChatType,
-} from "../../telegram/inline-buttons.js";
-import { resolveTelegramReactionLevel } from "../../telegram/reaction-level.js";
+} from "../../telegram/inline-buttons.ts";
+import { resolveTelegramReactionLevel } from "../../telegram/reaction-level.ts";
 import {
   deleteMessageTelegram,
   editMessageTelegram,
   reactMessageTelegram,
   sendMessageTelegram,
   sendStickerTelegram,
-} from "../../telegram/send.js";
-import { getCacheStats, searchStickers } from "../../telegram/sticker-cache.js";
-import { resolveTelegramToken } from "../../telegram/token.js";
+} from "../../telegram/send.ts";
+import { getCacheStats, searchStickers } from "../../telegram/sticker-cache.ts";
+import { resolveTelegramToken } from "../../telegram/token.ts";
 import {
   createActionGate,
   jsonResult,
@@ -21,7 +21,7 @@ import {
   readReactionParams,
   readStringOrNumberParam,
   readStringParam,
-} from "./common.js";
+} from "./common.ts";
 
 type TelegramButton = {
   text: string;
@@ -71,7 +71,7 @@ export function readTelegramButtons(
 
 export async function handleTelegramAction(
   params: Record<string, unknown>,
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
 ): Promise<AgentToolResult<unknown>> {
   const action = readStringParam(params, "action", { required: true });
   const accountId = readStringParam(params, "accountId");

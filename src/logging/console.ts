@@ -1,12 +1,12 @@
 import { createRequire } from "node:module";
 import util from "node:util";
-import type { OpenClawConfig } from "../config/types.js";
-import { isVerbose } from "../globals.js";
-import { stripAnsi } from "../terminal/ansi.js";
-import { readLoggingConfig } from "./config.js";
-import { type LogLevel, normalizeLogLevel } from "./levels.js";
-import { getLogger, type LoggerSettings } from "./logger.js";
-import { loggingState } from "./state.js";
+import type { CmlHiveAssistConfig } from "../config/types.ts";
+import { isVerbose } from "../globals.ts";
+import { stripAnsi } from "../terminal/ansi.ts";
+import { readLoggingConfig } from "./config.ts";
+import { type LogLevel, normalizeLogLevel } from "./levels.ts";
+import { getLogger, type LoggerSettings } from "./logger.ts";
+import { loggingState } from "./state.ts";
 
 export type ConsoleStyle = "pretty" | "compact" | "json";
 type ConsoleSettings = {
@@ -35,7 +35,7 @@ function normalizeConsoleStyle(style?: string): ConsoleStyle {
 }
 
 function resolveConsoleSettings(): ConsoleSettings {
-  let cfg: OpenClawConfig["logging"] | undefined =
+  let cfg: CmlHiveAssistConfig["logging"] | undefined =
     (loggingState.overrideSettings as LoggerSettings | null) ?? readLoggingConfig();
   if (!cfg) {
     if (loggingState.resolvingConsoleSettings) {
@@ -44,7 +44,7 @@ function resolveConsoleSettings(): ConsoleSettings {
       loggingState.resolvingConsoleSettings = true;
       try {
         const loaded = requireConfig("../config/config.js") as {
-          loadConfig?: () => OpenClawConfig;
+          loadConfig?: () => CmlHiveAssistConfig;
         };
         cfg = loaded.loadConfig?.().logging;
       } catch {

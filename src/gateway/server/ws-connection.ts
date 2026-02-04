@@ -1,18 +1,18 @@
 import type { WebSocket, WebSocketServer } from "ws";
 import { randomUUID } from "node:crypto";
-import type { createSubsystemLogger } from "../../logging/subsystem.js";
-import type { ResolvedGatewayAuth } from "../auth.js";
-import type { GatewayRequestContext, GatewayRequestHandlers } from "../server-methods/types.js";
-import type { GatewayWsClient } from "./ws-types.js";
-import { resolveCanvasHostUrl } from "../../infra/canvas-host-url.js";
-import { listSystemPresence, upsertPresence } from "../../infra/system-presence.js";
-import { isWebchatClient } from "../../utils/message-channel.js";
-import { isLoopbackAddress } from "../net.js";
-import { getHandshakeTimeoutMs } from "../server-constants.js";
-import { formatError } from "../server-utils.js";
-import { logWs } from "../ws-log.js";
-import { getHealthVersion, getPresenceVersion, incrementPresenceVersion } from "./health-state.js";
-import { attachGatewayWsMessageHandler } from "./ws-connection/message-handler.js";
+import type { createSubsystemLogger } from "../../logging/subsystem.ts";
+import type { ResolvedGatewayAuth } from "../auth.ts";
+import type { GatewayRequestContext, GatewayRequestHandlers } from "../server-methods/types.ts";
+import type { GatewayWsClient } from "./ws-types.ts";
+import { resolveCanvasHostUrl } from "../../infra/canvas-host-url.ts";
+import { listSystemPresence, upsertPresence } from "../../infra/system-presence.ts";
+import { isWebchatClient } from "../../utils/message-channel.ts";
+import { isLoopbackAddress } from "../net.ts";
+import { getHandshakeTimeoutMs } from "../server-constants.ts";
+import { formatError } from "../server-utils.ts";
+import { logWs } from "../ws-log.ts";
+import { getHealthVersion, getPresenceVersion, incrementPresenceVersion } from "./health-state.ts";
+import { attachGatewayWsMessageHandler } from "./ws-connection/message-handler.ts";
 
 type SubsystemLogger = ReturnType<typeof createSubsystemLogger>;
 

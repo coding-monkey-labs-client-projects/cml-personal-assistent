@@ -1,6 +1,6 @@
 import type { AgentSession } from "@mariozechner/pi-coding-agent";
-import type { ReasoningLevel, VerboseLevel } from "../auto-reply/thinking.js";
-import type { BlockReplyChunking } from "./pi-embedded-block-chunker.js";
+import type { ReasoningLevel, VerboseLevel } from "../auto-reply/thinking.ts";
+import type { BlockReplyChunking } from "./pi-embedded-block-chunker.ts";
 
 export type ToolResultFormat = "markdown" | "plain";
 
@@ -32,4 +32,4 @@ export type SubscribeEmbeddedPiSessionParams = {
   enforceFinalTag?: boolean;
 };
 
-export type { BlockReplyChunking } from "./pi-embedded-block-chunker.js";
+export type { BlockReplyChunking } from "./pi-embedded-block-chunker.ts";

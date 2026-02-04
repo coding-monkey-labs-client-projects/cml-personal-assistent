@@ -1,4 +1,4 @@
-import OpenClawKit
+import CmlHiveAssistKit
 import Darwin
 import Foundation
 import Network
@@ -283,7 +283,7 @@ final class GatewayConnectionController {
             caps: self.currentCaps(),
             commands: self.currentCommands(),
             permissions: [:],
-            clientId: "openclaw-ios",
+            clientId: "cml-hive-assist-ios",
             clientMode: "node",
             clientDisplayName: displayName)
     }
@@ -304,51 +304,51 @@ final class GatewayConnectionController {
     }
 
     private func currentCaps() -> [String] {
-        var caps = [OpenClawCapability.canvas.rawValue, OpenClawCapability.screen.rawValue]
+        var caps = [CmlHiveAssistCapability.canvas.rawValue, CmlHiveAssistCapability.screen.rawValue]
 
         // Default-on: if the key doesn't exist yet, treat it as enabled.
         let cameraEnabled =
             UserDefaults.standard.object(forKey: "camera.enabled") == nil
                 ? true
                 : UserDefaults.standard.bool(forKey: "camera.enabled")
-        if cameraEnabled { caps.append(OpenClawCapability.camera.rawValue) }
+        if cameraEnabled { caps.append(CmlHiveAssistCapability.camera.rawValue) }
 
         let voiceWakeEnabled = UserDefaults.standard.bool(forKey: VoiceWakePreferences.enabledKey)
-        if voiceWakeEnabled { caps.append(OpenClawCapability.voiceWake.rawValue) }
+        if voiceWakeEnabled { caps.append(CmlHiveAssistCapability.voiceWake.rawValue) }
 
         let locationModeRaw = UserDefaults.standard.string(forKey: "location.enabledMode") ?? "off"
-        let locationMode = OpenClawLocationMode(rawValue: locationModeRaw) ?? .off
-        if locationMode != .off { caps.append(OpenClawCapability.location.rawValue) }
+        let locationMode = CmlHiveAssistLocationMode(rawValue: locationModeRaw) ?? .off
+        if locationMode != .off { caps.append(CmlHiveAssistCapability.location.rawValue) }
 
         return caps
     }
 
     private func currentCommands() -> [String] {
         var commands: [String] = [
-            OpenClawCanvasCommand.present.rawValue,
-            OpenClawCanvasCommand.hide.rawValue,
-            OpenClawCanvasCommand.navigate.rawValue,
-            OpenClawCanvasCommand.evalJS.rawValue,
-            OpenClawCanvasCommand.snapshot.rawValue,
-            OpenClawCanvasA2UICommand.push.rawValue,
-            OpenClawCanvasA2UICommand.pushJSONL.rawValue,
-            OpenClawCanvasA2UICommand.reset.rawValue,
-            OpenClawScreenCommand.record.rawValue,
-            OpenClawSystemCommand.notify.rawValue,
-            OpenClawSystemCommand.which.rawValue,
-            OpenClawSystemCommand.run.rawValue,
-            OpenClawSystemCommand.execApprovalsGet.rawValue,
-            OpenClawSystemCommand.execApprovalsSet.rawValue,
+            CmlHiveAssistCanvasCommand.present.rawValue,
+            CmlHiveAssistCanvasCommand.hide.rawValue,
+            CmlHiveAssistCanvasCommand.navigate.rawValue,
+            CmlHiveAssistCanvasCommand.evalJS.rawValue,
+            CmlHiveAssistCanvasCommand.snapshot.rawValue,
+            CmlHiveAssistCanvasA2UICommand.push.rawValue,
+            CmlHiveAssistCanvasA2UICommand.pushJSONL.rawValue,
+            CmlHiveAssistCanvasA2UICommand.reset.rawValue,
+            CmlHiveAssistScreenCommand.record.rawValue,
+            CmlHiveAssistSystemCommand.notify.rawValue,
+            CmlHiveAssistSystemCommand.which.rawValue,
+            CmlHiveAssistSystemCommand.run.rawValue,
+            CmlHiveAssistSystemCommand.execApprovalsGet.rawValue,
+            CmlHiveAssistSystemCommand.execApprovalsSet.rawValue,
         ]
 
         let caps = Set(self.currentCaps())
-        if caps.contains(OpenClawCapability.camera.rawValue) {
-            commands.append(OpenClawCameraCommand.list.rawValue)
-            commands.append(OpenClawCameraCommand.snap.rawValue)
-            commands.append(OpenClawCameraCommand.clip.rawValue)
+        if caps.contains(CmlHiveAssistCapability.camera.rawValue) {
+            commands.append(CmlHiveAssistCameraCommand.list.rawValue)
+            commands.append(CmlHiveAssistCameraCommand.snap.rawValue)
+            commands.append(CmlHiveAssistCameraCommand.clip.rawValue)
         }
-        if caps.contains(OpenClawCapability.location.rawValue) {
-            commands.append(OpenClawLocationCommand.get.rawValue)
+        if caps.contains(CmlHiveAssistCapability.location.rawValue) {
+            commands.append(CmlHiveAssistLocationCommand.get.rawValue)
         }
 
         return commands

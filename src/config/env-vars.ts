@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "./types.js";
+import type { CmlHiveAssistConfig } from "./types.ts";
 
-export function collectConfigEnvVars(cfg?: OpenClawConfig): Record<string, string> {
+export function collectConfigEnvVars(cfg?: CmlHiveAssistConfig): Record<string, string> {
   const envConfig = cfg?.env;
   if (!envConfig) {
     return {};

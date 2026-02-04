@@ -1,7 +1,7 @@
-import type { loadConfig } from "../../../config/config.js";
-import type { WebInboundMsg } from "../types.js";
-import { resolveMessagePrefix } from "../../../agents/identity.js";
-import { formatInboundEnvelope, type EnvelopeFormatOptions } from "../../../auto-reply/envelope.js";
+import type { loadConfig } from "../../../config/config.ts";
+import type { WebInboundMsg } from "../types.ts";
+import { resolveMessagePrefix } from "../../../agents/identity.ts";
+import { formatInboundEnvelope, type EnvelopeFormatOptions } from "../../../auto-reply/envelope.ts";
 
 export function formatReplyContext(msg: WebInboundMsg) {
   if (!msg.replyToBody) {

@@ -1,21 +1,21 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { ProviderAuthMethod, ProviderPlugin } from "../plugins/types.js";
-import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
-import { resolveOpenClawAgentDir } from "../agents/agent-paths.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { ProviderAuthMethod, ProviderPlugin } from "../plugins/types.ts";
+import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.ts";
+import { resolveCmlHiveAssistAgentDir } from "../agents/agent-paths.ts";
 import {
   resolveDefaultAgentId,
   resolveAgentDir,
   resolveAgentWorkspaceDir,
-} from "../agents/agent-scope.js";
-import { upsertAuthProfile } from "../agents/auth-profiles.js";
-import { normalizeProviderId } from "../agents/model-selection.js";
-import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace.js";
-import { enablePluginInConfig } from "../plugins/enable.js";
-import { resolvePluginProviders } from "../plugins/providers.js";
-import { isRemoteEnvironment } from "./oauth-env.js";
-import { createVpsAwareOAuthHandlers } from "./oauth-flow.js";
-import { applyAuthProfileConfig } from "./onboard-auth.js";
-import { openUrl } from "./onboard-helpers.js";
+} from "../agents/agent-scope.ts";
+import { upsertAuthProfile } from "../agents/auth-profiles.ts";
+import { normalizeProviderId } from "../agents/model-selection.ts";
+import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace.ts";
+import { enablePluginInConfig } from "../plugins/enable.ts";
+import { resolvePluginProviders } from "../plugins/providers.ts";
+import { isRemoteEnvironment } from "./oauth-env.ts";
+import { createVpsAwareOAuthHandlers } from "./oauth-flow.ts";
+import { applyAuthProfileConfig } from "./onboard-auth.ts";
+import { openUrl } from "./onboard-helpers.ts";
 
 export type PluginProviderAuthChoiceOptions = {
   authChoice: string;
@@ -74,7 +74,7 @@ function mergeConfigPatch<T>(base: T, patch: unknown): T {
   return next as T;
 }
 
-function applyDefaultModel(cfg: OpenClawConfig, model: string): OpenClawConfig {
+function applyDefaultModel(cfg: CmlHiveAssistConfig, model: string): CmlHiveAssistConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[model] = models[model] ?? {};
 
@@ -119,7 +119,7 @@ export async function applyAuthChoicePluginProvider(
   const defaultAgentId = resolveDefaultAgentId(nextConfig);
   const agentDir =
     params.agentDir ??
-    (agentId === defaultAgentId ? resolveOpenClawAgentDir() : resolveAgentDir(nextConfig, agentId));
+    (agentId === defaultAgentId ? resolveCmlHiveAssistAgentDir() : resolveAgentDir(nextConfig, agentId));
   const workspaceDir =
     resolveAgentWorkspaceDir(nextConfig, agentId) ?? resolveDefaultAgentWorkspaceDir();
 

@@ -1,4 +1,4 @@
-import { HEARTBEAT_TOKEN } from "./tokens.js";
+import { HEARTBEAT_TOKEN } from "./tokens.ts";
 
 // Default heartbeat prompt (used when config.agents.defaults.heartbeat.prompt is unset).
 // Keep it tight and avoid encouraging the model to invent/rehash "open loops" from prior chat context.

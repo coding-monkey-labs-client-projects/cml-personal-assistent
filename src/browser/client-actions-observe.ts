@@ -1,10 +1,10 @@
-import type { BrowserActionPathResult, BrowserActionTargetOk } from "./client-actions-types.js";
+import type { BrowserActionPathResult, BrowserActionTargetOk } from "./client-actions-types.ts";
 import type {
   BrowserConsoleMessage,
   BrowserNetworkRequest,
   BrowserPageError,
-} from "./pw-session.js";
-import { fetchBrowserJson } from "./client-fetch.js";
+} from "./pw-session.ts";
+import { fetchBrowserJson } from "./client-fetch.ts";
 
 function buildProfileQuery(profile?: string): string {
   return profile ? `?profile=${encodeURIComponent(profile)}` : "";

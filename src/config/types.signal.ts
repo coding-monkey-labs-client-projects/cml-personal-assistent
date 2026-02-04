@@ -3,9 +3,9 @@ import type {
   DmPolicy,
   GroupPolicy,
   MarkdownConfig,
-} from "./types.base.js";
-import type { ChannelHeartbeatVisibilityConfig } from "./types.channels.js";
-import type { DmConfig } from "./types.messages.js";
+} from "./types.base.ts";
+import type { ChannelHeartbeatVisibilityConfig } from "./types.channels.ts";
+import type { DmConfig } from "./types.messages.ts";
 
 export type SignalReactionNotificationMode = "off" | "own" | "all" | "allowlist";
 export type SignalReactionLevel = "off" | "ack" | "minimal" | "extensive";

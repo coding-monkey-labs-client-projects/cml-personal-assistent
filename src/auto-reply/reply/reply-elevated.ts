@@ -1,11 +1,11 @@
-import type { AgentElevatedAllowFromConfig, OpenClawConfig } from "../../config/config.js";
-import type { MsgContext } from "../templating.js";
-import { resolveAgentConfig } from "../../agents/agent-scope.js";
-import { getChannelDock } from "../../channels/dock.js";
-import { normalizeChannelId } from "../../channels/plugins/index.js";
-import { CHAT_CHANNEL_ORDER } from "../../channels/registry.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.js";
+import type { AgentElevatedAllowFromConfig, CmlHiveAssistConfig } from "../../config/config.ts";
+import type { MsgContext } from "../templating.ts";
+import { resolveAgentConfig } from "../../agents/agent-scope.ts";
+import { getChannelDock } from "../../channels/dock.ts";
+import { normalizeChannelId } from "../../channels/plugins/index.ts";
+import { CHAT_CHANNEL_ORDER } from "../../channels/registry.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { INTERNAL_MESSAGE_CHANNEL } from "../../utils/message-channel.ts";
 
 function normalizeAllowToken(value?: string) {
   if (!value) {
@@ -132,7 +132,7 @@ function isApprovedElevatedSender(params: {
 }
 
 export function resolveElevatedPermissions(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   ctx: MsgContext;
   provider: string;
@@ -226,7 +226,7 @@ export function formatElevatedUnavailableMessage(params: {
   lines.push("- agents.list[].tools.elevated.allowFrom.<provider>");
   if (params.sessionKey) {
     lines.push(
-      `See: ${formatCliCommand(`openclaw sandbox explain --session ${params.sessionKey}`)}`,
+      `See: ${formatCliCommand(`cml-hive-assist sandbox explain --session ${params.sessionKey}`)}`,
     );
   }
   return lines.join("\n");

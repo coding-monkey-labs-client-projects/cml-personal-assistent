@@ -8,12 +8,44 @@ title: "Control UI"
 
 # Control UI (browser)
 
-The Control UI is a small **Vite + Lit** single-page app served by the Gateway:
+The Control UI is a **Vite + Lit** single-page app served by the Gateway:
 
 - default: `http://<host>:18789/`
-- optional prefix: set `gateway.controlUi.basePath` (e.g. `/openclaw`)
+- optional prefix: set `gateway.controlUi.basePath` (e.g. `/cml-hive-assist`)
 
 It speaks **directly to the Gateway WebSocket** on the same port.
+
+## UI versions
+
+There are two Control UI implementations:
+
+| Version                   | Source                | Build Output               | Status                 |
+| ------------------------- | --------------------- | -------------------------- | ---------------------- |
+| **Control UI** (original) | `ui/`                 | `dist/control-ui/`         | Default, full-featured |
+| **Control UI V2**         | `cml-hive-assist-ui/` | `dist/cml-hive-assist-ui/` | Redesigned interface   |
+
+**Control UI V2** features a modern redesigned interface with:
+
+- **Chat** — Conversational interface with the assistant
+- **Channels** — WhatsApp, Telegram, Slack channel management
+- **Agents** — Agent configuration and monitoring
+- **Config** — Gateway configuration editor
+- **Logs** — Live log viewer
+
+To switch to UI V2, configure the asset path:
+
+```json5
+{
+  gateway: {
+    controlUi: {
+      enabled: true,
+      assetPath: "dist/cml-hive-assist-ui",
+    },
+  },
+}
+```
+
+The sections below describe the **original Control UI** unless otherwise noted. Both UIs use the same Gateway WebSocket protocol.
 
 ## Quick open (local)
 
@@ -21,7 +53,7 @@ If the Gateway is running on the same computer, open:
 
 - http://127.0.0.1:18789/ (or http://localhost:18789/)
 
-If the page fails to load, start the Gateway first: `openclaw gateway`.
+If the page fails to load, start the Gateway first: `cml-hive-assist gateway`.
 
 Auth is supplied during the WebSocket handshake via:
 
@@ -43,14 +75,14 @@ unauthorized access.
 
 ```bash
 # List pending requests
-openclaw devices list
+cml-hive-assist devices list
 
 # Approve by request ID
-openclaw devices approve <requestId>
+cml-hive-assist devices approve <requestId>
 ```
 
 Once approved, the device is remembered and won't require re-approval unless
-you revoke it with `openclaw devices revoke --device <id> --role <role>`. See
+you revoke it with `cml-hive-assist devices revoke --device <id> --role <role>`. See
 [Devices CLI](/cli/devices) for token rotation and revocation.
 
 **Notes:**
@@ -71,7 +103,7 @@ you revoke it with `openclaw devices revoke --device <id> --role <role>`. See
 - Skills: status, enable/disable, install, API key updates (`skills.*`)
 - Nodes: list + caps (`node.list`)
 - Exec approvals: edit gateway or node allowlists + ask policy for `exec host=gateway/node` (`exec.approvals.*`)
-- Config: view/edit `~/.openclaw/openclaw.json` (`config.get`, `config.set`)
+- Config: view/edit `~/.cml-hive-assist/cml-hive-assist.json` (`config.get`, `config.set`)
 - Config: apply + restart with validation (`config.apply`) and wake the last active session
 - Config writes include a base-hash guard to prevent clobbering concurrent edits
 - Config schema + form rendering (`config.schema`, including plugin + channel schemas); Raw JSON editor remains available
@@ -96,7 +128,7 @@ you revoke it with `openclaw devices revoke --device <id> --role <role>`. See
 Keep the Gateway on loopback and let Tailscale Serve proxy it with HTTPS:
 
 ```bash
-openclaw gateway --tailscale serve
+cml-hive-assist gateway --tailscale serve
 ```
 
 Open:
@@ -104,7 +136,7 @@ Open:
 - `https://<magicdns>/` (or your configured `gateway.controlUi.basePath`)
 
 By default, Serve requests can authenticate via Tailscale identity headers
-(`tailscale-user-login`) when `gateway.auth.allowTailscale` is `true`. OpenClaw
+(`tailscale-user-login`) when `gateway.auth.allowTailscale` is `true`. CmlHiveAssist
 verifies the identity by resolving the `x-forwarded-for` address with
 `tailscale whois` and matching it to the header, and only accepts these when the
 request hits loopback with Tailscale’s `x-forwarded-*` headers. Set
@@ -114,7 +146,7 @@ if you want to require a token/password even for Serve traffic.
 ### Bind to tailnet + token
 
 ```bash
-openclaw gateway --bind tailnet --token "$(openssl rand -hex 32)"
+cml-hive-assist gateway --bind tailnet --token "$(openssl rand -hex 32)"
 ```
 
 Then open:
@@ -127,7 +159,7 @@ Paste the token into the UI settings (sent as `connect.params.auth.token`).
 
 If you open the dashboard over plain HTTP (`http://<lan-ip>` or `http://<tailscale-ip>`),
 the browser runs in a **non-secure context** and blocks WebCrypto. By default,
-OpenClaw **blocks** Control UI connections without device identity.
+CmlHiveAssist **blocks** Control UI connections without device identity.
 
 **Recommended fix:** use HTTPS (Tailscale Serve) or open the UI locally:
 
@@ -153,25 +185,43 @@ See [Tailscale](/gateway/tailscale) for HTTPS setup guidance.
 
 ## Building the UI
 
-The Gateway serves static files from `dist/control-ui`. Build them with:
+The Gateway serves static files from `dist/control-ui` (original) or `dist/cml-hive-assist-ui` (V2).
+
+### Original Control UI
 
 ```bash
-pnpm ui:build # auto-installs UI deps on first run
+# Build
+pnpm ui:build
+
+# Development server
+pnpm ui:dev
 ```
 
-Optional absolute base (when you want fixed asset URLs):
+### Control UI V2
 
 ```bash
-OPENCLAW_CONTROL_UI_BASE_PATH=/openclaw/ pnpm ui:build
+# Build
+pnpm ui2:build
+
+# Development server (from cml-hive-assist-ui directory)
+cd cml-hive-assist-ui && pnpm dev
 ```
 
-For local development (separate dev server):
+### Build both
 
 ```bash
-pnpm ui:dev # auto-installs UI deps on first run
+pnpm ui:build && pnpm ui2:build
 ```
 
-Then point the UI at your Gateway WS URL (e.g. `ws://127.0.0.1:18789`).
+### Optional absolute base (original UI)
+
+When you want fixed asset URLs:
+
+```bash
+CML_HIVE_ASSIST_CONTROL_UI_BASE_PATH=/cml-hive-assist/ pnpm ui:build
+```
+
+After building, point the UI at your Gateway WS URL (e.g. `ws://127.0.0.1:18789`).
 
 ## Debugging/testing: dev server + remote Gateway
 

@@ -1,27 +1,27 @@
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { DiscordGuildEntry } from "../../../config/types.discord.js";
-import type { DmPolicy } from "../../../config/types.js";
-import type { WizardPrompter } from "../../../wizard/prompts.js";
-import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { DiscordGuildEntry } from "../../../config/types.discord.ts";
+import type { DmPolicy } from "../../../config/types.ts";
+import type { WizardPrompter } from "../../../wizard/prompts.ts";
+import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.ts";
 import {
   listDiscordAccountIds,
   resolveDefaultDiscordAccountId,
   resolveDiscordAccount,
-} from "../../../discord/accounts.js";
-import { normalizeDiscordSlug } from "../../../discord/monitor/allow-list.js";
+} from "../../../discord/accounts.ts";
+import { normalizeDiscordSlug } from "../../../discord/monitor/allow-list.ts";
 import {
   resolveDiscordChannelAllowlist,
   type DiscordChannelResolution,
-} from "../../../discord/resolve-channels.js";
-import { resolveDiscordUserAllowlist } from "../../../discord/resolve-users.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.js";
-import { formatDocsLink } from "../../../terminal/links.js";
-import { promptChannelAccessConfig } from "./channel-access.js";
-import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
+} from "../../../discord/resolve-channels.ts";
+import { resolveDiscordUserAllowlist } from "../../../discord/resolve-users.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../../routing/session-key.ts";
+import { formatDocsLink } from "../../../terminal/links.ts";
+import { promptChannelAccessConfig } from "./channel-access.ts";
+import { addWildcardAllowFrom, promptAccountId } from "./helpers.ts";
 
 const channel = "discord" as const;
 
-function setDiscordDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy) {
+function setDiscordDmPolicy(cfg: CmlHiveAssistConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.discord?.dm?.allowFrom) : undefined;
   return {
@@ -55,10 +55,10 @@ async function noteDiscordTokenHelp(prompter: WizardPrompter): Promise<void> {
 }
 
 function setDiscordGroupPolicy(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -93,13 +93,13 @@ function setDiscordGroupPolicy(
 }
 
 function setDiscordGuildChannelAllowlist(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   accountId: string,
   entries: Array<{
     guildKey: string;
     channelKey?: string;
   }>,
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const baseGuilds =
     accountId === DEFAULT_ACCOUNT_ID
       ? (cfg.channels?.discord?.guilds ?? {})
@@ -149,7 +149,7 @@ function setDiscordGuildChannelAllowlist(
   };
 }
 
-function setDiscordAllowFrom(cfg: OpenClawConfig, allowFrom: string[]): OpenClawConfig {
+function setDiscordAllowFrom(cfg: CmlHiveAssistConfig, allowFrom: string[]): CmlHiveAssistConfig {
   return {
     ...cfg,
     channels: {
@@ -174,10 +174,10 @@ function parseDiscordAllowFromInput(raw: string): string[] {
 }
 
 async function promptDiscordAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<CmlHiveAssistConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)

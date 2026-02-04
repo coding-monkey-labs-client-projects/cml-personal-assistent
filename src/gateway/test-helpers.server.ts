@@ -4,22 +4,22 @@ import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, expect, vi } from "vitest";
 import { WebSocket } from "ws";
-import type { GatewayServerOptions } from "./server.js";
-import { resolveMainSessionKeyFromConfig, type SessionEntry } from "../config/sessions.js";
-import { resetAgentRunContextForTest } from "../infra/agent-events.js";
+import type { GatewayServerOptions } from "./server.ts";
+import { resolveMainSessionKeyFromConfig, type SessionEntry } from "../config/sessions.ts";
+import { resetAgentRunContextForTest } from "../infra/agent-events.ts";
 import {
   loadOrCreateDeviceIdentity,
   publicKeyRawBase64UrlFromPem,
   signDevicePayload,
-} from "../infra/device-identity.js";
-import { drainSystemEvents, peekSystemEvents } from "../infra/system-events.js";
-import { rawDataToString } from "../infra/ws.js";
-import { resetLogger, setLoggerOverride } from "../logging.js";
-import { DEFAULT_AGENT_ID, toAgentStoreSessionKey } from "../routing/session-key.js";
-import { getDeterministicFreePortBlock } from "../test-utils/ports.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
-import { buildDeviceAuthPayload } from "./device-auth.js";
-import { PROTOCOL_VERSION } from "./protocol/index.js";
+} from "../infra/device-identity.ts";
+import { drainSystemEvents, peekSystemEvents } from "../infra/system-events.ts";
+import { rawDataToString } from "../infra/ws.ts";
+import { resetLogger, setLoggerOverride } from "../logging.ts";
+import { DEFAULT_AGENT_ID, toAgentStoreSessionKey } from "../routing/session-key.ts";
+import { getDeterministicFreePortBlock } from "../test-utils/ports.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.ts";
+import { buildDeviceAuthPayload } from "./device-auth.ts";
+import { PROTOCOL_VERSION } from "./protocol/index.ts";
 import {
   agentCommand,
   cronIsolatedRun,
@@ -31,11 +31,11 @@ import {
   testTailscaleWhois,
   testState,
   testTailnetIPv4,
-} from "./test-helpers.mocks.js";
+} from "./test-helpers.mocks.ts";
 
 // Preload the gateway server module once per worker.
 // Important: `test-helpers.mocks` must run before importing the server so vi.mock hooks apply.
-const serverModulePromise = import("./server.js");
+const serverModulePromise = import("./server.ts");
 
 let previousHome: string | undefined;
 let previousUserProfile: string | undefined;
@@ -78,22 +78,22 @@ export async function writeSessionStore(params: {
 async function setupGatewayTestHome() {
   previousHome = process.env.HOME;
   previousUserProfile = process.env.USERPROFILE;
-  previousStateDir = process.env.OPENCLAW_STATE_DIR;
-  previousConfigPath = process.env.OPENCLAW_CONFIG_PATH;
-  previousSkipBrowserControl = process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER;
-  previousSkipGmailWatcher = process.env.OPENCLAW_SKIP_GMAIL_WATCHER;
-  previousSkipCanvasHost = process.env.OPENCLAW_SKIP_CANVAS_HOST;
-  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-home-"));
+  previousStateDir = process.env.CML_HIVE_ASSIST_STATE_DIR;
+  previousConfigPath = process.env.CML_HIVE_ASSIST_CONFIG_PATH;
+  previousSkipBrowserControl = process.env.CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER;
+  previousSkipGmailWatcher = process.env.CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER;
+  previousSkipCanvasHost = process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST;
+  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".openclaw");
-  delete process.env.OPENCLAW_CONFIG_PATH;
+  process.env.CML_HIVE_ASSIST_STATE_DIR = path.join(tempHome, ".cml-hive-assist");
+  delete process.env.CML_HIVE_ASSIST_CONFIG_PATH;
 }
 
 function applyGatewaySkipEnv() {
-  process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = "1";
-  process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
-  process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
+  process.env.CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER = "1";
+  process.env.CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER = "1";
+  process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST = "1";
 }
 
 async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
@@ -105,8 +105,8 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
   }
   applyGatewaySkipEnv();
   tempConfigRoot = options.uniqueConfigRoot
-    ? await fs.mkdtemp(path.join(tempHome, "openclaw-test-"))
-    : path.join(tempHome, ".openclaw-test");
+    ? await fs.mkdtemp(path.join(tempHome, "cml-hive-assist-test-"))
+    : path.join(tempHome, ".cml-hive-assist-test");
   setTestConfigRoot(tempConfigRoot);
   sessionStoreSaveDelayMs.value = 0;
   testTailnetIPv4.value = undefined;
@@ -160,29 +160,29 @@ async function cleanupGatewayTestHome(options: { restoreEnv: boolean }) {
       process.env.USERPROFILE = previousUserProfile;
     }
     if (previousStateDir === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.CML_HIVE_ASSIST_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previousStateDir;
+      process.env.CML_HIVE_ASSIST_STATE_DIR = previousStateDir;
     }
     if (previousConfigPath === undefined) {
-      delete process.env.OPENCLAW_CONFIG_PATH;
+      delete process.env.CML_HIVE_ASSIST_CONFIG_PATH;
     } else {
-      process.env.OPENCLAW_CONFIG_PATH = previousConfigPath;
+      process.env.CML_HIVE_ASSIST_CONFIG_PATH = previousConfigPath;
     }
     if (previousSkipBrowserControl === undefined) {
-      delete process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER;
+      delete process.env.CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER;
     } else {
-      process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = previousSkipBrowserControl;
+      process.env.CML_HIVE_ASSIST_SKIP_BROWSER_CONTROL_SERVER = previousSkipBrowserControl;
     }
     if (previousSkipGmailWatcher === undefined) {
-      delete process.env.OPENCLAW_SKIP_GMAIL_WATCHER;
+      delete process.env.CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER;
     } else {
-      process.env.OPENCLAW_SKIP_GMAIL_WATCHER = previousSkipGmailWatcher;
+      process.env.CML_HIVE_ASSIST_SKIP_GMAIL_WATCHER = previousSkipGmailWatcher;
     }
     if (previousSkipCanvasHost === undefined) {
-      delete process.env.OPENCLAW_SKIP_CANVAS_HOST;
+      delete process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST;
     } else {
-      process.env.OPENCLAW_SKIP_CANVAS_HOST = previousSkipCanvasHost;
+      process.env.CML_HIVE_ASSIST_SKIP_CANVAS_HOST = previousSkipCanvasHost;
     }
   }
   if (options.restoreEnv && tempHome) {
@@ -280,7 +280,7 @@ export async function startGatewayServer(port: number, opts?: GatewayServerOptio
 
 export async function startServerWithClient(token?: string, opts?: GatewayServerOptions) {
   let port = await getFreePort();
-  const prev = process.env.OPENCLAW_GATEWAY_TOKEN;
+  const prev = process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
   if (typeof token === "string") {
     testState.gatewayAuth = { mode: "token", token };
   }
@@ -290,9 +290,9 @@ export async function startServerWithClient(token?: string, opts?: GatewayServer
       ? (testState.gatewayAuth as { token?: string }).token
       : undefined);
   if (fallbackToken === undefined) {
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
+    delete process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
   } else {
-    process.env.OPENCLAW_GATEWAY_TOKEN = fallbackToken;
+    process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN = fallbackToken;
   }
 
   let server: Awaited<ReturnType<typeof startGatewayServer>> | null = null;
@@ -371,13 +371,13 @@ export async function connectReq(
       ? undefined
       : typeof (testState.gatewayAuth as { token?: unknown } | undefined)?.token === "string"
         ? ((testState.gatewayAuth as { token?: string }).token ?? undefined)
-        : process.env.OPENCLAW_GATEWAY_TOKEN;
+        : process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN;
   const defaultPassword =
     opts?.skipDefaultAuth === true
       ? undefined
       : typeof (testState.gatewayAuth as { password?: unknown } | undefined)?.password === "string"
         ? ((testState.gatewayAuth as { password?: string }).password ?? undefined)
-        : process.env.OPENCLAW_GATEWAY_PASSWORD;
+        : process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD;
   const token = opts?.token ?? defaultToken;
   const password = opts?.password ?? defaultPassword;
   const requestedScopes = Array.isArray(opts?.scopes) ? opts?.scopes : [];

@@ -4,49 +4,49 @@ import { sequentialize } from "@grammyjs/runner";
 import { apiThrottler } from "@grammyjs/transformer-throttler";
 import { ReactionTypeEmoji } from "@grammyjs/types";
 import { Bot, webhookCallback } from "grammy";
-import type { OpenClawConfig, ReplyToMode } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { TelegramContext, TelegramMessage } from "./bot/types.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { resolveTextChunkLimit } from "../auto-reply/chunk.js";
-import { isControlCommandMessage } from "../auto-reply/command-detection.js";
-import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "../auto-reply/reply/history.js";
+import type { CmlHiveAssistConfig, ReplyToMode } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { TelegramContext, TelegramMessage } from "./bot/types.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { resolveTextChunkLimit } from "../auto-reply/chunk.ts";
+import { isControlCommandMessage } from "../auto-reply/command-detection.ts";
+import { DEFAULT_GROUP_HISTORY_LIMIT, type HistoryEntry } from "../auto-reply/reply/history.ts";
 import {
   isNativeCommandsExplicitlyDisabled,
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
-} from "../config/commands.js";
-import { loadConfig } from "../config/config.js";
+} from "../config/commands.ts";
+import { loadConfig } from "../config/config.ts";
 import {
   resolveChannelGroupPolicy,
   resolveChannelGroupRequireMention,
-} from "../config/group-policy.js";
-import { loadSessionStore, resolveStorePath } from "../config/sessions.js";
-import { danger, logVerbose, shouldLogVerbose } from "../globals.js";
-import { formatUncaughtError } from "../infra/errors.js";
-import { enqueueSystemEvent } from "../infra/system-events.js";
-import { getChildLogger } from "../logging.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { resolveAgentRoute } from "../routing/resolve-route.js";
-import { resolveThreadSessionKeys } from "../routing/session-key.js";
-import { resolveTelegramAccount } from "./accounts.js";
-import { withTelegramApiErrorLogging } from "./api-logging.js";
-import { registerTelegramHandlers } from "./bot-handlers.js";
-import { createTelegramMessageProcessor } from "./bot-message.js";
-import { registerTelegramNativeCommands } from "./bot-native-commands.js";
+} from "../config/group-policy.ts";
+import { loadSessionStore, resolveStorePath } from "../config/sessions.ts";
+import { danger, logVerbose, shouldLogVerbose } from "../globals.ts";
+import { formatUncaughtError } from "../infra/errors.ts";
+import { enqueueSystemEvent } from "../infra/system-events.ts";
+import { getChildLogger } from "../logging.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { resolveAgentRoute } from "../routing/resolve-route.ts";
+import { resolveThreadSessionKeys } from "../routing/session-key.ts";
+import { resolveTelegramAccount } from "./accounts.ts";
+import { withTelegramApiErrorLogging } from "./api-logging.ts";
+import { registerTelegramHandlers } from "./bot-handlers.ts";
+import { createTelegramMessageProcessor } from "./bot-message.ts";
+import { registerTelegramNativeCommands } from "./bot-native-commands.ts";
 import {
   buildTelegramUpdateKey,
   createTelegramUpdateDedupe,
   resolveTelegramUpdateId,
   type TelegramUpdateKeyContext,
-} from "./bot-updates.js";
+} from "./bot-updates.ts";
 import {
   buildTelegramGroupPeerId,
   resolveTelegramForumThreadId,
   resolveTelegramStreamMode,
-} from "./bot/helpers.js";
-import { resolveTelegramFetch } from "./fetch.js";
-import { wasSentByBot } from "./sent-message-cache.js";
+} from "./bot/helpers.ts";
+import { resolveTelegramFetch } from "./fetch.ts";
+import { wasSentByBot } from "./sent-message-cache.ts";
 
 export type TelegramBotOptions = {
   token: string;
@@ -58,7 +58,7 @@ export type TelegramBotOptions = {
   mediaMaxMb?: number;
   replyToMode?: ReplyToMode;
   proxyFetch?: typeof fetch;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   updateOffset?: {
     lastUpdateId?: number | null;
     onUpdateId?: (updateId: number) => void | Promise<void>;

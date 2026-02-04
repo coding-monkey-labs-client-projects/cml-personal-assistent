@@ -1,4 +1,4 @@
-import type { PluginRegistry } from "./registry.js";
+import type { PluginRegistry } from "./registry.ts";
 
 const createEmptyRegistry = (): PluginRegistry => ({
   plugins: [],
@@ -16,7 +16,7 @@ const createEmptyRegistry = (): PluginRegistry => ({
   diagnostics: [],
 });
 
-const REGISTRY_STATE = Symbol.for("openclaw.pluginRegistryState");
+const REGISTRY_STATE = Symbol.for("cml-hive-assist.pluginRegistryState");
 
 type RegistryState = {
   registry: PluginRegistry | null;

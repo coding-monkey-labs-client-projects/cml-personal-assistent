@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { SessionPreviewItem } from "./session-utils.types.js";
-import { resolveSessionTranscriptPath } from "../config/sessions.js";
-import { stripEnvelope } from "./chat-sanitize.js";
+import type { SessionPreviewItem } from "./session-utils.types.ts";
+import { resolveSessionTranscriptPath } from "../config/sessions.ts";
+import { stripEnvelope } from "./chat-sanitize.ts";
 
 export function readSessionMessages(
   sessionId: string,
@@ -53,7 +53,7 @@ export function resolveSessionTranscriptCandidates(
     candidates.push(resolveSessionTranscriptPath(sessionId, agentId));
   }
   const home = os.homedir();
-  candidates.push(path.join(home, ".openclaw", "sessions", `${sessionId}.jsonl`));
+  candidates.push(path.join(home, ".cml-hive-assist", "sessions", `${sessionId}.jsonl`));
   return candidates;
 }
 

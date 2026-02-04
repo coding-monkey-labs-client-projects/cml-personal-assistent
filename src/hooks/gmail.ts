@@ -1,10 +1,10 @@
 import { randomBytes } from "node:crypto";
 import {
-  type OpenClawConfig,
+  type CmlHiveAssistConfig,
   DEFAULT_GATEWAY_PORT,
   type HooksGmailTailscaleMode,
   resolveGatewayPort,
-} from "../config/config.js";
+} from "../config/config.ts";
 
 export const DEFAULT_GMAIL_LABEL = "INBOX";
 export const DEFAULT_GMAIL_TOPIC = "gog-gmail-watch";
@@ -98,7 +98,7 @@ export function buildDefaultHookUrl(
 }
 
 export function resolveGmailHookRuntimeConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   overrides: GmailHookOverrides,
 ): { ok: true; value: GmailHookRuntimeConfig } | { ok: false; error: string } {
   const hooks = cfg.hooks;

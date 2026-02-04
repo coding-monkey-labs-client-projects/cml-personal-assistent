@@ -1,16 +1,16 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   ExecApprovalForwardingConfig,
   ExecApprovalForwardTarget,
-} from "../config/types.approvals.js";
-import type { ExecApprovalDecision } from "./exec-approvals.js";
-import { loadConfig } from "../config/config.js";
-import { loadSessionStore, resolveStorePath } from "../config/sessions.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { parseAgentSessionKey } from "../routing/session-key.js";
-import { isDeliverableMessageChannel, normalizeMessageChannel } from "../utils/message-channel.js";
-import { deliverOutboundPayloads } from "./outbound/deliver.js";
-import { resolveSessionDeliveryTarget } from "./outbound/targets.js";
+} from "../config/types.approvals.ts";
+import type { ExecApprovalDecision } from "./exec-approvals.ts";
+import { loadConfig } from "../config/config.ts";
+import { loadSessionStore, resolveStorePath } from "../config/sessions.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { parseAgentSessionKey } from "../routing/session-key.ts";
+import { isDeliverableMessageChannel, normalizeMessageChannel } from "../utils/message-channel.ts";
+import { deliverOutboundPayloads } from "./outbound/deliver.ts";
+import { resolveSessionDeliveryTarget } from "./outbound/targets.ts";
 
 const log = createSubsystemLogger("gateway/exec-approvals");
 
@@ -52,11 +52,11 @@ export type ExecApprovalForwarder = {
 };
 
 export type ExecApprovalForwarderDeps = {
-  getConfig?: () => OpenClawConfig;
+  getConfig?: () => CmlHiveAssistConfig;
   deliver?: typeof deliverOutboundPayloads;
   nowMs?: () => number;
   resolveSessionTarget?: (params: {
-    cfg: OpenClawConfig;
+    cfg: CmlHiveAssistConfig;
     request: ExecApprovalRequest;
   }) => ExecApprovalForwardTarget | null;
 };
@@ -160,7 +160,7 @@ function buildExpiredMessage(request: ExecApprovalRequest) {
 }
 
 function defaultResolveSessionTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   request: ExecApprovalRequest;
 }): ExecApprovalForwardTarget | null {
   const sessionKey = params.request.request.sessionKey?.trim();
@@ -191,7 +191,7 @@ function defaultResolveSessionTarget(params: {
 }
 
 async function deliverToTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   targets: ForwardTarget[];
   text: string;
   deliver: typeof deliverOutboundPayloads;

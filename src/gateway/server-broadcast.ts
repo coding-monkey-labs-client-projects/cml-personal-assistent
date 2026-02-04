@@ -1,6 +1,6 @@
-import type { GatewayWsClient } from "./server/ws-types.js";
-import { MAX_BUFFERED_BYTES } from "./server-constants.js";
-import { logWs, summarizeAgentEventForWsLog } from "./ws-log.js";
+import type { GatewayWsClient } from "./server/ws-types.ts";
+import { MAX_BUFFERED_BYTES } from "./server-constants.ts";
+import { logWs, summarizeAgentEventForWsLog } from "./ws-log.ts";
 
 const ADMIN_SCOPE = "operator.admin";
 const APPROVALS_SCOPE = "operator.approvals";

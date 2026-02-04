@@ -12,28 +12,28 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import type { ReplyPayload } from "../auto-reply/types.js";
-import type { ChannelId } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ReplyPayload } from "../auto-reply/types.ts";
+import type { ChannelId } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   TtsConfig,
   TtsAutoMode,
   TtsMode,
   TtsProvider,
   TtsModelOverrideConfig,
-} from "../config/types.tts.js";
-import { getApiKeyForModel, requireApiKey } from "../agents/model-auth.js";
+} from "../config/types.tts.ts";
+import { getApiKeyForModel, requireApiKey } from "../agents/model-auth.ts";
 import {
   buildModelAliasIndex,
   resolveDefaultModelForAgent,
   resolveModelRefFromString,
   type ModelRef,
-} from "../agents/model-selection.js";
-import { resolveModel } from "../agents/pi-embedded-runner/model.js";
-import { normalizeChannelId } from "../channels/plugins/index.js";
-import { logVerbose } from "../globals.js";
-import { isVoiceCompatibleAudio } from "../media/audio.js";
-import { CONFIG_DIR, resolveUserPath } from "../utils.js";
+} from "../agents/model-selection.ts";
+import { resolveModel } from "../agents/pi-embedded-runner/model.ts";
+import { normalizeChannelId } from "../channels/plugins/index.ts";
+import { logVerbose } from "../globals.ts";
+import { isVoiceCompatibleAudio } from "../media/audio.ts";
+import { CONFIG_DIR, resolveUserPath } from "../utils.ts";
 
 const DEFAULT_TIMEOUT_MS = 30_000;
 const DEFAULT_TTS_MAX_LENGTH = 1500;
@@ -245,7 +245,7 @@ function resolveModelOverridePolicy(
   };
 }
 
-export function resolveTtsConfig(cfg: OpenClawConfig): ResolvedTtsConfig {
+export function resolveTtsConfig(cfg: CmlHiveAssistConfig): ResolvedTtsConfig {
   const raw: TtsConfig = cfg.messages?.tts ?? {};
   const providerSource = raw.provider ? "config" : "default";
   const edgeOutputFormat = raw.edge?.outputFormat?.trim();
@@ -306,7 +306,7 @@ export function resolveTtsPrefsPath(config: ResolvedTtsConfig): string {
   if (config.prefsPath?.trim()) {
     return resolveUserPath(config.prefsPath.trim());
   }
-  const envPath = process.env.OPENCLAW_TTS_PREFS?.trim();
+  const envPath = process.env.CML_HIVE_ASSIST_TTS_PREFS?.trim();
   if (envPath) {
     return resolveUserPath(envPath);
   }
@@ -340,7 +340,7 @@ export function resolveTtsAutoMode(params: {
   return params.config.auto;
 }
 
-export function buildTtsSystemPromptHint(cfg: OpenClawConfig): string | undefined {
+export function buildTtsSystemPromptHint(cfg: CmlHiveAssistConfig): string | undefined {
   const config = resolveTtsConfig(cfg);
   const prefsPath = resolveTtsPrefsPath(config);
   const autoMode = resolveTtsAutoMode({ config, prefsPath });
@@ -881,7 +881,7 @@ type SummaryModelSelection = {
 };
 
 function resolveSummaryModelRef(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   config: ResolvedTtsConfig,
 ): SummaryModelSelection {
   const defaultRef = resolveDefaultModelForAgent({ cfg });
@@ -909,7 +909,7 @@ function isTextContentBlock(block: { type: string }): block is TextContent {
 async function summarizeText(params: {
   text: string;
   targetLength: number;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   config: ResolvedTtsConfig;
   timeoutMs: number;
 }): Promise<SummarizeResult> {
@@ -1160,7 +1160,7 @@ async function edgeTTS(params: {
 
 export async function textToSpeech(params: {
   text: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prefsPath?: string;
   channel?: string;
   overrides?: TtsDirectiveOverrides;
@@ -1331,7 +1331,7 @@ export async function textToSpeech(params: {
 
 export async function textToSpeechTelephony(params: {
   text: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   prefsPath?: string;
 }): Promise<TtsTelephonyResult> {
   const config = resolveTtsConfig(params.cfg);
@@ -1425,7 +1425,7 @@ export async function textToSpeechTelephony(params: {
 
 export async function maybeApplyTtsToPayload(params: {
   payload: ReplyPayload;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel?: string;
   kind?: "tool" | "block" | "final";
   inboundAudio?: boolean;

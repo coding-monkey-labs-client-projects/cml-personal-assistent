@@ -1,4 +1,4 @@
-import type { AllowlistMatch } from "../../channels/allowlist-match.js";
+import type { AllowlistMatch } from "../../channels/allowlist-match.ts";
 
 export function normalizeSlackSlug(raw?: string) {
   const trimmed = raw?.trim().toLowerCase() ?? "";

@@ -1,20 +1,20 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ProviderAuthOverview } from "./list.types.js";
-import { formatRemainingShort } from "../../agents/auth-health.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ProviderAuthOverview } from "./list.types.ts";
+import { formatRemainingShort } from "../../agents/auth-health.ts";
 import {
   type AuthProfileStore,
   listProfilesForProvider,
   resolveAuthProfileDisplayLabel,
   resolveAuthStorePathForDisplay,
   resolveProfileUnusableUntilForDisplay,
-} from "../../agents/auth-profiles.js";
-import { getCustomProviderApiKey, resolveEnvApiKey } from "../../agents/model-auth.js";
-import { shortenHomePath } from "../../utils.js";
-import { maskApiKey } from "./list.format.js";
+} from "../../agents/auth-profiles.ts";
+import { getCustomProviderApiKey, resolveEnvApiKey } from "../../agents/model-auth.ts";
+import { shortenHomePath } from "../../utils.ts";
+import { maskApiKey } from "./list.format.ts";
 
 export function resolveProviderAuthOverview(params: {
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   store: AuthProfileStore;
   modelsPath: string;
 }): ProviderAuthOverview {

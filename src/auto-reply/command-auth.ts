@@ -1,9 +1,9 @@
-import type { ChannelDock } from "../channels/dock.js";
-import type { ChannelId } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { MsgContext } from "./templating.js";
-import { getChannelDock, listChannelDocks } from "../channels/dock.js";
-import { normalizeAnyChannelId } from "../channels/registry.js";
+import type { ChannelDock } from "../channels/dock.ts";
+import type { ChannelId } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { MsgContext } from "./templating.ts";
+import { getChannelDock, listChannelDocks } from "../channels/dock.ts";
+import { normalizeAnyChannelId } from "../channels/registry.ts";
 
 export type CommandAuthorization = {
   providerId?: ChannelId;
@@ -14,7 +14,7 @@ export type CommandAuthorization = {
   to?: string;
 };
 
-function resolveProviderFromContext(ctx: MsgContext, cfg: OpenClawConfig): ChannelId | undefined {
+function resolveProviderFromContext(ctx: MsgContext, cfg: CmlHiveAssistConfig): ChannelId | undefined {
   const direct =
     normalizeAnyChannelId(ctx.Provider) ??
     normalizeAnyChannelId(ctx.Surface) ??
@@ -54,7 +54,7 @@ function resolveProviderFromContext(ctx: MsgContext, cfg: OpenClawConfig): Chann
 
 function formatAllowFromList(params: {
   dock?: ChannelDock;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   allowFrom: Array<string | number>;
 }): string[] {
@@ -70,7 +70,7 @@ function formatAllowFromList(params: {
 
 function normalizeAllowFromEntry(params: {
   dock?: ChannelDock;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   value: string;
 }): string[] {
@@ -86,7 +86,7 @@ function normalizeAllowFromEntry(params: {
 function resolveSenderCandidates(params: {
   dock?: ChannelDock;
   providerId?: ChannelId;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   senderId?: string | null;
   senderE164?: string | null;
@@ -124,7 +124,7 @@ function resolveSenderCandidates(params: {
 
 export function resolveCommandAuthorization(params: {
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   commandAuthorized: boolean;
 }): CommandAuthorization {
   const { ctx, cfg, commandAuthorized } = params;

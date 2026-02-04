@@ -1,9 +1,9 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
 import { createEditTool, createReadTool, createWriteTool } from "@mariozechner/pi-coding-agent";
-import type { AnyAgentTool } from "./pi-tools.types.js";
-import { detectMime } from "../media/mime.js";
-import { assertSandboxPath } from "./sandbox-paths.js";
-import { sanitizeToolResultImages } from "./tool-images.js";
+import type { AnyAgentTool } from "./pi-tools.types.ts";
+import { detectMime } from "../media/mime.ts";
+import { assertSandboxPath } from "./sandbox-paths.ts";
+import { sanitizeToolResultImages } from "./tool-images.ts";
 
 // NOTE(steipete): Upstream read now does file-magic MIME detection; we keep the wrapper
 // to normalize payloads and sanitize oversized images before they hit providers.
@@ -270,7 +270,7 @@ function wrapSandboxPathGuard(tool: AnyAgentTool, root: string): AnyAgentTool {
 
 export function createSandboxedReadTool(root: string) {
   const base = createReadTool(root) as unknown as AnyAgentTool;
-  return wrapSandboxPathGuard(createOpenClawReadTool(base), root);
+  return wrapSandboxPathGuard(createCmlHiveAssistReadTool(base), root);
 }
 
 export function createSandboxedWriteTool(root: string) {
@@ -283,7 +283,7 @@ export function createSandboxedEditTool(root: string) {
   return wrapSandboxPathGuard(wrapToolParamNormalization(base, CLAUDE_PARAM_GROUPS.edit), root);
 }
 
-export function createOpenClawReadTool(base: AnyAgentTool): AnyAgentTool {
+export function createCmlHiveAssistReadTool(base: AnyAgentTool): AnyAgentTool {
   const patched = patchToolSchemaForClaudeCompatibility(base);
   return {
     ...patched,

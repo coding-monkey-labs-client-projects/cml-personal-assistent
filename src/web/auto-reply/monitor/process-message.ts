@@ -1,42 +1,42 @@
-import type { getReplyFromConfig } from "../../../auto-reply/reply.js";
-import type { ReplyPayload } from "../../../auto-reply/types.js";
-import type { loadConfig } from "../../../config/config.js";
-import type { getChildLogger } from "../../../logging.js";
-import type { resolveAgentRoute } from "../../../routing/resolve-route.js";
-import type { WebInboundMsg } from "../types.js";
-import { resolveIdentityNamePrefix } from "../../../agents/identity.js";
-import { resolveChunkMode, resolveTextChunkLimit } from "../../../auto-reply/chunk.js";
-import { shouldComputeCommandAuthorized } from "../../../auto-reply/command-detection.js";
+import type { getReplyFromConfig } from "../../../auto-reply/reply.ts";
+import type { ReplyPayload } from "../../../auto-reply/types.ts";
+import type { loadConfig } from "../../../config/config.ts";
+import type { getChildLogger } from "../../../logging.ts";
+import type { resolveAgentRoute } from "../../../routing/resolve-route.ts";
+import type { WebInboundMsg } from "../types.ts";
+import { resolveIdentityNamePrefix } from "../../../agents/identity.ts";
+import { resolveChunkMode, resolveTextChunkLimit } from "../../../auto-reply/chunk.ts";
+import { shouldComputeCommandAuthorized } from "../../../auto-reply/command-detection.ts";
 import {
   formatInboundEnvelope,
   resolveEnvelopeFormatOptions,
-} from "../../../auto-reply/envelope.js";
+} from "../../../auto-reply/envelope.ts";
 import {
   buildHistoryContextFromEntries,
   type HistoryEntry,
-} from "../../../auto-reply/reply/history.js";
-import { finalizeInboundContext } from "../../../auto-reply/reply/inbound-context.js";
-import { dispatchReplyWithBufferedBlockDispatcher } from "../../../auto-reply/reply/provider-dispatcher.js";
-import { toLocationContext } from "../../../channels/location.js";
-import { createReplyPrefixContext } from "../../../channels/reply-prefix.js";
-import { resolveMarkdownTableMode } from "../../../config/markdown-tables.js";
+} from "../../../auto-reply/reply/history.ts";
+import { finalizeInboundContext } from "../../../auto-reply/reply/inbound-context.ts";
+import { dispatchReplyWithBufferedBlockDispatcher } from "../../../auto-reply/reply/provider-dispatcher.ts";
+import { toLocationContext } from "../../../channels/location.ts";
+import { createReplyPrefixContext } from "../../../channels/reply-prefix.ts";
+import { resolveMarkdownTableMode } from "../../../config/markdown-tables.ts";
 import {
   readSessionUpdatedAt,
   recordSessionMetaFromInbound,
   resolveStorePath,
-} from "../../../config/sessions.js";
-import { logVerbose, shouldLogVerbose } from "../../../globals.js";
-import { readChannelAllowFromStore } from "../../../pairing/pairing-store.js";
-import { jidToE164, normalizeE164 } from "../../../utils.js";
-import { newConnectionId } from "../../reconnect.js";
-import { formatError } from "../../session.js";
-import { deliverWebReply } from "../deliver-reply.js";
-import { whatsappInboundLog, whatsappOutboundLog } from "../loggers.js";
-import { elide } from "../util.js";
-import { maybeSendAckReaction } from "./ack-reaction.js";
-import { formatGroupMembers } from "./group-members.js";
-import { trackBackgroundTask, updateLastRouteInBackground } from "./last-route.js";
-import { buildInboundLine } from "./message-line.js";
+} from "../../../config/sessions.ts";
+import { logVerbose, shouldLogVerbose } from "../../../globals.ts";
+import { readChannelAllowFromStore } from "../../../pairing/pairing-store.ts";
+import { jidToE164, normalizeE164 } from "../../../utils.ts";
+import { newConnectionId } from "../../reconnect.ts";
+import { formatError } from "../../session.ts";
+import { deliverWebReply } from "../deliver-reply.ts";
+import { whatsappInboundLog, whatsappOutboundLog } from "../loggers.ts";
+import { elide } from "../util.ts";
+import { maybeSendAckReaction } from "./ack-reaction.ts";
+import { formatGroupMembers } from "./group-members.ts";
+import { trackBackgroundTask, updateLastRouteInBackground } from "./last-route.ts";
+import { buildInboundLine } from "./message-line.ts";
 
 export type GroupHistoryEntry = {
   sender: string;
@@ -266,7 +266,7 @@ export async function processMessage(params: {
   const responsePrefix =
     prefixContext.responsePrefix ??
     (configuredResponsePrefix === undefined && isSelfChat
-      ? (resolveIdentityNamePrefix(params.cfg, params.route.agentId) ?? "[openclaw]")
+      ? (resolveIdentityNamePrefix(params.cfg, params.route.agentId) ?? "[cml-hive-assist]")
       : undefined);
 
   const ctxPayload = finalizeInboundContext({

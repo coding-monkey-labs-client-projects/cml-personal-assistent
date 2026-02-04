@@ -1,23 +1,23 @@
-import type { ChannelAccountSnapshot } from "../channels/plugins/types.js";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { getChannelPlugin, listChannelPlugins } from "../channels/plugins/index.js";
-import { withProgress } from "../cli/progress.js";
-import { loadConfig } from "../config/config.js";
-import { loadSessionStore, resolveStorePath } from "../config/sessions.js";
-import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.js";
-import { info } from "../globals.js";
-import { isTruthyEnvValue } from "../infra/env.js";
-import { formatErrorMessage } from "../infra/errors.js";
+import type { ChannelAccountSnapshot } from "../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { getChannelPlugin, listChannelPlugins } from "../channels/plugins/index.ts";
+import { withProgress } from "../cli/progress.ts";
+import { loadConfig } from "../config/config.ts";
+import { loadSessionStore, resolveStorePath } from "../config/sessions.ts";
+import { buildGatewayConnectionDetails, callGateway } from "../gateway/call.ts";
+import { info } from "../globals.ts";
+import { isTruthyEnvValue } from "../infra/env.ts";
+import { formatErrorMessage } from "../infra/errors.ts";
 import {
   type HeartbeatSummary,
   resolveHeartbeatSummaryForAgent,
-} from "../infra/heartbeat-runner.js";
-import { buildChannelAccountBindings, resolvePreferredAccountId } from "../routing/bindings.js";
-import { normalizeAgentId } from "../routing/session-key.js";
-import { theme } from "../terminal/theme.js";
+} from "../infra/heartbeat-runner.ts";
+import { buildChannelAccountBindings, resolvePreferredAccountId } from "../routing/bindings.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
+import { theme } from "../terminal/theme.ts";
 
 export type ChannelAccountHealthSummary = {
   accountId: string;
@@ -73,7 +73,7 @@ export type HealthSummary = {
 const DEFAULT_TIMEOUT_MS = 10_000;
 
 const debugHealth = (...args: unknown[]) => {
-  if (isTruthyEnvValue(process.env.OPENCLAW_DEBUG_HEALTH)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_DEBUG_HEALTH)) {
     console.warn("[health:debug]", ...args);
   }
 };
@@ -560,7 +560,7 @@ export async function getHealthSnapshot(params?: {
 }
 
 export async function healthCommand(
-  opts: { json?: boolean; timeoutMs?: number; verbose?: boolean; config?: OpenClawConfig },
+  opts: { json?: boolean; timeoutMs?: number; verbose?: boolean; config?: CmlHiveAssistConfig },
   runtime: RuntimeEnv,
 ) {
   const cfg = opts.config ?? loadConfig();
@@ -585,7 +585,7 @@ export async function healthCommand(
   if (opts.json) {
     runtime.log(JSON.stringify(summary, null, 2));
   } else {
-    const debugEnabled = isTruthyEnvValue(process.env.OPENCLAW_DEBUG_HEALTH);
+    const debugEnabled = isTruthyEnvValue(process.env.CML_HIVE_ASSIST_DEBUG_HEALTH);
     if (opts.verbose) {
       const details = buildGatewayConnectionDetails({ config: cfg });
       runtime.log(info("Gateway connection:"));

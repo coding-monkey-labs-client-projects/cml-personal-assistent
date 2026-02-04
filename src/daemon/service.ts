@@ -1,4 +1,4 @@
-import type { GatewayServiceRuntime } from "./service-runtime.js";
+import type { GatewayServiceRuntime } from "./service-runtime.ts";
 import {
   installLaunchAgent,
   isLaunchAgentLoaded,
@@ -7,7 +7,7 @@ import {
   restartLaunchAgent,
   stopLaunchAgent,
   uninstallLaunchAgent,
-} from "./launchd.js";
+} from "./launchd.ts";
 import {
   installScheduledTask,
   isScheduledTaskInstalled,
@@ -16,7 +16,7 @@ import {
   restartScheduledTask,
   stopScheduledTask,
   uninstallScheduledTask,
-} from "./schtasks.js";
+} from "./schtasks.ts";
 import {
   installSystemdService,
   isSystemdServiceEnabled,
@@ -25,7 +25,7 @@ import {
   restartSystemdService,
   stopSystemdService,
   uninstallSystemdService,
-} from "./systemd.js";
+} from "./systemd.ts";
 
 export type GatewayServiceInstallArgs = {
   env: Record<string, string | undefined>;

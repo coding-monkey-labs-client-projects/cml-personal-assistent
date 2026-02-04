@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveUserTimezone } from "../agents/date-time.js";
-import { normalizeChatType } from "../channels/chat-type.js";
-import { resolveSenderLabel, type SenderLabelParams } from "../channels/sender-label.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveUserTimezone } from "../agents/date-time.ts";
+import { normalizeChatType } from "../channels/chat-type.ts";
+import { resolveSenderLabel, type SenderLabelParams } from "../channels/sender-label.ts";
 
 export type AgentEnvelopeParams = {
   channel: string;
@@ -45,7 +45,7 @@ type ResolvedEnvelopeTimezone =
   | { mode: "local" }
   | { mode: "iana"; timeZone: string };
 
-export function resolveEnvelopeFormatOptions(cfg?: OpenClawConfig): EnvelopeFormatOptions {
+export function resolveEnvelopeFormatOptions(cfg?: CmlHiveAssistConfig): EnvelopeFormatOptions {
   const defaults = cfg?.agents?.defaults;
   return {
     timezone: defaults?.envelopeTimezone,

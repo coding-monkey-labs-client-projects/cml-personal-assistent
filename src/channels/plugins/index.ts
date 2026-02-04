@@ -1,6 +1,6 @@
-import type { ChannelId, ChannelPlugin } from "./types.js";
-import { requireActivePluginRegistry } from "../../plugins/runtime.js";
-import { CHAT_CHANNEL_ORDER, type ChatChannelId, normalizeAnyChannelId } from "../registry.js";
+import type { ChannelId, ChannelPlugin } from "./types.ts";
+import { requireActivePluginRegistry } from "../../plugins/runtime.ts";
+import { CHAT_CHANNEL_ORDER, type ChatChannelId, normalizeAnyChannelId } from "../registry.ts";
 
 // Channel plugins registry (runtime).
 //
@@ -64,7 +64,7 @@ export {
   listTelegramDirectoryPeersFromConfig,
   listWhatsAppDirectoryGroupsFromConfig,
   listWhatsAppDirectoryPeersFromConfig,
-} from "./directory-config.js";
+} from "./directory-config.ts";
 export {
   applyChannelMatchMeta,
   buildChannelKeyCandidates,
@@ -75,10 +75,10 @@ export {
   resolveNestedAllowlistDecision,
   type ChannelEntryMatch,
   type ChannelMatchSource,
-} from "./channel-config.js";
+} from "./channel-config.ts";
 export {
   formatAllowlistMatchMeta,
   type AllowlistMatch,
   type AllowlistMatchSource,
-} from "./allowlist-match.js";
-export type { ChannelId, ChannelPlugin } from "./types.js";
+} from "./allowlist-match.ts";
+export type { ChannelId, ChannelPlugin } from "./types.ts";

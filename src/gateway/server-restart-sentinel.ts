@@ -1,18 +1,18 @@
-import type { CliDeps } from "../cli/deps.js";
-import { resolveAnnounceTargetFromKey } from "../agents/tools/sessions-send-helpers.js";
-import { normalizeChannelId } from "../channels/plugins/index.js";
-import { agentCommand } from "../commands/agent.js";
-import { resolveMainSessionKeyFromConfig } from "../config/sessions.js";
-import { resolveOutboundTarget } from "../infra/outbound/targets.js";
+import type { CliDeps } from "../cli/deps.ts";
+import { resolveAnnounceTargetFromKey } from "../agents/tools/sessions-send-helpers.ts";
+import { normalizeChannelId } from "../channels/plugins/index.ts";
+import { agentCommand } from "../commands/agent.ts";
+import { resolveMainSessionKeyFromConfig } from "../config/sessions.ts";
+import { resolveOutboundTarget } from "../infra/outbound/targets.ts";
 import {
   consumeRestartSentinel,
   formatRestartSentinelMessage,
   summarizeRestartSentinel,
-} from "../infra/restart-sentinel.js";
-import { enqueueSystemEvent } from "../infra/system-events.js";
-import { defaultRuntime } from "../runtime.js";
-import { deliveryContextFromSession, mergeDeliveryContext } from "../utils/delivery-context.js";
-import { loadSessionEntry } from "./session-utils.js";
+} from "../infra/restart-sentinel.ts";
+import { enqueueSystemEvent } from "../infra/system-events.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { deliveryContextFromSession, mergeDeliveryContext } from "../utils/delivery-context.ts";
+import { loadSessionEntry } from "./session-utils.ts";
 
 export async function scheduleRestartSentinelWake(params: { deps: CliDeps }) {
   const sentinel = await consumeRestartSentinel();

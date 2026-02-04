@@ -1,14 +1,14 @@
-import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.js";
+import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.ts";
 import {
   getChannelPlugin,
   listChannelPlugins,
   normalizeChannelId,
-} from "../../channels/plugins/index.js";
-import { type OpenClawConfig, writeConfigFile } from "../../config/config.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
-import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
-import { createClackPrompter } from "../../wizard/clack-prompter.js";
-import { type ChatChannel, channelLabel, requireValidConfig, shouldUseWizard } from "./shared.js";
+} from "../../channels/plugins/index.ts";
+import { type CmlHiveAssistConfig, writeConfigFile } from "../../config/config.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.ts";
+import { defaultRuntime, type RuntimeEnv } from "../../runtime.ts";
+import { createClackPrompter } from "../../wizard/clack-prompter.ts";
+import { type ChatChannel, channelLabel, requireValidConfig, shouldUseWizard } from "./shared.ts";
 
 export type ChannelsRemoveOptions = {
   channel?: string;
@@ -16,7 +16,7 @@ export type ChannelsRemoveOptions = {
   delete?: boolean;
 };
 
-function listAccountIds(cfg: OpenClawConfig, channel: ChatChannel): string[] {
+function listAccountIds(cfg: CmlHiveAssistConfig, channel: ChatChannel): string[] {
   const plugin = getChannelPlugin(channel);
   if (!plugin) {
     return [];

@@ -1,17 +1,17 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { RuntimeEnv } from "../../runtime.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
 import {
   ensureAuthProfileStore,
   resolveApiKeyForProfile,
   resolveAuthProfileOrder,
-} from "../../agents/auth-profiles.js";
-import { resolveEnvApiKey } from "../../agents/model-auth.js";
+} from "../../agents/auth-profiles.ts";
+import { resolveEnvApiKey } from "../../agents/model-auth.ts";
 
 export type NonInteractiveApiKeySource = "flag" | "env" | "profile";
 
 async function resolveApiKeyFromProfiles(params: {
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
 }): Promise<string | null> {
   const store = ensureAuthProfileStore(params.agentDir);
@@ -40,7 +40,7 @@ async function resolveApiKeyFromProfiles(params: {
 
 export async function resolveNonInteractiveApiKey(params: {
   provider: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   flagValue?: string;
   flagName: string;
   envVar: string;

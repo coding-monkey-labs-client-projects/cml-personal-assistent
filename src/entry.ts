@@ -2,12 +2,12 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 import process from "node:process";
-import { applyCliProfileEnv, parseCliProfileArgs } from "./cli/profile.js";
-import { isTruthyEnvValue, normalizeEnv } from "./infra/env.js";
-import { installProcessWarningFilter } from "./infra/warnings.js";
-import { attachChildProcessBridge } from "./process/child-process-bridge.js";
+import { applyCliProfileEnv, parseCliProfileArgs } from "./cli/profile.ts";
+import { isTruthyEnvValue, normalizeEnv } from "./infra/env.ts";
+import { installProcessWarningFilter } from "./infra/warnings.ts";
+import { attachChildProcessBridge } from "./process/child-process-bridge.ts";
 
-process.title = "openclaw";
+process.title = "cml-hive-assist";
 installProcessWarningFilter();
 normalizeEnv();
 
@@ -26,10 +26,10 @@ function hasExperimentalWarningSuppressed(nodeOptions: string): boolean {
 }
 
 function ensureExperimentalWarningSuppressed(): boolean {
-  if (isTruthyEnvValue(process.env.OPENCLAW_NO_RESPAWN)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_NO_RESPAWN)) {
     return false;
   }
-  if (isTruthyEnvValue(process.env.OPENCLAW_NODE_OPTIONS_READY)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_NODE_OPTIONS_READY)) {
     return false;
   }
   const nodeOptions = process.env.NODE_OPTIONS ?? "";
@@ -37,7 +37,7 @@ function ensureExperimentalWarningSuppressed(): boolean {
     return false;
   }
 
-  process.env.OPENCLAW_NODE_OPTIONS_READY = "1";
+  process.env.CML_HIVE_ASSIST_NODE_OPTIONS_READY = "1";
   process.env.NODE_OPTIONS = `${nodeOptions} ${EXPERIMENTAL_WARNING_FLAG}`.trim();
 
   const child = spawn(process.execPath, [...process.execArgv, ...process.argv.slice(1)], {
@@ -57,7 +57,7 @@ function ensureExperimentalWarningSuppressed(): boolean {
 
   child.once("error", (error) => {
     console.error(
-      "[openclaw] Failed to respawn CLI:",
+      "[cml-hive-assist] Failed to respawn CLI:",
       error instanceof Error ? (error.stack ?? error.message) : error,
     );
     process.exit(1);
@@ -140,7 +140,7 @@ if (!ensureExperimentalWarningSuppressed()) {
   const parsed = parseCliProfileArgs(process.argv);
   if (!parsed.ok) {
     // Keep it simple; Commander will handle rich help/errors after we strip flags.
-    console.error(`[openclaw] ${parsed.error}`);
+    console.error(`[cml-hive-assist] ${parsed.error}`);
     process.exit(2);
   }
 
@@ -150,11 +150,11 @@ if (!ensureExperimentalWarningSuppressed()) {
     process.argv = parsed.argv;
   }
 
-  import("./cli/run-main.js")
+  import("./cli/run-main.ts")
     .then(({ runCli }) => runCli(process.argv))
     .catch((error) => {
       console.error(
-        "[openclaw] Failed to start CLI:",
+        "[cml-hive-assist] Failed to start CLI:",
         error instanceof Error ? (error.stack ?? error.message) : error,
       );
       process.exitCode = 1;

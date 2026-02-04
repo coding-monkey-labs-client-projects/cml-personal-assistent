@@ -1,6 +1,6 @@
 import { Box, Container, Markdown, Spacer, Text } from "@mariozechner/pi-tui";
-import { formatToolDetail, resolveToolDisplay } from "../../agents/tool-display.js";
-import { markdownTheme, theme } from "../theme/theme.js";
+import { formatToolDetail, resolveToolDisplay } from "../../agents/tool-display.ts";
+import { markdownTheme, theme } from "../theme/theme.ts";
 
 type ToolResultContent = {
   type?: string;

@@ -1,13 +1,13 @@
-import type { CommandHandler } from "./commands-types.js";
-import { logVerbose } from "../../globals.js";
-import { listSkillCommandsForAgents } from "../skill-commands.js";
+import type { CommandHandler } from "./commands-types.ts";
+import { logVerbose } from "../../globals.ts";
+import { listSkillCommandsForAgents } from "../skill-commands.ts";
 import {
   buildCommandsMessage,
   buildCommandsMessagePaginated,
   buildHelpMessage,
-} from "../status.js";
-import { buildContextReply } from "./commands-context-report.js";
-import { buildStatusReply } from "./commands-status.js";
+} from "../status.ts";
+import { buildContextReply } from "./commands-context-report.ts";
+import { buildStatusReply } from "./commands-status.ts";
 
 export const handleHelpCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {

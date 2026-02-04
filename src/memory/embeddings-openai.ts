@@ -1,5 +1,5 @@
-import type { EmbeddingProvider, EmbeddingProviderOptions } from "./embeddings.js";
-import { requireApiKey, resolveApiKeyForProvider } from "../agents/model-auth.js";
+import type { EmbeddingProvider, EmbeddingProviderOptions } from "./embeddings.ts";
+import { requireApiKey, resolveApiKeyForProvider } from "../agents/model-auth.ts";
 
 export type OpenAiEmbeddingClient = {
   baseUrl: string;

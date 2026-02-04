@@ -1,22 +1,22 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { loadSessionStore } from "../config/sessions.js";
-import { parseSessionLabel } from "../sessions/session-label.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { loadSessionStore } from "../config/sessions.ts";
+import { parseSessionLabel } from "../sessions/session-label.ts";
 import {
   ErrorCodes,
   type ErrorShape,
   errorShape,
   type SessionsResolveParams,
-} from "./protocol/index.js";
+} from "./protocol/index.ts";
 import {
   listSessionsFromStore,
   loadCombinedSessionStoreForGateway,
   resolveGatewaySessionStoreTarget,
-} from "./session-utils.js";
+} from "./session-utils.ts";
 
 export type SessionsResolveResult = { ok: true; key: string } | { ok: false; error: ErrorShape };
 
 export function resolveSessionKeyFromResolveParams(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   p: SessionsResolveParams;
 }): SessionsResolveResult {
   const { cfg, p } = params;

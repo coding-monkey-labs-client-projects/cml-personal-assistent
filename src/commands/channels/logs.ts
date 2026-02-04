@@ -1,9 +1,9 @@
 import fs from "node:fs/promises";
-import { listChannelPlugins } from "../../channels/plugins/index.js";
-import { getResolvedLoggerSettings } from "../../logging.js";
-import { parseLogLine } from "../../logging/parse-log-line.js";
-import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
-import { theme } from "../../terminal/theme.js";
+import { listChannelPlugins } from "../../channels/plugins/index.ts";
+import { getResolvedLoggerSettings } from "../../logging.ts";
+import { parseLogLine } from "../../logging/parse-log-line.ts";
+import { defaultRuntime, type RuntimeEnv } from "../../runtime.ts";
+import { theme } from "../../terminal/theme.ts";
 
 export type ChannelsLogsOptions = {
   channel?: string;

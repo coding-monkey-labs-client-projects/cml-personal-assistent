@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { AuthProfileStore } from "./types.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { normalizeProviderId } from "../model-selection.js";
-import { listProfilesForProvider } from "./profiles.js";
-import { suggestOAuthProfileIdForLegacyDefault } from "./repair.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { AuthProfileStore } from "./types.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { normalizeProviderId } from "../model-selection.ts";
+import { listProfilesForProvider } from "./profiles.ts";
+import { suggestOAuthProfileIdForLegacyDefault } from "./repair.ts";
 
 export function formatAuthDoctorHint(params: {
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   store: AuthProfileStore;
   provider: string;
   profileId?: string;
@@ -42,6 +42,6 @@ export function formatAuthDoctorHint(params: {
     }`,
     `- auth store oauth profiles: ${storeOauthProfiles || "(none)"}`,
     `- suggested profile: ${suggested}`,
-    `Fix: run "${formatCliCommand("openclaw doctor --yes")}"`,
+    `Fix: run "${formatCliCommand("cml-hive-assist doctor --yes")}"`,
   ].join("\n");
 }

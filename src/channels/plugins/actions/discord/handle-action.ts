@@ -1,13 +1,13 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { ChannelMessageActionContext } from "../../types.js";
+import type { ChannelMessageActionContext } from "../../types.ts";
 import {
   readNumberParam,
   readStringArrayParam,
   readStringParam,
-} from "../../../../agents/tools/common.js";
-import { handleDiscordAction } from "../../../../agents/tools/discord-actions.js";
-import { resolveDiscordChannelId } from "../../../../discord/targets.js";
-import { tryHandleDiscordMessageActionGuildAdmin } from "./handle-action.guild-admin.js";
+} from "../../../../agents/tools/common.ts";
+import { handleDiscordAction } from "../../../../agents/tools/discord-actions.ts";
+import { resolveDiscordChannelId } from "../../../../discord/targets.ts";
+import { tryHandleDiscordMessageActionGuildAdmin } from "./handle-action.guild-admin.ts";
 
 const providerId = "discord";
 

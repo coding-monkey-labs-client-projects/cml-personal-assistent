@@ -1,15 +1,15 @@
-import type { OpenClawConfig } from "../config/types.js";
+import type { CmlHiveAssistConfig } from "../config/types.ts";
 import {
   type CommandNormalizeOptions,
   listChatCommands,
   listChatCommandsForConfig,
   normalizeCommandBody,
-} from "./commands-registry.js";
-import { isAbortTrigger } from "./reply/abort.js";
+} from "./commands-registry.ts";
+import { isAbortTrigger } from "./reply/abort.ts";
 
 export function hasControlCommand(
   text?: string,
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   options?: CommandNormalizeOptions,
 ): boolean {
   if (!text) {
@@ -47,7 +47,7 @@ export function hasControlCommand(
 
 export function isControlCommandMessage(
   text?: string,
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   options?: CommandNormalizeOptions,
 ): boolean {
   if (!text) {
@@ -81,7 +81,7 @@ export function hasInlineCommandTokens(text?: string): boolean {
 
 export function shouldComputeCommandAuthorized(
   text?: string,
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   options?: CommandNormalizeOptions,
 ): boolean {
   return isControlCommandMessage(text, cfg, options) || hasInlineCommandTokens(text);

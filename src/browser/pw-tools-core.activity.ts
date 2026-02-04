@@ -2,8 +2,8 @@ import type {
   BrowserConsoleMessage,
   BrowserNetworkRequest,
   BrowserPageError,
-} from "./pw-session.js";
-import { ensurePageState, getPageForTargetId } from "./pw-session.js";
+} from "./pw-session.ts";
+import { ensurePageState, getPageForTargetId } from "./pw-session.ts";
 
 export async function getPageErrorsViaPlaywright(opts: {
   cdpUrl: string;

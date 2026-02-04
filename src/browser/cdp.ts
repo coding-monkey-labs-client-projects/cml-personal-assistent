@@ -1,6 +1,6 @@
-import { appendCdpPath, fetchJson, isLoopbackHost, withCdpSocket } from "./cdp.helpers.js";
+import { appendCdpPath, fetchJson, isLoopbackHost, withCdpSocket } from "./cdp.helpers.ts";
 
-export { appendCdpPath, fetchJson, fetchOk, getHeadersWithAuth } from "./cdp.helpers.js";
+export { appendCdpPath, fetchJson, fetchOk, getHeadersWithAuth } from "./cdp.helpers.ts";
 
 export function normalizeCdpWsUrl(wsUrl: string, cdpUrl: string): string {
   const ws = new URL(wsUrl);

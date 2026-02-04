@@ -2,9 +2,9 @@ import type {
   ProviderUsageSnapshot,
   UsageProviderId,
   UsageSummary,
-} from "./provider-usage.types.js";
-import { resolveFetch } from "./fetch.js";
-import { type ProviderAuth, resolveProviderAuths } from "./provider-usage.auth.js";
+} from "./provider-usage.types.ts";
+import { resolveFetch } from "./fetch.ts";
+import { type ProviderAuth, resolveProviderAuths } from "./provider-usage.auth.ts";
 import {
   fetchAntigravityUsage,
   fetchClaudeUsage,
@@ -13,14 +13,14 @@ import {
   fetchGeminiUsage,
   fetchMinimaxUsage,
   fetchZaiUsage,
-} from "./provider-usage.fetch.js";
+} from "./provider-usage.fetch.ts";
 import {
   DEFAULT_TIMEOUT_MS,
   ignoredErrors,
   PROVIDER_LABELS,
   usageProviders,
   withTimeout,
-} from "./provider-usage.shared.js";
+} from "./provider-usage.shared.ts";
 
 type UsageSummaryOptions = {
   now?: number;

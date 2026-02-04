@@ -1,5 +1,5 @@
-import type { ElevatedLevel, ReasoningLevel } from "./directives.js";
-import { formatCliCommand } from "../../cli/command-format.js";
+import type { ElevatedLevel, ReasoningLevel } from "./directives.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
 
 export const SYSTEM_MARK = "⚙️";
 
@@ -59,7 +59,7 @@ export function formatElevatedUnavailableText(params: {
   }
   if (params.sessionKey) {
     lines.push(
-      `See: ${formatCliCommand(`openclaw sandbox explain --session ${params.sessionKey}`)}`,
+      `See: ${formatCliCommand(`cml-hive-assist sandbox explain --session ${params.sessionKey}`)}`,
     );
   }
   return lines.join("\n");

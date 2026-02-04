@@ -1,6 +1,6 @@
-import type { ProviderUsageSnapshot, UsageWindow } from "./provider-usage.types.js";
-import { fetchJson } from "./provider-usage.fetch.shared.js";
-import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.js";
+import type { ProviderUsageSnapshot, UsageWindow } from "./provider-usage.types.ts";
+import { fetchJson } from "./provider-usage.fetch.shared.ts";
+import { clampPercent, PROVIDER_LABELS } from "./provider-usage.shared.ts";
 
 type ClaudeUsageResponse = {
   five_hour?: { utilization?: number; resets_at?: string };
@@ -116,7 +116,7 @@ export async function fetchClaudeUsage(
     {
       headers: {
         Authorization: `Bearer ${token}`,
-        "User-Agent": "openclaw",
+        "User-Agent": "cml-hive-assist",
         Accept: "application/json",
         "anthropic-version": "2023-06-01",
         "anthropic-beta": "oauth-2025-04-20",

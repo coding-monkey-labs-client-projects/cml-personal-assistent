@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ExecAsk, ExecHost, ExecSecurity } from "../../infra/exec-approvals.js";
-import type { MsgContext } from "../templating.js";
-import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./directives.js";
-import type { QueueDropPolicy, QueueMode } from "./queue.js";
-import { extractModelDirective } from "../model.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ExecAsk, ExecHost, ExecSecurity } from "../../infra/exec-approvals.ts";
+import type { MsgContext } from "../templating.ts";
+import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./directives.ts";
+import type { QueueDropPolicy, QueueMode } from "./queue.ts";
+import { extractModelDirective } from "../model.ts";
 import {
   extractElevatedDirective,
   extractExecDirective,
@@ -11,9 +11,9 @@ import {
   extractStatusDirective,
   extractThinkDirective,
   extractVerboseDirective,
-} from "./directives.js";
-import { stripMentions, stripStructuralPrefixes } from "./mentions.js";
-import { extractQueueDirective } from "./queue.js";
+} from "./directives.ts";
+import { stripMentions, stripStructuralPrefixes } from "./mentions.ts";
+import { extractQueueDirective } from "./queue.ts";
 
 export type InlineDirectives = {
   cleaned: string;
@@ -193,7 +193,7 @@ export function isDirectiveOnly(params: {
   directives: InlineDirectives;
   cleanedBody: string;
   ctx: MsgContext;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId?: string;
   isGroup: boolean;
 }): boolean {

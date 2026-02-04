@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { OnboardOptions } from "../../onboard-types.js";
-import { resolveUserPath } from "../../../utils.js";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { OnboardOptions } from "../../onboard-types.ts";
+import { resolveUserPath } from "../../../utils.ts";
 
 export function resolveNonInteractiveWorkspaceDir(params: {
   opts: OnboardOptions;
-  baseConfig: OpenClawConfig;
+  baseConfig: CmlHiveAssistConfig;
   defaultWorkspaceDir: string;
 }) {
   const raw = (

@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "../config/config.js";
-import { resolveDefaultAgentId } from "../agents/agent-scope.js";
-import { listBindings } from "./bindings.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { resolveDefaultAgentId } from "../agents/agent-scope.ts";
+import { listBindings } from "./bindings.ts";
 import {
   buildAgentMainSessionKey,
   buildAgentPeerSessionKey,
@@ -8,7 +8,7 @@ import {
   DEFAULT_MAIN_KEY,
   normalizeAgentId,
   sanitizeAgentId,
-} from "./session-key.js";
+} from "./session-key.ts";
 
 export type RoutePeerKind = "dm" | "group" | "channel";
 
@@ -18,7 +18,7 @@ export type RoutePeer = {
 };
 
 export type ResolveAgentRouteInput = {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: string;
   accountId?: string | null;
   peer?: RoutePeer | null;
@@ -47,7 +47,7 @@ export type ResolvedAgentRoute = {
     | "default";
 };
 
-export { DEFAULT_ACCOUNT_ID, DEFAULT_AGENT_ID } from "./session-key.js";
+export { DEFAULT_ACCOUNT_ID, DEFAULT_AGENT_ID } from "./session-key.ts";
 
 function normalizeToken(value: string | undefined | null): string {
   return (value ?? "").trim().toLowerCase();
@@ -96,12 +96,12 @@ export function buildAgentSessionKey(params: {
   });
 }
 
-function listAgents(cfg: OpenClawConfig) {
+function listAgents(cfg: CmlHiveAssistConfig) {
   const agents = cfg.agents?.list;
   return Array.isArray(agents) ? agents : [];
 }
 
-function pickFirstExistingAgentId(cfg: OpenClawConfig, agentId: string): string {
+function pickFirstExistingAgentId(cfg: CmlHiveAssistConfig, agentId: string): string {
   const trimmed = (agentId ?? "").trim();
   if (!trimmed) {
     return sanitizeAgentId(resolveDefaultAgentId(cfg));

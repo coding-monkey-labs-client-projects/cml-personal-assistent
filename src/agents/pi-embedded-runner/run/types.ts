@@ -1,15 +1,15 @@
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import type { Api, AssistantMessage, ImageContent, Model } from "@mariozechner/pi-ai";
-import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.js";
-import type { AgentStreamParams } from "../../../commands/agent/types.js";
-import type { OpenClawConfig } from "../../../config/config.js";
-import type { SessionSystemPromptReport } from "../../../config/sessions/types.js";
-import type { ExecElevatedDefaults, ExecToolDefaults } from "../../bash-tools.js";
-import type { MessagingToolSend } from "../../pi-embedded-messaging.js";
-import type { BlockReplyChunking, ToolResultFormat } from "../../pi-embedded-subscribe.js";
-import type { AuthStorage, ModelRegistry } from "../../pi-model-discovery.js";
-import type { SkillSnapshot } from "../../skills.js";
-import type { ClientToolDefinition } from "./params.js";
+import type { ReasoningLevel, ThinkLevel, VerboseLevel } from "../../../auto-reply/thinking.ts";
+import type { AgentStreamParams } from "../../../commands/agent/types.ts";
+import type { CmlHiveAssistConfig } from "../../../config/config.ts";
+import type { SessionSystemPromptReport } from "../../../config/sessions/types.ts";
+import type { ExecElevatedDefaults, ExecToolDefaults } from "../../bash-tools.ts";
+import type { MessagingToolSend } from "../../pi-embedded-messaging.ts";
+import type { BlockReplyChunking, ToolResultFormat } from "../../pi-embedded-subscribe.ts";
+import type { AuthStorage, ModelRegistry } from "../../pi-model-discovery.ts";
+import type { SkillSnapshot } from "../../skills.ts";
+import type { ClientToolDefinition } from "./params.ts";
 
 export type EmbeddedRunAttemptParams = {
   sessionId: string;
@@ -38,7 +38,7 @@ export type EmbeddedRunAttemptParams = {
   sessionFile: string;
   workspaceDir: string;
   agentDir?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   skillsSnapshot?: SkillSnapshot;
   prompt: string;
   images?: ImageContent[];

@@ -1,30 +1,30 @@
-import type { ChannelId } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { CommandHandler } from "./commands-types.js";
-import { getChannelDock } from "../../channels/dock.js";
-import { resolveChannelConfigWrites } from "../../channels/plugins/config-writes.js";
-import { listPairingChannels } from "../../channels/plugins/pairing.js";
-import { normalizeChannelId } from "../../channels/registry.js";
+import type { ChannelId } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { CommandHandler } from "./commands-types.ts";
+import { getChannelDock } from "../../channels/dock.ts";
+import { resolveChannelConfigWrites } from "../../channels/plugins/config-writes.ts";
+import { listPairingChannels } from "../../channels/plugins/pairing.ts";
+import { normalizeChannelId } from "../../channels/registry.ts";
 import {
   readConfigFileSnapshot,
   validateConfigObjectWithPlugins,
   writeConfigFile,
-} from "../../config/config.js";
-import { resolveDiscordAccount } from "../../discord/accounts.js";
-import { resolveDiscordUserAllowlist } from "../../discord/resolve-users.js";
-import { logVerbose } from "../../globals.js";
-import { resolveIMessageAccount } from "../../imessage/accounts.js";
+} from "../../config/config.ts";
+import { resolveDiscordAccount } from "../../discord/accounts.ts";
+import { resolveDiscordUserAllowlist } from "../../discord/resolve-users.ts";
+import { logVerbose } from "../../globals.ts";
+import { resolveIMessageAccount } from "../../imessage/accounts.ts";
 import {
   addChannelAllowFromStoreEntry,
   readChannelAllowFromStore,
   removeChannelAllowFromStoreEntry,
-} from "../../pairing/pairing-store.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.js";
-import { resolveSignalAccount } from "../../signal/accounts.js";
-import { resolveSlackAccount } from "../../slack/accounts.js";
-import { resolveSlackUserAllowlist } from "../../slack/resolve-users.js";
-import { resolveTelegramAccount } from "../../telegram/accounts.js";
-import { resolveWhatsAppAccount } from "../../web/accounts.js";
+} from "../../pairing/pairing-store.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../../routing/session-key.ts";
+import { resolveSignalAccount } from "../../signal/accounts.ts";
+import { resolveSlackAccount } from "../../slack/accounts.ts";
+import { resolveSlackUserAllowlist } from "../../slack/resolve-users.ts";
+import { resolveTelegramAccount } from "../../telegram/accounts.ts";
+import { resolveWhatsAppAccount } from "../../web/accounts.ts";
 
 type AllowlistScope = "dm" | "group" | "all";
 type AllowlistAction = "list" | "add" | "remove";
@@ -142,7 +142,7 @@ function parseAllowlistCommand(raw: string): AllowlistCommand | null {
 }
 
 function normalizeAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channelId: ChannelId;
   accountId?: string | null;
   values: Array<string | number>;
@@ -281,7 +281,7 @@ function resolveChannelAllowFromPaths(
 }
 
 async function resolveSlackNames(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   entries: string[];
 }) {
@@ -301,7 +301,7 @@ async function resolveSlackNames(params: {
 }
 
 async function resolveDiscordNames(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
   entries: string[];
 }) {

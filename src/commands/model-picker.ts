@@ -1,17 +1,17 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { WizardPrompter, WizardSelectOption } from "../wizard/prompts.js";
-import { ensureAuthProfileStore, listProfilesForProvider } from "../agents/auth-profiles.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { getCustomProviderApiKey, resolveEnvApiKey } from "../agents/model-auth.js";
-import { loadModelCatalog } from "../agents/model-catalog.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { WizardPrompter, WizardSelectOption } from "../wizard/prompts.ts";
+import { ensureAuthProfileStore, listProfilesForProvider } from "../agents/auth-profiles.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { getCustomProviderApiKey, resolveEnvApiKey } from "../agents/model-auth.ts";
+import { loadModelCatalog } from "../agents/model-catalog.ts";
 import {
   buildAllowedModelSet,
   buildModelAliasIndex,
   modelKey,
   normalizeProviderId,
   resolveConfiguredModelRef,
-} from "../agents/model-selection.js";
-import { formatTokenK } from "./models/shared.js";
+} from "../agents/model-selection.ts";
+import { formatTokenK } from "./models/shared.ts";
 
 const KEEP_VALUE = "__keep__";
 const MANUAL_VALUE = "__manual__";
@@ -23,7 +23,7 @@ const PROVIDER_FILTER_THRESHOLD = 30;
 const HIDDEN_ROUTER_MODELS = new Set(["openrouter/auto"]);
 
 type PromptDefaultModelParams = {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   allowKeep?: boolean;
   includeManual?: boolean;
@@ -38,7 +38,7 @@ type PromptModelAllowlistResult = { models?: string[] };
 
 function hasAuthForProvider(
   provider: string,
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   store: ReturnType<typeof ensureAuthProfileStore>,
 ) {
   if (listProfilesForProvider(store, provider).length > 0) {
@@ -53,7 +53,7 @@ function hasAuthForProvider(
   return false;
 }
 
-function resolveConfiguredModelRaw(cfg: OpenClawConfig): string {
+function resolveConfiguredModelRaw(cfg: CmlHiveAssistConfig): string {
   const raw = cfg.agents?.defaults?.model as { primary?: string } | string | undefined;
   if (typeof raw === "string") {
     return raw.trim();
@@ -61,7 +61,7 @@ function resolveConfiguredModelRaw(cfg: OpenClawConfig): string {
   return raw?.primary?.trim() ?? "";
 }
 
-function resolveConfiguredModelKeys(cfg: OpenClawConfig): string[] {
+function resolveConfiguredModelKeys(cfg: CmlHiveAssistConfig): string[] {
   const models = cfg.agents?.defaults?.models ?? {};
   return Object.keys(models)
     .map((key) => String(key ?? "").trim())
@@ -298,7 +298,7 @@ export async function promptDefaultModel(
 }
 
 export async function promptModelAllowlist(params: {
-  config: OpenClawConfig;
+  config: CmlHiveAssistConfig;
   prompter: WizardPrompter;
   message?: string;
   agentDir?: string;
@@ -449,7 +449,7 @@ export async function promptModelAllowlist(params: {
   return { models: [] };
 }
 
-export function applyPrimaryModel(cfg: OpenClawConfig, model: string): OpenClawConfig {
+export function applyPrimaryModel(cfg: CmlHiveAssistConfig, model: string): CmlHiveAssistConfig {
   const defaults = cfg.agents?.defaults;
   const existingModel = defaults?.model;
   const existingModels = defaults?.models;
@@ -476,7 +476,7 @@ export function applyPrimaryModel(cfg: OpenClawConfig, model: string): OpenClawC
   };
 }
 
-export function applyModelAllowlist(cfg: OpenClawConfig, models: string[]): OpenClawConfig {
+export function applyModelAllowlist(cfg: CmlHiveAssistConfig, models: string[]): CmlHiveAssistConfig {
   const defaults = cfg.agents?.defaults;
   const normalized = normalizeModelKeys(models);
   if (normalized.length === 0) {
@@ -512,9 +512,9 @@ export function applyModelAllowlist(cfg: OpenClawConfig, models: string[]): Open
 }
 
 export function applyModelFallbacksFromSelection(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   selection: string[],
-): OpenClawConfig {
+): CmlHiveAssistConfig {
   const normalized = normalizeModelKeys(selection);
   if (normalized.length <= 1) {
     return cfg;

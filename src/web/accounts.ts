@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { DmPolicy, GroupPolicy, WhatsAppAccountConfig } from "../config/types.js";
-import { resolveOAuthDir } from "../config/paths.js";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
-import { resolveUserPath } from "../utils.js";
-import { hasWebCredsSync } from "./auth-store.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { DmPolicy, GroupPolicy, WhatsAppAccountConfig } from "../config/types.ts";
+import { resolveOAuthDir } from "../config/paths.ts";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.ts";
+import { resolveUserPath } from "../utils.ts";
+import { hasWebCredsSync } from "./auth-store.ts";
 
 export type ResolvedWhatsAppAccount = {
   accountId: string;
@@ -29,7 +29,7 @@ export type ResolvedWhatsAppAccount = {
   debounceMs?: number;
 };
 
-function listConfiguredAccountIds(cfg: OpenClawConfig): string[] {
+function listConfiguredAccountIds(cfg: CmlHiveAssistConfig): string[] {
   const accounts = cfg.channels?.whatsapp?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -37,7 +37,7 @@ function listConfiguredAccountIds(cfg: OpenClawConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listWhatsAppAuthDirs(cfg: OpenClawConfig): string[] {
+export function listWhatsAppAuthDirs(cfg: CmlHiveAssistConfig): string[] {
   const oauthDir = resolveOAuthDir();
   const whatsappDir = path.join(oauthDir, "whatsapp");
   const authDirs = new Set<string>([oauthDir, path.join(whatsappDir, DEFAULT_ACCOUNT_ID)]);
@@ -62,11 +62,11 @@ export function listWhatsAppAuthDirs(cfg: OpenClawConfig): string[] {
   return Array.from(authDirs);
 }
 
-export function hasAnyWhatsAppAuth(cfg: OpenClawConfig): boolean {
+export function hasAnyWhatsAppAuth(cfg: CmlHiveAssistConfig): boolean {
   return listWhatsAppAuthDirs(cfg).some((authDir) => hasWebCredsSync(authDir));
 }
 
-export function listWhatsAppAccountIds(cfg: OpenClawConfig): string[] {
+export function listWhatsAppAccountIds(cfg: CmlHiveAssistConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -74,7 +74,7 @@ export function listWhatsAppAccountIds(cfg: OpenClawConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultWhatsAppAccountId(cfg: OpenClawConfig): string {
+export function resolveDefaultWhatsAppAccountId(cfg: CmlHiveAssistConfig): string {
   const ids = listWhatsAppAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -83,7 +83,7 @@ export function resolveDefaultWhatsAppAccountId(cfg: OpenClawConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   accountId: string,
 ): WhatsAppAccountConfig | undefined {
   const accounts = cfg.channels?.whatsapp?.accounts;
@@ -111,7 +111,7 @@ function legacyAuthExists(authDir: string): boolean {
   }
 }
 
-export function resolveWhatsAppAuthDir(params: { cfg: OpenClawConfig; accountId: string }): {
+export function resolveWhatsAppAuthDir(params: { cfg: CmlHiveAssistConfig; accountId: string }): {
   authDir: string;
   isLegacy: boolean;
 } {
@@ -134,7 +134,7 @@ export function resolveWhatsAppAuthDir(params: { cfg: OpenClawConfig; accountId:
 }
 
 export function resolveWhatsAppAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   accountId?: string | null;
 }): ResolvedWhatsAppAccount {
   const rootCfg = params.cfg.channels?.whatsapp;
@@ -169,7 +169,7 @@ export function resolveWhatsAppAccount(params: {
   };
 }
 
-export function listEnabledWhatsAppAccounts(cfg: OpenClawConfig): ResolvedWhatsAppAccount[] {
+export function listEnabledWhatsAppAccounts(cfg: CmlHiveAssistConfig): ResolvedWhatsAppAccount[] {
   return listWhatsAppAccountIds(cfg)
     .map((accountId) => resolveWhatsAppAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

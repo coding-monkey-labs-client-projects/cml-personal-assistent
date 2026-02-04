@@ -81,43 +81,43 @@ vi.mock("./progress.js", () => ({
 
 describe("daemon-cli coverage", () => {
   const originalEnv = {
-    OPENCLAW_STATE_DIR: process.env.OPENCLAW_STATE_DIR,
-    OPENCLAW_CONFIG_PATH: process.env.OPENCLAW_CONFIG_PATH,
-    OPENCLAW_GATEWAY_PORT: process.env.OPENCLAW_GATEWAY_PORT,
-    OPENCLAW_PROFILE: process.env.OPENCLAW_PROFILE,
+    CML_HIVE_ASSIST_STATE_DIR: process.env.CML_HIVE_ASSIST_STATE_DIR,
+    CML_HIVE_ASSIST_CONFIG_PATH: process.env.CML_HIVE_ASSIST_CONFIG_PATH,
+    CML_HIVE_ASSIST_GATEWAY_PORT: process.env.CML_HIVE_ASSIST_GATEWAY_PORT,
+    CML_HIVE_ASSIST_PROFILE: process.env.CML_HIVE_ASSIST_PROFILE,
   };
 
   beforeEach(() => {
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-cli-state";
-    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-cli-state/openclaw.json";
-    delete process.env.OPENCLAW_GATEWAY_PORT;
-    delete process.env.OPENCLAW_PROFILE;
+    process.env.CML_HIVE_ASSIST_STATE_DIR = "/tmp/cml-hive-assist-cli-state";
+    process.env.CML_HIVE_ASSIST_CONFIG_PATH = "/tmp/cml-hive-assist-cli-state/cml-hive-assist.json";
+    delete process.env.CML_HIVE_ASSIST_GATEWAY_PORT;
+    delete process.env.CML_HIVE_ASSIST_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
   });
 
   afterEach(() => {
-    if (originalEnv.OPENCLAW_STATE_DIR !== undefined) {
-      process.env.OPENCLAW_STATE_DIR = originalEnv.OPENCLAW_STATE_DIR;
+    if (originalEnv.CML_HIVE_ASSIST_STATE_DIR !== undefined) {
+      process.env.CML_HIVE_ASSIST_STATE_DIR = originalEnv.CML_HIVE_ASSIST_STATE_DIR;
     } else {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.CML_HIVE_ASSIST_STATE_DIR;
     }
 
-    if (originalEnv.OPENCLAW_CONFIG_PATH !== undefined) {
-      process.env.OPENCLAW_CONFIG_PATH = originalEnv.OPENCLAW_CONFIG_PATH;
+    if (originalEnv.CML_HIVE_ASSIST_CONFIG_PATH !== undefined) {
+      process.env.CML_HIVE_ASSIST_CONFIG_PATH = originalEnv.CML_HIVE_ASSIST_CONFIG_PATH;
     } else {
-      delete process.env.OPENCLAW_CONFIG_PATH;
+      delete process.env.CML_HIVE_ASSIST_CONFIG_PATH;
     }
 
-    if (originalEnv.OPENCLAW_GATEWAY_PORT !== undefined) {
-      process.env.OPENCLAW_GATEWAY_PORT = originalEnv.OPENCLAW_GATEWAY_PORT;
+    if (originalEnv.CML_HIVE_ASSIST_GATEWAY_PORT !== undefined) {
+      process.env.CML_HIVE_ASSIST_GATEWAY_PORT = originalEnv.CML_HIVE_ASSIST_GATEWAY_PORT;
     } else {
-      delete process.env.OPENCLAW_GATEWAY_PORT;
+      delete process.env.CML_HIVE_ASSIST_GATEWAY_PORT;
     }
 
-    if (originalEnv.OPENCLAW_PROFILE !== undefined) {
-      process.env.OPENCLAW_PROFILE = originalEnv.OPENCLAW_PROFILE;
+    if (originalEnv.CML_HIVE_ASSIST_PROFILE !== undefined) {
+      process.env.CML_HIVE_ASSIST_PROFILE = originalEnv.CML_HIVE_ASSIST_PROFILE;
     } else {
-      delete process.env.OPENCLAW_PROFILE;
+      delete process.env.CML_HIVE_ASSIST_PROFILE;
     }
   });
 
@@ -148,10 +148,10 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19001",
+        CML_HIVE_ASSIST_PROFILE: "dev",
+        CML_HIVE_ASSIST_STATE_DIR: "/tmp/cml-hive-assist-daemon-state",
+        CML_HIVE_ASSIST_CONFIG_PATH: "/tmp/cml-hive-assist-daemon-state/cml-hive-assist.json",
+        CML_HIVE_ASSIST_GATEWAY_PORT: "19001",
       },
       sourcePath: "/tmp/bot.molt.gateway.plist",
     });

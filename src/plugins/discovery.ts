@@ -1,13 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { PluginDiagnostic, PluginOrigin } from "./types.js";
-import { resolveConfigDir, resolveUserPath } from "../utils.js";
-import { resolveBundledPluginsDir } from "./bundled-dir.js";
+import type { PluginDiagnostic, PluginOrigin } from "./types.ts";
+import { resolveConfigDir, resolveUserPath } from "../utils.ts";
+import { resolveBundledPluginsDir } from "./bundled-dir.ts";
 import {
   getPackageManifestMetadata,
-  type OpenClawPackageManifest,
+  type CmlHiveAssistPackageManifest,
   type PackageManifest,
-} from "./manifest.js";
+} from "./manifest.ts";
 
 const EXTENSION_EXTS = new Set([".ts", ".js", ".mts", ".cts", ".mjs", ".cjs"]);
 
@@ -21,7 +21,7 @@ export type PluginCandidate = {
   packageVersion?: string;
   packageDescription?: string;
   packageDir?: string;
-  packageManifest?: OpenClawPackageManifest;
+  packageManifest?: CmlHiveAssistPackageManifest;
 };
 
 export type PluginDiscoveryResult = {
@@ -70,7 +70,7 @@ function deriveIdHint(params: {
   }
 
   // Prefer the unscoped name so config keys stay stable even when the npm
-  // package is scoped (example: @openclaw/voice-call -> voice-call).
+  // package is scoped (example: @cml-hive-assist/voice-call -> voice-call).
   const unscoped = rawPackageName.includes("/")
     ? (rawPackageName.split("/").pop() ?? rawPackageName)
     : rawPackageName;
@@ -298,7 +298,7 @@ function discoverFromPath(params: {
   }
 }
 
-export function discoverOpenClawPlugins(params: {
+export function discoverCmlHiveAssistPlugins(params: {
   workspaceDir?: string;
   extraPaths?: string[];
 }): PluginDiscoveryResult {
@@ -327,7 +327,7 @@ export function discoverOpenClawPlugins(params: {
   }
   if (workspaceDir) {
     const workspaceRoot = resolveUserPath(workspaceDir);
-    const workspaceExtDirs = [path.join(workspaceRoot, ".openclaw", "extensions")];
+    const workspaceExtDirs = [path.join(workspaceRoot, ".cml-hive-assist", "extensions")];
     for (const dir of workspaceExtDirs) {
       discoverInDirectory({
         dir,

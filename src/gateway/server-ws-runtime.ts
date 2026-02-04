@@ -1,9 +1,9 @@
 import type { WebSocketServer } from "ws";
-import type { createSubsystemLogger } from "../logging/subsystem.js";
-import type { ResolvedGatewayAuth } from "./auth.js";
-import type { GatewayRequestContext, GatewayRequestHandlers } from "./server-methods/types.js";
-import type { GatewayWsClient } from "./server/ws-types.js";
-import { attachGatewayWsConnectionHandler } from "./server/ws-connection.js";
+import type { createSubsystemLogger } from "../logging/subsystem.ts";
+import type { ResolvedGatewayAuth } from "./auth.ts";
+import type { GatewayRequestContext, GatewayRequestHandlers } from "./server-methods/types.ts";
+import type { GatewayWsClient } from "./server/ws-types.ts";
+import { attachGatewayWsConnectionHandler } from "./server/ws-connection.ts";
 
 export function attachGatewayWsHandlers(params: {
   wss: WebSocketServer;

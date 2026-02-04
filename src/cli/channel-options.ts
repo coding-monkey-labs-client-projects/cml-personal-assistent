@@ -1,8 +1,8 @@
-import { listChannelPluginCatalogEntries } from "../channels/plugins/catalog.js";
-import { listChannelPlugins } from "../channels/plugins/index.js";
-import { CHAT_CHANNEL_ORDER } from "../channels/registry.js";
-import { isTruthyEnvValue } from "../infra/env.js";
-import { ensurePluginRegistryLoaded } from "./plugin-registry.js";
+import { listChannelPluginCatalogEntries } from "../channels/plugins/catalog.ts";
+import { listChannelPlugins } from "../channels/plugins/index.ts";
+import { CHAT_CHANNEL_ORDER } from "../channels/registry.ts";
+import { isTruthyEnvValue } from "../infra/env.ts";
+import { ensurePluginRegistryLoaded } from "./plugin-registry.ts";
 
 function dedupe(values: string[]): string[] {
   const seen = new Set<string>();
@@ -20,7 +20,7 @@ function dedupe(values: string[]): string[] {
 export function resolveCliChannelOptions(): string[] {
   const catalog = listChannelPluginCatalogEntries().map((entry) => entry.id);
   const base = dedupe([...CHAT_CHANNEL_ORDER, ...catalog]);
-  if (isTruthyEnvValue(process.env.OPENCLAW_EAGER_CHANNEL_OPTIONS)) {
+  if (isTruthyEnvValue(process.env.CML_HIVE_ASSIST_EAGER_CHANNEL_OPTIONS)) {
     ensurePluginRegistryLoaded();
     const pluginIds = listChannelPlugins().map((plugin) => plugin.id);
     return dedupe([...base, ...pluginIds]);

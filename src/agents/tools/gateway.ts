@@ -1,5 +1,5 @@
-import { callGateway } from "../../gateway/call.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../utils/message-channel.js";
+import { callGateway } from "../../gateway/call.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../../utils/message-channel.ts";
 
 export const DEFAULT_GATEWAY_URL = "ws://127.0.0.1:18789";
 

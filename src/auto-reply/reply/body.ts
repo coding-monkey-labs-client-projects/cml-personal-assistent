@@ -1,6 +1,6 @@
-import type { SessionEntry } from "../../config/sessions.js";
-import { updateSessionStore } from "../../config/sessions.js";
-import { setAbortMemory } from "./abort.js";
+import type { SessionEntry } from "../../config/sessions.ts";
+import { updateSessionStore } from "../../config/sessions.ts";
+import { setAbortMemory } from "./abort.ts";
 
 export async function applySessionHints(params: {
   baseBody: string;

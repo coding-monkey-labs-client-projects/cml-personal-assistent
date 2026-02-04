@@ -1,14 +1,14 @@
 import type { Command } from "commander";
-import { healthCommand } from "../../commands/health.js";
-import { sessionsCommand } from "../../commands/sessions.js";
-import { statusCommand } from "../../commands/status.js";
-import { setVerbose } from "../../globals.js";
-import { defaultRuntime } from "../../runtime.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { runCommandWithRuntime } from "../cli-utils.js";
-import { formatHelpExamples } from "../help-format.js";
-import { parsePositiveIntOrUndefined } from "./helpers.js";
+import { healthCommand } from "../../commands/health.ts";
+import { sessionsCommand } from "../../commands/sessions.ts";
+import { statusCommand } from "../../commands/status.ts";
+import { setVerbose } from "../../globals.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { runCommandWithRuntime } from "../cli-utils.ts";
+import { formatHelpExamples } from "../help-format.ts";
+import { parsePositiveIntOrUndefined } from "./helpers.ts";
 
 function resolveVerbose(opts: { verbose?: boolean; debug?: boolean }): boolean {
   return Boolean(opts.verbose || opts.debug);
@@ -39,21 +39,21 @@ export function registerStatusHealthSessionsCommands(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw status", "Show channel health + session summary."],
-          ["openclaw status --all", "Full diagnosis (read-only)."],
-          ["openclaw status --json", "Machine-readable output."],
-          ["openclaw status --usage", "Show model provider usage/quota snapshots."],
+          ["cml-hive-assist status", "Show channel health + session summary."],
+          ["cml-hive-assist status --all", "Full diagnosis (read-only)."],
+          ["cml-hive-assist status --json", "Machine-readable output."],
+          ["cml-hive-assist status --usage", "Show model provider usage/quota snapshots."],
           [
-            "openclaw status --deep",
+            "cml-hive-assist status --deep",
             "Run channel probes (WA + Telegram + Discord + Slack + Signal).",
           ],
-          ["openclaw status --deep --timeout 5000", "Tighten probe timeout."],
+          ["cml-hive-assist status --deep --timeout 5000", "Tighten probe timeout."],
         ])}`,
     )
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/status", "docs.openclaw.ai/cli/status")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/status", "docs.cml-hive-assist.ai/cli/status")}\n`,
     )
     .action(async (opts) => {
       const verbose = resolveVerbose(opts);
@@ -87,7 +87,7 @@ export function registerStatusHealthSessionsCommands(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/health", "docs.openclaw.ai/cli/health")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/health", "docs.cml-hive-assist.ai/cli/health")}\n`,
     )
     .action(async (opts) => {
       const verbose = resolveVerbose(opts);
@@ -119,10 +119,10 @@ export function registerStatusHealthSessionsCommands(program: Command) {
       "after",
       () =>
         `\n${theme.heading("Examples:")}\n${formatHelpExamples([
-          ["openclaw sessions", "List all sessions."],
-          ["openclaw sessions --active 120", "Only last 2 hours."],
-          ["openclaw sessions --json", "Machine-readable output."],
-          ["openclaw sessions --store ./tmp/sessions.json", "Use a specific session store."],
+          ["cml-hive-assist sessions", "List all sessions."],
+          ["cml-hive-assist sessions --active 120", "Only last 2 hours."],
+          ["cml-hive-assist sessions --json", "Machine-readable output."],
+          ["cml-hive-assist sessions --store ./tmp/sessions.json", "Use a specific session store."],
         ])}\n\n${theme.muted(
           "Shows token usage per session when the agent reports it; set agents.defaults.contextTokens to cap the window and show %.",
         )}`,
@@ -130,7 +130,7 @@ export function registerStatusHealthSessionsCommands(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sessions", "docs.openclaw.ai/cli/sessions")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sessions", "docs.cml-hive-assist.ai/cli/sessions")}\n`,
     )
     .action(async (opts) => {
       setVerbose(Boolean(opts.verbose));

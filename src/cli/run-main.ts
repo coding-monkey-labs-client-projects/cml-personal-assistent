@@ -2,16 +2,16 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { loadDotEnv } from "../infra/dotenv.js";
-import { normalizeEnv } from "../infra/env.js";
-import { formatUncaughtError } from "../infra/errors.js";
-import { isMainModule } from "../infra/is-main.js";
-import { ensureOpenClawCliOnPath } from "../infra/path-env.js";
-import { assertSupportedRuntime } from "../infra/runtime-guard.js";
-import { installUnhandledRejectionHandler } from "../infra/unhandled-rejections.js";
-import { enableConsoleCapture } from "../logging.js";
-import { getPrimaryCommand, hasHelpOrVersion } from "./argv.js";
-import { tryRouteCli } from "./route.js";
+import { loadDotEnv } from "../infra/dotenv.ts";
+import { normalizeEnv } from "../infra/env.ts";
+import { formatUncaughtError } from "../infra/errors.ts";
+import { isMainModule } from "../infra/is-main.ts";
+import { ensureCmlHiveAssistCliOnPath } from "../infra/path-env.ts";
+import { assertSupportedRuntime } from "../infra/runtime-guard.ts";
+import { installUnhandledRejectionHandler } from "../infra/unhandled-rejections.ts";
+import { enableConsoleCapture } from "../logging.ts";
+import { getPrimaryCommand, hasHelpOrVersion } from "./argv.ts";
+import { tryRouteCli } from "./route.ts";
 
 export function rewriteUpdateFlagArgv(argv: string[]): string[] {
   const index = argv.indexOf("--update");
@@ -28,7 +28,7 @@ export async function runCli(argv: string[] = process.argv) {
   const normalizedArgv = stripWindowsNodeExec(argv);
   loadDotEnv({ quiet: true });
   normalizeEnv();
-  ensureOpenClawCliOnPath();
+  ensureCmlHiveAssistCliOnPath();
 
   // Enforce the minimum supported runtime before doing any work.
   assertSupportedRuntime();
@@ -40,7 +40,7 @@ export async function runCli(argv: string[] = process.argv) {
   // Capture all console output into structured logs while keeping stdout/stderr behavior.
   enableConsoleCapture();
 
-  const { buildProgram } = await import("./program.js");
+  const { buildProgram } = await import("./program.ts");
   const program = buildProgram();
 
   // Global error handlers to prevent silent crashes from unhandled rejections/exceptions.
@@ -48,7 +48,7 @@ export async function runCli(argv: string[] = process.argv) {
   installUnhandledRejectionHandler();
 
   process.on("uncaughtException", (error) => {
-    console.error("[openclaw] Uncaught exception:", formatUncaughtError(error));
+    console.error("[cml-hive-assist] Uncaught exception:", formatUncaughtError(error));
     process.exit(1);
   });
 
@@ -56,15 +56,15 @@ export async function runCli(argv: string[] = process.argv) {
   // Register the primary subcommand if one exists (for lazy-loading)
   const primary = getPrimaryCommand(parseArgv);
   if (primary) {
-    const { registerSubCliByName } = await import("./program/register.subclis.js");
+    const { registerSubCliByName } = await import("./program/register.subclis.ts");
     await registerSubCliByName(program, primary);
   }
 
   const shouldSkipPluginRegistration = !primary && hasHelpOrVersion(parseArgv);
   if (!shouldSkipPluginRegistration) {
     // Register plugin CLI commands before parsing
-    const { registerPluginCliCommands } = await import("../plugins/cli.js");
-    const { loadConfig } = await import("../config/config.js");
+    const { registerPluginCliCommands } = await import("../plugins/cli.ts");
+    const { loadConfig } = await import("../config/config.ts");
     registerPluginCliCommands(program, loadConfig());
   }
 

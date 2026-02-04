@@ -5,10 +5,10 @@ export {
   readConfigFileSnapshot,
   resolveConfigSnapshotHash,
   writeConfigFile,
-} from "./io.js";
-export { migrateLegacyConfig } from "./legacy-migrate.js";
-export * from "./paths.js";
-export * from "./runtime-overrides.js";
-export * from "./types.js";
-export { validateConfigObject, validateConfigObjectWithPlugins } from "./validation.js";
-export { OpenClawSchema } from "./zod-schema.js";
+} from "./io.ts";
+export { migrateLegacyConfig } from "./legacy-migrate.ts";
+export * from "./paths.ts";
+export * from "./runtime-overrides.ts";
+export * from "./types.ts";
+export { validateConfigObject, validateConfigObjectWithPlugins } from "./validation.ts";
+export { CmlHiveAssistSchema } from "./zod-schema.ts";

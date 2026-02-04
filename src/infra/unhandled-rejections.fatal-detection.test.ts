@@ -46,7 +46,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([1]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[openclaw] FATAL unhandled rejection:",
+        "[cml-hive-assist] FATAL unhandled rejection:",
         expect.stringContaining("Out of memory"),
       );
     });
@@ -82,7 +82,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([1]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[openclaw] CONFIGURATION ERROR - requires fix:",
+        "[cml-hive-assist] CONFIGURATION ERROR - requires fix:",
         expect.stringContaining("Invalid config"),
       );
     });
@@ -108,7 +108,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([]);
       expect(consoleWarnSpy).toHaveBeenCalledWith(
-        "[openclaw] Non-fatal unhandled rejection (continuing):",
+        "[cml-hive-assist] Non-fatal unhandled rejection (continuing):",
         expect.stringContaining("fetch failed"),
       );
     });
@@ -131,7 +131,7 @@ describe("installUnhandledRejectionHandler - fatal detection", () => {
 
       expect(exitCalls).toEqual([1]);
       expect(consoleErrorSpy).toHaveBeenCalledWith(
-        "[openclaw] Unhandled promise rejection:",
+        "[cml-hive-assist] Unhandled promise rejection:",
         expect.stringContaining("Something went wrong"),
       );
     });

@@ -3,9 +3,9 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import lockfile from "proper-lockfile";
-import type { ChannelId, ChannelPairingAdapter } from "../channels/plugins/types.js";
-import { getPairingAdapter } from "../channels/plugins/pairing.js";
-import { resolveOAuthDir, resolveStateDir } from "../config/paths.js";
+import type { ChannelId, ChannelPairingAdapter } from "../channels/plugins/types.ts";
+import { getPairingAdapter } from "../channels/plugins/pairing.ts";
+import { resolveOAuthDir, resolveStateDir } from "../config/paths.ts";
 
 const PAIRING_CODE_LENGTH = 8;
 const PAIRING_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

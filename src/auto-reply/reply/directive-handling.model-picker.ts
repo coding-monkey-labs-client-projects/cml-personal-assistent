@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import { type ModelRef, normalizeProviderId } from "../../agents/model-selection.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { type ModelRef, normalizeProviderId } from "../../agents/model-selection.ts";
 
 export type ModelPickerCatalogEntry = {
   provider: string;
@@ -80,7 +80,7 @@ export function buildModelPickerItems(catalog: ModelPickerCatalogEntry[]): Model
 
 export function resolveProviderEndpointLabel(
   provider: string,
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
 ): { endpoint?: string; api?: string } {
   const normalized = normalizeProviderId(provider);
   const providers = (cfg.models?.providers ?? {}) as Record<

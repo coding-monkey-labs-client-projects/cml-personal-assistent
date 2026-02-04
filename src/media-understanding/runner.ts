@@ -2,12 +2,12 @@ import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { MsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { MsgContext } from "../auto-reply/templating.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   MediaUnderstandingConfig,
   MediaUnderstandingModelConfig,
-} from "../config/types.tools.js";
+} from "../config/types.tools.ts";
 import type {
   MediaAttachment,
   MediaUnderstandingCapability,
@@ -15,29 +15,29 @@ import type {
   MediaUnderstandingModelDecision,
   MediaUnderstandingOutput,
   MediaUnderstandingProvider,
-} from "./types.js";
-import { requireApiKey, resolveApiKeyForProvider } from "../agents/model-auth.js";
+} from "./types.ts";
+import { requireApiKey, resolveApiKeyForProvider } from "../agents/model-auth.ts";
 import {
   findModelInCatalog,
   loadModelCatalog,
   modelSupportsVision,
-} from "../agents/model-catalog.js";
-import { applyTemplate } from "../auto-reply/templating.js";
-import { logVerbose, shouldLogVerbose } from "../globals.js";
-import { runExec } from "../process/exec.js";
-import { MediaAttachmentCache, normalizeAttachments, selectAttachments } from "./attachments.js";
+} from "../agents/model-catalog.ts";
+import { applyTemplate } from "../auto-reply/templating.ts";
+import { logVerbose, shouldLogVerbose } from "../globals.ts";
+import { runExec } from "../process/exec.ts";
+import { MediaAttachmentCache, normalizeAttachments, selectAttachments } from "./attachments.ts";
 import {
   CLI_OUTPUT_MAX_BUFFER,
   DEFAULT_AUDIO_MODELS,
   DEFAULT_TIMEOUT_SECONDS,
-} from "./defaults.js";
-import { isMediaUnderstandingSkipError, MediaUnderstandingSkipError } from "./errors.js";
-import { describeImageWithModel } from "./providers/image.js";
+} from "./defaults.ts";
+import { isMediaUnderstandingSkipError, MediaUnderstandingSkipError } from "./errors.ts";
+import { describeImageWithModel } from "./providers/image.ts";
 import {
   buildMediaUnderstandingRegistry,
   getMediaUnderstandingProvider,
   normalizeMediaProviderId,
-} from "./providers/index.js";
+} from "./providers/index.ts";
 import {
   resolveMaxBytes,
   resolveMaxChars,
@@ -45,8 +45,8 @@ import {
   resolvePrompt,
   resolveScopeDecision,
   resolveTimeoutMs,
-} from "./resolve.js";
-import { estimateBase64Size, resolveVideoMaxBase64Bytes } from "./video.js";
+} from "./resolve.ts";
+import { estimateBase64Size, resolveVideoMaxBase64Bytes } from "./video.ts";
 
 const AUTO_AUDIO_KEY_PROVIDERS = ["openai", "groq", "deepgram", "google"] as const;
 const AUTO_IMAGE_KEY_PROVIDERS = ["openai", "anthropic", "google", "minimax"] as const;
@@ -396,7 +396,7 @@ async function resolveGeminiCliEntry(
 }
 
 async function resolveKeyEntry(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
   providerRegistry: ProviderRegistry;
   capability: MediaUnderstandingCapability;
@@ -480,7 +480,7 @@ async function resolveKeyEntry(params: {
 }
 
 async function resolveAutoEntries(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
   providerRegistry: ProviderRegistry;
   capability: MediaUnderstandingCapability;
@@ -508,7 +508,7 @@ async function resolveAutoEntries(params: {
 }
 
 export async function resolveAutoImageModel(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
   activeModel?: ActiveMediaModel;
 }): Promise<ActiveMediaModel | null> {
@@ -549,7 +549,7 @@ export async function resolveAutoImageModel(params: {
 }
 
 async function resolveActiveModelEntry(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentDir?: string;
   providerRegistry: ProviderRegistry;
   capability: MediaUnderstandingCapability;
@@ -808,7 +808,7 @@ function formatDecisionSummary(decision: MediaUnderstandingDecision): string {
 async function runProviderEntry(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   ctx: MsgContext;
   attachmentIndex: number;
   cache: MediaAttachmentCache;
@@ -992,7 +992,7 @@ async function runProviderEntry(params: {
 async function runCliEntry(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   ctx: MsgContext;
   attachmentIndex: number;
   cache: MediaAttachmentCache;
@@ -1022,7 +1022,7 @@ async function runCliEntry(params: {
     maxBytes,
     timeoutMs,
   });
-  const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-media-cli-"));
+  const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-media-cli-"));
   const mediaPath = pathResult.path;
   const outputBase = path.join(outputDir, path.parse(mediaPath).name);
 
@@ -1070,7 +1070,7 @@ async function runCliEntry(params: {
 
 async function runAttachmentEntries(params: {
   capability: MediaUnderstandingCapability;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   ctx: MsgContext;
   attachmentIndex: number;
   agentDir?: string;
@@ -1157,7 +1157,7 @@ async function runAttachmentEntries(params: {
 
 export async function runCapability(params: {
   capability: MediaUnderstandingCapability;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   ctx: MsgContext;
   attachments: MediaAttachmentCache;
   media: MediaAttachment[];

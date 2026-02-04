@@ -1,20 +1,20 @@
 import type { Command } from "commander";
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { PluginRecord } from "../plugins/registry.js";
-import { loadConfig, writeConfigFile } from "../config/config.js";
-import { resolveArchiveKind } from "../infra/archive.js";
-import { installPluginFromNpmSpec, installPluginFromPath } from "../plugins/install.js";
-import { recordPluginInstall } from "../plugins/installs.js";
-import { applyExclusiveSlotSelection } from "../plugins/slots.js";
-import { buildPluginStatusReport } from "../plugins/status.js";
-import { updateNpmInstalledPlugins } from "../plugins/update.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { renderTable } from "../terminal/table.js";
-import { theme } from "../terminal/theme.js";
-import { resolveUserPath, shortenHomeInString, shortenHomePath } from "../utils.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { PluginRecord } from "../plugins/registry.ts";
+import { loadConfig, writeConfigFile } from "../config/config.ts";
+import { resolveArchiveKind } from "../infra/archive.ts";
+import { installPluginFromNpmSpec, installPluginFromPath } from "../plugins/install.ts";
+import { recordPluginInstall } from "../plugins/installs.ts";
+import { applyExclusiveSlotSelection } from "../plugins/slots.ts";
+import { buildPluginStatusReport } from "../plugins/status.ts";
+import { updateNpmInstalledPlugins } from "../plugins/update.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { renderTable } from "../terminal/table.ts";
+import { theme } from "../terminal/theme.ts";
+import { resolveUserPath, shortenHomeInString, shortenHomePath } from "../utils.ts";
 
 export type PluginsListOptions = {
   json?: boolean;
@@ -70,9 +70,9 @@ function formatPluginLine(plugin: PluginRecord, verbose = false): string {
 }
 
 function applySlotSelectionForPlugin(
-  config: OpenClawConfig,
+  config: CmlHiveAssistConfig,
   pluginId: string,
-): { config: OpenClawConfig; warnings: string[] } {
+): { config: CmlHiveAssistConfig; warnings: string[] } {
   const report = buildPluginStatusReport({ config });
   const plugin = report.plugins.find((entry) => entry.id === pluginId);
   if (!plugin) {
@@ -99,11 +99,11 @@ function logSlotWarnings(warnings: string[]) {
 export function registerPluginsCli(program: Command) {
   const plugins = program
     .command("plugins")
-    .description("Manage OpenClaw plugins/extensions")
+    .description("Manage CmlHiveAssist plugins/extensions")
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/plugins", "docs.openclaw.ai/cli/plugins")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/plugins", "docs.cml-hive-assist.ai/cli/plugins")}\n`,
     );
 
   plugins
@@ -264,7 +264,7 @@ export function registerPluginsCli(program: Command) {
     .argument("<id>", "Plugin id")
     .action(async (id: string) => {
       const cfg = loadConfig();
-      let next: OpenClawConfig = {
+      let next: CmlHiveAssistConfig = {
         ...cfg,
         plugins: {
           ...cfg.plugins,
@@ -326,7 +326,7 @@ export function registerPluginsCli(program: Command) {
             process.exit(1);
           }
 
-          let next: OpenClawConfig = {
+          let next: CmlHiveAssistConfig = {
             ...cfg,
             plugins: {
               ...cfg.plugins,
@@ -371,7 +371,7 @@ export function registerPluginsCli(program: Command) {
           process.exit(1);
         }
 
-        let next: OpenClawConfig = {
+        let next: CmlHiveAssistConfig = {
           ...cfg,
           plugins: {
             ...cfg.plugins,
@@ -435,7 +435,7 @@ export function registerPluginsCli(program: Command) {
         process.exit(1);
       }
 
-      let next: OpenClawConfig = {
+      let next: CmlHiveAssistConfig = {
         ...cfg,
         plugins: {
           ...cfg.plugins,
@@ -541,7 +541,7 @@ export function registerPluginsCli(program: Command) {
           lines.push(`- ${target}${diag.message}`);
         }
       }
-      const docs = formatDocsLink("/plugin", "docs.openclaw.ai/plugin");
+      const docs = formatDocsLink("/plugin", "docs.cml-hive-assist.ai/plugin");
       lines.push("");
       lines.push(`${theme.muted("Docs:")} ${docs}`);
       defaultRuntime.log(lines.join("\n"));

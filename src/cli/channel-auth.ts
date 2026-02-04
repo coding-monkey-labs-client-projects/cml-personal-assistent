@@ -1,9 +1,9 @@
-import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
-import { getChannelPlugin, normalizeChannelId } from "../channels/plugins/index.js";
-import { DEFAULT_CHAT_CHANNEL } from "../channels/registry.js";
-import { loadConfig } from "../config/config.js";
-import { setVerbose } from "../globals.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
+import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.ts";
+import { getChannelPlugin, normalizeChannelId } from "../channels/plugins/index.ts";
+import { DEFAULT_CHAT_CHANNEL } from "../channels/registry.ts";
+import { loadConfig } from "../config/config.ts";
+import { setVerbose } from "../globals.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
 
 type ChannelAuthOptions = {
   channel?: string;

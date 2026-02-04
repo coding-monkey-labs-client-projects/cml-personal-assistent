@@ -1,23 +1,23 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { PollInput } from "../../polls.js";
-import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.js";
-import { loadConfig } from "../../config/config.js";
-import { callGateway, randomIdempotencyKey } from "../../gateway/call.js";
-import { normalizePollInput } from "../../polls.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { PollInput } from "../../polls.ts";
+import { getChannelPlugin, normalizeChannelId } from "../../channels/plugins/index.ts";
+import { loadConfig } from "../../config/config.ts";
+import { callGateway, randomIdempotencyKey } from "../../gateway/call.ts";
+import { normalizePollInput } from "../../polls.ts";
 import {
   GATEWAY_CLIENT_MODES,
   GATEWAY_CLIENT_NAMES,
   type GatewayClientMode,
   type GatewayClientName,
-} from "../../utils/message-channel.js";
-import { resolveMessageChannelSelection } from "./channel-selection.js";
+} from "../../utils/message-channel.ts";
+import { resolveMessageChannelSelection } from "./channel-selection.ts";
 import {
   deliverOutboundPayloads,
   type OutboundDeliveryResult,
   type OutboundSendDeps,
-} from "./deliver.js";
-import { normalizeReplyPayloadsForDelivery } from "./payloads.js";
-import { resolveOutboundTarget } from "./targets.js";
+} from "./deliver.ts";
+import { normalizeReplyPayloadsForDelivery } from "./payloads.ts";
+import { resolveOutboundTarget } from "./targets.ts";
 
 export type MessageGatewayOptions = {
   url?: string;
@@ -39,7 +39,7 @@ type MessageSendParams = {
   dryRun?: boolean;
   bestEffort?: boolean;
   deps?: OutboundSendDeps;
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   gateway?: MessageGatewayOptions;
   idempotencyKey?: string;
   mirror?: {
@@ -69,7 +69,7 @@ type MessagePollParams = {
   durationHours?: number;
   channel?: string;
   dryRun?: boolean;
-  cfg?: OpenClawConfig;
+  cfg?: CmlHiveAssistConfig;
   gateway?: MessageGatewayOptions;
   idempotencyKey?: string;
 };

@@ -1,14 +1,14 @@
 import JSON5 from "json5";
 import type {
-  OpenClawHookMetadata,
+  CmlHiveAssistHookMetadata,
   HookEntry,
   HookInstallSpec,
   HookInvocationPolicy,
   ParsedHookFrontmatter,
-} from "./types.js";
-import { LEGACY_MANIFEST_KEYS, MANIFEST_KEY } from "../compat/legacy-names.js";
-import { parseFrontmatterBlock } from "../markdown/frontmatter.js";
-import { parseBooleanValue } from "../utils/boolean.js";
+} from "./types.ts";
+import { LEGACY_MANIFEST_KEYS, MANIFEST_KEY } from "../compat/legacy-names.ts";
+import { parseFrontmatterBlock } from "../markdown/frontmatter.ts";
+import { parseBooleanValue } from "../utils/boolean.ts";
 
 export function parseFrontmatter(content: string): ParsedHookFrontmatter {
   return parseFrontmatterBlock(content);
@@ -76,9 +76,9 @@ function parseFrontmatterBool(value: string | undefined, fallback: boolean): boo
   return parsed === undefined ? fallback : parsed;
 }
 
-export function resolveOpenClawMetadata(
+export function resolveCmlHiveAssistMetadata(
   frontmatter: ParsedHookFrontmatter,
-): OpenClawHookMetadata | undefined {
+): CmlHiveAssistHookMetadata | undefined {
   const raw = getFrontmatterValue(frontmatter, "metadata");
   if (!raw) {
     return undefined;

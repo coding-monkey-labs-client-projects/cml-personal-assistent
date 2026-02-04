@@ -1,6 +1,6 @@
-import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
-import { githubCopilotLoginCommand } from "../providers/github-copilot-auth.js";
-import { applyAuthProfileConfig } from "./onboard-auth.js";
+import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.ts";
+import { githubCopilotLoginCommand } from "../providers/github-copilot-auth.ts";
+import { applyAuthProfileConfig } from "./onboard-auth.ts";
 
 export async function applyAuthChoiceGitHubCopilot(
   params: ApplyAuthChoiceParams,

@@ -1,14 +1,14 @@
-import type { ChannelCapabilities, ChannelPlugin } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.js";
-import { getChannelPlugin, listChannelPlugins } from "../../channels/plugins/index.js";
-import { fetchChannelPermissionsDiscord } from "../../discord/send.js";
-import { parseDiscordTarget } from "../../discord/targets.js";
-import { danger } from "../../globals.js";
-import { defaultRuntime, type RuntimeEnv } from "../../runtime.js";
-import { fetchSlackScopes, type SlackScopesResult } from "../../slack/scopes.js";
-import { theme } from "../../terminal/theme.js";
-import { formatChannelAccountLabel, requireValidConfig } from "./shared.js";
+import type { ChannelCapabilities, ChannelPlugin } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { resolveChannelDefaultAccountId } from "../../channels/plugins/helpers.ts";
+import { getChannelPlugin, listChannelPlugins } from "../../channels/plugins/index.ts";
+import { fetchChannelPermissionsDiscord } from "../../discord/send.ts";
+import { parseDiscordTarget } from "../../discord/targets.ts";
+import { danger } from "../../globals.ts";
+import { defaultRuntime, type RuntimeEnv } from "../../runtime.ts";
+import { fetchSlackScopes, type SlackScopesResult } from "../../slack/scopes.ts";
+import { theme } from "../../terminal/theme.ts";
+import { formatChannelAccountLabel, requireValidConfig } from "./shared.ts";
 
 export type ChannelsCapabilitiesOptions = {
   channel?: string;
@@ -337,7 +337,7 @@ async function buildDiscordPermissions(params: {
 
 async function resolveChannelReports(params: {
   plugin: ChannelPlugin;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   timeoutMs: number;
   accountOverride?: string;
   target?: string;

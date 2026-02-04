@@ -1,6 +1,6 @@
-import { type OpenClawConfig, loadConfig } from "../config/config.js";
-import { resolveOpenClawAgentDir } from "./agent-paths.js";
-import { ensureOpenClawModelsJson } from "./models-config.js";
+import { type CmlHiveAssistConfig, loadConfig } from "../config/config.ts";
+import { resolveCmlHiveAssistAgentDir } from "./agent-paths.ts";
+import { ensureCmlHiveAssistModelsJson } from "./models-config.ts";
 
 export type ModelCatalogEntry = {
   id: string;
@@ -20,11 +20,11 @@ type DiscoveredModel = {
   input?: Array<"text" | "image">;
 };
 
-type PiSdkModule = typeof import("./pi-model-discovery.js");
+type PiSdkModule = typeof import("./pi-model-discovery.ts");
 
 let modelCatalogPromise: Promise<ModelCatalogEntry[]> | null = null;
 let hasLoggedModelCatalogError = false;
-const defaultImportPiSdk = () => import("./pi-model-discovery.js");
+const defaultImportPiSdk = () => import("./pi-model-discovery.ts");
 let importPiSdk = defaultImportPiSdk;
 
 export function resetModelCatalogCacheForTest() {
@@ -39,7 +39,7 @@ export function __setModelCatalogImportForTest(loader?: () => Promise<PiSdkModul
 }
 
 export async function loadModelCatalog(params?: {
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   useCache?: boolean;
 }): Promise<ModelCatalogEntry[]> {
   if (params?.useCache === false) {
@@ -61,13 +61,13 @@ export async function loadModelCatalog(params?: {
       });
     try {
       const cfg = params?.config ?? loadConfig();
-      await ensureOpenClawModelsJson(cfg);
+      await ensureCmlHiveAssistModelsJson(cfg);
       // IMPORTANT: keep the dynamic import *inside* the try/catch.
       // If this fails once (e.g. during a pnpm install that temporarily swaps node_modules),
       // we must not poison the cache with a rejected promise (otherwise all channel handlers
       // will keep failing until restart).
       const piSdk = await importPiSdk();
-      const agentDir = resolveOpenClawAgentDir();
+      const agentDir = resolveCmlHiveAssistAgentDir();
       const { join } = await import("node:path");
       const authStorage = new piSdk.AuthStorage(join(agentDir, "auth.json"));
       const registry = new piSdk.ModelRegistry(authStorage, join(agentDir, "models.json")) as

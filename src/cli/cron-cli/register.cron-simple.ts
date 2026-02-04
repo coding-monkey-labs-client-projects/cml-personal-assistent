@@ -1,8 +1,8 @@
 import type { Command } from "commander";
-import { danger } from "../../globals.js";
-import { defaultRuntime } from "../../runtime.js";
-import { addGatewayClientOptions, callGatewayFromCli } from "../gateway-rpc.js";
-import { warnIfCronSchedulerDisabled } from "./shared.js";
+import { danger } from "../../globals.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { addGatewayClientOptions, callGatewayFromCli } from "../gateway-rpc.ts";
+import { warnIfCronSchedulerDisabled } from "./shared.ts";
 
 export function registerCronSimpleCommands(cron: Command) {
   addGatewayClientOptions(

@@ -1,4 +1,4 @@
-import type { ChannelMessageActionName } from "./types.js";
+import type { ChannelMessageActionName } from "./types.ts";
 
 export type BlueBubblesActionSpec = {
   gate: string;

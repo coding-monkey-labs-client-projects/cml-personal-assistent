@@ -1,21 +1,21 @@
-import type { InlineCodeState } from "../markdown/code-spans.js";
+import type { InlineCodeState } from "../markdown/code-spans.ts";
 import type {
   EmbeddedPiSubscribeContext,
   EmbeddedPiSubscribeState,
-} from "./pi-embedded-subscribe.handlers.types.js";
-import type { SubscribeEmbeddedPiSessionParams } from "./pi-embedded-subscribe.types.js";
-import { parseReplyDirectives } from "../auto-reply/reply/reply-directives.js";
-import { createStreamingDirectiveAccumulator } from "../auto-reply/reply/streaming-directives.js";
-import { formatToolAggregate } from "../auto-reply/tool-meta.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { buildCodeSpanIndex, createInlineCodeState } from "../markdown/code-spans.js";
-import { EmbeddedBlockChunker } from "./pi-embedded-block-chunker.js";
+} from "./pi-embedded-subscribe.handlers.types.ts";
+import type { SubscribeEmbeddedPiSessionParams } from "./pi-embedded-subscribe.types.ts";
+import { parseReplyDirectives } from "../auto-reply/reply/reply-directives.ts";
+import { createStreamingDirectiveAccumulator } from "../auto-reply/reply/streaming-directives.ts";
+import { formatToolAggregate } from "../auto-reply/tool-meta.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { buildCodeSpanIndex, createInlineCodeState } from "../markdown/code-spans.ts";
+import { EmbeddedBlockChunker } from "./pi-embedded-block-chunker.ts";
 import {
   isMessagingToolDuplicateNormalized,
   normalizeTextForComparison,
-} from "./pi-embedded-helpers.js";
-import { createEmbeddedPiSessionEventHandler } from "./pi-embedded-subscribe.handlers.js";
-import { formatReasoningMessage } from "./pi-embedded-utils.js";
+} from "./pi-embedded-helpers.ts";
+import { createEmbeddedPiSessionEventHandler } from "./pi-embedded-subscribe.handlers.ts";
+import { formatReasoningMessage } from "./pi-embedded-utils.ts";
 
 const THINKING_TAG_SCAN_RE = /<\s*(\/?)\s*(?:think(?:ing)?|thought|antthinking)\s*>/gi;
 const FINAL_TAG_SCAN_RE = /<\s*(\/?)\s*final\s*>/gi;
@@ -25,7 +25,7 @@ export type {
   BlockReplyChunking,
   SubscribeEmbeddedPiSessionParams,
   ToolResultFormat,
-} from "./pi-embedded-subscribe.types.js";
+} from "./pi-embedded-subscribe.types.ts";
 
 export function subscribeEmbeddedPiSession(params: SubscribeEmbeddedPiSessionParams) {
   const reasoningMode = params.reasoningMode ?? "off";

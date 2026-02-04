@@ -1,17 +1,17 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { MANIFEST_KEY } from "../compat/legacy-names.js";
+import { MANIFEST_KEY } from "../compat/legacy-names.ts";
 import {
   extractArchive,
   fileExists,
   readJsonFile,
   resolveArchiveKind,
   resolvePackedRootDir,
-} from "../infra/archive.js";
-import { runCommandWithTimeout } from "../process/exec.js";
-import { CONFIG_DIR, resolveUserPath } from "../utils.js";
-import { parseFrontmatter } from "./frontmatter.js";
+} from "../infra/archive.ts";
+import { runCommandWithTimeout } from "../process/exec.ts";
+import { CONFIG_DIR, resolveUserPath } from "../utils.ts";
+import { parseFrontmatter } from "./frontmatter.ts";
 
 export type HookInstallLogger = {
   info?: (message: string) => void;
@@ -97,14 +97,14 @@ function resolveSafeInstallDir(
   return { ok: true, path: targetDir };
 }
 
-async function ensureOpenClawHooks(manifest: HookPackageManifest) {
+async function ensureCmlHiveAssistHooks(manifest: HookPackageManifest) {
   const hooks = manifest[MANIFEST_KEY]?.hooks;
   if (!Array.isArray(hooks)) {
-    throw new Error("package.json missing openclaw.hooks");
+    throw new Error("package.json missing cml-hive-assist.hooks");
   }
   const list = hooks.map((e) => (typeof e === "string" ? e.trim() : "")).filter(Boolean);
   if (list.length === 0) {
-    throw new Error("package.json openclaw.hooks is empty");
+    throw new Error("package.json cml-hive-assist.hooks is empty");
   }
   return list;
 }
@@ -163,7 +163,7 @@ async function installHookPackageFromDir(params: {
 
   let hookEntries: string[];
   try {
-    hookEntries = await ensureOpenClawHooks(manifest);
+    hookEntries = await ensureCmlHiveAssistHooks(manifest);
   } catch (err) {
     return { ok: false, error: String(err) };
   }
@@ -352,7 +352,7 @@ export async function installHooksFromArchive(params: {
     return { ok: false, error: `unsupported archive: ${archivePath}` };
   }
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-hook-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-hook-"));
   const extractDir = path.join(tmpDir, "extract");
   await fs.mkdir(extractDir, { recursive: true });
 
@@ -412,7 +412,7 @@ export async function installHooksFromNpmSpec(params: {
     return { ok: false, error: "missing npm spec" };
   }
 
-  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-hook-pack-"));
+  const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-hook-pack-"));
   logger.info?.(`Downloading ${spec}…`);
   const res = await runCommandWithTimeout(["npm", "pack", spec], {
     timeoutMs: Math.max(timeoutMs, 300_000),

@@ -1,19 +1,19 @@
-import type { CliDeps } from "../cli/deps.js";
-import type { RuntimeEnv } from "../runtime.js";
-import { listAgentIds } from "../agents/agent-scope.js";
-import { DEFAULT_CHAT_CHANNEL } from "../channels/registry.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { withProgress } from "../cli/progress.js";
-import { loadConfig } from "../config/config.js";
-import { callGateway, randomIdempotencyKey } from "../gateway/call.js";
-import { normalizeAgentId } from "../routing/session-key.js";
+import type { CliDeps } from "../cli/deps.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import { listAgentIds } from "../agents/agent-scope.ts";
+import { DEFAULT_CHAT_CHANNEL } from "../channels/registry.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { withProgress } from "../cli/progress.ts";
+import { loadConfig } from "../config/config.ts";
+import { callGateway, randomIdempotencyKey } from "../gateway/call.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
 import {
   GATEWAY_CLIENT_MODES,
   GATEWAY_CLIENT_NAMES,
   normalizeMessageChannel,
-} from "../utils/message-channel.js";
-import { agentCommand } from "./agent.js";
-import { resolveSessionKeyForRequest } from "./agent/session.js";
+} from "../utils/message-channel.ts";
+import { agentCommand } from "./agent.ts";
+import { resolveSessionKeyForRequest } from "./agent/session.ts";
 
 type AgentGatewayResult = {
   payloads?: Array<{
@@ -99,7 +99,7 @@ export async function agentViaGatewayCommand(opts: AgentCliOpts, runtime: Runtim
     const knownAgents = listAgentIds(cfg);
     if (!knownAgents.includes(agentId)) {
       throw new Error(
-        `Unknown agent id "${agentIdRaw}". Use "${formatCliCommand("openclaw agents list")}" to see configured agents.`,
+        `Unknown agent id "${agentIdRaw}". Use "${formatCliCommand("cml-hive-assist agents list")}" to see configured agents.`,
       );
     }
   }

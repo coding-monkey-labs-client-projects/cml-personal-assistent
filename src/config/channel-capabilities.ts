@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "./config.js";
-import type { TelegramCapabilitiesConfig } from "./types.telegram.js";
-import { normalizeChannelId } from "../channels/plugins/index.js";
-import { normalizeAccountId } from "../routing/session-key.js";
+import type { CmlHiveAssistConfig } from "./config.ts";
+import type { TelegramCapabilitiesConfig } from "./types.telegram.ts";
+import { normalizeChannelId } from "../channels/plugins/index.ts";
+import { normalizeAccountId } from "../routing/session-key.ts";
 
 type CapabilitiesConfig = TelegramCapabilitiesConfig;
 
@@ -49,7 +49,7 @@ function resolveAccountCapabilities(params: {
 }
 
 export function resolveChannelCapabilities(params: {
-  cfg?: Partial<OpenClawConfig>;
+  cfg?: Partial<CmlHiveAssistConfig>;
   channel?: string | null;
   accountId?: string | null;
 }): string[] | undefined {

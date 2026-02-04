@@ -1,11 +1,11 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { randomUUID } from "node:crypto";
-import { buildHistoryContextFromEntries, type HistoryEntry } from "../auto-reply/reply/history.js";
-import { createDefaultDeps } from "../cli/deps.js";
-import { agentCommand } from "../commands/agent.js";
-import { emitAgentEvent, onAgentEvent } from "../infra/agent-events.js";
-import { defaultRuntime } from "../runtime.js";
-import { authorizeGatewayConnect, type ResolvedGatewayAuth } from "./auth.js";
+import { buildHistoryContextFromEntries, type HistoryEntry } from "../auto-reply/reply/history.ts";
+import { createDefaultDeps } from "../cli/deps.ts";
+import { agentCommand } from "../commands/agent.ts";
+import { emitAgentEvent, onAgentEvent } from "../infra/agent-events.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { authorizeGatewayConnect, type ResolvedGatewayAuth } from "./auth.ts";
 import {
   readJsonBodyOrError,
   sendJson,
@@ -13,8 +13,8 @@ import {
   sendUnauthorized,
   setSseHeaders,
   writeDone,
-} from "./http-common.js";
-import { getBearerToken, resolveAgentIdForRequest, resolveSessionKey } from "./http-utils.js";
+} from "./http-common.ts";
+import { getBearerToken, resolveAgentIdForRequest, resolveSessionKey } from "./http-utils.ts";
 
 type OpenAiHttpOptions = {
   auth: ResolvedGatewayAuth;
@@ -202,7 +202,7 @@ export async function handleOpenAiHttpRequest(
 
   const payload = coerceRequest(body);
   const stream = Boolean(payload.stream);
-  const model = typeof payload.model === "string" ? payload.model : "openclaw";
+  const model = typeof payload.model === "string" ? payload.model : "cml-hive-assist";
   const user = typeof payload.user === "string" ? payload.user : undefined;
 
   const agentId = resolveAgentIdForRequest({ req, model });
@@ -244,7 +244,7 @@ export async function handleOpenAiHttpRequest(
               .map((p) => (typeof p.text === "string" ? p.text : ""))
               .filter(Boolean)
               .join("\n\n")
-          : "No response from OpenClaw.";
+          : "No response from CmlHiveAssist.";
 
       sendJson(res, 200, {
         id: runId,
@@ -373,7 +373,7 @@ export async function handleOpenAiHttpRequest(
                 .map((p) => (typeof p.text === "string" ? p.text : ""))
                 .filter(Boolean)
                 .join("\n\n")
-            : "No response from OpenClaw.";
+            : "No response from CmlHiveAssist.";
 
         sawAssistantDelta = true;
         writeSse(res, {

@@ -1,4 +1,4 @@
-import type { ContextPruningToolMatch } from "./settings.js";
+import type { ContextPruningToolMatch } from "./settings.ts";
 
 function normalizePatterns(patterns?: string[]): string[] {
   if (!Array.isArray(patterns)) {

@@ -1,8 +1,8 @@
 import type { IncomingMessage } from "node:http";
 import { timingSafeEqual } from "node:crypto";
-import type { GatewayAuthConfig, GatewayTailscaleMode } from "../config/config.js";
-import { readTailscaleWhoisIdentity, type TailscaleWhoisIdentity } from "../infra/tailscale.js";
-import { isTrustedProxyAddress, parseForwardedForClientIp, resolveGatewayClientIp } from "./net.js";
+import type { GatewayAuthConfig, GatewayTailscaleMode } from "../config/config.ts";
+import { readTailscaleWhoisIdentity, type TailscaleWhoisIdentity } from "../infra/tailscale.ts";
+import { isTrustedProxyAddress, parseForwardedForClientIp, resolveGatewayClientIp } from "./net.ts";
 export type ResolvedGatewayAuthMode = "token" | "password";
 
 export type ResolvedGatewayAuth = {
@@ -204,10 +204,10 @@ export function resolveGatewayAuth(params: {
   const authConfig = params.authConfig ?? {};
   const env = params.env ?? process.env;
   const token =
-    authConfig.token ?? env.OPENCLAW_GATEWAY_TOKEN ?? env.CLAWDBOT_GATEWAY_TOKEN ?? undefined;
+    authConfig.token ?? env.CML_HIVE_ASSIST_GATEWAY_TOKEN ?? env.CLAWDBOT_GATEWAY_TOKEN ?? undefined;
   const password =
     authConfig.password ??
-    env.OPENCLAW_GATEWAY_PASSWORD ??
+    env.CML_HIVE_ASSIST_GATEWAY_PASSWORD ??
     env.CLAWDBOT_GATEWAY_PASSWORD ??
     undefined;
   const mode: ResolvedGatewayAuth["mode"] = authConfig.mode ?? (password ? "password" : "token");
@@ -227,7 +227,7 @@ export function assertGatewayAuthConfigured(auth: ResolvedGatewayAuth): void {
       return;
     }
     throw new Error(
-      "gateway auth mode is token, but no token was configured (set gateway.auth.token or OPENCLAW_GATEWAY_TOKEN)",
+      "gateway auth mode is token, but no token was configured (set gateway.auth.token or CML_HIVE_ASSIST_GATEWAY_TOKEN)",
     );
   }
   if (auth.mode === "password" && !auth.password) {

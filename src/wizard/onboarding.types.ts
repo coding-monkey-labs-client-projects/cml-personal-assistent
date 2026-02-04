@@ -1,4 +1,4 @@
-import type { GatewayAuthChoice } from "../commands/onboard-types.js";
+import type { GatewayAuthChoice } from "../commands/onboard-types.ts";
 
 export type WizardFlow = "quickstart" | "advanced";
 

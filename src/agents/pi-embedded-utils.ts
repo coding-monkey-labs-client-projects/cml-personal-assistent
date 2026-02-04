@@ -1,7 +1,7 @@
 import type { AssistantMessage } from "@mariozechner/pi-ai";
-import { stripReasoningTagsFromText } from "../shared/text/reasoning-tags.js";
-import { sanitizeUserFacingText } from "./pi-embedded-helpers.js";
-import { formatToolDetail, resolveToolDisplay } from "./tool-display.js";
+import { stripReasoningTagsFromText } from "../shared/text/reasoning-tags.ts";
+import { sanitizeUserFacingText } from "./pi-embedded-helpers.ts";
+import { formatToolDetail, resolveToolDisplay } from "./tool-display.ts";
 
 /**
  * Strip malformed Minimax tool invocations that leak into text content.

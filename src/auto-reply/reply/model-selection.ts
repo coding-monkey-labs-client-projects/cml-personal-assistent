@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { ThinkLevel } from "./directives.js";
-import { clearSessionAuthProfileOverride } from "../../agents/auth-profiles/session-override.js";
-import { lookupContextTokens } from "../../agents/context.js";
-import { DEFAULT_CONTEXT_TOKENS } from "../../agents/defaults.js";
-import { loadModelCatalog } from "../../agents/model-catalog.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { ThinkLevel } from "./directives.ts";
+import { clearSessionAuthProfileOverride } from "../../agents/auth-profiles/session-override.ts";
+import { lookupContextTokens } from "../../agents/context.ts";
+import { DEFAULT_CONTEXT_TOKENS } from "../../agents/defaults.ts";
+import { loadModelCatalog } from "../../agents/model-catalog.ts";
 import {
   buildAllowedModelSet,
   type ModelAliasIndex,
@@ -11,10 +11,10 @@ import {
   normalizeProviderId,
   resolveModelRefFromString,
   resolveThinkingDefault,
-} from "../../agents/model-selection.js";
-import { type SessionEntry, updateSessionStore } from "../../config/sessions.js";
-import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.js";
-import { resolveThreadParentSessionKey } from "../../sessions/session-key-utils.js";
+} from "../../agents/model-selection.ts";
+import { type SessionEntry, updateSessionStore } from "../../config/sessions.ts";
+import { applyModelOverrideToSessionEntry } from "../../sessions/model-overrides.ts";
+import { resolveThreadParentSessionKey } from "../../sessions/session-key-utils.ts";
 
 export type ModelDirectiveSelection = {
   provider: string;
@@ -259,8 +259,8 @@ function scoreFuzzyMatch(params: {
 }
 
 export async function createModelSelectionState(params: {
-  cfg: OpenClawConfig;
-  agentCfg: NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]> | undefined;
+  cfg: CmlHiveAssistConfig;
+  agentCfg: NonNullable<NonNullable<CmlHiveAssistConfig["agents"]>["defaults"]> | undefined;
   sessionEntry?: SessionEntry;
   sessionStore?: Record<string, SessionEntry>;
   sessionKey?: string;
@@ -353,7 +353,7 @@ export async function createModelSelectionState(params: {
   }
 
   if (sessionEntry && sessionStore && sessionKey && sessionEntry.authProfileOverride) {
-    const { ensureAuthProfileStore } = await import("../../agents/auth-profiles.js");
+    const { ensureAuthProfileStore } = await import("../../agents/auth-profiles.ts");
     const store = ensureAuthProfileStore(undefined, {
       allowKeychainPrompt: false,
     });
@@ -575,7 +575,7 @@ export function resolveModelDirectiveSelection(params: {
 }
 
 export function resolveContextTokens(params: {
-  agentCfg: NonNullable<NonNullable<OpenClawConfig["agents"]>["defaults"]> | undefined;
+  agentCfg: NonNullable<NonNullable<CmlHiveAssistConfig["agents"]>["defaults"]> | undefined;
   model: string;
 }): number {
   return (

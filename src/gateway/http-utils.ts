@@ -1,6 +1,6 @@
 import type { IncomingMessage } from "node:http";
 import { randomUUID } from "node:crypto";
-import { buildAgentMainSessionKey, normalizeAgentId } from "../routing/session-key.js";
+import { buildAgentMainSessionKey, normalizeAgentId } from "../routing/session-key.ts";
 
 export function getHeader(req: IncomingMessage, name: string): string | undefined {
   const raw = req.headers[name.toLowerCase()];
@@ -24,8 +24,8 @@ export function getBearerToken(req: IncomingMessage): string | undefined {
 
 export function resolveAgentIdFromHeader(req: IncomingMessage): string | undefined {
   const raw =
-    getHeader(req, "x-openclaw-agent-id")?.trim() ||
-    getHeader(req, "x-openclaw-agent")?.trim() ||
+    getHeader(req, "x-cml-hive-assist-agent-id")?.trim() ||
+    getHeader(req, "x-cml-hive-assist-agent")?.trim() ||
     "";
   if (!raw) {
     return undefined;
@@ -40,7 +40,7 @@ export function resolveAgentIdFromModel(model: string | undefined): string | und
   }
 
   const m =
-    raw.match(/^openclaw[:/](?<agentId>[a-z0-9][a-z0-9_-]{0,63})$/i) ??
+    raw.match(/^cml-hive-assist[:/](?<agentId>[a-z0-9][a-z0-9_-]{0,63})$/i) ??
     raw.match(/^agent:(?<agentId>[a-z0-9][a-z0-9_-]{0,63})$/i);
   const agentId = m?.groups?.agentId;
   if (!agentId) {
@@ -68,7 +68,7 @@ export function resolveSessionKey(params: {
   user?: string | undefined;
   prefix: string;
 }): string {
-  const explicit = getHeader(params.req, "x-openclaw-session-key")?.trim();
+  const explicit = getHeader(params.req, "x-cml-hive-assist-session-key")?.trim();
   if (explicit) {
     return explicit;
   }

@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { runExec } from "../process/exec.js";
+import { runExec } from "../process/exec.ts";
 
 type Sharp = typeof import("sharp");
 
@@ -16,8 +16,10 @@ function isBun(): boolean {
 
 function prefersSips(): boolean {
   return (
-    process.env.OPENCLAW_IMAGE_BACKEND === "sips" ||
-    (process.env.OPENCLAW_IMAGE_BACKEND !== "sharp" && isBun() && process.platform === "darwin")
+    process.env.CML_HIVE_ASSIST_IMAGE_BACKEND === "sips" ||
+    (process.env.CML_HIVE_ASSIST_IMAGE_BACKEND !== "sharp" &&
+      isBun() &&
+      process.platform === "darwin")
   );
 }
 
@@ -125,7 +127,7 @@ function readJpegExifOrientation(buffer: Buffer): number | null {
 }
 
 async function withTempDir<T>(fn: (dir: string) => Promise<T>): Promise<T> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-img-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-img-"));
   try {
     return await fn(dir);
   } finally {

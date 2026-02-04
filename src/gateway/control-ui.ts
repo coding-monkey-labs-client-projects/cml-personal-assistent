@@ -2,20 +2,20 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { OpenClawConfig } from "../config/config.js";
-import { DEFAULT_ASSISTANT_IDENTITY, resolveAssistantIdentity } from "./assistant-identity.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import { DEFAULT_ASSISTANT_IDENTITY, resolveAssistantIdentity } from "./assistant-identity.ts";
 import {
   buildControlUiAvatarUrl,
   CONTROL_UI_AVATAR_PREFIX,
   normalizeControlUiBasePath,
   resolveAssistantAvatarUrl,
-} from "./control-ui-shared.js";
+} from "./control-ui-shared.ts";
 
 const ROOT_PREFIX = "/";
 
 export type ControlUiRequestOptions = {
   basePath?: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   agentId?: string;
 };
 
@@ -183,16 +183,16 @@ function injectControlUiConfig(html: string, opts: ControlUiInjectionOpts): stri
   const { basePath, assistantName, assistantAvatar } = opts;
   const script =
     `<script>` +
-    `window.__OPENCLAW_CONTROL_UI_BASE_PATH__=${JSON.stringify(basePath)};` +
-    `window.__OPENCLAW_ASSISTANT_NAME__=${JSON.stringify(
+    `window.__CML_HIVE_ASSIST_CONTROL_UI_BASE_PATH__=${JSON.stringify(basePath)};` +
+    `window.__CML_HIVE_ASSIST_ASSISTANT_NAME__=${JSON.stringify(
       assistantName ?? DEFAULT_ASSISTANT_IDENTITY.name,
     )};` +
-    `window.__OPENCLAW_ASSISTANT_AVATAR__=${JSON.stringify(
+    `window.__CML_HIVE_ASSIST_ASSISTANT_AVATAR__=${JSON.stringify(
       assistantAvatar ?? DEFAULT_ASSISTANT_IDENTITY.avatar,
     )};` +
     `</script>`;
   // Check if already injected
-  if (html.includes("__OPENCLAW_ASSISTANT_NAME__")) {
+  if (html.includes("__CML_HIVE_ASSIST_ASSISTANT_NAME__")) {
     return html;
   }
   const headClose = html.indexOf("</head>");
@@ -204,7 +204,7 @@ function injectControlUiConfig(html: string, opts: ControlUiInjectionOpts): stri
 
 interface ServeIndexHtmlOpts {
   basePath: string;
-  config?: OpenClawConfig;
+  config?: CmlHiveAssistConfig;
   agentId?: string;
 }
 

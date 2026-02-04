@@ -1,8 +1,8 @@
 import chalk from "chalk";
-import type { loadConfig } from "../config/config.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { resolveConfiguredModelRef } from "../agents/model-selection.js";
-import { getResolvedLoggerSettings } from "../logging.js";
+import type { loadConfig } from "../config/config.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { resolveConfiguredModelRef } from "../agents/model-selection.ts";
+import { getResolvedLoggerSettings } from "../logging.ts";
 
 export function logGatewayStartup(params: {
   cfg: ReturnType<typeof loadConfig>;

@@ -9,7 +9,7 @@ import {
   listRunningSessions,
   markExited,
   setJobTtlMs,
-} from "./bash-process-registry.js";
+} from "./bash-process-registry.ts";
 import {
   deriveSessionName,
   formatDuration,
@@ -17,8 +17,8 @@ import {
   pad,
   sliceLogLines,
   truncateMiddle,
-} from "./bash-tools.shared.js";
-import { encodeKeySequence, encodePaste } from "./pty-keys.js";
+} from "./bash-tools.shared.ts";
+import { encodeKeySequence, encodePaste } from "./pty-keys.ts";
 
 export type ProcessToolDefaults = {
   cleanupMs?: number;

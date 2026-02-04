@@ -1,11 +1,11 @@
 import type { Server } from "node:http";
 import express, { type Express } from "express";
 import fs from "node:fs/promises";
-import { danger } from "../globals.js";
-import { SafeOpenError, openFileWithinRoot } from "../infra/fs-safe.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
-import { detectMime } from "./mime.js";
-import { cleanOldMedia, getMediaDir, MEDIA_MAX_BYTES } from "./store.js";
+import { danger } from "../globals.ts";
+import { SafeOpenError, openFileWithinRoot } from "../infra/fs-safe.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
+import { detectMime } from "./mime.ts";
+import { cleanOldMedia, getMediaDir, MEDIA_MAX_BYTES } from "./store.ts";
 
 const DEFAULT_TTL_MS = 2 * 60 * 1000;
 const MAX_MEDIA_ID_CHARS = 200;

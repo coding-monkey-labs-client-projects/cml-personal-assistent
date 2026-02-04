@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/slack",
+  "name": "@cml-hive-assist/slack",
   "version": "2026.2.1",
-  "description": "OpenClaw Slack channel plugin",
+  "description": "CmlHiveAssist Slack channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ]

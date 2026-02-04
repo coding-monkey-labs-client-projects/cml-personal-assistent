@@ -1,15 +1,15 @@
-import type { OpenClawConfig } from "../config/config.js";
-import type { WizardPrompter } from "../wizard/prompts.js";
-import { resolveAgentModelPrimary } from "../agents/agent-scope.js";
-import { ensureAuthProfileStore, listProfilesForProvider } from "../agents/auth-profiles.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { getCustomProviderApiKey, resolveEnvApiKey } from "../agents/model-auth.js";
-import { loadModelCatalog } from "../agents/model-catalog.js";
-import { resolveConfiguredModelRef } from "../agents/model-selection.js";
-import { OPENAI_CODEX_DEFAULT_MODEL } from "./openai-codex-model-default.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { WizardPrompter } from "../wizard/prompts.ts";
+import { resolveAgentModelPrimary } from "../agents/agent-scope.ts";
+import { ensureAuthProfileStore, listProfilesForProvider } from "../agents/auth-profiles.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { getCustomProviderApiKey, resolveEnvApiKey } from "../agents/model-auth.ts";
+import { loadModelCatalog } from "../agents/model-catalog.ts";
+import { resolveConfiguredModelRef } from "../agents/model-selection.ts";
+import { OPENAI_CODEX_DEFAULT_MODEL } from "./openai-codex-model-default.ts";
 
 export async function warnIfModelConfigLooksOff(
-  config: OpenClawConfig,
+  config: CmlHiveAssistConfig,
   prompter: WizardPrompter,
   options?: { agentId?: string; agentDir?: string },
 ) {

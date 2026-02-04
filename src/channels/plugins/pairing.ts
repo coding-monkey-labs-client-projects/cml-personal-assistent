@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../../config/config.js";
-import type { RuntimeEnv } from "../../runtime.js";
-import type { ChannelPairingAdapter } from "./types.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { RuntimeEnv } from "../../runtime.ts";
+import type { ChannelPairingAdapter } from "./types.ts";
 import {
   type ChannelId,
   getChannelPlugin,
   listChannelPlugins,
   normalizeChannelId,
-} from "./index.js";
+} from "./index.ts";
 
 export function listPairingChannels(): ChannelId[] {
   // Channel docking: pairing support is declared via plugin.pairing.
@@ -51,7 +51,7 @@ export function resolvePairingChannel(raw: unknown): ChannelId {
 export async function notifyPairingApproved(params: {
   channelId: ChannelId;
   id: string;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   runtime?: RuntimeEnv;
   /** Extension channels can pass their adapter directly to bypass registry lookup. */
   pairingAdapter?: ChannelPairingAdapter;

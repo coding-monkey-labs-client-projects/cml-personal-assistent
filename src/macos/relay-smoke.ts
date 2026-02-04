@@ -19,7 +19,7 @@ export function parseRelaySmokeTest(args: string[], env: NodeJS.ProcessEnv): Rel
 
   // Back-compat: only run env-based smoke mode when no CLI args are present,
   // to avoid surprising early-exit when users set env vars globally.
-  if (args.length === 0 && (env.OPENCLAW_SMOKE_QR === "1" || env.OPENCLAW_SMOKE === "qr")) {
+  if (args.length === 0 && (env.CML_HIVE_ASSIST_SMOKE_QR === "1" || env.CML_HIVE_ASSIST_SMOKE === "qr")) {
     return "qr";
   }
 
@@ -29,7 +29,7 @@ export function parseRelaySmokeTest(args: string[], env: NodeJS.ProcessEnv): Rel
 export async function runRelaySmokeTest(test: RelaySmokeTest): Promise<void> {
   switch (test) {
     case "qr": {
-      const { renderQrPngBase64 } = await import("../web/qr-image.js");
+      const { renderQrPngBase64 } = await import("../web/qr-image.ts");
       await renderQrPngBase64("smoke-test");
       return;
     }

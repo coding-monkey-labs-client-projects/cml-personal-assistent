@@ -1,10 +1,10 @@
-import type { RuntimeEnv } from "../runtime.js";
-import type { OnboardOptions } from "./onboard-types.js";
-import { defaultRuntime } from "../runtime.js";
-import { restoreTerminalState } from "../terminal/restore.js";
-import { createClackPrompter } from "../wizard/clack-prompter.js";
-import { runOnboardingWizard } from "../wizard/onboarding.js";
-import { WizardCancelledError } from "../wizard/prompts.js";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { OnboardOptions } from "./onboard-types.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { restoreTerminalState } from "../terminal/restore.ts";
+import { createClackPrompter } from "../wizard/clack-prompter.ts";
+import { runOnboardingWizard } from "../wizard/onboarding.ts";
+import { WizardCancelledError } from "../wizard/prompts.ts";
 
 export async function runInteractiveOnboarding(
   opts: OnboardOptions,

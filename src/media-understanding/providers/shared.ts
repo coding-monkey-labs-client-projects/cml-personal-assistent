@@ -1,6 +1,6 @@
-import type { GuardedFetchResult } from "../../infra/net/fetch-guard.js";
-import type { LookupFn, SsrFPolicy } from "../../infra/net/ssrf.js";
-import { fetchWithSsrFGuard } from "../../infra/net/fetch-guard.js";
+import type { GuardedFetchResult } from "../../infra/net/fetch-guard.ts";
+import type { LookupFn, SsrFPolicy } from "../../infra/net/ssrf.ts";
+import { fetchWithSsrFGuard } from "../../infra/net/fetch-guard.ts";
 
 const MAX_ERROR_CHARS = 300;
 

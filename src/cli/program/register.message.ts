@@ -1,25 +1,25 @@
 import type { Command } from "commander";
-import type { ProgramContext } from "./context.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { formatHelpExamples } from "../help-format.js";
-import { createMessageCliHelpers } from "./message/helpers.js";
-import { registerMessageBroadcastCommand } from "./message/register.broadcast.js";
-import { registerMessageDiscordAdminCommands } from "./message/register.discord-admin.js";
+import type { ProgramContext } from "./context.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { formatHelpExamples } from "../help-format.ts";
+import { createMessageCliHelpers } from "./message/helpers.ts";
+import { registerMessageBroadcastCommand } from "./message/register.broadcast.ts";
+import { registerMessageDiscordAdminCommands } from "./message/register.discord-admin.ts";
 import {
   registerMessageEmojiCommands,
   registerMessageStickerCommands,
-} from "./message/register.emoji-sticker.js";
+} from "./message/register.emoji-sticker.ts";
 import {
   registerMessagePermissionsCommand,
   registerMessageSearchCommand,
-} from "./message/register.permissions-search.js";
-import { registerMessagePinCommands } from "./message/register.pins.js";
-import { registerMessagePollCommand } from "./message/register.poll.js";
-import { registerMessageReactionsCommands } from "./message/register.reactions.js";
-import { registerMessageReadEditDeleteCommands } from "./message/register.read-edit-delete.js";
-import { registerMessageSendCommand } from "./message/register.send.js";
-import { registerMessageThreadCommands } from "./message/register.thread.js";
+} from "./message/register.permissions-search.ts";
+import { registerMessagePinCommands } from "./message/register.pins.ts";
+import { registerMessagePollCommand } from "./message/register.poll.ts";
+import { registerMessageReactionsCommands } from "./message/register.reactions.ts";
+import { registerMessageReadEditDeleteCommands } from "./message/register.read-edit-delete.ts";
+import { registerMessageSendCommand } from "./message/register.send.ts";
+import { registerMessageThreadCommands } from "./message/register.thread.ts";
 
 export function registerMessageCommands(program: Command, ctx: ProgramContext) {
   const message = program
@@ -31,22 +31,22 @@ export function registerMessageCommands(program: Command, ctx: ProgramContext) {
         `
 ${theme.heading("Examples:")}
 ${formatHelpExamples([
-  ['openclaw message send --target +15555550123 --message "Hi"', "Send a text message."],
+  ['cml-hive-assist message send --target +15555550123 --message "Hi"', "Send a text message."],
   [
-    'openclaw message send --target +15555550123 --message "Hi" --media photo.jpg',
+    'cml-hive-assist message send --target +15555550123 --message "Hi" --media photo.jpg',
     "Send a message with media.",
   ],
   [
-    'openclaw message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi',
+    'cml-hive-assist message poll --channel discord --target channel:123 --poll-question "Snack?" --poll-option Pizza --poll-option Sushi',
     "Create a Discord poll.",
   ],
   [
-    'openclaw message react --channel discord --target 123 --message-id 456 --emoji "✅"',
+    'cml-hive-assist message react --channel discord --target 123 --message-id 456 --emoji "✅"',
     "React to a message.",
   ],
 ])}
 
-${theme.muted("Docs:")} ${formatDocsLink("/cli/message", "docs.openclaw.ai/cli/message")}`,
+${theme.muted("Docs:")} ${formatDocsLink("/cli/message", "docs.cml-hive-assist.ai/cli/message")}`,
     )
     .action(() => {
       message.help({ error: true });

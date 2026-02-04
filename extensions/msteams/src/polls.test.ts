@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk";
+import type { PluginRuntime } from "cml-hive-assist/plugin-sdk";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -9,12 +9,13 @@ import { setMSTeamsRuntime } from "./runtime.js";
 const runtimeStub = {
   state: {
     resolveStateDir: (env: NodeJS.ProcessEnv = process.env, homedir?: () => string) => {
-      const override = env.OPENCLAW_STATE_DIR?.trim() || env.OPENCLAW_STATE_DIR?.trim();
+      const override =
+        env.CML_HIVE_ASSIST_STATE_DIR?.trim() || env.CML_HIVE_ASSIST_STATE_DIR?.trim();
       if (override) {
         return override;
       }
       const resolvedHome = homedir ? homedir() : os.homedir();
-      return path.join(resolvedHome, ".openclaw");
+      return path.join(resolvedHome, ".cml-hive-assist");
     },
   },
 } as unknown as PluginRuntime;
@@ -39,7 +40,7 @@ describe("msteams polls", () => {
   it("extracts poll votes from activity values", () => {
     const vote = extractMSTeamsPollVote({
       value: {
-        openclawPollId: "poll-1",
+        cmlHiveAssistPollId: "poll-1",
         choices: "0,1",
       },
     });
@@ -51,7 +52,9 @@ describe("msteams polls", () => {
   });
 
   it("stores and records poll votes", async () => {
-    const home = await fs.promises.mkdtemp(path.join(os.tmpdir(), "openclaw-msteams-polls-"));
+    const home = await fs.promises.mkdtemp(
+      path.join(os.tmpdir(), "cml-hive-assist-msteams-polls-"),
+    );
     const store = createMSTeamsPollStoreFs({ homedir: () => home });
     await store.createPoll({
       id: "poll-2",

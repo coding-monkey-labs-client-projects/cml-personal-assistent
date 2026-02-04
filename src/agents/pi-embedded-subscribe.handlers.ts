@@ -1,23 +1,23 @@
 import type {
   EmbeddedPiSubscribeContext,
   EmbeddedPiSubscribeEvent,
-} from "./pi-embedded-subscribe.handlers.types.js";
+} from "./pi-embedded-subscribe.handlers.types.ts";
 import {
   handleAgentEnd,
   handleAgentStart,
   handleAutoCompactionEnd,
   handleAutoCompactionStart,
-} from "./pi-embedded-subscribe.handlers.lifecycle.js";
+} from "./pi-embedded-subscribe.handlers.lifecycle.ts";
 import {
   handleMessageEnd,
   handleMessageStart,
   handleMessageUpdate,
-} from "./pi-embedded-subscribe.handlers.messages.js";
+} from "./pi-embedded-subscribe.handlers.messages.ts";
 import {
   handleToolExecutionEnd,
   handleToolExecutionStart,
   handleToolExecutionUpdate,
-} from "./pi-embedded-subscribe.handlers.tools.js";
+} from "./pi-embedded-subscribe.handlers.tools.ts";
 
 export function createEmbeddedPiSessionEventHandler(ctx: EmbeddedPiSubscribeContext) {
   return (evt: EmbeddedPiSubscribeEvent) => {

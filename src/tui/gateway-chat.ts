@@ -1,14 +1,14 @@
 import { randomUUID } from "node:crypto";
-import { loadConfig, resolveGatewayPort } from "../config/config.js";
-import { GatewayClient } from "../gateway/client.js";
+import { loadConfig, resolveGatewayPort } from "../config/config.ts";
+import { GatewayClient } from "../gateway/client.ts";
 import {
   type HelloOk,
   PROTOCOL_VERSION,
   type SessionsListParams,
   type SessionsPatchParams,
-} from "../gateway/protocol/index.js";
-import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.js";
-import { VERSION } from "../version.js";
+} from "../gateway/protocol/index.ts";
+import { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } from "../utils/message-channel.ts";
+import { VERSION } from "../version.ts";
 
 export type GatewayConnectionOptions = {
   url?: string;
@@ -112,7 +112,7 @@ export class GatewayChatClient {
       token: resolved.token,
       password: resolved.password,
       clientName: GATEWAY_CLIENT_NAMES.GATEWAY_CLIENT,
-      clientDisplayName: "openclaw-tui",
+      clientDisplayName: "cml-hive-assist-tui",
       clientVersion: VERSION,
       platform: process.platform,
       mode: GATEWAY_CLIENT_MODES.UI,
@@ -235,7 +235,7 @@ export function resolveGatewayConnection(opts: GatewayConnectionOptions) {
       ? typeof remote?.token === "string" && remote.token.trim().length > 0
         ? remote.token.trim()
         : undefined
-      : process.env.OPENCLAW_GATEWAY_TOKEN?.trim() ||
+      : process.env.CML_HIVE_ASSIST_GATEWAY_TOKEN?.trim() ||
         (typeof authToken === "string" && authToken.trim().length > 0
           ? authToken.trim()
           : undefined));
@@ -244,7 +244,7 @@ export function resolveGatewayConnection(opts: GatewayConnectionOptions) {
     (typeof opts.password === "string" && opts.password.trim().length > 0
       ? opts.password.trim()
       : undefined) ||
-    process.env.OPENCLAW_GATEWAY_PASSWORD?.trim() ||
+    process.env.CML_HIVE_ASSIST_GATEWAY_PASSWORD?.trim() ||
     (typeof remote?.password === "string" && remote.password.trim().length > 0
       ? remote.password.trim()
       : undefined);

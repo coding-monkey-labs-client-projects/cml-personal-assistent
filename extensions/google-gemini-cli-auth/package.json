@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/google-gemini-cli-auth",
+  "name": "@cml-hive-assist/google-gemini-cli-auth",
   "version": "2026.2.1",
-  "description": "OpenClaw Gemini CLI OAuth provider plugin",
+  "description": "CmlHiveAssist Gemini CLI OAuth provider plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ]

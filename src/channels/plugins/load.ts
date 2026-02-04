@@ -1,6 +1,6 @@
-import type { PluginRegistry } from "../../plugins/registry.js";
-import type { ChannelId, ChannelPlugin } from "./types.js";
-import { getActivePluginRegistry } from "../../plugins/runtime.js";
+import type { PluginRegistry } from "../../plugins/registry.ts";
+import type { ChannelId, ChannelPlugin } from "./types.ts";
+import { getActivePluginRegistry } from "../../plugins/runtime.ts";
 
 const cache = new Map<ChannelId, ChannelPlugin>();
 let lastRegistry: PluginRegistry | null = null;

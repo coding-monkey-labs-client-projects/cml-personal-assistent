@@ -1,10 +1,10 @@
 import type { WebClient } from "@slack/web-api";
-import { loadConfig } from "../config/config.js";
-import { logVerbose } from "../globals.js";
-import { resolveSlackAccount } from "./accounts.js";
-import { createSlackWebClient } from "./client.js";
-import { sendMessageSlack } from "./send.js";
-import { resolveSlackBotToken } from "./token.js";
+import { loadConfig } from "../config/config.ts";
+import { logVerbose } from "../globals.ts";
+import { resolveSlackAccount } from "./accounts.ts";
+import { createSlackWebClient } from "./client.ts";
+import { sendMessageSlack } from "./send.ts";
+import { resolveSlackBotToken } from "./token.ts";
 
 export type SlackActionClientOpts = {
   accountId?: string;

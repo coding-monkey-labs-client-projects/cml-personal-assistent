@@ -1,8 +1,8 @@
 import os from "node:os";
 import path from "node:path";
-import type { SessionEntry } from "./types.js";
-import { DEFAULT_AGENT_ID, normalizeAgentId } from "../../routing/session-key.js";
-import { resolveStateDir } from "../paths.js";
+import type { SessionEntry } from "./types.ts";
+import { DEFAULT_AGENT_ID, normalizeAgentId } from "../../routing/session-key.ts";
+import { resolveStateDir } from "../paths.ts";
 
 function resolveAgentSessionsDir(
   agentId?: string,

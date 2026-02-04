@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/whatsapp",
+  "name": "@cml-hive-assist/whatsapp",
   "version": "2026.2.1",
-  "description": "OpenClaw WhatsApp channel plugin",
+  "description": "CmlHiveAssist WhatsApp channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "cml-hive-assist": "workspace:*"
   },
-  "openclaw": {
+  "cml-hive-assist": {
     "extensions": [
       "./index.ts"
     ]

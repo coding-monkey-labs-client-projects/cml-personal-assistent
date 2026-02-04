@@ -4,8 +4,8 @@ import { randomUUID } from "node:crypto";
 import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { ResolvedMemorySearchConfig } from "../agents/memory-search.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { ResolvedMemorySearchConfig } from "../agents/memory-search.ts";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
 import type {
   MemoryEmbeddingProbeResult,
   MemoryProviderStatus,
@@ -13,29 +13,29 @@ import type {
   MemorySearchResult,
   MemorySource,
   MemorySyncProgressUpdate,
-} from "./types.js";
-import { resolveAgentDir, resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
-import { resolveMemorySearchConfig } from "../agents/memory-search.js";
-import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.js";
-import { createSubsystemLogger } from "../logging/subsystem.js";
-import { onSessionTranscriptUpdate } from "../sessions/transcript-events.js";
-import { resolveUserPath } from "../utils.js";
-import { runGeminiEmbeddingBatches, type GeminiBatchRequest } from "./batch-gemini.js";
+} from "./types.ts";
+import { resolveAgentDir, resolveAgentWorkspaceDir } from "../agents/agent-scope.ts";
+import { resolveMemorySearchConfig } from "../agents/memory-search.ts";
+import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.ts";
+import { createSubsystemLogger } from "../logging/subsystem.ts";
+import { onSessionTranscriptUpdate } from "../sessions/transcript-events.ts";
+import { resolveUserPath } from "../utils.ts";
+import { runGeminiEmbeddingBatches, type GeminiBatchRequest } from "./batch-gemini.ts";
 import {
   OPENAI_BATCH_ENDPOINT,
   type OpenAiBatchRequest,
   runOpenAiEmbeddingBatches,
-} from "./batch-openai.js";
-import { DEFAULT_GEMINI_EMBEDDING_MODEL } from "./embeddings-gemini.js";
-import { DEFAULT_OPENAI_EMBEDDING_MODEL } from "./embeddings-openai.js";
+} from "./batch-openai.ts";
+import { DEFAULT_GEMINI_EMBEDDING_MODEL } from "./embeddings-gemini.ts";
+import { DEFAULT_OPENAI_EMBEDDING_MODEL } from "./embeddings-openai.ts";
 import {
   createEmbeddingProvider,
   type EmbeddingProvider,
   type EmbeddingProviderResult,
   type GeminiEmbeddingClient,
   type OpenAiEmbeddingClient,
-} from "./embeddings.js";
-import { bm25RankToScore, buildFtsQuery, mergeHybridResults } from "./hybrid.js";
+} from "./embeddings.ts";
+import { bm25RankToScore, buildFtsQuery, mergeHybridResults } from "./hybrid.ts";
 import {
   buildFileEntry,
   chunkMarkdown,
@@ -47,11 +47,11 @@ import {
   type MemoryChunk,
   type MemoryFileEntry,
   parseEmbedding,
-} from "./internal.js";
-import { searchKeyword, searchVector } from "./manager-search.js";
-import { ensureMemoryIndexSchema } from "./memory-schema.js";
-import { loadSqliteVecExtension } from "./sqlite-vec.js";
-import { requireNodeSqlite } from "./sqlite.js";
+} from "./internal.ts";
+import { searchKeyword, searchVector } from "./manager-search.ts";
+import { ensureMemoryIndexSchema } from "./memory-schema.ts";
+import { loadSqliteVecExtension } from "./sqlite-vec.ts";
+import { requireNodeSqlite } from "./sqlite.ts";
 
 type MemoryIndexMeta = {
   model: string;
@@ -107,7 +107,7 @@ const vectorToBlob = (embedding: number[]): Buffer =>
 
 export class MemoryIndexManager implements MemorySearchManager {
   private readonly cacheKey: string;
-  private readonly cfg: OpenClawConfig;
+  private readonly cfg: CmlHiveAssistConfig;
   private readonly agentId: string;
   private readonly workspaceDir: string;
   private readonly settings: ResolvedMemorySearchConfig;
@@ -163,7 +163,7 @@ export class MemoryIndexManager implements MemorySearchManager {
   private syncing: Promise<void> | null = null;
 
   static async get(params: {
-    cfg: OpenClawConfig;
+    cfg: CmlHiveAssistConfig;
     agentId: string;
   }): Promise<MemoryIndexManager | null> {
     const { cfg, agentId } = params;
@@ -200,7 +200,7 @@ export class MemoryIndexManager implements MemorySearchManager {
 
   private constructor(params: {
     cacheKey: string;
-    cfg: OpenClawConfig;
+    cfg: CmlHiveAssistConfig;
     agentId: string;
     workspaceDir: string;
     settings: ResolvedMemorySearchConfig;

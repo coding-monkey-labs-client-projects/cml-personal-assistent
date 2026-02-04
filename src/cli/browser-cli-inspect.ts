@@ -1,10 +1,10 @@
 import type { Command } from "commander";
-import type { SnapshotResult } from "../browser/client.js";
-import { loadConfig } from "../config/config.js";
-import { danger } from "../globals.js";
-import { defaultRuntime } from "../runtime.js";
-import { shortenHomePath } from "../utils.js";
-import { callBrowserRequest, type BrowserParentOpts } from "./browser-cli-shared.js";
+import type { SnapshotResult } from "../browser/client.ts";
+import { loadConfig } from "../config/config.ts";
+import { danger } from "../globals.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { shortenHomePath } from "../utils.ts";
+import { callBrowserRequest, type BrowserParentOpts } from "./browser-cli-shared.ts";
 
 export function registerBrowserInspectCommands(
   browser: Command,

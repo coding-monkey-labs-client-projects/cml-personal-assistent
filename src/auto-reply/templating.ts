@@ -1,11 +1,11 @@
-import type { ChannelId } from "../channels/plugins/types.js";
+import type { ChannelId } from "../channels/plugins/types.ts";
 import type {
   MediaUnderstandingDecision,
   MediaUnderstandingOutput,
-} from "../media-understanding/types.js";
-import type { StickerMetadata } from "../telegram/bot/types.js";
-import type { InternalMessageChannel } from "../utils/message-channel.js";
-import type { CommandArgs } from "./commands-registry.types.js";
+} from "../media-understanding/types.ts";
+import type { StickerMetadata } from "../telegram/bot/types.ts";
+import type { InternalMessageChannel } from "../utils/message-channel.ts";
+import type { CommandArgs } from "./commands-registry.types.ts";
 
 /** Valid message channels for routing. */
 export type OriginatingChannelType = ChannelId | InternalMessageChannel;
@@ -70,7 +70,7 @@ export type MsgContext = {
   Sticker?: StickerMetadata;
   OutputDir?: string;
   OutputBase?: string;
-  /** Remote host for SCP when media lives on a different machine (e.g., openclaw@192.168.64.3). */
+  /** Remote host for SCP when media lives on a different machine (e.g., cml-hive-assist@192.168.64.3). */
   MediaRemoteHost?: string;
   Transcript?: string;
   MediaUnderstanding?: MediaUnderstandingOutput[];

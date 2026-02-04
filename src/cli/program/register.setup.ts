@@ -1,24 +1,24 @@
 import type { Command } from "commander";
-import { onboardCommand } from "../../commands/onboard.js";
-import { setupCommand } from "../../commands/setup.js";
-import { defaultRuntime } from "../../runtime.js";
-import { formatDocsLink } from "../../terminal/links.js";
-import { theme } from "../../terminal/theme.js";
-import { runCommandWithRuntime } from "../cli-utils.js";
-import { hasExplicitOptions } from "../command-options.js";
+import { onboardCommand } from "../../commands/onboard.ts";
+import { setupCommand } from "../../commands/setup.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { formatDocsLink } from "../../terminal/links.ts";
+import { theme } from "../../terminal/theme.ts";
+import { runCommandWithRuntime } from "../cli-utils.ts";
+import { hasExplicitOptions } from "../command-options.ts";
 
 export function registerSetupCommand(program: Command) {
   program
     .command("setup")
-    .description("Initialize ~/.openclaw/openclaw.json and the agent workspace")
+    .description("Initialize ~/.cml-hive-assist/cml-hive-assist.json and the agent workspace")
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/setup", "docs.openclaw.ai/cli/setup")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/setup", "docs.cml-hive-assist.ai/cli/setup")}\n`,
     )
     .option(
       "--workspace <dir>",
-      "Agent workspace directory (default: ~/.openclaw/workspace; stored as agents.defaults.workspace)",
+      "Agent workspace directory (default: ~/.cml-hive-assist/workspace; stored as agents.defaults.workspace)",
     )
     .option("--wizard", "Run the interactive onboarding wizard", false)
     .option("--non-interactive", "Run the wizard without prompts", false)

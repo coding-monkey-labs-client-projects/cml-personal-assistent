@@ -1,25 +1,25 @@
 import crypto from "node:crypto";
 import path from "node:path";
-import { resolveQueueSettings } from "../auto-reply/reply/queue.js";
-import { loadConfig } from "../config/config.js";
+import { resolveQueueSettings } from "../auto-reply/reply/queue.ts";
+import { loadConfig } from "../config/config.ts";
 import {
   loadSessionStore,
   resolveAgentIdFromSessionKey,
   resolveMainSessionKey,
   resolveStorePath,
-} from "../config/sessions.js";
-import { callGateway } from "../gateway/call.js";
-import { normalizeMainKey } from "../routing/session-key.js";
-import { defaultRuntime } from "../runtime.js";
+} from "../config/sessions.ts";
+import { callGateway } from "../gateway/call.ts";
+import { normalizeMainKey } from "../routing/session-key.ts";
+import { defaultRuntime } from "../runtime.ts";
 import {
   type DeliveryContext,
   deliveryContextFromSession,
   mergeDeliveryContext,
   normalizeDeliveryContext,
-} from "../utils/delivery-context.js";
-import { isEmbeddedPiRunActive, queueEmbeddedPiMessage } from "./pi-embedded.js";
-import { type AnnounceQueueItem, enqueueAnnounce } from "./subagent-announce-queue.js";
-import { readLatestAssistantReply } from "./tools/agent-step.js";
+} from "../utils/delivery-context.ts";
+import { isEmbeddedPiRunActive, queueEmbeddedPiMessage } from "./pi-embedded.ts";
+import { type AnnounceQueueItem, enqueueAnnounce } from "./subagent-announce-queue.ts";
+import { readLatestAssistantReply } from "./tools/agent-step.ts";
 
 function formatDurationShort(valueMs?: number) {
   if (!valueMs || !Number.isFinite(valueMs) || valueMs <= 0) {

@@ -1,11 +1,11 @@
 import { spawn } from "node:child_process";
-import type { SandboxConfig, SandboxDockerConfig, SandboxWorkspaceAccess } from "./types.js";
-import { formatCliCommand } from "../../cli/command-format.js";
-import { defaultRuntime } from "../../runtime.js";
-import { computeSandboxConfigHash } from "./config-hash.js";
-import { DEFAULT_SANDBOX_IMAGE, SANDBOX_AGENT_WORKSPACE_MOUNT } from "./constants.js";
-import { readRegistry, updateRegistry } from "./registry.js";
-import { resolveSandboxAgentId, resolveSandboxScopeKey, slugifySessionKey } from "./shared.js";
+import type { SandboxConfig, SandboxDockerConfig, SandboxWorkspaceAccess } from "./types.ts";
+import { formatCliCommand } from "../../cli/command-format.ts";
+import { defaultRuntime } from "../../runtime.ts";
+import { computeSandboxConfigHash } from "./config-hash.ts";
+import { DEFAULT_SANDBOX_IMAGE, SANDBOX_AGENT_WORKSPACE_MOUNT } from "./constants.ts";
+import { readRegistry, updateRegistry } from "./registry.ts";
+import { resolveSandboxAgentId, resolveSandboxScopeKey, slugifySessionKey } from "./shared.ts";
 
 const HOT_CONTAINER_WINDOW_MS = 5 * 60 * 1000;
 
@@ -132,11 +132,11 @@ export function buildSandboxCreateArgs(params: {
 }) {
   const createdAtMs = params.createdAtMs ?? Date.now();
   const args = ["create", "--name", params.name];
-  args.push("--label", "openclaw.sandbox=1");
-  args.push("--label", `openclaw.sessionKey=${params.scopeKey}`);
-  args.push("--label", `openclaw.createdAtMs=${createdAtMs}`);
+  args.push("--label", "cml-hive-assist.sandbox=1");
+  args.push("--label", `cml-hive-assist.sessionKey=${params.scopeKey}`);
+  args.push("--label", `cml-hive-assist.createdAtMs=${createdAtMs}`);
   if (params.configHash) {
-    args.push("--label", `openclaw.configHash=${params.configHash}`);
+    args.push("--label", `cml-hive-assist.configHash=${params.configHash}`);
   }
   for (const [key, value] of Object.entries(params.labels ?? {})) {
     if (key && value) {
@@ -259,18 +259,18 @@ async function readContainerConfigHash(containerName: string): Promise<string | 
     }
     return raw;
   };
-  return await readLabel("openclaw.configHash");
+  return await readLabel("cml-hive-assist.configHash");
 }
 
 function formatSandboxRecreateHint(params: { scope: SandboxConfig["scope"]; sessionKey: string }) {
   if (params.scope === "session") {
-    return formatCliCommand(`openclaw sandbox recreate --session ${params.sessionKey}`);
+    return formatCliCommand(`cml-hive-assist sandbox recreate --session ${params.sessionKey}`);
   }
   if (params.scope === "agent") {
     const agentId = resolveSandboxAgentId(params.sessionKey) ?? "main";
-    return formatCliCommand(`openclaw sandbox recreate --agent ${agentId}`);
+    return formatCliCommand(`cml-hive-assist sandbox recreate --agent ${agentId}`);
   }
-  return formatCliCommand("openclaw sandbox recreate --all");
+  return formatCliCommand("cml-hive-assist sandbox recreate --all");
 }
 
 export async function ensureSandboxContainer(params: {

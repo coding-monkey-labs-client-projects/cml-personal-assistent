@@ -1,12 +1,12 @@
 import type { Command } from "commander";
-import { loadConfig } from "../config/config.js";
-import { defaultRuntime } from "../runtime.js";
-import { runSecurityAudit } from "../security/audit.js";
-import { fixSecurityFootguns } from "../security/fix.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { isRich, theme } from "../terminal/theme.js";
-import { shortenHomeInString, shortenHomePath } from "../utils.js";
-import { formatCliCommand } from "./command-format.js";
+import { loadConfig } from "../config/config.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { runSecurityAudit } from "../security/audit.ts";
+import { fixSecurityFootguns } from "../security/fix.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { isRich, theme } from "../terminal/theme.ts";
+import { shortenHomeInString, shortenHomePath } from "../utils.ts";
+import { formatCliCommand } from "./command-format.ts";
 
 type SecurityAuditOptions = {
   json?: boolean;
@@ -33,7 +33,7 @@ export function registerSecurityCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/security", "docs.openclaw.ai/cli/security")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/security", "docs.cml-hive-assist.ai/cli/security")}\n`,
     );
 
   security
@@ -65,12 +65,12 @@ export function registerSecurityCli(program: Command) {
       const muted = (text: string) => (rich ? theme.muted(text) : text);
 
       const lines: string[] = [];
-      lines.push(heading("OpenClaw security audit"));
+      lines.push(heading("CmlHiveAssist security audit"));
       lines.push(muted(`Summary: ${formatSummary(report.summary)}`));
-      lines.push(muted(`Run deeper: ${formatCliCommand("openclaw security audit --deep")}`));
+      lines.push(muted(`Run deeper: ${formatCliCommand("cml-hive-assist security audit --deep")}`));
 
       if (opts.fix) {
-        lines.push(muted(`Fix: ${formatCliCommand("openclaw security audit --fix")}`));
+        lines.push(muted(`Fix: ${formatCliCommand("cml-hive-assist security audit --fix")}`));
         if (!fixResult) {
           lines.push(muted("Fixes: failed to apply (unexpected error)"));
         } else if (

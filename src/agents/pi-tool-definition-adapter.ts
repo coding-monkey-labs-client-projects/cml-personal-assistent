@@ -4,11 +4,11 @@ import type {
   AgentToolUpdateCallback,
 } from "@mariozechner/pi-agent-core";
 import type { ToolDefinition } from "@mariozechner/pi-coding-agent";
-import type { ClientToolDefinition } from "./pi-embedded-runner/run/params.js";
-import { logDebug, logError } from "../logger.js";
-import { runBeforeToolCallHook } from "./pi-tools.before-tool-call.js";
-import { normalizeToolName } from "./tool-policy.js";
-import { jsonResult } from "./tools/common.js";
+import type { ClientToolDefinition } from "./pi-embedded-runner/run/params.ts";
+import { logDebug, logError } from "../logger.ts";
+import { runBeforeToolCallHook } from "./pi-tools.before-tool-call.ts";
+import { normalizeToolName } from "./tool-policy.ts";
+import { jsonResult } from "./tools/common.ts";
 
 // oxlint-disable-next-line typescript/no-explicit-any
 type AnyAgentTool = AgentTool<any, unknown>;

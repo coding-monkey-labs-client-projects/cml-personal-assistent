@@ -1,5 +1,5 @@
 import net from "node:net";
-import { pickPrimaryTailnetIPv4, pickPrimaryTailnetIPv6 } from "../infra/tailnet.js";
+import { pickPrimaryTailnetIPv4, pickPrimaryTailnetIPv6 } from "../infra/tailnet.ts";
 
 export function isLoopbackAddress(ip: string | undefined): boolean {
   if (!ip) {
@@ -127,7 +127,7 @@ export function isLocalGatewayAddress(ip: string | undefined): boolean {
  * @returns The bind address to use (never null)
  */
 export async function resolveGatewayBindHost(
-  bind: import("../config/config.js").GatewayBindMode | undefined,
+  bind: import("../config/config.ts").GatewayBindMode | undefined,
   customHost?: string,
 ): Promise<string> {
   const mode = bind ?? "loopback";

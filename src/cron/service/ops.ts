@@ -1,5 +1,5 @@
-import type { CronJobCreate, CronJobPatch } from "../types.js";
-import type { CronServiceState } from "./state.js";
+import type { CronJobCreate, CronJobPatch } from "../types.ts";
+import type { CronServiceState } from "./state.ts";
 import {
   applyJobPatch,
   computeJobNextRunAtMs,
@@ -8,10 +8,10 @@ import {
   isJobDue,
   nextWakeAtMs,
   recomputeNextRuns,
-} from "./jobs.js";
-import { locked } from "./locked.js";
-import { ensureLoaded, persist, warnIfDisabled } from "./store.js";
-import { armTimer, emit, executeJob, stopTimer, wake } from "./timer.js";
+} from "./jobs.ts";
+import { locked } from "./locked.ts";
+import { ensureLoaded, persist, warnIfDisabled } from "./store.ts";
+import { armTimer, emit, executeJob, stopTimer, wake } from "./timer.ts";
 
 export async function start(state: CronServiceState) {
   await locked(state, async () => {

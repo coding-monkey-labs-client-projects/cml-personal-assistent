@@ -1,6 +1,6 @@
-import type { VideoDescriptionRequest, VideoDescriptionResult } from "../../types.js";
-import { normalizeGoogleModelId } from "../../../agents/models-config.providers.js";
-import { fetchWithTimeoutGuarded, normalizeBaseUrl, readErrorResponse } from "../shared.js";
+import type { VideoDescriptionRequest, VideoDescriptionResult } from "../../types.ts";
+import { normalizeGoogleModelId } from "../../../agents/models-config.providers.ts";
+import { fetchWithTimeoutGuarded, normalizeBaseUrl, readErrorResponse } from "../shared.ts";
 
 export const DEFAULT_GOOGLE_VIDEO_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 const DEFAULT_GOOGLE_VIDEO_MODEL = "gemini-3-flash-preview";

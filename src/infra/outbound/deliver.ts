@@ -1,32 +1,32 @@
-import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { ChannelOutboundAdapter } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
-import type { sendMessageDiscord } from "../../discord/send.js";
-import type { sendMessageIMessage } from "../../imessage/send.js";
-import type { sendMessageSlack } from "../../slack/send.js";
-import type { sendMessageTelegram } from "../../telegram/send.js";
-import type { sendMessageWhatsApp } from "../../web/outbound.js";
-import type { NormalizedOutboundPayload } from "./payloads.js";
-import type { OutboundChannel } from "./targets.js";
+import type { ReplyPayload } from "../../auto-reply/types.ts";
+import type { ChannelOutboundAdapter } from "../../channels/plugins/types.ts";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import type { sendMessageDiscord } from "../../discord/send.ts";
+import type { sendMessageIMessage } from "../../imessage/send.ts";
+import type { sendMessageSlack } from "../../slack/send.ts";
+import type { sendMessageTelegram } from "../../telegram/send.ts";
+import type { sendMessageWhatsApp } from "../../web/outbound.ts";
+import type { NormalizedOutboundPayload } from "./payloads.ts";
+import type { OutboundChannel } from "./targets.ts";
 import {
   chunkByParagraph,
   chunkMarkdownTextWithMode,
   resolveChunkMode,
   resolveTextChunkLimit,
-} from "../../auto-reply/chunk.js";
-import { resolveChannelMediaMaxBytes } from "../../channels/plugins/media-limits.js";
-import { loadChannelOutboundAdapter } from "../../channels/plugins/outbound/load.js";
-import { resolveMarkdownTableMode } from "../../config/markdown-tables.js";
+} from "../../auto-reply/chunk.ts";
+import { resolveChannelMediaMaxBytes } from "../../channels/plugins/media-limits.ts";
+import { loadChannelOutboundAdapter } from "../../channels/plugins/outbound/load.ts";
+import { resolveMarkdownTableMode } from "../../config/markdown-tables.ts";
 import {
   appendAssistantMessageToSessionTranscript,
   resolveMirroredTranscriptText,
-} from "../../config/sessions.js";
-import { markdownToSignalTextChunks, type SignalTextStyleRange } from "../../signal/format.js";
-import { sendMessageSignal } from "../../signal/send.js";
-import { normalizeReplyPayloadsForDelivery } from "./payloads.js";
+} from "../../config/sessions.ts";
+import { markdownToSignalTextChunks, type SignalTextStyleRange } from "../../signal/format.ts";
+import { sendMessageSignal } from "../../signal/send.ts";
+import { normalizeReplyPayloadsForDelivery } from "./payloads.ts";
 
-export type { NormalizedOutboundPayload } from "./payloads.js";
-export { normalizeOutboundPayloads } from "./payloads.js";
+export type { NormalizedOutboundPayload } from "./payloads.ts";
+export { normalizeOutboundPayloads } from "./payloads.ts";
 
 type SendMatrixMessage = (
   to: string,
@@ -82,7 +82,7 @@ function throwIfAborted(abortSignal?: AbortSignal): void {
 
 // Channel docking: outbound delivery delegates to plugin.outbound adapters.
 async function createChannelHandler(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: Exclude<OutboundChannel, "none">;
   to: string;
   accountId?: string;
@@ -114,7 +114,7 @@ async function createChannelHandler(params: {
 
 function createPluginHandler(params: {
   outbound?: ChannelOutboundAdapter;
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: Exclude<OutboundChannel, "none">;
   to: string;
   accountId?: string;
@@ -177,7 +177,7 @@ function createPluginHandler(params: {
 }
 
 export async function deliverOutboundPayloads(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   channel: Exclude<OutboundChannel, "none">;
   to: string;
   accountId?: string;

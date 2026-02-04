@@ -1,12 +1,12 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
 import type {
   SandboxToolPolicy,
   SandboxToolPolicyResolved,
   SandboxToolPolicySource,
-} from "./types.js";
-import { resolveAgentConfig } from "../agent-scope.js";
-import { expandToolGroups } from "../tool-policy.js";
-import { DEFAULT_TOOL_ALLOW, DEFAULT_TOOL_DENY } from "./constants.js";
+} from "./types.ts";
+import { resolveAgentConfig } from "../agent-scope.ts";
+import { expandToolGroups } from "../tool-policy.ts";
+import { DEFAULT_TOOL_ALLOW, DEFAULT_TOOL_DENY } from "./constants.ts";
 
 type CompiledPattern =
   | { kind: "all" }
@@ -69,7 +69,7 @@ export function isToolAllowed(policy: SandboxToolPolicy, name: string) {
 }
 
 export function resolveSandboxToolPolicyForAgent(
-  cfg?: OpenClawConfig,
+  cfg?: CmlHiveAssistConfig,
   agentId?: string,
 ): SandboxToolPolicyResolved {
   const agentConfig = cfg && agentId ? resolveAgentConfig(cfg, agentId) : undefined;

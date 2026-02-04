@@ -1,4 +1,4 @@
-import type { AgentCommandOpts } from "./agent/types.js";
+import type { AgentCommandOpts } from "./agent/types.ts";
 import {
   listAgentIds,
   resolveAgentDir,
@@ -6,26 +6,26 @@ import {
   resolveAgentModelPrimary,
   resolveAgentSkillsFilter,
   resolveAgentWorkspaceDir,
-} from "../agents/agent-scope.js";
-import { ensureAuthProfileStore } from "../agents/auth-profiles.js";
-import { clearSessionAuthProfileOverride } from "../agents/auth-profiles/session-override.js";
-import { runCliAgent } from "../agents/cli-runner.js";
-import { getCliSessionId } from "../agents/cli-session.js";
-import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
-import { loadModelCatalog } from "../agents/model-catalog.js";
-import { runWithModelFallback } from "../agents/model-fallback.js";
+} from "../agents/agent-scope.ts";
+import { ensureAuthProfileStore } from "../agents/auth-profiles.ts";
+import { clearSessionAuthProfileOverride } from "../agents/auth-profiles/session-override.ts";
+import { runCliAgent } from "../agents/cli-runner.ts";
+import { getCliSessionId } from "../agents/cli-session.ts";
+import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.ts";
+import { loadModelCatalog } from "../agents/model-catalog.ts";
+import { runWithModelFallback } from "../agents/model-fallback.ts";
 import {
   buildAllowedModelSet,
   isCliProvider,
   modelKey,
   resolveConfiguredModelRef,
   resolveThinkingDefault,
-} from "../agents/model-selection.js";
-import { runEmbeddedPiAgent } from "../agents/pi-embedded.js";
-import { buildWorkspaceSkillSnapshot } from "../agents/skills.js";
-import { getSkillsSnapshotVersion } from "../agents/skills/refresh.js";
-import { resolveAgentTimeoutMs } from "../agents/timeout.js";
-import { ensureAgentWorkspace } from "../agents/workspace.js";
+} from "../agents/model-selection.ts";
+import { runEmbeddedPiAgent } from "../agents/pi-embedded.ts";
+import { buildWorkspaceSkillSnapshot } from "../agents/skills.ts";
+import { getSkillsSnapshotVersion } from "../agents/skills/refresh.ts";
+import { resolveAgentTimeoutMs } from "../agents/timeout.ts";
+import { ensureAgentWorkspace } from "../agents/workspace.ts";
 import {
   formatThinkingLevels,
   formatXHighModelHint,
@@ -34,32 +34,32 @@ import {
   supportsXHighThinking,
   type ThinkLevel,
   type VerboseLevel,
-} from "../auto-reply/thinking.js";
-import { formatCliCommand } from "../cli/command-format.js";
-import { type CliDeps, createDefaultDeps } from "../cli/deps.js";
-import { loadConfig } from "../config/config.js";
+} from "../auto-reply/thinking.ts";
+import { formatCliCommand } from "../cli/command-format.ts";
+import { type CliDeps, createDefaultDeps } from "../cli/deps.ts";
+import { loadConfig } from "../config/config.ts";
 import {
   resolveAgentIdFromSessionKey,
   resolveSessionFilePath,
   type SessionEntry,
   updateSessionStore,
-} from "../config/sessions.js";
+} from "../config/sessions.ts";
 import {
   clearAgentRunContext,
   emitAgentEvent,
   registerAgentRunContext,
-} from "../infra/agent-events.js";
-import { getRemoteSkillEligibility } from "../infra/skills-remote.js";
-import { normalizeAgentId } from "../routing/session-key.js";
-import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
-import { applyVerboseOverride } from "../sessions/level-overrides.js";
-import { applyModelOverrideToSessionEntry } from "../sessions/model-overrides.js";
-import { resolveSendPolicy } from "../sessions/send-policy.js";
-import { resolveMessageChannel } from "../utils/message-channel.js";
-import { deliverAgentCommandResult } from "./agent/delivery.js";
-import { resolveAgentRunContext } from "./agent/run-context.js";
-import { updateSessionStoreAfterAgentRun } from "./agent/session-store.js";
-import { resolveSession } from "./agent/session.js";
+} from "../infra/agent-events.ts";
+import { getRemoteSkillEligibility } from "../infra/skills-remote.ts";
+import { normalizeAgentId } from "../routing/session-key.ts";
+import { defaultRuntime, type RuntimeEnv } from "../runtime.ts";
+import { applyVerboseOverride } from "../sessions/level-overrides.ts";
+import { applyModelOverrideToSessionEntry } from "../sessions/model-overrides.ts";
+import { resolveSendPolicy } from "../sessions/send-policy.ts";
+import { resolveMessageChannel } from "../utils/message-channel.ts";
+import { deliverAgentCommandResult } from "./agent/delivery.ts";
+import { resolveAgentRunContext } from "./agent/run-context.ts";
+import { updateSessionStoreAfterAgentRun } from "./agent/session-store.ts";
+import { resolveSession } from "./agent/session.ts";
 
 export async function agentCommand(
   opts: AgentCommandOpts,
@@ -81,7 +81,7 @@ export async function agentCommand(
     const knownAgents = listAgentIds(cfg);
     if (!knownAgents.includes(agentIdOverride)) {
       throw new Error(
-        `Unknown agent id "${agentIdOverrideRaw}". Use "${formatCliCommand("openclaw agents list")}" to see configured agents.`,
+        `Unknown agent id "${agentIdOverrideRaw}". Use "${formatCliCommand("cml-hive-assist agents list")}" to see configured agents.`,
       );
     }
   }

@@ -1,18 +1,18 @@
 import type { Command } from "commander";
-import { normalizeChannelId } from "../channels/plugins/index.js";
-import { listPairingChannels, notifyPairingApproved } from "../channels/plugins/pairing.js";
-import { loadConfig } from "../config/config.js";
-import { resolvePairingIdLabel } from "../pairing/pairing-labels.js";
+import { normalizeChannelId } from "../channels/plugins/index.ts";
+import { listPairingChannels, notifyPairingApproved } from "../channels/plugins/pairing.ts";
+import { loadConfig } from "../config/config.ts";
+import { resolvePairingIdLabel } from "../pairing/pairing-labels.ts";
 import {
   approveChannelPairingCode,
   listChannelPairingRequests,
   type PairingChannel,
-} from "../pairing/pairing-store.js";
-import { defaultRuntime } from "../runtime.js";
-import { formatDocsLink } from "../terminal/links.js";
-import { renderTable } from "../terminal/table.js";
-import { theme } from "../terminal/theme.js";
-import { formatCliCommand } from "./command-format.js";
+} from "../pairing/pairing-store.ts";
+import { defaultRuntime } from "../runtime.ts";
+import { formatDocsLink } from "../terminal/links.ts";
+import { renderTable } from "../terminal/table.ts";
+import { theme } from "../terminal/theme.ts";
+import { formatCliCommand } from "./command-format.ts";
 
 /** Parse channel, allowing extension channels not in core registry. */
 function parseChannel(raw: unknown, channels: PairingChannel[]): PairingChannel {
@@ -57,7 +57,7 @@ export function registerPairingCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/pairing", "docs.openclaw.ai/cli/pairing")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/pairing", "docs.cml-hive-assist.ai/cli/pairing")}\n`,
     );
 
   pairing
@@ -119,12 +119,12 @@ export function registerPairingCli(program: Command) {
       const resolvedCode = opts.channel ? codeOrChannel : code;
       if (!opts.channel && !code) {
         throw new Error(
-          `Usage: ${formatCliCommand("openclaw pairing approve <channel> <code>")} (or: ${formatCliCommand("openclaw pairing approve --channel <channel> <code>")})`,
+          `Usage: ${formatCliCommand("cml-hive-assist pairing approve <channel> <code>")} (or: ${formatCliCommand("cml-hive-assist pairing approve --channel <channel> <code>")})`,
         );
       }
       if (opts.channel && code != null) {
         throw new Error(
-          `Too many arguments. Use: ${formatCliCommand("openclaw pairing approve --channel <channel> <code>")}`,
+          `Too many arguments. Use: ${formatCliCommand("cml-hive-assist pairing approve --channel <channel> <code>")}`,
         );
       }
       const channel = parseChannel(channelRaw, channels);

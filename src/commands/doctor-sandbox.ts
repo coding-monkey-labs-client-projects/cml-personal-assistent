@@ -1,16 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { OpenClawConfig } from "../config/config.js";
-import type { RuntimeEnv } from "../runtime.js";
-import type { DoctorPrompter } from "./doctor-prompter.js";
+import type { CmlHiveAssistConfig } from "../config/config.ts";
+import type { RuntimeEnv } from "../runtime.ts";
+import type { DoctorPrompter } from "./doctor-prompter.ts";
 import {
   DEFAULT_SANDBOX_BROWSER_IMAGE,
   DEFAULT_SANDBOX_COMMON_IMAGE,
   DEFAULT_SANDBOX_IMAGE,
   resolveSandboxScope,
-} from "../agents/sandbox.js";
-import { runCommandWithTimeout, runExec } from "../process/exec.js";
-import { note } from "../terminal/note.js";
+} from "../agents/sandbox.ts";
+import { runCommandWithTimeout, runExec } from "../process/exec.ts";
+import { note } from "../terminal/note.ts";
 
 type SandboxScriptInfo = {
   scriptPath: string;
@@ -89,17 +89,17 @@ async function dockerImageExists(image: string): Promise<boolean> {
   }
 }
 
-function resolveSandboxDockerImage(cfg: OpenClawConfig): string {
+function resolveSandboxDockerImage(cfg: CmlHiveAssistConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.docker?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_IMAGE;
 }
 
-function resolveSandboxBrowserImage(cfg: OpenClawConfig): string {
+function resolveSandboxBrowserImage(cfg: CmlHiveAssistConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.browser?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_BROWSER_IMAGE;
 }
 
-function updateSandboxDockerImage(cfg: OpenClawConfig, image: string): OpenClawConfig {
+function updateSandboxDockerImage(cfg: CmlHiveAssistConfig, image: string): CmlHiveAssistConfig {
   return {
     ...cfg,
     agents: {
@@ -118,7 +118,7 @@ function updateSandboxDockerImage(cfg: OpenClawConfig, image: string): OpenClawC
   };
 }
 
-function updateSandboxBrowserImage(cfg: OpenClawConfig, image: string): OpenClawConfig {
+function updateSandboxBrowserImage(cfg: CmlHiveAssistConfig, image: string): CmlHiveAssistConfig {
   return {
     ...cfg,
     agents: {
@@ -176,10 +176,10 @@ async function handleMissingSandboxImage(
 }
 
 export async function maybeRepairSandboxImages(
-  cfg: OpenClawConfig,
+  cfg: CmlHiveAssistConfig,
   runtime: RuntimeEnv,
   prompter: DoctorPrompter,
-): Promise<OpenClawConfig> {
+): Promise<CmlHiveAssistConfig> {
   const sandbox = cfg.agents?.defaults?.sandbox;
   const mode = sandbox?.mode ?? "off";
   if (!sandbox || mode === "off") {
@@ -238,7 +238,7 @@ export async function maybeRepairSandboxImages(
   return next;
 }
 
-export function noteSandboxScopeWarnings(cfg: OpenClawConfig) {
+export function noteSandboxScopeWarnings(cfg: CmlHiveAssistConfig) {
   const globalSandbox = cfg.agents?.defaults?.sandbox;
   const agents = Array.isArray(cfg.agents?.list) ? cfg.agents.list : [];
   const warnings: string[] = [];

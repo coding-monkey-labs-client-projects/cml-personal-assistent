@@ -4,8 +4,8 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { UpdateCheckResult } from "./update-check.js";
 
-vi.mock("./openclaw-root.js", () => ({
-  resolveOpenClawPackageRoot: vi.fn(),
+vi.mock("./cml-hive-assist-root.js", () => ({
+  resolveCmlHiveAssistPackageRoot: vi.fn(),
 }));
 
 vi.mock("./update-check.js", async () => {
@@ -29,8 +29,8 @@ describe("update-startup", () => {
   beforeEach(async () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-01-17T10:00:00Z"));
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-update-check-"));
-    process.env.OPENCLAW_STATE_DIR = tempDir;
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "cml-hive-assist-update-check-"));
+    process.env.CML_HIVE_ASSIST_STATE_DIR = tempDir;
     delete process.env.VITEST;
     process.env.NODE_ENV = "test";
   });
@@ -42,13 +42,13 @@ describe("update-startup", () => {
   });
 
   it("logs update hint for npm installs when newer tag exists", async () => {
-    const { resolveOpenClawPackageRoot } = await import("./openclaw-root.js");
+    const { resolveCmlHiveAssistPackageRoot } = await import("./cml-hive-assist-root.js");
     const { checkUpdateStatus, resolveNpmChannelTag } = await import("./update-check.js");
     const { runGatewayUpdateCheck } = await import("./update-startup.js");
 
-    vi.mocked(resolveOpenClawPackageRoot).mockResolvedValue("/opt/openclaw");
+    vi.mocked(resolveCmlHiveAssistPackageRoot).mockResolvedValue("/opt/cml-hive-assist");
     vi.mocked(checkUpdateStatus).mockResolvedValue({
-      root: "/opt/openclaw",
+      root: "/opt/cml-hive-assist",
       installKind: "package",
       packageManager: "npm",
     } satisfies UpdateCheckResult);
@@ -76,13 +76,13 @@ describe("update-startup", () => {
   });
 
   it("uses latest when beta tag is older than release", async () => {
-    const { resolveOpenClawPackageRoot } = await import("./openclaw-root.js");
+    const { resolveCmlHiveAssistPackageRoot } = await import("./cml-hive-assist-root.js");
     const { checkUpdateStatus, resolveNpmChannelTag } = await import("./update-check.js");
     const { runGatewayUpdateCheck } = await import("./update-startup.js");
 
-    vi.mocked(resolveOpenClawPackageRoot).mockResolvedValue("/opt/openclaw");
+    vi.mocked(resolveCmlHiveAssistPackageRoot).mockResolvedValue("/opt/cml-hive-assist");
     vi.mocked(checkUpdateStatus).mockResolvedValue({
-      root: "/opt/openclaw",
+      root: "/opt/cml-hive-assist",
       installKind: "package",
       packageManager: "npm",
     } satisfies UpdateCheckResult);

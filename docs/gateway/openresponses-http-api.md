@@ -8,7 +8,7 @@ title: "OpenResponses API"
 
 # OpenResponses API (HTTP)
 
-OpenClaw’s Gateway can serve an OpenResponses-compatible `POST /v1/responses` endpoint.
+CmlHiveAssist’s Gateway can serve an OpenResponses-compatible `POST /v1/responses` endpoint.
 
 This endpoint is **disabled by default**. Enable it in config first.
 
@@ -16,7 +16,7 @@ This endpoint is **disabled by default**. Enable it in config first.
 - Same port as the Gateway (WS + HTTP multiplex): `http://<gateway-host>:<port>/v1/responses`
 
 Under the hood, requests are executed as a normal Gateway agent run (same codepath as
-`openclaw agent`), so routing/permissions/config match your Gateway.
+`cml-hive-assist agent`), so routing/permissions/config match your Gateway.
 
 ## Authentication
 
@@ -26,23 +26,23 @@ Uses the Gateway auth configuration. Send a bearer token:
 
 Notes:
 
-- When `gateway.auth.mode="token"`, use `gateway.auth.token` (or `OPENCLAW_GATEWAY_TOKEN`).
-- When `gateway.auth.mode="password"`, use `gateway.auth.password` (or `OPENCLAW_GATEWAY_PASSWORD`).
+- When `gateway.auth.mode="token"`, use `gateway.auth.token` (or `CML_HIVE_ASSIST_GATEWAY_TOKEN`).
+- When `gateway.auth.mode="password"`, use `gateway.auth.password` (or `CML_HIVE_ASSIST_GATEWAY_PASSWORD`).
 
 ## Choosing an agent
 
 No custom headers required: encode the agent id in the OpenResponses `model` field:
 
-- `model: "openclaw:<agentId>"` (example: `"openclaw:main"`, `"openclaw:beta"`)
+- `model: "cml-hive-assist:<agentId>"` (example: `"cml-hive-assist:main"`, `"cml-hive-assist:beta"`)
 - `model: "agent:<agentId>"` (alias)
 
-Or target a specific OpenClaw agent by header:
+Or target a specific CmlHiveAssist agent by header:
 
-- `x-openclaw-agent-id: <agentId>` (default: `main`)
+- `x-cml-hive-assist-agent-id: <agentId>` (default: `main`)
 
 Advanced:
 
-- `x-openclaw-session-key: <sessionKey>` to fully control session routing.
+- `x-cml-hive-assist-session-key: <sessionKey>` to fully control session routing.
 
 ## Enabling the endpoint
 
@@ -295,9 +295,9 @@ Non-streaming:
 curl -sS http://127.0.0.1:18789/v1/responses \
   -H 'Authorization: Bearer YOUR_TOKEN' \
   -H 'Content-Type: application/json' \
-  -H 'x-openclaw-agent-id: main' \
+  -H 'x-cml-hive-assist-agent-id: main' \
   -d '{
-    "model": "openclaw",
+    "model": "cml-hive-assist",
     "input": "hi"
   }'
 ```
@@ -308,9 +308,9 @@ Streaming:
 curl -N http://127.0.0.1:18789/v1/responses \
   -H 'Authorization: Bearer YOUR_TOKEN' \
   -H 'Content-Type: application/json' \
-  -H 'x-openclaw-agent-id: main' \
+  -H 'x-cml-hive-assist-agent-id: main' \
   -d '{
-    "model": "openclaw",
+    "model": "cml-hive-assist",
     "stream": true,
     "input": "hi"
   }'

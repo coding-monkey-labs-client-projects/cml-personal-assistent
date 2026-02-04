@@ -1,4 +1,4 @@
-import { callGatewayTool, type GatewayCallOptions } from "./gateway.js";
+import { callGatewayTool, type GatewayCallOptions } from "./gateway.ts";
 
 export type NodeListNode = {
   nodeId: string;

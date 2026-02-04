@@ -1,5 +1,5 @@
-import type { ChannelOutboundAdapter } from "../types.js";
-import { sendMessageSlack } from "../../../slack/send.js";
+import type { ChannelOutboundAdapter } from "../types.ts";
+import { sendMessageSlack } from "../../../slack/send.ts";
 
 export const slackOutbound: ChannelOutboundAdapter = {
   deliveryMode: "direct",

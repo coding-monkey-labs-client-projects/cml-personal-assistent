@@ -1,26 +1,26 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
-import type { OpenClawConfig } from "../../config/config.js";
-import { resolveOpenClawAgentDir } from "../../agents/agent-paths.js";
-import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.js";
+import type { CmlHiveAssistConfig } from "../../config/config.ts";
+import { resolveCmlHiveAssistAgentDir } from "../../agents/agent-paths.ts";
+import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.ts";
 import {
   ensureAuthProfileStore,
   listProfilesForProvider,
   resolveAuthProfileDisplayLabel,
   resolveAuthProfileOrder,
-} from "../../agents/auth-profiles.js";
-import { describeFailoverError } from "../../agents/failover-error.js";
-import { getCustomProviderApiKey, resolveEnvApiKey } from "../../agents/model-auth.js";
-import { loadModelCatalog } from "../../agents/model-catalog.js";
-import { normalizeProviderId, parseModelRef } from "../../agents/model-selection.js";
-import { runEmbeddedPiAgent } from "../../agents/pi-embedded.js";
-import { resolveDefaultAgentWorkspaceDir } from "../../agents/workspace.js";
+} from "../../agents/auth-profiles.ts";
+import { describeFailoverError } from "../../agents/failover-error.ts";
+import { getCustomProviderApiKey, resolveEnvApiKey } from "../../agents/model-auth.ts";
+import { loadModelCatalog } from "../../agents/model-catalog.ts";
+import { normalizeProviderId, parseModelRef } from "../../agents/model-selection.ts";
+import { runEmbeddedPiAgent } from "../../agents/pi-embedded.ts";
+import { resolveDefaultAgentWorkspaceDir } from "../../agents/workspace.ts";
 import {
   resolveSessionTranscriptPath,
   resolveSessionTranscriptsDirForAgent,
-} from "../../config/sessions/paths.js";
-import { redactSecrets } from "../status-all/format.js";
-import { DEFAULT_PROVIDER, formatMs } from "./shared.js";
+} from "../../config/sessions/paths.ts";
+import { redactSecrets } from "../status-all/format.ts";
+import { DEFAULT_PROVIDER, formatMs } from "./shared.ts";
 
 const PROBE_PROMPT = "Reply with OK. Do not use tools.";
 
@@ -134,7 +134,7 @@ function selectProbeModel(params: {
 }
 
 function buildProbeTargets(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   providers: string[];
   modelCandidates: string[];
   options: AuthProbeOptions;
@@ -287,7 +287,7 @@ function buildProbeTargets(params: {
 }
 
 async function probeTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;
@@ -362,7 +362,7 @@ async function probeTarget(params: {
 }
 
 async function runTargetsWithConcurrency(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   targets: AuthProbeTarget[];
   timeoutMs: number;
   maxTokens: number;
@@ -373,7 +373,7 @@ async function runTargetsWithConcurrency(params: {
   const concurrency = Math.max(1, Math.min(targets.length || 1, params.concurrency));
 
   const agentId = resolveDefaultAgentId(cfg);
-  const agentDir = resolveOpenClawAgentDir();
+  const agentDir = resolveCmlHiveAssistAgentDir();
   const workspaceDir = resolveAgentWorkspaceDir(cfg, agentId) ?? resolveDefaultAgentWorkspaceDir();
   const sessionDir = resolveSessionTranscriptsDirForAgent(agentId);
 
@@ -418,7 +418,7 @@ async function runTargetsWithConcurrency(params: {
 }
 
 export async function runAuthProbes(params: {
-  cfg: OpenClawConfig;
+  cfg: CmlHiveAssistConfig;
   providers: string[];
   modelCandidates: string[];
   options: AuthProbeOptions;

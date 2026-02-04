@@ -14,9 +14,16 @@ Quick open (local Gateway):
 
 - http://127.0.0.1:18789/ (or http://localhost:18789/)
 
+There are two UI versions available:
+
+- **Control UI** (original) — Full-featured dashboard with chat, channels, config, nodes, cron, skills, logs
+- **Control UI V2** — Redesigned interface with modern styling (Chat, Channels, Agents, Config, Logs)
+
+See [Control UI](/web/control-ui) for details on switching between versions.
+
 Key references:
 
-- [Control UI](/web/control-ui) for usage and UI capabilities.
+- [Control UI](/web/control-ui) for usage, capabilities, and UI version selection.
 - [Tailscale](/gateway/tailscale) for Serve/Funnel automation.
 - [Web surfaces](/web) for bind modes and security notes.
 
@@ -30,17 +37,17 @@ Prefer localhost, Tailscale Serve, or an SSH tunnel.
 ## Fast path (recommended)
 
 - After onboarding, the CLI now auto-opens the dashboard with your token and prints the same tokenized link.
-- Re-open anytime: `openclaw dashboard` (copies link, opens browser if possible, shows SSH hint if headless).
+- Re-open anytime: `cml-hive-assist dashboard` (copies link, opens browser if possible, shows SSH hint if headless).
 - The token stays local (query param only); the UI strips it after first load and saves it in localStorage.
 
 ## Token basics (local vs remote)
 
-- **Localhost**: open `http://127.0.0.1:18789/`. If you see “unauthorized,” run `openclaw dashboard` and use the tokenized link (`?token=...`).
-- **Token source**: `gateway.auth.token` (or `OPENCLAW_GATEWAY_TOKEN`); the UI stores it after first load.
+- **Localhost**: open `http://127.0.0.1:18789/`. If you see “unauthorized,” run `cml-hive-assist dashboard` and use the tokenized link (`?token=...`).
+- **Token source**: `gateway.auth.token` (or `CML_HIVE_ASSIST_GATEWAY_TOKEN`); the UI stores it after first load.
 - **Not localhost**: use Tailscale Serve (tokenless if `gateway.auth.allowTailscale: true`), tailnet bind with a token, or an SSH tunnel. See [Web surfaces](/web).
 
 ## If you see “unauthorized” / 1008
 
-- Run `openclaw dashboard` to get a fresh tokenized link.
-- Ensure the gateway is reachable (local: `openclaw status`; remote: SSH tunnel `ssh -N -L 18789:127.0.0.1:18789 user@host` then open `http://127.0.0.1:18789/?token=...`).
-- In the dashboard settings, paste the same token you configured in `gateway.auth.token` (or `OPENCLAW_GATEWAY_TOKEN`).
+- Run `cml-hive-assist dashboard` to get a fresh tokenized link.
+- Ensure the gateway is reachable (local: `cml-hive-assist status`; remote: SSH tunnel `ssh -N -L 18789:127.0.0.1:18789 user@host` then open `http://127.0.0.1:18789/?token=...`).
+- In the dashboard settings, paste the same token you configured in `gateway.auth.token` (or `CML_HIVE_ASSIST_GATEWAY_TOKEN`).

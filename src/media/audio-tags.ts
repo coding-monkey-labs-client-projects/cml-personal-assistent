@@ -1,4 +1,4 @@
-import { parseInlineDirectives } from "../utils/directive-tags.js";
+import { parseInlineDirectives } from "../utils/directive-tags.ts";
 
 /**
  * Extract audio mode tag from text.

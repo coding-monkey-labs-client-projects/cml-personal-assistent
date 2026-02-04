@@ -1,7 +1,7 @@
-import type { ReplyDirectiveParseResult } from "./reply-directives.js";
-import { splitMediaFromOutput } from "../../media/parse.js";
-import { parseInlineDirectives } from "../../utils/directive-tags.js";
-import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.js";
+import type { ReplyDirectiveParseResult } from "./reply-directives.ts";
+import { splitMediaFromOutput } from "../../media/parse.ts";
+import { parseInlineDirectives } from "../../utils/directive-tags.ts";
+import { isSilentReplyText, SILENT_REPLY_TOKEN } from "../tokens.ts";
 
 type PendingReplyState = {
   explicitId?: string;

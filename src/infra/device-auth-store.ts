@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { resolveStateDir } from "../config/paths.js";
+import { resolveStateDir } from "../config/paths.ts";
 
 export type DeviceAuthEntry = {
   token: string;
